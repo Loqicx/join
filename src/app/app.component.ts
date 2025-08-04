@@ -1,12 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ContactsService } from './services/firebase/contacts.service';
+import { Contact } from './shared/interfaces/contact';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule, FormsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'join';
+  title = 'join-mmc';
+
+  contact = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+  };
+
+  contactsService: ContactsService = inject(ContactsService);
+  constructor() {}
+
+  submitContact() {
+    this.contactsService.addContactToDatabase({ id: '', ...this.contact });
+  }
 }
