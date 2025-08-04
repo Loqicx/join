@@ -4,10 +4,11 @@ import { ContactsService } from './services/firebase/contacts.service';
 import { Contact } from './shared/interfaces/contact';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from './shared/header/header.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, FormsModule],
+  imports: [RouterOutlet, CommonModule, FormsModule, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
