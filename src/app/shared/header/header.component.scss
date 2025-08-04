@@ -1,4 +1,4 @@
-.head-wrap {
+.head-wrapper {
     width: 100%;
     display: flex;
     justify-content: end;
@@ -13,7 +13,7 @@
         justify-content: space-between;
         align-items: center;
 
-        .user-menu-wrap {
+        .user-menu-wrapper {
             display: flex;
             position: relative;
 
@@ -27,7 +27,7 @@
                 border-radius: 4px;
 
                 a {
-                    white-space: nowrap;
+                    white-space: nowrapper;
                     text-decoration: none;
                     color: white;
                     margin-top: 4px;
@@ -47,7 +47,7 @@
 
         }
 
-        .right-wrap {
+        .right-wrapper {
             display: flex;
             align-items: center;
 
