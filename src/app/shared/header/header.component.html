@@ -5,7 +5,14 @@
         </div>
         <div class="right-wrap">
             <button class="btn help-btn" href="help">?</button>
-            <button class="btn acc-btn">UU</button>
+            <div class="user-menu-wrap">
+                <button class="btn acc-btn" (click)="toggleMenu()">UU</button>
+                <nav class="user-menu" [ngClass]="this.activeFlex ? 'flex' : ''" (mouseleave)="this.toggleMenu()">
+                    <a href="legal">Legal Notice</a>
+                    <a href="privacy">Privacy Policy</a>
+                    <a href="logout">Log Out</a>
+                </nav>
+            </div>
         </div>
     </div>
 </div>
