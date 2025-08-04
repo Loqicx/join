@@ -25,3 +25,13 @@
   />
   <button type="submit">Add Contact</button>
 </form>
+
+@for (contact of contactsService.contacts; track $index) {
+<ul>
+  <li>{{ contact.firstName }} {{ contact.lastName }}</li>
+  <li>{{ contact.email }}</li>
+  <li>{{ contact.phoneNumber }}</li>
+</ul>
+<hr />
+
+}
