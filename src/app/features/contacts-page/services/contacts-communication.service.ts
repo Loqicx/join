@@ -5,10 +5,11 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class ContactsCommunicationService {
-  currentContactId$ = new BehaviorSubject('');
+  contactId = new BehaviorSubject('');
+  currentContactId$ = this.contactId.asObservable();
 
   setContactId(value: string) {
-    this.currentContactId$.next(value);
+    this.contactId.next(value);
   }
   constructor() {}
 }
