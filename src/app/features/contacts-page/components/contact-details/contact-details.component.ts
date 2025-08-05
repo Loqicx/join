@@ -22,5 +22,6 @@ export class ContactDetailsComponent implements OnInit {
 
   updateDetailDisplay(id: string): void {
     this.currentContact = this.contactsService.getContactById(id);
+    console.log(this.currentContact);
   }
 }
