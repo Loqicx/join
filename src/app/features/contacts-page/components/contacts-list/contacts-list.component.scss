@@ -1,0 +1,50 @@
+// <div class="contact-list__contact-item">
+//     <div class="contact-item__logo">
+//       <p class="logo-initials">AM</p>
+//     </div>
+//     <div class="contact-item__info">
+//       <h3 class="contact-name">
+//         {{ contact.firstName }} {{ contact.lastName }}
+//       </h3>
+//       <span class="contact-email">{{ contact.email }}</span>
+//     </div>
+//   </div>
+
+.contact-list__contact-item {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  align-items: center;
+  gap: 25px;
+  transition: all ease 0.35s;
+
+  &:hover {
+    background-color: rgb(230, 230, 230);
+  }
+}
+
+.contact-item {
+  &__logo {
+    .logo-initials {
+      width: 42px;
+      aspect-ratio: 1 / 1;
+      border-radius: 100%;
+      background-color: brown;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .contact-name {
+      margin: 0;
+      font-size: 20px;
+    }
+  }
+}

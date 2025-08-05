@@ -1,0 +1,27 @@
+<!-- @for (contact of contactsService.contacts; track $index) {
+<ul>
+  <li>{{ contact.firstName }} {{ contact.lastName }}</li>
+  <li>{{ contact.email }}</li>
+  <li>{{ contact.phoneNumber }}</li>
+</ul>
+<hr />
+} -->
+
+<div class="contact-list">
+  @for (contact of contactsService.contacts; track $index) {
+  <div
+    class="contact-list__contact-item"
+    (click)="openContactDetails(contact.id)"
+  >
+    <div class="contact-item__logo">
+      <p class="logo-initials">{{ getInitialLetters(contact) }}</p>
+    </div>
+    <div class="contact-item__info">
+      <h3 class="contact-name">
+        {{ contact.firstName }} {{ contact.lastName }}
+      </h3>
+      <span class="contact-email">{{ contact.email }}</span>
+    </div>
+  </div>
+  }
+</div>

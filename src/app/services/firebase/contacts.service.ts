@@ -49,6 +49,10 @@ export class ContactsService implements OnDestroy {
     };
   }
 
+  getContactById(id: string) {
+    return this.contacts.find((contact) => contact.id === id);
+  }
+
   async addContactToDatabase(contact: Contact) {
     let contactWithoutId = {
       firstName: contact.firstName,
