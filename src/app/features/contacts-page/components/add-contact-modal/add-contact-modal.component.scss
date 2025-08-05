@@ -15,7 +15,7 @@
   margin: auto;
   transform: translateX(100%);
   opacity: 0;
-  transition: transform 0.8s ease, opacity 0.4s ease;
+  transition: transform 0.8s ease, opacity 0.8s ease;
   
   &.slide-in {
     transform: translateX(0);
@@ -31,8 +31,11 @@
   overflow: hidden;
   position: relative;
   flex-wrap: wrap;
+  width: 100%;
+  height: auto;
   width: 1212px;
-  height: 592px;
+  min-height: 592px;
+  box-sizing: border-box;
 
   
   .modal-close-btn {
