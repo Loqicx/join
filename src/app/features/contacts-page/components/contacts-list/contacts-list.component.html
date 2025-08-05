@@ -9,10 +9,16 @@
   @for (contact of contacts.value; track $index){
   <div
     class="contact-list__contact-item"
+    [class.active]="activeContactId === contact.id"
     (click)="openContactDetails(contact.id)"
   >
     <div class="contact-item__logo">
-      <p class="logo-initials">{{ getInitialLetters(contact) }}</p>
+      <p
+        class="logo-initials"
+        [style.background-color]="contact.id | coloredProfile"
+      >
+        {{ initialLetterService.getInitialLetters(contact) }}
+      </p>
     </div>
     <div class="contact-item__info">
       <h3 class="contact-name">
