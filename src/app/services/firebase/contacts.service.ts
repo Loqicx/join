@@ -29,7 +29,6 @@ export class ContactsService implements OnDestroy {
       this.contacts = [];
 
       list.forEach((el) => {
-        console.log(el.data());
         this.contacts.push(this.setContactObject(el.data(), el.id));
       });
     });
