@@ -8,11 +8,20 @@
 .contact-list-wrapper {
   max-width: 35%;
   width: 100%;
-  overflow-y: scroll;
 }
 
 .contact-details-wrapper {
   max-width: 65%;
   width: 100%;
   background-color: #f6f7f8;
+}
+
+.add-contact-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }

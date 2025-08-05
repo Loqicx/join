@@ -1,0 +1,113 @@
+// <div class="contact-details__header">
+//     <h2 class="header__headline">Contacts</h2>
+//     <div class="vertical-separator"></div>
+//     <span class="header__subline">Better with a team</span>
+//   </div>
+// <div class="contact-details__content">
+//     @if (currentContact) {
+//     <div class="contact-item__logo">
+//       <p
+//         class="logo-initials"
+//         [style.background-color]="currentContact.id | coloredProfile"
+//       >
+//         {{ initialLettersService.getInitialLetters(currentContact) }}
+//       </p>
+//     </div>
+//     <div class="contact-item__info">
+//       <h3 class="contact-name">
+//         {{ currentContact.firstName }} {{ currentContact.lastName }}
+//       </h3>
+//       <span class="contact-email">{{ currentContact.email }}</span>
+//     </div>
+//     }
+//   </div>
+
+.contact-details {
+  padding: 40px;
+  padding-top: 80px;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    gap: 35px;
+    align-items: center;
+    margin-bottom: 30px;
+
+    .header__headline {
+      font-weight: bold;
+      font-size: 61px;
+      margin: 0;
+    }
+
+    .header__subline {
+      font-weight: 400;
+      font-size: 27px;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    .content__contact-heading {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .further-information__headline {
+      font-weight: 400;
+      font-size: 20px;
+      margin: 40px 0;
+    }
+
+    .futher-information__subline {
+      font-size: 16px;
+      font-weight: 700;
+
+      &-content {
+        font-size: 16px;
+        margin-bottom: 30px;
+      }
+    }
+    .subline-email {
+      text-decoration: none;
+      color: #007cee;
+    }
+  }
+}
+
+.contact-item {
+  &__logo {
+    .logo-initials {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      margin: 0;
+
+      width: 120px;
+      aspect-ratio: 1 / 1;
+      border-radius: 100%;
+      border: 3px solid #fff;
+      font-size: 47px;
+
+      color: white;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    margin-left: 50px;
+    .contact-name {
+      margin: 0;
+      font-size: 47px;
+      font-weight: 500;
+    }
+    .contact-email {
+      color: #007cee;
+    }
+  }
+}

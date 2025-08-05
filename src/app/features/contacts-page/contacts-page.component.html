@@ -1,14 +1,3 @@
-
-<app-button
-  iconSrc="assets/icons/person_add.svg"
-  altText="Add Contact"
-  (btnClick)="addContact()"
->
-  Add new contact
-</app-button>
-
-
-
 <app-add-contact-modal
   *ngIf="isModalOpen"
   (close)="closeModal()"
@@ -17,7 +6,7 @@
 <main class="content-wrapper">
   <!-- Add contact list as component -->
   <div class="contact-list-wrapper">
-    <form (ngSubmit)="submitContact()">
+    <!-- <form (ngSubmit)="submitContact()">
       <input
         name="firstName"
         [(ngModel)]="contact.firstName"
@@ -32,7 +21,17 @@
       />
 
       <button type="submit">Add Contact</button>
-    </form>
+    </form> -->
+    <div class="add-contact-wrapper">
+      <app-button
+        iconSrc="assets/icons/person_add.svg"
+        altText="Add Contact"
+        (btnClick)="addContact()"
+      >
+        Add new contact
+      </app-button>
+    </div>
+
     <app-contacts-list></app-contacts-list>
   </div>
   <!-- Add contact details as componemt -->

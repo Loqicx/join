@@ -1,14 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@use "./styles/variables.scss" as *;
+
 @font-face {
-    font-family: Inter;
-    src: url(../public/assets/fonts/Inter-VariableFont.ttf);
+  font-family: Inter;
+  src: url(../public/assets/fonts/Inter-VariableFont.ttf);
 }
 
 @font-face {
-    font-family: Inter-Italic;
-    src: url(../public/assets/fonts/Inter-Italic-VariableFont.ttf);
+  font-family: Inter-Italic;
+  src: url(../public/assets/fonts/Inter-Italic-VariableFont.ttf);
 }
 
 body {
-    margin: 0;
+  margin: 0;
+  font-family: $body-font-family;
+}
+
+.vertical-separator {
+  height: 58px;
+  border: 3px solid #29abe2;
 }
