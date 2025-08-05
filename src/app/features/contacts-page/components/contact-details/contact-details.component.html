@@ -1,7 +1,41 @@
-@if (currentContact) {
-<ul>
-  <li>{{ currentContact.firstName }} {{ currentContact.lastName }}</li>
-  <li>{{ currentContact.email }}</li>
-  <li>{{ currentContact.phoneNumber }}</li>
-</ul>
-}
+<div class="contact-details">
+  <div class="contact-details__header">
+    <h2 class="header__headline">Contacts</h2>
+    <div class="vertical-separator"></div>
+    <span class="header__subline">Better with a team</span>
+  </div>
+  <div class="contact-details__content">
+    @if (currentContact) {
+    <div class="content__contact-heading">
+      <div class="contact-item__logo">
+        <p
+          class="logo-initials"
+          [style.background-color]="currentContact.id | coloredProfile"
+        >
+          {{ initialLettersService.getInitialLetters(currentContact) }}
+        </p>
+      </div>
+      <div class="contact-item__info">
+        <h3 class="contact-name">
+          {{ currentContact.firstName }} {{ currentContact.lastName }}
+        </h3>
+      </div>
+    </div>
+
+    <div class="contact-item__further-information">
+      <h3 class="further-information__headline">Contact Information</h3>
+
+      <p class="futher-information__subline">Email</p>
+      <p class="futher-information__subline-content">
+        <a [href]="'mailto:' + currentContact.email" class="subline-email">{{
+          currentContact.email
+        }}</a>
+      </p>
+      <p class="futher-information__subline">Phone</p>
+      <p class="futher-information__subline-content subline-phone">
+        {{ currentContact.phoneNumber }}
+      </p>
+    </div>
+    }
+  </div>
+</div>
