@@ -1,0 +1,31 @@
+<app-header></app-header>
+
+
+<app-button
+  iconSrc="assets/icons/person_add.svg"
+  altText="Add Contact"
+  (btnClick)="addContact()"
+>
+  Add new contact
+</app-button>
+
+
+
+<app-add-contact-modal
+  *ngIf="isModalOpen"
+  (close)="closeModal()"
+></app-add-contact-modal>
+
+<main class="content-wrapper">
+  <!-- Add contact list as component -->
+  <div class="contact-list-wrapper">
+    <app-contacts-list></app-contacts-list>
+  </div>
+  <!-- Add contact details as componemt -->
+  <div class="contact-details-wrapper">
+    <app-contact-details></app-contact-details>
+  </div>
+
+  <!-- Add "add contact" Modal as component -->
+  <!-- Add "edit contact" Modal as component -->
+</main>

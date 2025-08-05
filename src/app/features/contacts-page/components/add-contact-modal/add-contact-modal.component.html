@@ -1,0 +1,15 @@
+<div class="modal-backdrop">
+  <div class="modal-content">
+    <h2>Neuen Kontakt hinzufügen</h2>
+
+    <form (submit)="saveContact(); $event.preventDefault()">
+      <input type="text" placeholder="Name" required>
+      <input type="email" placeholder="Email" required>
+
+      <div class="modal-buttons">
+        <button type="submit">Speichern</button>
+        <button type="button" (click)="closeModal()">Abbrechen</button>
+      </div>
+    </form>
+  </div>
+</div>
