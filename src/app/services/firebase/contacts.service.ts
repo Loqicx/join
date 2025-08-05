@@ -13,7 +13,7 @@ import { Contact } from '../../shared/interfaces/contact';
 export class ContactsService implements OnDestroy {
   unsubContacts;
 
-  contacts: Contact[] = [];
+  contacts: { [initial: string]: Contact[] } = {};
 
   firestore: Firestore = inject(Firestore);
 
@@ -26,11 +26,19 @@ export class ContactsService implements OnDestroy {
 
   subContactsList() {
     return onSnapshot(this.getContactsRef(), (list) => {
-      this.contacts = [];
+      this.contacts = {};
 
       list.forEach((el) => {
-        this.contacts.push(this.setContactObject(el.data(), el.id));
+        const contact = this.setContactObject(el.data(), el.id);
+        const initial: string = contact.firstName.charAt(0).toUpperCase();
+        if (!this.contacts[initial]) {
+          this.contacts[initial] = [];
+        }
+
+        this.contacts[initial].push(contact);
+        // this.contacts.push(this.setContactObject(el.data(), el.id));
       });
+      console.log(this.contacts);
     });
   }
 
@@ -49,7 +57,10 @@ export class ContactsService implements OnDestroy {
   }
 
   getContactById(id: string) {
-    return this.contacts.find((contact) => contact.id === id);
+    for (const [initial, contacts] of Object.entries(this.contacts)) {
+      return contacts.find((contact) => contact.id === id);
+    }
+    return undefined;
   }
 
   async addContactToDatabase(contact: Contact) {
