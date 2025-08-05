@@ -1,4 +1,4 @@
-<button type="submit" class="add-contact-button">
+<button [type]="type" class="add-contact-button" (click)="handleClick()">
   <span><ng-content></ng-content></span>
-  <img src="assets/icons/person_add.svg" alt="Add icon" class="icon">
+  <img [src]="iconSrc" [alt]="altText" class="icon">
 </button>
