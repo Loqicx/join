@@ -1,42 +1,58 @@
 <div class="modal-backdrop">
-  <div class="modal-wrapper">
+  <div class="modal-wrapper" [ngClass]="{ 'slide-in': isOpen }">
     <div class="modal">
-      <!-- Linke Seite -->
+
+
+      <button class="modal-close-btn" (click)="closeModal()">
+        <img src="assets/icons/close.svg" alt="Close">
+      </button>
+
+
       <div class="modal-left">
         <img src="assets/logo/join-logo-white.svg" alt="Logo" class="modal-logo">
         <h1>Add Contact</h1>
         <h2>Tasks are better with a team!</h2>
       </div>
 
-      <!-- Avatar -->
+
       <div class="modal-avatar">
         <img src="assets/icons/Group 13.svg" alt="Avatar" class="avatar-svg">
       </div>
 
-      <!-- Rechte Seite -->
+
       <div class="modal-right">
         <form (submit)="createContact(); $event.preventDefault()">
-          <input type="text" placeholder="Name" required>
-          <input type="email" placeholder="Email" required>
-          <input type="tel" placeholder="Phone" required>
+
+
+          <!-- Name -->
+          <div class="input-with-icon">
+            <input type="text" placeholder="Name" required>
+            <img src="assets/icons/person.svg" alt="Name">
+          </div>
+
+          <!-- E-Mail -->
+          <div class="input-with-icon">
+            <input type="email" placeholder="Email" required>
+            <img src="assets/icons/mail.svg" alt="Email">
+          </div>
+
+          <!-- Telefon -->
+          <div class="input-with-icon">
+            <input type="tel" placeholder="Phone" required>
+            <img src="assets/icons/call.svg" alt="Phone">
+          </div>
+
 
           <div class="modal-buttons">
-            <app-button
-              iconSrc="assets/icons/iconoir_cancel.svg"
-              altText="Cancel"
-              (btnClick)="closeModal()"
-            >
+            <app-button iconSrc="assets/icons/iconoir_cancel.svg" altText="Cancel" (btnClick)="closeModal()">
               Cancel
             </app-button>
 
-            <app-button
-              iconSrc="assets/icons/check.svg"
-              altText="Create"
-              type="submit"
-            >
+            <app-button iconSrc="assets/icons/check.svg" altText="Create" type="submit">
               Create Contact
             </app-button>
           </div>
+
         </form>
       </div>
     </div>
