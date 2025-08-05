@@ -7,14 +7,15 @@ import {
 } from '@angular/core';
 import { ContactsService } from '../../../../services/firebase/contacts.service';
 import { ContactsCommunicationService } from '../../services/contacts-communication.service';
+import { ObjectToArrayPipe } from '../../../../shared/pipes/object-to-array.pipe';
 
 @Component({
   selector: 'app-contacts-list',
-  imports: [],
+  imports: [ObjectToArrayPipe],
   templateUrl: './contacts-list.component.html',
   styleUrl: './contacts-list.component.scss',
 })
-export class ContactsListComponent implements OnChanges, OnInit {
+export class ContactsListComponent {
   contact = {
     firstName: '',
     lastName: '',
@@ -22,38 +23,14 @@ export class ContactsListComponent implements OnChanges, OnInit {
     phoneNumber: '',
   };
 
+  constructor() {}
+
   groupedContacts: any = {};
 
   contactsService: ContactsService = inject(ContactsService);
   contactsComService: ContactsCommunicationService = inject(
     ContactsCommunicationService
   );
-
-  groupContacts() {
-    this.contactsService.contacts.forEach((contact) => {
-      console.log(contact);
-
-      const initial = contact.firstName.charAt(0).toUpperCase();
-
-      if (!this.groupedContacts[initial]) {
-        this.groupedContacts[initial] = [];
-      }
-
-      this.groupedContacts[initial].push(contact);
-    });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.groupedContacts = {};
-    this.groupContacts();
-    console.log(this.groupedContacts);
-  }
-
-  ngOnInit(): void {
-    this.groupedContacts = {};
-    this.groupContacts();
-    console.log(this.groupedContacts);
-  }
 
   getInitialLetters(contact: any): String {
     let firstNameInitial = contact.firstName.charAt(0);
