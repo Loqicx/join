@@ -1,0 +1,10 @@
+.page-wrapper {
+    display: flex;
+    flex-direction: row;
+
+    app-sidebar {
+        position: relative;
+        width: 15%;
+        min-width: 220px;
+    }
+}

@@ -5,10 +5,11 @@ import { Contact } from './shared/interfaces/contact';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './shared/header/header.component';
+import { SidebarComponent } from "./shared/sidebar/sidebar.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, FormsModule, HeaderComponent],
+  imports: [RouterOutlet, CommonModule, FormsModule, HeaderComponent, SidebarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

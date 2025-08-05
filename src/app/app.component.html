@@ -1,38 +1,23 @@
-<app-header></app-header>
-<form (ngSubmit)="submitContact()">
-  <input
-    name="firstName"
-    [(ngModel)]="contact.firstName"
-    placeholder="First Name"
-    required
-  />
-  <input
-    name="lastName"
-    [(ngModel)]="contact.lastName"
-    placeholder="Last Name"
-    required
-  />
-  <input
-    name="email"
-    [(ngModel)]="contact.email"
-    placeholder="Email"
-    required
-  />
-  <input
-    name="phoneNumber"
-    [(ngModel)]="contact.phoneNumber"
-    placeholder="Phone"
-    required
-  />
-  <button type="submit">Add Contact</button>
-</form>
+<div class="page-wrapper">
+  <app-sidebar></app-sidebar>
+  <div class="content">
+    <app-header></app-header>
+    <form (ngSubmit)="submitContact()">
+      <input name="firstName" [(ngModel)]="contact.firstName" placeholder="First Name" required />
+      <input name="lastName" [(ngModel)]="contact.lastName" placeholder="Last Name" required />
+      <input name="email" [(ngModel)]="contact.email" placeholder="Email" required />
+      <input name="phoneNumber" [(ngModel)]="contact.phoneNumber" placeholder="Phone" required />
+      <button type="submit">Add Contact</button>
+    </form>
 
-@for (contact of contactsService.contacts; track $index) {
-<ul>
-  <li>{{ contact.firstName }} {{ contact.lastName }}</li>
-  <li>{{ contact.email }}</li>
-  <li>{{ contact.phoneNumber }}</li>
-</ul>
-<hr />
+    @for (contact of contactsService.contacts; track $index) {
+    <ul>
+      <li>{{ contact.firstName }} {{ contact.lastName }}</li>
+      <li>{{ contact.email }}</li>
+      <li>{{ contact.phoneNumber }}</li>
+    </ul>
+    <hr />
 
-}
+    }
+  </div>
+</div>
