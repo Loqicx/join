@@ -17,6 +17,7 @@ export class AddContactModalComponent {
 
   isOpen = true;
   contactsService = inject(ContactsService);
+  fullName = ''; 
   
   contact: Contact = {
     id: '',
@@ -31,10 +32,14 @@ export class AddContactModalComponent {
   }
 
    async createContact() {
-    if (!this.contact.firstName || !this.contact.email || !this.contact.phoneNumber) {
+    if (!this.fullName || !this.contact.email || !this.contact.phoneNumber) {
       console.warn('Pflichtfelder fehlen');
       return;
     }
+
+    const nameParts = this.fullName.trim().split(' ');
+    this.contact.firstName = nameParts[0];
+    this.contact.lastName = nameParts.slice(1).join(' '); 
 
     try {
       await this.contactsService.addContactToDatabase(this.contact);
