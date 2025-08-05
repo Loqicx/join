@@ -38,7 +38,6 @@ export class ContactsService implements OnDestroy {
         this.contacts[initial].push(contact);
         // this.contacts.push(this.setContactObject(el.data(), el.id));
       });
-      console.log(this.contacts);
     });
   }
 
@@ -58,7 +57,8 @@ export class ContactsService implements OnDestroy {
 
   getContactById(id: string) {
     for (const [initial, contacts] of Object.entries(this.contacts)) {
-      return contacts.find((contact) => contact.id === id);
+      let result = contacts.find((contact) => contact.id === id);
+      if (result) return result;
     }
     return undefined;
   }
