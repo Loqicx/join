@@ -3,7 +3,9 @@
     flex-direction: row;
 
     app-sidebar {
-        position: relative;
+        position: sticky;
+        top: 0;
+        left: 0;
         width: 15%;
         min-width: 220px;
     }
