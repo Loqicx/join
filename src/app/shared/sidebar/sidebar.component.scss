@@ -7,12 +7,14 @@
     background-color: #2A3647;
 
     .sidebar {
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
 
         .upper-wrapper {
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -24,16 +26,42 @@
             }
 
             .main-nav {
+                width: 100%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                gap: 16px;
+                margin-top: 36px;
+
+                .btn-inner {
+                    display: flex;
+                    justify-content: start;
+                    align-items: center;
+                    width: 46%;
+                }
 
                 a {
-                    width: 120px;
+                    width: 100%;
                     display: flex;
+                    justify-content: center;
                     align-items: center;
-                    justify-content: start;
+                    text-decoration: none;
+                    color: #CDCDCD;
+                    font-family: Inter;
+                    font-size: 16px;
+                    padding: 8px 0;
+
+                    &:hover {
+                        background-color: #2a3d59;
+                        cursor: pointer;
+                        color: white;
+                        fill: white;
+                    }
+
+                    img {
+                        margin-right: 12px;
+                    }
                 }
             }
         }
@@ -43,7 +71,19 @@
             flex-direction: column;
             justify-content: center;
             align-items: start;
+            gap: 16px;
             margin-bottom: 48px;
+
+            a {
+                text-decoration: none;
+                color: #CDCDCD;
+                font-family: Inter;
+
+                &:hover {
+                    color: white;
+                    cursor: pointer;
+                }
+            }
         }
     }
 }
