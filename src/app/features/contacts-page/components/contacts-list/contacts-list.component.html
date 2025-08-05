@@ -1,14 +1,12 @@
-<!-- @for (contact of contactsService.contacts; track $index) {
-<ul>
-  <li>{{ contact.firstName }} {{ contact.lastName }}</li>
-  <li>{{ contact.email }}</li>
-  <li>{{ contact.phoneNumber }}</li>
-</ul>
-<hr />
-} -->
-
 <div class="contact-list">
-  @for (contact of contactsService.contacts; track $index) {
+  @for (contacts of contactsService.contacts | objectToArray; track
+  contacts.key) {
+  <div class="contact-list__contact-separator">
+    <div class="contact-separator__content">
+      {{ contacts.key }}
+    </div>
+  </div>
+  @for (contact of contacts.value; track $index){
   <div
     class="contact-list__contact-item"
     (click)="openContactDetails(contact.id)"
@@ -23,5 +21,5 @@
       <span class="contact-email">{{ contact.email }}</span>
     </div>
   </div>
-  }
+  } }
 </div>
