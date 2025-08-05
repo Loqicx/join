@@ -1,15 +1,44 @@
 <div class="modal-backdrop">
-  <div class="modal-content">
-    <h2>Neuen Kontakt hinzufügen</h2>
-
-    <form (submit)="saveContact(); $event.preventDefault()">
-      <input type="text" placeholder="Name" required>
-      <input type="email" placeholder="Email" required>
-
-      <div class="modal-buttons">
-        <button type="submit">Speichern</button>
-        <button type="button" (click)="closeModal()">Abbrechen</button>
+  <div class="modal-wrapper">
+    <div class="modal">
+      <!-- Linke Seite -->
+      <div class="modal-left">
+        <img src="assets/icons/Capa 2.svg" alt="Logo" class="modal-logo">
+        <h1>Add Contact</h1>
+        <h2>Tasks are better with a team!</h2>
       </div>
-    </form>
+
+      <!-- Avatar -->
+      <div class="modal-avatar">
+        <img src="assets/icons/Group 13.svg" alt="Avatar" class="avatar-svg">
+      </div>
+
+      <!-- Rechte Seite -->
+      <div class="modal-right">
+        <form (submit)="createContact(); $event.preventDefault()">
+          <input type="text" placeholder="Name" required>
+          <input type="email" placeholder="Email" required>
+          <input type="tel" placeholder="Phone" required>
+
+          <div class="modal-buttons">
+            <app-button
+              iconSrc="assets/icons/iconoir_cancel.svg"
+              altText="Cancel"
+              (btnClick)="closeModal()"
+            >
+              Cancel
+            </app-button>
+
+            <app-button
+              iconSrc="assets/icons/check.svg"
+              altText="Create"
+              type="submit"
+            >
+              Create Contact
+            </app-button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
