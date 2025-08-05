@@ -15,6 +15,8 @@ export class SidebarComponent {
   summaryActive = false;
   addTaskActive = false;
   boardActive = false;
+  privacyActive = false;
+  legalActive = false;
 
 /**
  * Constructor for the Sidebar component that initializes routing events and sets active Button based on current URL.
@@ -35,6 +37,10 @@ constructor(private router: Router) {
           this.addTaskActive = true;
         } else if (currentUrl.startsWith('/board')) {
           this.boardActive = true;
+        } else if (currentUrl.startsWith('/legal')) {
+          this.legalActive = true;
+        } else if (currentUrl.startsWith('/privacy')) {
+          this.privacyActive = true;
         }
       });
   }
@@ -47,5 +53,7 @@ private resetAllActives() {
     this.summaryActive = false;
     this.addTaskActive = false;
     this.boardActive = false;
+    this.privacyActive = false;
+    this.legalActive = false;
 }
 }

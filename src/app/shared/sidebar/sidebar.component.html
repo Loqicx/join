@@ -30,8 +30,8 @@
             </nav>
         </div>
         <div class="lower-wrapper">
-            <a href="privacy">Privacy Policy</a>
-            <a href="legal">Legal Notice</a>
+            <a href="privacy" [ngClass]="this.privacyActive ? 'active' : ''">Privacy Policy</a>
+            <a href="legal" [ngClass]="this.legalActive ? 'active' : ''">Legal Notice</a>
         </div>
     </div>
 </div>

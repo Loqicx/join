@@ -56,8 +56,6 @@
                     &:hover {
                         background-color: #2a3d59;
                         cursor: pointer;
-                        color: white;
-                        fill: white;
                     }
 
                     img {
@@ -73,6 +71,7 @@
         }
 
         .lower-wrapper {
+            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -81,14 +80,24 @@
             margin-bottom: 48px;
 
             a {
+                width: 50%;
+                display: flex;
+                justify-content: start;
+                align-items: center;
                 text-decoration: none;
                 color: #CDCDCD;
                 font-family: Inter;
+                padding: 8px 25%;
 
                 &:hover {
                     color: white;
                     cursor: pointer;
                 }
+            }
+
+            .active {
+                background-color: #091931 !important;
+                color: white !important;
             }
         }
     }
