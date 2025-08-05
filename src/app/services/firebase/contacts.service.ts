@@ -16,6 +16,7 @@ export class ContactsService implements OnDestroy {
   contacts: { [initial: string]: Contact[] } = {};
 
   firestore: Firestore = inject(Firestore);
+  firstName: any;
 
   constructor() {
     this.unsubContacts = this.subContactsList();
