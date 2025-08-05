@@ -29,12 +29,25 @@ export class ContactsService implements OnDestroy {
     return onSnapshot(this.getContactsRef(), (list) => {
       this.contacts = {};
 
+      let initials: string[] = [];
+
+      list.forEach((el) => {
+        const tmpContact = this.setContactObject(el.data(), el.id);
+        const initial: string = tmpContact.firstName.charAt(0).toUpperCase();
+        if (!initials.includes(initial)) {
+          initials.push(initial);
+        }
+      });
+
+      initials.sort();
+
+      initials.forEach((initial) => {
+        this.contacts[initial] = [];
+      });
+
       list.forEach((el) => {
         const contact = this.setContactObject(el.data(), el.id);
         const initial: string = contact.firstName.charAt(0).toUpperCase();
-        if (!this.contacts[initial]) {
-          this.contacts[initial] = [];
-        }
 
         this.contacts[initial].push(contact);
         // this.contacts.push(this.setContactObject(el.data(), el.id));
