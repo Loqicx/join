@@ -9,7 +9,10 @@
 
 <div class="contact-list">
   @for (contact of contactsService.contacts; track $index) {
-  <div class="contact-list__contact-item">
+  <div
+    class="contact-list__contact-item"
+    (click)="openContactDetails(contact.id)"
+  >
     <div class="contact-item__logo">
       <p class="logo-initials">{{ getInitialLetters(contact) }}</p>
     </div>

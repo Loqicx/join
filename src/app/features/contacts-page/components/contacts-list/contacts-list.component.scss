@@ -16,6 +16,11 @@
   padding: 10px;
   align-items: center;
   gap: 25px;
+  transition: all ease 0.35s;
+
+  &:hover {
+    background-color: rgb(230, 230, 230);
+  }
 }
 
 .contact-item {
