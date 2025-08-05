@@ -19,6 +19,22 @@
 <main class="content-wrapper">
   <!-- Add contact list as component -->
   <div class="contact-list-wrapper">
+    <form (ngSubmit)="submitContact()">
+      <input
+        name="firstName"
+        [(ngModel)]="contact.firstName"
+        placeholder="First Name"
+        required
+      />
+      <input
+        name="lastName"
+        [(ngModel)]="contact.lastName"
+        placeholder="Last Name"
+        required
+      />
+
+      <button type="submit">Add Contact</button>
+    </form>
     <app-contacts-list></app-contacts-list>
   </div>
   <!-- Add contact details as componemt -->
