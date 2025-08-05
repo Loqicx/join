@@ -1,0 +1,16 @@
+.page-wrapper {
+    display: flex;
+    flex-direction: row;
+
+    app-sidebar {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 15%;
+        min-width: 220px;
+    }
+
+    .content {
+        max-width: 85%;
+    }
+}
