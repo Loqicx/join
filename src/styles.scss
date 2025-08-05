@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: Inter;
+    src: url(../public/assets/fonts/Inter-VariableFont.ttf);
+}
+
+@font-face {
+    font-family: Inter-Italic;
+    src: url(../public/assets/fonts/Inter-Italic-VariableFont.ttf);
+}
+
+body {
+    margin: 0;
+}

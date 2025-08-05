@@ -1,0 +1,37 @@
+<div class="sidebar-wrapper">
+    <div class="sidebar">
+        <div class="upper-wrapper">
+            <a href="/"><img class="logo" src="assets/logo/join-logo-white.svg" alt="Join Logo"></a>
+            <nav class="main-nav">
+                <a href="summary" [ngClass]="this.summaryActive ? 'active' : ''">
+                    <div class="btn-inner">
+                        <img src="assets/icons/summary.svg" alt="Summary image">
+                        <span>Summary</span>
+                    </div>
+                </a>
+                <a href="addTask" [ngClass]="this.addTaskActive ? 'active' : ''">
+                    <div class="btn-inner">
+                        <img src="assets/icons/add-task.svg" alt="Add Task icon">
+                        <span>Add Task</span>
+                    </div>
+                </a>
+                <a href="board" [ngClass]="this.boardActive ? 'active' : ''">
+                    <div class="btn-inner">
+                        <img src="assets/icons/board.svg" alt="Board icon">
+                        <span>Board</span>
+                    </div>
+                </a>
+                <a href="contacts" [ngClass]="this.contactsActive ? 'active' : ''">
+                    <div class="btn-inner">
+                        <img src="assets/icons/contacts.svg" alt="Contacts icon">
+                        <span>Contacts</span>
+                    </div>
+                </a>
+            </nav>
+        </div>
+        <div class="lower-wrapper">
+            <a href="privacy" [ngClass]="this.privacyActive ? 'active' : ''">Privacy Policy</a>
+            <a href="legal" [ngClass]="this.legalActive ? 'active' : ''">Legal Notice</a>
+        </div>
+    </div>
+</div>
