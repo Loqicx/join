@@ -26,27 +26,27 @@ export class EditContactModalComponent {
     }
   }
 
-  async saveContact() {
-    const nameParts = this.fullName.trim().split(' ');
-    this.contactToEdit.firstName = nameParts[0];
-    this.contactToEdit.lastName = nameParts.slice(1).join(' ');
+  // async saveContact() {
+  //   const nameParts = this.fullName.trim().split(' ');
+  //   this.contactToEdit.firstName = nameParts[0];
+  //   this.contactToEdit.lastName = nameParts.slice(1).join(' ');
 
-    try {
-      await this.contactsService.updateContactInDatabase(this.contactToEdit);
-      this.close.emit();
-    } catch (error) {
-      console.error('Update failed:', error);
-    }
-  }
+  //   try {
+  //     await this.contactsService.updateContactInDatabase(this.contactToEdit);
+  //     this.close.emit();
+  //   } catch (error) {
+  //     console.error('Update failed:', error);
+  //   }
+  // }
 
-  async deleteContact() {
-    try {
-      await this.contactsService.deleteContactFromDatabase(this.contactToEdit.id);
-      this.close.emit();
-    } catch (error) {
-      console.error('Delete failed:', error);
-    }
-  }
+  // async deleteContact() {
+  //   try {
+  //     await this.contactsService.deleteContactFromDatabase(this.contactToEdit.id);
+  //     this.close.emit();
+  //   } catch (error) {
+  //     console.error('Delete failed:', error);
+  //   }
+  // }
 
   closeModal() {
     this.close.emit();
