@@ -6,11 +6,11 @@ import { Observable, shareReplay, map } from 'rxjs';
   providedIn: 'root'
 })
 export class SVGInlineService {
-  private cache = new Map<string, Observable<SVGElement>>();
+  private cache = new Map<string, Observable<string>>();
 
   constructor(private http: HttpClient) { }
 
-  convertInlineSVG(path: string): Observable<SVGElement> {
+  getInlineSVG(path: string): Observable<string> {
     if (this.cache.has(path)) {
       return this.cache.get(path)!;
     }
@@ -22,19 +22,16 @@ export class SVGInlineService {
         const svg = doc.querySelector('svg');
 
         if (!svg) {
-          throw new Error(`Error! No SVG found under given path: ${path}`);
+          throw new Error(`Error! No <svg> element found at path: ${path}`);
         }
 
-        return svg as SVGElement;
+        const serializer = new XMLSerializer();
+        return serializer.serializeToString(svg);
       }),
       shareReplay(1)
     );
 
     this.cache.set(path, svg$);
     return svg$;
-  }
-
-  cloneSvg(svg: SVGSVGElement): SVGSVGElement {
-    return svg.cloneNode(true) as SVGSVGElement;
   }
 }
