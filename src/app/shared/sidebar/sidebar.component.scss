@@ -53,20 +53,44 @@
                     font-weight: 600;
                     padding: 8px 0;
 
-                    &:hover {
-                        color: white;
-                        background-color: #2a3d59;
-                        cursor: pointer;
+                    &:not(.active) {
+                        transition: background-color 0.2s;
+
+                        &:hover {
+                            color: white;
+                            background-color: #2a3d59;
+                            cursor: pointer;
+
+                            .btn-inner {
+                                transform: scale(1.02) translateX(-2px) translateY(-1px);
+                                transition: transform 0.3s ease-out;
+                            }
+
+                            ::ng-deep svg {
+                                path {
+                                    fill: white !important;
+                                }
+                            }
+                        }
                     }
 
-                    img {
+                    .icon {
                         margin-right: 12px;
+
                     }
                 }
 
                 .active {
                     background-color: #091931 !important;
                     color: white !important;
+                    &:hover {
+                        cursor: default;
+                    }
+
+                    .btn-inner {
+                        transform: scale(1.04) translateX(-1px);
+                        transition: transform 0.3s ease-out;
+                    }
                 }
             }
         }
@@ -91,7 +115,9 @@
                 padding: 8px 25%;
 
                 &:hover {
-                    color: white;
+                    transform: scale(1.02) translateX(2px);
+                    transition: transform 0.3s ease-out;
+                    color: #29abe2;
                     cursor: pointer;
                 }
             }
@@ -102,4 +128,8 @@
             }
         }
     }
+}
+
+::ng-deep .active .icon svg path {
+    fill: white !important;
 }
