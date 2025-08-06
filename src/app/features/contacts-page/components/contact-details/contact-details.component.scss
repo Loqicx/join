@@ -21,10 +21,36 @@
 //     </div>
 //     }
 //   </div>
+@keyframes slide-in {
+  from {
+    transform: translateX(120%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(120%);
+  }
+}
+
+.fade-out {
+  animation: fade-out 0.2s ease;
+}
+
+.slide-in {
+  animation: slide-in 0.35s ease;
+}
 
 .contact-details {
   padding: 40px;
   padding-top: 80px;
+  overflow-x: hidden;
 
   &__header {
     display: flex;
