@@ -12,7 +12,9 @@ export class ButtonComponent {
   @Input() iconSrc!: string;
   @Input() altText: string = 'Button icon';
   @Input() type: string = 'button';
-  @Input() fontSize: string = '26px'; 
+  @Input() fontSize: string = '26px';
+  @Input() size: string = 'medium';
+  @Input() invert: boolean = false; 
 
 
   @Output() btnClick = new EventEmitter<void>();

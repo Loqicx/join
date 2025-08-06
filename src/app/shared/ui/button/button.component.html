@@ -1,4 +1,11 @@
-<button [type]="type" class="add-contact-button" (click)="handleClick()" [ngStyle]="{ 'font-size': fontSize }">
-  <span><ng-content></ng-content></span>
+<button [type]="type" 
+  class="add-contact-button" 
+  (click)="handleClick()" 
+  [ngStyle]="{ 'font-size': fontSize }"
+  [ngClass]="invert ? 'invert' : ''"
+  [ngClass]="size === 'large' ? 'large' : size === 'medium' ? 'medium' : size ==='small' ? 'small' : ''">
+  <span>
+    <ng-content></ng-content>
+  </span>
   <img [src]="iconSrc" [alt]="altText" class="icon">
 </button>
