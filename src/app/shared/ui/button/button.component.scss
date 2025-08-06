@@ -1,4 +1,4 @@
-@use './../../../../styles/variables.scss' as *; 
+@use './../../../../styles/variables.scss' as *;
 
 
 
@@ -14,18 +14,31 @@
   gap: 8px;
   border-radius: 8px;
   height: 56px;
-  width: 100%;          
-  max-width: 352px;      
   font-weight: 600;
   cursor: pointer;
-  box-sizing: border-box; 
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: $color-primary-hover;
+  }
 }
 
 .icon {
   width: 32px;
   height: 32px;
+
+  svg {
+      color: aqua !important;
+  }
 }
 
-.add-contact-button:hover {
-  background-color: $color-primary-hover;
+.invert {
+  background-color: $color-white !important;
+  color: $color-primary;
+  border: 2px solid $color-primary;
+
+  &:hover {
+    color: $color-primary-hover;
+    border-color: $color-primary-hover;
+  }
 }
