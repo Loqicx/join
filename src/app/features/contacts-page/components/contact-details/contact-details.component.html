@@ -4,8 +4,8 @@
     <div class="vertical-separator"></div>
     <span class="header__subline">Better with a team</span>
   </div>
-  <div class="contact-details__content">
-    @if (currentContact) {
+  @if (currentContact) {
+  <div class="contact-details__content slide-in" id="contactDetails">
     <div class="content__contact-heading">
       <div class="contact-item__logo">
         <p
@@ -36,6 +36,6 @@
         {{ currentContact.phoneNumber }}
       </p>
     </div>
-    }
   </div>
+  }
 </div>

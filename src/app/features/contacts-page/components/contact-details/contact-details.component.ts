@@ -15,7 +15,7 @@ export class ContactDetailsComponent implements OnInit {
   contactComService = inject(ContactsCommunicationService);
   contactsService = inject(ContactsService);
   contactId$: string = '';
-  currentContact?: Contact;
+  currentContact?: Contact | null;
 
   initialLettersService: InitialLettersService = inject(InitialLettersService);
 
@@ -26,7 +26,20 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   updateDetailDisplay(id: string): void {
-    this.currentContact = this.contactsService.getContactById(id);
-    console.log(this.currentContact);
+    const detailsEl = document.querySelector('#contactDetails');
+    if (detailsEl && this.currentContact) {
+      detailsEl.classList.remove('slide-in');
+      detailsEl.classList.add('fade-out');
+      setTimeout(() => {
+        detailsEl.classList.remove('fade-out');
+        this.currentContact = this.contactsService.getContactById(id);
+        detailsEl.classList.add('slide-in');
+      }, 190);
+    } else {
+      this.currentContact = this.contactsService.getContactById(id);
+      if (detailsEl) {
+        detailsEl.classList.add('slide-in');
+      }
+    }
   }
 }
