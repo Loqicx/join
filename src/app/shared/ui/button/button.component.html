@@ -1,9 +1,10 @@
 <button [type]="type" class="add-contact-button" (click)="handleClick()" [class]="{ invert: invert }"
-  [class.large]="size === 'large'" [class.medium]="size === 'medium'" [class.small]="size === 'small'"
+  [class.large]="size === 'large'" [class.medium]="size === 'medium'" [class.small]="size === 'small'" [class.dynamic]="size === 'dynamic'" 
   [ngStyle]="{ 'font-size': fontSize }">
 
   <span>
     <ng-content></ng-content>
   </span>
-  <img [src]="iconSrc" [alt]="altText" class="icon">
+  <div [innerHTML]="svgContent" class="icon" [ngClass]="invert ? 'icon-invert' : ''"></div>
+  
 </button>
