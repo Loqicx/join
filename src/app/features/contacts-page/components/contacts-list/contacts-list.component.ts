@@ -8,10 +8,12 @@ import {
 import { ContactsService } from '../../../../services/firebase/contacts.service';
 import { ContactsCommunicationService } from '../../services/contacts-communication.service';
 import { ObjectToArrayPipe } from '../../../../shared/pipes/object-to-array.pipe';
+import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
+import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
 
 @Component({
   selector: 'app-contacts-list',
-  imports: [ObjectToArrayPipe],
+  imports: [ObjectToArrayPipe, ColoredProfilePipe],
   templateUrl: './contacts-list.component.html',
   styleUrl: './contacts-list.component.scss',
 })
@@ -23,6 +25,9 @@ export class ContactsListComponent {
     phoneNumber: '',
   };
 
+  activeContactId: string | null = null;
+  initialLetterService: InitialLettersService = inject(InitialLettersService);
+
   constructor() {}
 
   groupedContacts: any = {};
@@ -32,14 +37,8 @@ export class ContactsListComponent {
     ContactsCommunicationService
   );
 
-  getInitialLetters(contact: any): String {
-    let firstNameInitial = contact.firstName.charAt(0);
-    let lastNameInitial = contact.lastName.charAt(0);
-
-    return firstNameInitial + lastNameInitial;
-  }
-
   openContactDetails(id: string) {
+    this.activeContactId = id;
     this.contactsComService.setContactId(id);
   }
 }

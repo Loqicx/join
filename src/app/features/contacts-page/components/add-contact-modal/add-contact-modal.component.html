@@ -1,15 +1,61 @@
 <div class="modal-backdrop">
-  <div class="modal-content">
-    <h2>Neuen Kontakt hinzufügen</h2>
+  <div class="modal-wrapper" [ngClass]="{ 'slide-in': isOpen }">
+    <div class="modal">
 
-    <form (submit)="saveContact(); $event.preventDefault()">
-      <input type="text" placeholder="Name" required>
-      <input type="email" placeholder="Email" required>
 
-      <div class="modal-buttons">
-        <button type="submit">Speichern</button>
-        <button type="button" (click)="closeModal()">Abbrechen</button>
+      <button class="modal-close-btn" (click)="closeModal()">
+        <img src="assets/icons/close.svg" alt="Close">
+      </button>
+
+
+      <div class="modal-left">
+        <img src="assets/logo/join-logo-white.svg" alt="Logo" class="modal-logo">
+        <h1>Add Contact</h1>
+        <h2>Tasks are better with a team!</h2>
+        <div class="horizontal-separator"></div>
       </div>
-    </form>
+
+
+      <div class="modal-avatar">
+        <img src="assets/icons/Group 13.svg" alt="Avatar" class="avatar-svg">
+      </div>
+
+
+      <div class="modal-right">
+        <form (submit)="createContact(); $event.preventDefault()">
+
+          <!-- Name -->
+          <div class="input-with-icon">
+            <input type="text" placeholder="Name" required [(ngModel)]="fullName" name="fullName">
+            <img src="assets/icons/person.svg" alt="Name">
+          </div>
+
+          <!-- E-Mail -->
+          <div class="input-with-icon">
+            <input type="email" placeholder="Email" required [(ngModel)]="contact.email" name="email">
+            <img src="assets/icons/mail.svg" alt="Email">
+          </div>
+
+          <!-- Telefon -->
+          <div class="input-with-icon">
+            <input type="tel" placeholder="Phone" required [(ngModel)]="contact.phoneNumber" name="phoneNumber">
+            <img src="assets/icons/call.svg" alt="Phone">
+          </div>
+
+          <div class="modal-buttons">
+            <app-button iconSrc="assets/icons/iconoir_cancel.svg" altText="Cancel" [fontSize]="'16px'" (btnClick)="closeModal()">
+              Cancel
+            </app-button>
+
+            <app-button iconSrc="assets/icons/check.svg" altText="Create" [fontSize]="'16px'"
+              (btnClick)="createContact()">
+              Create Contact
+            </app-button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
   </div>
 </div>

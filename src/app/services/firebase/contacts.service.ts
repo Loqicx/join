@@ -16,6 +16,7 @@ export class ContactsService implements OnDestroy {
   contacts: { [initial: string]: Contact[] } = {};
 
   firestore: Firestore = inject(Firestore);
+  firstName: any;
 
   constructor() {
     this.unsubContacts = this.subContactsList();
@@ -28,17 +29,29 @@ export class ContactsService implements OnDestroy {
     return onSnapshot(this.getContactsRef(), (list) => {
       this.contacts = {};
 
+      let initials: string[] = [];
+
+      list.forEach((el) => {
+        const tmpContact = this.setContactObject(el.data(), el.id);
+        const initial: string = tmpContact.firstName.charAt(0).toUpperCase();
+        if (!initials.includes(initial)) {
+          initials.push(initial);
+        }
+      });
+
+      initials.sort();
+
+      initials.forEach((initial) => {
+        this.contacts[initial] = [];
+      });
+
       list.forEach((el) => {
         const contact = this.setContactObject(el.data(), el.id);
         const initial: string = contact.firstName.charAt(0).toUpperCase();
-        if (!this.contacts[initial]) {
-          this.contacts[initial] = [];
-        }
 
         this.contacts[initial].push(contact);
         // this.contacts.push(this.setContactObject(el.data(), el.id));
       });
-      console.log(this.contacts);
     });
   }
 
@@ -58,7 +71,8 @@ export class ContactsService implements OnDestroy {
 
   getContactById(id: string) {
     for (const [initial, contacts] of Object.entries(this.contacts)) {
-      return contacts.find((contact) => contact.id === id);
+      let result = contacts.find((contact) => contact.id === id);
+      if (result) return result;
     }
     return undefined;
   }
