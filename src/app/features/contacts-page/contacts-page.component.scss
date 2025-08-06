@@ -1,7 +1,6 @@
 .content-wrapper {
   display: flex;
   flex-direction: row;
-  width: 100vw;
   height: 80vh;
 }
 
@@ -14,6 +13,7 @@
   max-width: 65%;
   width: 100%;
   background-color: #f6f7f8;
+  min-height: calc(100vh - 60px);
 }
 
 .add-contact-wrapper {
