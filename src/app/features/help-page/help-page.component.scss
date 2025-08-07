@@ -1,0 +1,24 @@
+@use "./../../../styles/variables.scss" as *;
+
+.help-page-wrapper {
+    overflow: hidden;
+    height: 90%;
+    
+    
+
+    .help-page {
+        height: 100%;
+        overflow-y: scroll;
+        padding: 48px;
+        
+    }
+
+    .close-title {
+        padding-bottom: 120px;
+        word-wrap: normal;
+    }
+
+    .light-blue {
+        color: $color-primary-hover;
+    }
+}
