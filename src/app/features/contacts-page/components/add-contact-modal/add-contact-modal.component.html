@@ -36,14 +36,21 @@
           @if(addContactForm.submitted && emailV.errors?.['required']) {
           <small class="form-error">Email is required</small>
           }
+          @if (addContactForm.submitted && emailV.errors?.['email']) {
+          <small class="form-error">Please enter a valid email address</small>
+          }
 
           <!-- Telefon -->
           <div class="input-with-icon">
-            <input type="tel" placeholder="Phone" required [(ngModel)]="contact.phoneNumber" name="phoneNumber" pattern="^[0-9\s\-\+\(\)]{6,}$" #phoneV="ngModel" />
+            <input type="tel" placeholder="Phone" required [(ngModel)]="contact.phoneNumber" name="phoneNumber"
+              pattern="^[0-9\s\-\+\(\)]{6,}$" #phoneV="ngModel" />
             <img src="assets/icons/call.svg" alt="Phone" />
           </div>
           @if(addContactForm.submitted && phoneV.errors?.['required']) {
           <small class="form-error">Phone is required</small>
+          }
+          @if (addContactForm.submitted && phoneV.errors?.['pattern']) {
+          <small class="form-error">Enter a valid phone number (min. 6 digits)</small>
           }
 
           <div class="modal-buttons">
