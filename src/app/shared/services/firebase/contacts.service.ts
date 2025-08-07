@@ -5,7 +5,7 @@ import {
   Firestore,
   onSnapshot,
 } from '@angular/fire/firestore';
-import { Contact } from '../../shared/interfaces/contact';
+import { Contact } from '../../interfaces/contact';
 
 @Injectable({
   providedIn: 'root',
