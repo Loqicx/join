@@ -3,14 +3,11 @@
 .help-page-wrapper {
     overflow: hidden;
     height: 90%;
-    
-    
 
     .help-page {
         height: 100%;
         overflow-y: scroll;
         padding: 48px;
-        
     }
 
     .close-title {
@@ -21,4 +18,42 @@
     .light-blue {
         color: $color-primary-hover;
     }
+}
+
+ol {
+    padding-left: 1px;
+    margin-left: 30px;
+
+    li {
+        padding-left: 8px;
+        padding-bottom: 18px;
+    }
+}
+
+
+ol li::marker {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 62px;
+    font-weight: 700;
+    margin-top: 8px;
+    margin-bottom: 30px;
+}
+
+h3 {
+    font-size: 28px;
+    margin-bottom: 18px;
+}
+
+h4 {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 4px;
+}
+
+span {
+    line-height: 120%;
 }
