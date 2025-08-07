@@ -84,6 +84,13 @@ export class ContactsService implements OnDestroy {
     await deleteDoc(doc(this.firestore, 'contacts', contactId));
   }
 
+  /**
+   * Updates an existing contact in the Firestore database.
+   * @param contact - An object containing the updated contact fields.
+   * @param id - The unique ID of the contact to update.
+   * @throws Will throw an error if the contact ID is not provided.
+   * @returns A Promise that resolves when the update is complete.
+   */
   async updateContact(contact: {}, id: string) {
     if (!id) {
       throw new Error('Contact ID is required');
