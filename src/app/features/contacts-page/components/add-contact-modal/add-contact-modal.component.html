@@ -24,7 +24,7 @@
             class="avatar-svg"
           />
         </div>
-        <form (submit)="createContact(); $event.preventDefault()">
+        <form (ngSubmit)="formSubmit(addContactForm)" #addContactForm="ngForm">
           <!-- Name -->
           <div class="input-with-icon">
             <input
@@ -33,9 +33,14 @@
               required
               [(ngModel)]="fullName"
               name="fullName"
+              aria-describedby="addContactHelp"
+              #nameV="ngModel"
             />
             <img src="assets/icons/person.svg" alt="Name" />
           </div>
+          @if(addContactForm.submitted && nameV.errors?.['required']) {
+          <small class="form-error">Name is required</small>
+          }
 
           <!-- E-Mail -->
           <div class="input-with-icon">
@@ -68,7 +73,7 @@
               [fontSize]="'16px'"
               (btnClick)="closeModal()"
               [invert]="true"
-              [size]="'large'"
+              [size]="'medium'"
             >
               Cancel
             </app-button>
@@ -77,8 +82,8 @@
               iconSrc="assets/icons/check.svg"
               altText="Create"
               [fontSize]="'16px'"
-              [size]="'large'"
-              (btnClick)="createContact()"
+              [size]="'medium'"
+              [type]="'submit'"
             >
               Create Contact
             </app-button>
