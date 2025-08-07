@@ -31,6 +31,8 @@ export class ContactsPageComponent {
     phoneNumber: '',
   };
 
+  isAddModalOpen = false;
+
   contactsService: ContactsService = inject(ContactsService);
 
   submitContact() {
@@ -75,14 +77,12 @@ export class ContactsPageComponent {
       phoneNumber: phoneNumber,
     };
   }
-  isModalOpen = false;
 
   addContact() {
-    console.log('Button wurde geklickt!');
-    this.isModalOpen = true;
+    this.isAddModalOpen = true;
   }
 
   closeModal() {
-    this.isModalOpen = false;
+    this.isAddModalOpen = false;
   }
 }
