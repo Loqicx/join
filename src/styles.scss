@@ -11,6 +11,10 @@
   src: url(../public/assets/fonts/Inter-Italic-VariableFont.ttf);
 }
 
+html {
+  margin: 0;
+}
+
 body {
   margin: 0;
   font-family: $body-font-family;
