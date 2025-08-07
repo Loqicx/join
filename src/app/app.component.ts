@@ -1,15 +1,21 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ContactsService } from './services/firebase/contacts.service';
+import { ContactsService } from './shared/services/firebase/contacts.service';
 import { Contact } from './shared/interfaces/contact';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './shared/header/header.component';
-import { SidebarComponent } from "./shared/sidebar/sidebar.component";
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, FormsModule, HeaderComponent, SidebarComponent],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    FormsModule,
+    HeaderComponent,
+    SidebarComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { ContactsService } from '../../../../services/firebase/contacts.service';
+import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { ContactsCommunicationService } from '../../services/contacts-communication.service';
 import { ObjectToArrayPipe } from '../../../../shared/pipes/object-to-array.pipe';
 import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';

@@ -2,10 +2,13 @@ import { inject, Injectable, OnDestroy } from '@angular/core';
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   Firestore,
   onSnapshot,
+  updateDoc,
 } from '@angular/fire/firestore';
-import { Contact } from '../../shared/interfaces/contact';
+import { Contact } from '../../interfaces/contact';
 
 @Injectable({
   providedIn: 'root',
@@ -75,6 +78,25 @@ export class ContactsService implements OnDestroy {
       if (result) return result;
     }
     return undefined;
+  }
+
+  async deleteContact(contactId: string) {
+    await deleteDoc(doc(this.firestore, 'contacts', contactId));
+  }
+
+  /**
+   * Updates an existing contact in the Firestore database.
+   * @param contact - An object containing the updated contact fields.
+   * @param id - The unique ID of the contact to update.
+   * @throws Will throw an error if the contact ID is not provided.
+   * @returns A Promise that resolves when the update is complete.
+   */
+  async updateContact(contact: {}, id: string) {
+    if (!id) {
+      throw new Error('Contact ID is required');
+    }
+    const contactRef = doc(this.firestore, 'contacts', id);
+    await updateDoc(contactRef, contact);
   }
 
   async addContactToDatabase(contact: Contact) {
