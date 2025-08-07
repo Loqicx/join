@@ -2,8 +2,11 @@ import { inject, Injectable, OnDestroy } from '@angular/core';
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   Firestore,
   onSnapshot,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { Contact } from '../../interfaces/contact';
 
@@ -75,6 +78,18 @@ export class ContactsService implements OnDestroy {
       if (result) return result;
     }
     return undefined;
+  }
+
+  async deleteContact(contactId: string) {
+    await deleteDoc(doc(this.firestore, 'contacts', contactId));
+  }
+
+  async updateContact(contact: {}, id: string) {
+    if (!id) {
+      throw new Error('Contact ID is required');
+    }
+    const contactRef = doc(this.firestore, 'contacts', id);
+    await updateDoc(contactRef, contact);
   }
 
   async addContactToDatabase(contact: Contact) {
