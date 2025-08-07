@@ -1,7 +1,5 @@
 @use './../../../../styles/variables.scss' as *;
 
-
-
 .add-contact-button {
   background-color: $color-primary;
   color: $color-white;
@@ -13,7 +11,6 @@
   justify-content: center;
   gap: 8px;
   border-radius: 8px;
-  height: 56px;
   font-weight: 600;
   cursor: pointer;
   box-sizing: border-box;
@@ -24,12 +21,15 @@
 }
 
 .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 32px;
   height: 32px;
+}
 
-  svg {
-      color: aqua !important;
-  }
+.icon-invert {
+  stroke: $color-primary;
 }
 
 .invert {
@@ -40,5 +40,30 @@
   &:hover {
     color: $color-primary-hover;
     border-color: $color-primary-hover;
+
+    .icon-invert {
+      stroke: $color-primary-hover;
+    }
   }
+}
+
+.small {
+  height: 42px;
+  max-width: 180px;
+}
+
+.medium {
+  height: 56px;
+  min-width: 180px;
+  max-width: 280px;
+}
+
+.large {
+  height: 56px;
+  min-width: 100%;
+  max-width: 420px;
+}
+
+.dynamic {
+  width: 100%;
 }
