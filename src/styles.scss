@@ -14,6 +14,7 @@
 body {
   margin: 0;
   font-family: $body-font-family;
+  min-height: 100vh;
 }
 
 .vertical-separator {
@@ -22,9 +23,9 @@ body {
 }
 
 .horizontal-separator {
-  width: 58px;             
-  border-top: 2px solid #29abe2;  
-  height: 0; 
-  margin-left: 70px;        
-  margin-right: auto;  
+  width: 58px;
+  border-top: 2px solid #29abe2;
+  height: 0;
+  margin-left: 70px;
+  margin-right: auto;
 }
