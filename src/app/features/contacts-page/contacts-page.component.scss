@@ -7,6 +7,8 @@
 .contact-list-wrapper {
   max-width: 35%;
   width: 100%;
+  background-color: #ffffff;
+  box-shadow: 4px 0px 6px 0px #00000014;
 }
 
 .contact-details-wrapper {
@@ -14,6 +16,9 @@
   width: 100%;
   background-color: #f6f7f8;
   min-height: calc(100vh - 60px);
+  box-shadow: 4px 4px 13px -8px rgba(0, 0, 0, 0.75) inset;
+  -webkit-box-shadow: 4px 4px 13px -8px rgba(0, 0, 0, 0.75) inset;
+  -moz-box-shadow: 4px 4px 13px -8px rgba(0, 0, 0, 0.75) inset;
 }
 
 .add-contact-wrapper {
