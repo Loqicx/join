@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { ContactsPageComponent } from './features/contacts-page/contacts-page.component';
 import { PrivacyPolicyPageComponent } from './features/privacy-policy-page/privacy-policy-page.component';
 import { LegalNoticePageComponent } from './features/legal-notice-page/legal-notice-page.component';
+import { HelpPageComponent } from './features/help-page/help-page.component';
 
 export const routes: Routes = [
   {
@@ -19,5 +20,9 @@ export const routes: Routes = [
   {
     path: 'legal',
     component: LegalNoticePageComponent,
+  },
+  {
+    path: 'help',
+    component: HelpPageComponent,
   },
 ];
