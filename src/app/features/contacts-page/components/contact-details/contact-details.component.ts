@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ContactsCommunicationService } from '../../services/contacts-communication.service';
-import { ContactsService } from '../../../../services/firebase/contacts.service';
+import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { Contact } from '../../../../shared/interfaces/contact';
 import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
