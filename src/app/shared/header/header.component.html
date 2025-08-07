@@ -4,13 +4,13 @@
             <p>Kanban Project Management Tool</p>
         </div>
         <div class="right-wrapper">
-            <button class="btn help-btn" href="help"><span>?</span></button>
+            <a class="btn help-btn" routerLink="help"><span>?</span></a>
             <div class="user-menu-wrapper">
                 <button class="btn acc-btn" (click)="toggleMenu()">UU</button>
                 <nav class="user-menu" [ngClass]="this.activeFlex ? 'flex' : ''" (mouseleave)="this.toggleMenu()">
-                    <a href="legal">Legal Notice</a>
-                    <a href="privacy">Privacy Policy</a>
-                    <a href="logout">Log Out</a>
+                    <a routerLink="legal">Legal Notice</a>
+                    <a routerLink="privacy">Privacy Policy</a>
+                    <a routerLink="logout">Log Out</a>
                 </nav>
             </div>
         </div>
