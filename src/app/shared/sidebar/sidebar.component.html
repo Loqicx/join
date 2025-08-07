@@ -5,25 +5,25 @@
             <nav class="main-nav">
                 <a href="summary" [ngClass]="this.summaryActive ? 'active' : ''">
                     <div class="btn-inner">
-                        <img src="assets/icons/summary.svg" alt="Summary image">
+                        <div [innerHTML]="svgContents['summary']" class="icon"></div>
                         <span>Summary</span>
                     </div>
                 </a>
                 <a href="addTask" [ngClass]="this.addTaskActive ? 'active' : ''">
                     <div class="btn-inner">
-                        <img src="assets/icons/add-task.svg" alt="Add Task icon">
+                        <div [innerHTML]="svgContents['addTask']" class="icon"></div>
                         <span>Add Task</span>
                     </div>
                 </a>
                 <a href="board" [ngClass]="this.boardActive ? 'active' : ''">
                     <div class="btn-inner">
-                        <img src="assets/icons/board.svg" alt="Board icon">
+                        <div [innerHTML]="svgContents['board']" class="icon"></div>
                         <span>Board</span>
                     </div>
                 </a>
                 <a href="contacts" [ngClass]="this.contactsActive ? 'active' : ''">
                     <div class="btn-inner">
-                        <img src="assets/icons/contacts.svg" alt="Contacts icon">
+                        <div [innerHTML]="svgContents['contacts']" class="icon"></div>
                         <span>Contacts</span>
                     </div>
                 </a>
