@@ -1,13 +1,16 @@
+@use "./../../../styles/variables.scss" as *;
+
 .head-wrapper {
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: end;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
-  padding-bottom: 8px;
+  padding: 12px 0;
   z-index: 10;
 
   .head {
-    width: 80%;
+    width: 88%;
     margin-right: 48px;
     display: flex;
     justify-content: space-between;
@@ -19,22 +22,30 @@
 
       .user-menu {
         position: absolute;
-        top: 52px;
-        padding: 8px;
+        top: 64px;
+        left: -60px;
+        padding: 20px 6px;
         display: none;
         flex-direction: column;
-        background-color: #2a3647;
-        border-radius: 4px;
+        background-color: $color-primary;
+        border-radius: 16px;
+        border-top-right-radius: 0;
 
         a {
           white-space: nowrap;
           text-decoration: none;
-          color: white;
-          margin-top: 4px;
-          margin-bottom: 4px;
+          color: $color-text;
+          padding: 12px 12px;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 120%;
+          transition: transform 0.2s;
 
           &:hover {
-            color: #b8b8b8;
+            background-color: $color-dark-hover;
+            transform: scale(1.02) translateX(2px) translateY(1px);
+            transition: transform 0.4s ease-out;
+            color:  $color-white;
             cursor: pointer;
           }
         }
