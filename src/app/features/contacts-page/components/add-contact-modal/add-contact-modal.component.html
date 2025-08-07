@@ -6,11 +6,7 @@
       </button>
 
       <div class="modal-left">
-        <img
-          src="assets/logo/join-logo-white.svg"
-          alt="Logo"
-          class="modal-logo"
-        />
+        <img src="assets/logo/join-logo-white.svg" alt="Logo" class="modal-logo" />
         <h1>Add Contact</h1>
         <h2>Tasks are better with a team!</h2>
         <div class="horizontal-separator"></div>
@@ -18,24 +14,13 @@
 
       <div class="modal-right">
         <div class="modal-avatar">
-          <img
-            src="assets/icons/Group 13.svg"
-            alt="Avatar"
-            class="avatar-svg"
-          />
+          <img src="assets/icons/Group 13.svg" alt="Avatar" class="avatar-svg" />
         </div>
         <form (ngSubmit)="formSubmit(addContactForm)" #addContactForm="ngForm">
           <!-- Name -->
           <div class="input-with-icon">
-            <input
-              type="text"
-              placeholder="Name"
-              required
-              [(ngModel)]="fullName"
-              name="fullName"
-              aria-describedby="addContactHelp"
-              #nameV="ngModel"
-            />
+            <input type="text" placeholder="Name" required [(ngModel)]="fullName" name="fullName"
+              aria-describedby="addContactHelp" #nameV="ngModel" />
             <img src="assets/icons/person.svg" alt="Name" />
           </div>
           @if(addContactForm.submitted && nameV.errors?.['required']) {
@@ -44,47 +29,31 @@
 
           <!-- E-Mail -->
           <div class="input-with-icon">
-            <input
-              type="email"
-              placeholder="Email"
-              required
-              [(ngModel)]="contact.email"
-              name="email"
-            />
+            <input type="email" placeholder="Email" required [(ngModel)]="contact.email" name="email" #emailV="ngModel"
+              email />
             <img src="assets/icons/mail.svg" alt="Email" />
           </div>
+          @if(addContactForm.submitted && emailV.errors?.['required']) {
+          <small class="form-error">Email is required</small>
+          }
 
           <!-- Telefon -->
           <div class="input-with-icon">
-            <input
-              type="tel"
-              placeholder="Phone"
-              required
-              [(ngModel)]="contact.phoneNumber"
-              name="phoneNumber"
-            />
+            <input type="tel" placeholder="Phone" required [(ngModel)]="contact.phoneNumber" name="phoneNumber" pattern="^[0-9\s\-\+\(\)]{6,}$" #phoneV="ngModel" />
             <img src="assets/icons/call.svg" alt="Phone" />
           </div>
+          @if(addContactForm.submitted && phoneV.errors?.['required']) {
+          <small class="form-error">Phone is required</small>
+          }
 
           <div class="modal-buttons">
-            <app-button
-              iconSrc="assets/icons/iconoir_cancel.svg"
-              altText="Cancel"
-              [fontSize]="'16px'"
-              (btnClick)="closeModal()"
-              [invert]="true"
-              [size]="'medium'"
-            >
+            <app-button iconSrc="assets/icons/iconoir_cancel.svg" altText="Cancel" [fontSize]="'16px'"
+              (btnClick)="closeModal()" [invert]="true" [size]="'medium'">
               Cancel
             </app-button>
 
-            <app-button
-              iconSrc="assets/icons/check.svg"
-              altText="Create"
-              [fontSize]="'16px'"
-              [size]="'medium'"
-              [type]="'submit'"
-            >
+            <app-button iconSrc="assets/icons/check.svg" altText="Create" [fontSize]="'16px'" [size]="'medium'"
+              [type]="'submit'">
               Create Contact
             </app-button>
           </div>
