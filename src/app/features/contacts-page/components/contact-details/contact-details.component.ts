@@ -5,26 +5,42 @@ import { Contact } from '../../../../shared/interfaces/contact';
 import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
 import { EditContactModalComponent } from '../edit-contact-modal/edit-contact-modal.component';
+import { SVGInlineService } from '../../../../shared/services/svg-inline.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact-details',
   imports: [ColoredProfilePipe, EditContactModalComponent],
   templateUrl: './contact-details.component.html',
   styleUrl: './contact-details.component.scss',
+  providers: [SVGInlineService]
 })
 export class ContactDetailsComponent implements OnInit {
+  svgContents: { [key: string]: SafeHtml } = {};
   contactComService = inject(ContactsCommunicationService);
   contactsService = inject(ContactsService);
   contactId$: string = '';
   currentContact?: Contact | null;
+
+  icons = [
+    { name: 'edit', src: '/assets/icons/edit.svg' },
+    { name: 'delete', src: '/assets/icons/delete.svg' }
+  ]
+
   @ViewChild(EditContactModalComponent) editModal!: EditContactModalComponent;
 
   initialLettersService: InitialLettersService = inject(InitialLettersService);
+
+  constructor(private svgService: SVGInlineService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.contactComService.currentContactId$.subscribe((id) =>
       this.updateDetailDisplay(id)
     );
+
+    this.icons.forEach(icon => {
+      this.convertIcon(icon.name, icon.src);
+    });
   }
 
   updateDetailDisplay(id: string): void {
@@ -49,5 +65,14 @@ export class ContactDetailsComponent implements OnInit {
     if (this.currentContact) {
       this.editModal.openModal(this.currentContact);
     }
+  }
+
+  convertIcon(iconName: string, iconSrc: string): void {
+    this.svgService.getInlineSVG(iconSrc).subscribe({
+      next: (svg: string) => {
+        this.svgContents[iconName] = this.sanitizer.bypassSecurityTrustHtml(svg);
+      },
+      error: err => console.error('SVG load error:', err)
+    });
   }
 }
