@@ -4,15 +4,18 @@ import { ContactsService } from '../../../../shared/services/firebase/contacts.s
 import { ButtonComponent } from '../../../../shared/ui/button/button.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
+import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
 
 @Component({
   selector: 'app-edit-contact-modal',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, FormsModule],
+  imports: [ButtonComponent, CommonModule, FormsModule, ColoredProfilePipe,],
   templateUrl: './edit-contact-modal.component.html',
   styleUrls: ['./edit-contact-modal.component.scss'],
 })
 export class EditContactModalComponent {
+  constructor(public initialLettersService: InitialLettersService) {}
   @Input() contactToEdit!: Contact;
   @Output() close = new EventEmitter<void>();
 
