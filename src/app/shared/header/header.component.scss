@@ -95,7 +95,9 @@
       }
 
       .help-btn {
+        opacity: 1;
         transition: transform 0.4s ease-out;
+        transition: opacity 0.2s ease-out !important;
       }
 
       .help-btn:hover {
@@ -126,10 +128,17 @@
   display: none;
 }
 
+.o-none {
+  opacity: 0 !important;
+  transition: opacity 0.2s ease-out !important;
+  cursor: default !important;
+}
+
 @media (max-width: $mq-mobile) {
   .mobile {
     display: flex;
   }
+
   .desktop {
     display: none;
   }

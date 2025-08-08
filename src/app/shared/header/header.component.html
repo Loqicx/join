@@ -5,7 +5,7 @@
             <img src="assets/logo/join-logo-black.svg" alt="Join Logo" class="mobile logo">
         </div>
         <div class="right-wrapper">
-            <a class="btn help-btn" routerLink="help"><span>?</span></a>
+            <a class="btn help-btn" routerLink="help" [ngClass]="helpActive ? 'o-none' : ''"><span>?</span></a>
             <div class="user-menu-wrapper">
                 <button class="btn acc-btn" (click)="toggleMenu()">UU</button>
                 <nav class="user-menu" [ngClass]="this.activeFlex ? 'flex' : ''" (mouseleave)="this.toggleMenu()">
