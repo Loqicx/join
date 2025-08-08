@@ -19,8 +19,18 @@
         <h3 class="contact-name">
           {{ currentContact.firstName }} {{ currentContact.lastName }}
         </h3>
+        <div class="contact-action-buttons">
+          <span class="action-button-wrapper">
+            <button class="action-button" (click)="openEditModal()">Edit</button>
+          </span>
+          <span class="action-button-wrapper">
+            <a href="" class="action-button">Delete</a>
+          </span>
+        </div>
       </div>
     </div>
+    
+    <app-edit-contact-modal></app-edit-contact-modal>
 
     <div class="contact-item__further-information">
       <h3 class="further-information__headline">Contact Information</h3>

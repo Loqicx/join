@@ -1,27 +1,27 @@
 <div class="sidebar-wrapper">
     <div class="sidebar">
         <div class="upper-wrapper">
-            <a href="/"><img class="logo" src="assets/logo/join-logo-white.svg" alt="Join Logo"></a>
+            <a routerLink="/"><img class="logo" src="assets/logo/join-logo-white.svg" alt="Join Logo"></a>
             <nav class="main-nav">
-                <a href="summary" [ngClass]="this.summaryActive ? 'active' : ''">
+                <a routerLink="summary" [ngClass]="this.summaryActive ? 'active' : ''">
                     <div class="btn-inner">
                         <div [innerHTML]="svgContents['summary']" class="icon"></div>
                         <span>Summary</span>
                     </div>
                 </a>
-                <a href="addTask" [ngClass]="this.addTaskActive ? 'active' : ''">
+                <a routerLink="addTask" [ngClass]="this.addTaskActive ? 'active' : ''">
                     <div class="btn-inner">
                         <div [innerHTML]="svgContents['addTask']" class="icon"></div>
                         <span>Add Task</span>
                     </div>
                 </a>
-                <a href="board" [ngClass]="this.boardActive ? 'active' : ''">
+                <a routerLink="board" [ngClass]="this.boardActive ? 'active' : ''">
                     <div class="btn-inner">
                         <div [innerHTML]="svgContents['board']" class="icon"></div>
                         <span>Board</span>
                     </div>
                 </a>
-                <a href="contacts" [ngClass]="this.contactsActive ? 'active' : ''">
+                <a routerLink="contacts" [ngClass]="this.contactsActive ? 'active' : ''">
                     <div class="btn-inner">
                         <div [innerHTML]="svgContents['contacts']" class="icon"></div>
                         <span>Contacts</span>
@@ -30,8 +30,8 @@
             </nav>
         </div>
         <div class="lower-wrapper">
-            <a href="privacy" [ngClass]="this.privacyActive ? 'active' : ''">Privacy Policy</a>
-            <a href="legal" [ngClass]="this.legalActive ? 'active' : ''">Legal Notice</a>
+            <a routerLink="/privacy" routerLinkActive="active">Privacy Policy</a>
+            <a routerLink="/legal" routerLinkActive="active">Legal Notice</a>
         </div>
     </div>
 </div>

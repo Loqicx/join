@@ -1,0 +1,11 @@
+
+.privacy-page-wrapper {
+    overflow: hidden;
+    height: 90%;
+
+    .privacy-page {
+        height: 100%;
+        overflow-y: scroll;
+        padding: 20px;
+    }
+}

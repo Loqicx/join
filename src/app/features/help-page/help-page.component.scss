@@ -1,0 +1,70 @@
+@use "./../../../styles/variables.scss" as *;
+
+.help-page-wrapper {
+    overflow: hidden;
+    height: calc(100% - 75px);
+
+    .help-page {
+        position: relative;
+        height: 100%;
+        overflow-y: scroll;
+        padding: 80px;
+    }
+
+    .close-title {
+        padding-bottom: 120px;
+        word-wrap: normal;
+    }
+
+    .light-blue {
+        color: $color-primary-hover;
+    }
+}
+
+ol {
+    padding-left: 1px;
+    margin-left: 30px;
+
+    li {
+        padding-left: 8px;
+        padding-bottom: 18px;
+    }
+}
+
+ol li::marker {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 62px;
+    font-weight: 700;
+    margin-top: 8px;
+    margin-bottom: 30px;
+}
+
+h3 {
+    font-size: 28px;
+    margin-bottom: 18px;
+}
+
+h4 {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 4px;
+}
+
+span {
+    line-height: 120%;
+}
+
+.arrow-back {
+    position: absolute;
+    top: 80px;
+    right: 28px;
+    height: 24px;
+    width: 80px;
+    font-size: 32px;
+    color: $color-primary-hover;
+    text-decoration: none;
+}

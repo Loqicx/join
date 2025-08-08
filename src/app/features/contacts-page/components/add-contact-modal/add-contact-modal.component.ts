@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter, inject } from '@angular/core';
 import { ButtonComponent } from '../../../../shared/ui/button/button.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ContactsService } from '../../../../services/firebase/contacts.service';
+import { FormsModule, NgForm } from '@angular/forms';
+import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { Contact } from '../../../../shared/interfaces/contact';
 
 @Component({
@@ -17,8 +17,9 @@ export class AddContactModalComponent {
 
   isOpen = true;
   contactsService = inject(ContactsService);
-  fullName = ''; 
-  
+  fullName = '';
+  contactName = '';
+
   contact: Contact = {
     id: '',
     firstName: '',
@@ -31,7 +32,16 @@ export class AddContactModalComponent {
     this.close.emit();
   }
 
-   async createContact() {
+  formSubmit(form: NgForm) {
+    console.log('form clicked');
+    if (!form.valid) {
+      console.log('form invalid');
+      return;
+    }
+    this.contactName = form.controls['fullName'].value;
+  }
+
+  async createContact() {
     if (!this.fullName || !this.contact.email || !this.contact.phoneNumber) {
       console.warn('Pflichtfelder fehlen');
       return;
@@ -39,7 +49,7 @@ export class AddContactModalComponent {
 
     const nameParts = this.fullName.trim().split(' ');
     this.contact.firstName = nameParts[0];
-    this.contact.lastName = nameParts.slice(1).join(' '); 
+    this.contact.lastName = nameParts.slice(1).join(' ');
 
     try {
       await this.contactsService.addContactToDatabase(this.contact);
