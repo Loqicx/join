@@ -21,10 +21,13 @@
 //     </div>
 //     }
 //   </div>
+@use '../../../../../styles/variables.scss' as *;
+
 @keyframes slide-in {
   from {
     transform: translateX(120%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -34,6 +37,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(120%);
   }
@@ -95,6 +99,7 @@
         margin-bottom: 30px;
       }
     }
+
     .subline-email {
       text-decoration: none;
       color: #007cee;
@@ -127,13 +132,58 @@
     gap: 10px;
     justify-content: center;
     margin-left: 50px;
+
     .contact-name {
       margin: 0;
       font-size: 47px;
       font-weight: 500;
     }
+
     .contact-email {
       color: #007cee;
+    }
+  }
+}
+
+.contact-action-buttons {
+  max-width: 158px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .action-button {
+    text-decoration: none;
+
+    .btn-inner {
+      display: flex;
+
+      .icon {
+        margin-right: 12px;
+      }
+
+      span {
+        color: $color-primary;
+        text-decoration: none;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      .btn-inner {
+        transform: scale(1.04);
+        transition: transform 0.3s ease-out;
+      }
+
+      ::ng-deep .icon {
+        path {
+          fill: $color-primary-hover !important;
+        }
+      }
+
+      span {
+        color: $color-primary-hover !important;
+      }
     }
   }
 }

@@ -1,0 +1,75 @@
+@use "./../../../styles/variables.scss" as *;
+
+:host {
+  height: $footer-height;
+  display: block;
+}
+
+.foot-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2a3647;
+    z-index: 25;
+
+    .footer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .main-nav {
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+
+            a {
+                color: $color-text;
+                text-decoration: none;
+                padding: 12px;
+                border-radius: 16px;
+
+                &:not(.active) {
+                    transition: background-color 0.2s;
+
+                    &:hover {
+                        color: white;
+                        background-color: #2a3d59;
+                        cursor: pointer;
+
+                        .btn-inner {
+                            transform: scale(1.02) translateX(-2px) translateY(-1px);
+                            transition: transform 0.3s ease-out;
+                        }
+
+                        ::ng-deep svg {
+                            path {
+                                fill: white !important;
+                            }
+                        }
+                    }
+                }
+
+                .btn-inner {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+
+            .active {
+                background-color: #091931 !important;
+                color: white !important;
+
+                &:hover {
+                    cursor: default;
+                }
+            }
+        }
+    }
+}
