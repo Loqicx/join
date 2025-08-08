@@ -11,14 +11,26 @@
   src: url(../public/assets/fonts/Inter-Italic-VariableFont.ttf);
 }
 
-html {
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
 }
 
 body {
-  margin: 0;
   font-family: $body-font-family;
-  min-height: 100vh;
+}
+
+app-root {
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 .vertical-separator {
