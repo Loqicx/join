@@ -8,10 +8,7 @@
   <div class="contact-details__content slide-in" id="contactDetails">
     <div class="content__contact-heading">
       <div class="contact-item__logo">
-        <p
-          class="logo-initials"
-          [style.background-color]="currentContact.id | coloredProfile"
-        >
+        <p class="logo-initials" [style.background-color]="currentContact.id | coloredProfile">
           {{ initialLettersService.getInitialLetters(currentContact) }}
         </p>
       </div>
@@ -20,16 +17,26 @@
           {{ currentContact.firstName }} {{ currentContact.lastName }}
         </h3>
         <div class="contact-action-buttons">
-          <span class="action-button-wrapper">
-            <button class="action-button" (click)="openEditModal()">Edit</button>
-          </span>
-          <span class="action-button-wrapper">
-            <a href="" class="action-button">Delete</a>
-          </span>
+          <div class="action-button-wrapper">
+            <a class="action-button" (click)="openEditModal()">
+              <div class="btn-inner">
+                <div [innerHTML]="svgContents['edit']" class="icon"></div>
+                <span>Edit</span>
+              </div>
+            </a>
+          </div>
+          <div class="action-button-wrapper">
+            <a href="" class="action-button">
+              <div class="btn-inner">
+                <div [innerHTML]="svgContents['delete']" class="icon"></div>
+                <span>Delete</span>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-    
+
     <app-edit-contact-modal></app-edit-contact-modal>
 
     <div class="contact-item__further-information">
@@ -39,7 +46,7 @@
       <p class="futher-information__subline-content">
         <a [href]="'mailto:' + currentContact.email" class="subline-email">{{
           currentContact.email
-        }}</a>
+          }}</a>
       </p>
       <p class="futher-information__subline">Phone</p>
       <p class="futher-information__subline-content subline-phone">
