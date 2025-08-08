@@ -16,7 +16,7 @@
         <div class="modal-avatar">
           <img src="assets/icons/Group 13.svg" alt="Avatar" class="avatar-svg" />
         </div>
-        <form (ngSubmit)="formSubmit(addContactForm)" #addContactForm="ngForm">
+        <form (ngSubmit)="createContact()" #addContactForm="ngForm">
           <!-- Name -->
           <div class="input-with-icon">
             <input type="text" placeholder="Name" required [(ngModel)]="fullName" name="fullName"

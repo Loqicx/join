@@ -129,6 +129,11 @@
     flex-direction: column;
     gap: 16px;
 
+    .form-error {
+      color: red;
+      padding-left: 10px;
+    }
+
     .input-with-icon {
       position: relative;
       width: 100%;
@@ -141,6 +146,12 @@
         width: 100%;
         box-sizing: border-box;
       }
+
+      input.ng-invalid.ng-touched,
+      input.ng-invalid.ng-dirty {
+        border-color: red;
+        box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
+        }
 
       img {
         position: absolute;

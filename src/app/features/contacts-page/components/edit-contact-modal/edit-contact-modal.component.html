@@ -12,25 +12,28 @@
         <div class="horizontal-separator"></div>
       </div>
 
-      <!-- Hier erst prüfen, ob contact gesetzt ist -->
       <div class="modal-right" *ngIf="contact">
         <div class="modal-avatar">
           <img src="assets/icons/Group 13.svg" alt="Avatar" class="avatar-svg" />
         </div>
 
-        <form (submit)="saveContact(); $event.preventDefault()">
+        <form (ngSubmit)="saveContact()" #editContactForm="ngForm">
 
           <!-- Name -->
           <div class="input-with-icon">
             <input
               type="text"
-              placeholder="fullName"
+              placeholder="Name"
               required
               [(ngModel)]="fullName"
               name="fullName"
+              #nameV="ngModel"
             />
             <img src="assets/icons/person.svg" alt="Name" />
           </div>
+          @if(editContactForm.submitted && nameV.errors?.['required']) {
+            <small class="form-error">Name is required</small>
+          }
 
           <!-- E-Mail -->
           <div class="input-with-icon">
@@ -40,9 +43,17 @@
               required
               [(ngModel)]="contact.email"
               name="email"
+              #emailV="ngModel"
+              email
             />
             <img src="assets/icons/mail.svg" alt="Email" />
           </div>
+          @if(editContactForm.submitted && emailV.errors?.['required']) {
+            <small class="form-error">Email is required</small>
+          }
+          @if (editContactForm.submitted && emailV.errors?.['email']) {
+            <small class="form-error">Please enter a valid email address</small>
+          }
 
           <!-- Telefon -->
           <div class="input-with-icon">
@@ -52,9 +63,17 @@
               required
               [(ngModel)]="contact.phoneNumber"
               name="phoneNumber"
+              pattern="^[0-9\\s\\-\\+\\(\\)]{6,}$"
+              #phoneV="ngModel"
             />
             <img src="assets/icons/call.svg" alt="Phone" />
           </div>
+          @if(editContactForm.submitted && phoneV.errors?.['required']) {
+            <small class="form-error">Phone is required</small>
+          }
+          @if (editContactForm.submitted && phoneV.errors?.['pattern']) {
+            <small class="form-error">Enter a valid phone number (min. 6 digits)</small>
+          }
 
           <div class="modal-buttons">
             <app-button altText="Delete" [fontSize]="'16px'" [invert]="true" (btnClick)="deleteContact()">
