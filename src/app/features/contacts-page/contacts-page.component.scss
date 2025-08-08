@@ -3,6 +3,10 @@
 :host {
   height: calc(100% - $header-height);
   display: block;
+
+  @media (max-width: $mq-mobile) {
+    height: calc(100% - $header-height - $footer-height);
+  }
 }
 
 .content-wrapper {
