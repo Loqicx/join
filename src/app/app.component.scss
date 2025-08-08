@@ -1,20 +1,33 @@
 .page-wrapper {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  height: 100%;
 
   app-sidebar {
     position: sticky;
     top: 0;
     left: 0;
-    width: 15vw;
-    min-width: 220px;
+    width: 100%;
+    max-width: 232px;
   }
 
   .content {
-    max-width: 85vw;
     width: 100%;
     overflow-y: hidden;
-    height: calc(100vh - 75px);
+    height: 100%;
   }
+}
+
+// <div class="page-wrapper">
+//   <app-sidebar></app-sidebar>
+//   <div class="content">
+//     <app-header></app-header>
+//     <router-outlet></router-outlet>
+//   </div>
+// </div>
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
