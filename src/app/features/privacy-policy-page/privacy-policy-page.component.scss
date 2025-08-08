@@ -1,17 +1,11 @@
-.privacy-page {
-    padding: 2rem;
-  
-  color: #333;
 
-  h1, h2 {
-    color: #2d2d2d;
-  }
+.privacy-page-wrapper {
+    overflow: hidden;
+    height: 90%;
 
-  ul {
-    padding-left: 1.5rem;
-  }
-
-  a {
-    color: #2196f3;
-  }
+    .privacy-page {
+        height: 100%;
+        overflow-y: scroll;
+        padding: 20px;
+    }
 }
