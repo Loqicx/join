@@ -1,13 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { ContactsCommunicationService } from '../../services/contacts-communication.service';
 import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { Contact } from '../../../../shared/interfaces/contact';
 import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
+import { EditContactModalComponent } from '../edit-contact-modal/edit-contact-modal.component';
 
 @Component({
   selector: 'app-contact-details',
-  imports: [ColoredProfilePipe],
+  imports: [ColoredProfilePipe, EditContactModalComponent],
   templateUrl: './contact-details.component.html',
   styleUrl: './contact-details.component.scss',
 })
@@ -16,6 +17,7 @@ export class ContactDetailsComponent implements OnInit {
   contactsService = inject(ContactsService);
   contactId$: string = '';
   currentContact?: Contact | null;
+  @ViewChild(EditContactModalComponent) editModal!: EditContactModalComponent;
 
   initialLettersService: InitialLettersService = inject(InitialLettersService);
 
@@ -40,6 +42,12 @@ export class ContactDetailsComponent implements OnInit {
       if (detailsEl) {
         detailsEl.classList.add('slide-in');
       }
+    }
+  }
+
+  openEditModal() {
+    if (this.currentContact) {
+      this.editModal.openModal(this.currentContact);
     }
   }
 }
