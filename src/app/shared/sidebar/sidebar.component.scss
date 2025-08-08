@@ -76,12 +76,24 @@
 
           .icon {
             margin-right: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .icon-sub-margin-left-1 {
+            margin-left: -1px;
+          }
+
+          .icon-sub-margin-left-2 {
+            margin-left: -2px;
           }
         }
 
         .active {
           background-color: #091931 !important;
           color: white !important;
+
           &:hover {
             cursor: default;
           }
