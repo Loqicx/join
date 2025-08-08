@@ -2,12 +2,13 @@
 
 .help-page-wrapper {
     overflow: hidden;
-    height: 90%;
+    height: calc(100% - 75px);
 
     .help-page {
+        position: relative;
         height: 100%;
         overflow-y: scroll;
-        padding: 48px;
+        padding: 80px;
     }
 
     .close-title {
@@ -29,7 +30,6 @@ ol {
         padding-bottom: 18px;
     }
 }
-
 
 ol li::marker {
     font-size: 1.5em;
@@ -56,4 +56,15 @@ h4 {
 
 span {
     line-height: 120%;
+}
+
+.arrow-back {
+    position: absolute;
+    top: 80px;
+    right: 28px;
+    height: 24px;
+    width: 80px;
+    font-size: 32px;
+    color: $color-primary-hover;
+    text-decoration: none;
 }
