@@ -2,7 +2,11 @@
 
 .help-page-wrapper {
     overflow: hidden;
-    height: calc(100% - 75px);
+    height: calc(100% - $header-height);
+
+    @media (max-width: $mq-mobile) {
+      height: calc(100% - $header-height - $footer-height);
+    }
 
     .help-page {
         position: relative;
@@ -12,7 +16,6 @@
     }
 
     .close-title {
-        padding-bottom: 120px;
         word-wrap: normal;
     }
 
