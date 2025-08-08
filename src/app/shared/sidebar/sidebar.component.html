@@ -1,16 +1,11 @@
 <div class="sidebar-wrapper">
   <div class="sidebar">
     <div class="upper-wrapper">
-      <a routerLink="/"
-        ><img
-          class="logo"
-          src="assets/logo/join-logo-white.svg"
-          alt="Join Logo"
-      /></a>
+      <a routerLink="/"><img class="logo" src="assets/logo/join-logo-white.svg" alt="Join Logo" /></a>
       <nav class="main-nav">
         <a routerLink="summary" [ngClass]="this.summaryActive ? 'active' : ''">
           <div class="btn-inner">
-            <div [innerHTML]="svgContents['summary']" class="icon"></div>
+            <div [innerHTML]="svgContents['summary']" class="icon icon-sub-margin-left-1"></div>
             <span>Summary</span>
           </div>
         </a>
@@ -22,14 +17,11 @@
         </a>
         <a routerLink="board" [ngClass]="this.boardActive ? 'active' : ''">
           <div class="btn-inner">
-            <div [innerHTML]="svgContents['board']" class="icon"></div>
+            <div [innerHTML]="svgContents['board']" class="icon icon-sub-margin-left-2"></div>
             <span>Board</span>
           </div>
         </a>
-        <a
-          routerLink="contacts"
-          [ngClass]="this.contactsActive ? 'active' : ''"
-        >
+        <a routerLink="contacts" [ngClass]="this.contactsActive ? 'active' : ''">
           <div class="btn-inner">
             <div [innerHTML]="svgContents['contacts']" class="icon"></div>
             <span>Contacts</span>
@@ -38,18 +30,8 @@
       </nav>
     </div>
     <div class="lower-wrapper">
-      <a
-        routerLink="/privacy"
-        class="lower-wrapper__link"
-        routerLinkActive="active"
-        >Privacy Policy</a
-      >
-      <a
-        routerLink="/legal"
-        class="lower-wrapper__link"
-        routerLinkActive="active"
-        >Legal Notice</a
-      >
+      <a routerLink="/privacy" class="lower-wrapper__link" routerLinkActive="active">Privacy Policy</a>
+      <a routerLink="/legal" class="lower-wrapper__link" routerLinkActive="active">Legal Notice</a>
     </div>
   </div>
 </div>

@@ -1,3 +1,5 @@
+@use "./../styles/variables.scss" as *;
+
 .page-wrapper {
   display: flex;
   flex-direction: row;
@@ -9,12 +11,23 @@
     left: 0;
     width: 100%;
     max-width: 232px;
+    @media (max-width: $mq-mobile) {
+      display: none;
+    }
   }
 
   .content {
     width: 100%;
     overflow-y: hidden;
     height: 100%;
+  }
+
+  app-footer {
+    display: none;
+
+    @media (max-width: $mq-mobile) {
+      display: block;
+    }
   }
 }
 
@@ -31,3 +44,5 @@
   flex-direction: column;
   height: 100%;
 }
+
+
