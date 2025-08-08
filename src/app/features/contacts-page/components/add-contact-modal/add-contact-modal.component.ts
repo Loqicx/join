@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, inject } from '@angular/core';
 import { ButtonComponent } from '../../../../shared/ui/button/button.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { Contact } from '../../../../shared/interfaces/contact';
 
@@ -18,6 +18,7 @@ export class AddContactModalComponent {
   isOpen = true;
   contactsService = inject(ContactsService);
   fullName = '';
+  contactName = '';
 
   contact: Contact = {
     id: '',
@@ -29,6 +30,15 @@ export class AddContactModalComponent {
 
   closeModal() {
     this.close.emit();
+  }
+
+  formSubmit(form: NgForm) {
+    console.log('form clicked');
+    if (!form.valid) {
+      console.log('form invalid');
+      return;
+    }
+    this.contactName = form.controls['fullName'].value;
   }
 
   async createContact() {

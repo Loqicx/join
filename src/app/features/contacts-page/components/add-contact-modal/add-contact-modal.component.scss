@@ -118,6 +118,11 @@
     flex-direction: column;
     gap: 16px;
 
+    .form-error {
+      color: red;
+      padding-left: 10px;
+    }
+
     .input-with-icon {
       position: relative;
       width: 100%;
