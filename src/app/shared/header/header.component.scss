@@ -28,7 +28,7 @@
 
       .user-menu {
         position: absolute;
-        top: 64px;
+        top: 77.5px;
         left: -60px;
         padding: 20px 6px;
         display: none;
@@ -67,8 +67,8 @@
       align-items: center;
 
       .btn {
-        height: 18px;
-        width: 18px;
+        height: 24px;
+        width: 24px;
         margin-left: 8px;
         margin-right: 8px;
         font-size: 12px;
@@ -79,10 +79,12 @@
         border-radius: 50%;
         color: $color-dark-text;
         transition: background-color 0.3s ease-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         span {
-          margin-left: 5.5px;
-          font-size: 14px;
+          font-size: 16px;
         }
 
         &:hover {
@@ -104,8 +106,8 @@
       }
 
       .acc-btn {
-        height: 48px;
-        width: 48px;
+        height: 56px;
+        width: 56px;
         font-size: 18px;
         font-weight: bold;
         border-color: black;
@@ -113,5 +115,22 @@
         color: $color-primary-hover;
       }
     }
+  }
+}
+
+.logo {
+  height: 56px;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: $mq-mobile) {
+  .mobile {
+    display: flex;
+  }
+  .desktop {
+    display: none;
   }
 }
