@@ -1,6 +1,7 @@
 .page-wrapper {
   display: flex;
   flex-direction: row;
+  height: 100vh;
 
   app-sidebar {
     position: sticky;
@@ -13,5 +14,10 @@
   .content {
     max-width: 85vw;
     width: 100%;
+    overflow-y: hidden;
+  }
+
+  app-router {
+    height: 89vh;
   }
 }
