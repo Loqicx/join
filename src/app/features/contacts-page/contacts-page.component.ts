@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { HeaderComponent } from '../../shared/header/header.component';
 import { ContactsListComponent } from './components/contacts-list/contacts-list.component';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 import { ButtonComponent } from '../../shared/ui/button/button.component';
@@ -12,7 +11,6 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-contacts-page',
   imports: [
-    HeaderComponent,
     ContactsListComponent,
     ContactDetailsComponent,
     ButtonComponent,
