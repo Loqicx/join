@@ -1,1 +1,30 @@
-<p>footer works!</p>
+<div class="foot-wrapper">
+    <div class="footer">
+        <nav class="main-nav">
+            <a routerLink="summary" [ngClass]="this.summaryActive ? 'active' : ''">
+                <div class="btn-inner">
+                    <div [innerHTML]="svgContents['summary']" class="icon icon-sub-margin-left-1"></div>
+                    <span>Summary</span>
+                </div>
+            </a>
+            <a routerLink="addTask" [ngClass]="this.addTaskActive ? 'active' : ''">
+                <div class="btn-inner">
+                    <div [innerHTML]="svgContents['addTask']" class="icon"></div>
+                    <span>Add Task</span>
+                </div>
+            </a>
+            <a routerLink="board" [ngClass]="this.boardActive ? 'active' : ''">
+                <div class="btn-inner">
+                    <div [innerHTML]="svgContents['board']" class="icon icon-sub-margin-left-2"></div>
+                    <span>Board</span>
+                </div>
+            </a>
+            <a routerLink="contacts" [ngClass]="this.contactsActive ? 'active' : ''">
+                <div class="btn-inner">
+                    <div [innerHTML]="svgContents['contacts']" class="icon"></div>
+                    <span>Contacts</span>
+                </div>
+            </a>
+        </nav>
+    </div>
+</div>
