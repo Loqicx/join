@@ -1,5 +1,10 @@
 @use "./../../../styles/variables.scss" as *;
 
+:host {
+  height: $header-height;
+  display: block;
+}
+
 .head-wrapper {
   position: relative;
   width: 100%;
@@ -8,6 +13,7 @@
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
   padding: 12px 0;
   z-index: 10;
+  height: 100%;
 
   .head {
     width: 88%;
