@@ -5,10 +5,11 @@
             <img src="assets/logo/join-logo-black.svg" alt="Join Logo" class="mobile logo">
         </div>
         <div class="right-wrapper">
-            <a class="btn help-btn" routerLink="help" [ngClass]="helpActive ? 'o-none' : ''"><span>?</span></a>
+            <a class="desktop btn help-btn" routerLink="help" [ngClass]="helpActive ? 'o-none' : ''"><span>?</span></a>
             <div class="user-menu-wrapper">
                 <button class="btn acc-btn" (click)="toggleMenu()">UU</button>
                 <nav class="user-menu" [ngClass]="this.activeFlex ? 'flex' : ''" (mouseleave)="this.toggleMenu()">
+                    <a routerLink="help" class="mobile">Help</a>
                     <a routerLink="legal">Legal Notice</a>
                     <a routerLink="privacy">Privacy Policy</a>
                     <a routerLink="logout">Log Out</a>
