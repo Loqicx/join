@@ -31,6 +31,12 @@ export class EditContactModalComponent {
     }
   }
 
+  get liveInitials(): string {
+  let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
+  return String(this.initialLettersService.getInitialLetters({ firstName, lastName }));
+  }
+
+
   openModal(contactData: Contact) {
     this.contact = { ...contactData };
     this.fullName = `${contactData.firstName} ${contactData.lastName}`;

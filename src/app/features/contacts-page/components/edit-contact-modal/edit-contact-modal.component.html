@@ -15,7 +15,7 @@
       <div class="modal-right" *ngIf="contact">
         <div class="modal-avatar">
           <p class="logo-initials" [style.background-color]="contact.id | coloredProfile">
-            {{ initialLettersService.getInitialLetters(contact) }}
+            {{ liveInitials }}
           </p>
         </div>
 
