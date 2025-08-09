@@ -1,4 +1,5 @@
 @use "./../../../styles/variables.scss" as *;
+@use "./../../../styles/mixings.scss" as *;
 
 :host {
   height: $header-height;
@@ -134,7 +135,7 @@
   cursor: default !important;
 }
 
-@media (max-width: $mq-mobile) {
+@include breakpoint-down("lg") {
   .mobile {
     display: flex;
   }

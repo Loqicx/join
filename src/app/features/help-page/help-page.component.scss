@@ -1,73 +1,74 @@
 @use "./../../../styles/variables.scss" as *;
+@use "./../../../styles/mixings.scss" as *;
 
 .help-page-wrapper {
-    overflow: hidden;
-    height: calc(100% - $header-height);
+  overflow: hidden;
+  height: calc(100% - $header-height);
 
-    @media (max-width: $mq-mobile) {
-      height: calc(100% - $header-height - $footer-height);
-    }
+  @include breakpoint-down("lg") {
+    height: calc(100% - $header-height - $footer-height);
+  }
 
-    .help-page {
-        position: relative;
-        height: 100%;
-        overflow-y: scroll;
-        padding: 80px;
-    }
+  .help-page {
+    position: relative;
+    height: 100%;
+    overflow-y: scroll;
+    padding: 80px;
+  }
 
-    .close-title {
-        word-wrap: normal;
-    }
+  .close-title {
+    word-wrap: normal;
+  }
 
-    .light-blue {
-        color: $color-primary-hover;
-    }
+  .light-blue {
+    color: $color-primary-hover;
+  }
 }
 
 ol {
-    padding-left: 1px;
-    margin-left: 30px;
+  padding-left: 1px;
+  margin-left: 30px;
 
-    li {
-        padding-left: 8px;
-        padding-bottom: 18px;
-    }
+  li {
+    padding-left: 8px;
+    padding-bottom: 18px;
+  }
 }
 
 ol li::marker {
-    font-size: 1.5em;
-    font-weight: 700;
+  font-size: 1.5em;
+  font-weight: 700;
 }
 
 h1 {
-    font-size: 62px;
-    font-weight: 700;
-    margin-top: 8px;
-    margin-bottom: 30px;
+  font-size: 62px;
+  font-weight: 700;
+  margin-top: 8px;
+  margin-bottom: 30px;
 }
 
 h3 {
-    font-size: 28px;
-    margin-bottom: 18px;
+  font-size: 28px;
+  margin-bottom: 18px;
 }
 
 h4 {
-    font-size: 20px;
-    margin-top: 0;
-    margin-bottom: 4px;
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 4px;
 }
 
 span {
-    line-height: 120%;
+  line-height: 120%;
 }
 
 .arrow-back {
-    position: absolute;
-    top: 80px;
-    right: 28px;
-    height: 24px;
-    width: 80px;
-    font-size: 32px;
-    color: $color-primary-hover;
-    text-decoration: none;
+  position: absolute;
+  top: 80px;
+  right: 28px;
+  height: 24px;
+  width: 80px;
+  font-size: 32px;
+  color: $color-primary-hover;
+  text-decoration: none;
 }
