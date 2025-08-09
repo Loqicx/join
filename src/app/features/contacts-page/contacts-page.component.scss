@@ -1,10 +1,11 @@
 @use "../../../styles/variables.scss" as *;
+@use "./../../../styles/mixings.scss" as *;
 
 :host {
   height: calc(100% - $header-height);
   display: block;
 
-  @media (max-width: $mq-mobile) {
+  @include breakpoint-down("lg") {
     height: calc(100% - $header-height - $footer-height);
   }
 }
