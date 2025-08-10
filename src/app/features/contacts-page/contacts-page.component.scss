@@ -35,6 +35,15 @@
   box-shadow: 4px 4px 13px -8px rgba(0, 0, 0, 0.75) inset;
   -webkit-box-shadow: 4px 4px 13px -8px rgba(0, 0, 0, 0.75) inset;
   -moz-box-shadow: 4px 4px 13px -8px rgba(0, 0, 0, 0.75) inset;
+  @include breakpoint-down("lg") {
+    display: none;
+  }
+}
+
+.contact-details-offcanvas {
+  @include breakpoint-up("lg") {
+    display: none;
+  }
 }
 
 .add-contact-wrapper {
