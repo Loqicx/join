@@ -11,7 +11,7 @@
       </app-button>
     </div>
 
-    <app-contacts-list></app-contacts-list>
+    <app-contacts-list (selectContact)="openDetails()"></app-contacts-list>
   </div>
 
   <!-- Add contact details as componemt -->
@@ -20,7 +20,13 @@
   </div>
   @if (isDetailOpen) {
   <div class="contact-details-offcanvas">
-    <app-contact-details></app-contact-details>
+    <a
+      class="arrow-back"
+      routerLink=""
+      (click)="closeDetails(); $event.preventDefault()"
+      ><span>&#x2190;</span></a
+    >
+    <app-contact-details (close)="closeDetails()"></app-contact-details>
   </div>
   }
 

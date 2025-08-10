@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   inject,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
@@ -25,6 +27,8 @@ export class ContactsListComponent {
     phoneNumber: '',
   };
 
+  @Output() selectContact = new EventEmitter<void>();
+
   activeContactId: string | null = null;
   initialLetterService: InitialLettersService = inject(InitialLettersService);
 
@@ -40,5 +44,6 @@ export class ContactsListComponent {
   openContactDetails(id: string) {
     this.activeContactId = id;
     this.contactsComService.setContactId(id);
+    this.selectContact.emit();
   }
 }
