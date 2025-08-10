@@ -18,7 +18,12 @@ jobs:
       - name: Checkout Release Branch
         uses: actions/checkout@v4
         with:
-          ref: 'release' 
+          ref: 'release'
+
+      - name: Set Git user
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
 
       - name: Merge Main into Release
         run: |
