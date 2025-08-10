@@ -118,6 +118,8 @@ jobs:
 
   cleanup:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     needs: deploy
     if: failure()
     steps:
