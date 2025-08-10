@@ -41,4 +41,14 @@ export class ContactsPageComponent {
   closeModal() {
     this.isAddModalOpen = false;
   }
+
+  closeDetails() {
+    this.isDetailOpen = false;
+  }
+
+  openDetails() {
+    if (window.innerWidth < 993) {
+      this.isDetailOpen = true;
+    }
+  }
 }
