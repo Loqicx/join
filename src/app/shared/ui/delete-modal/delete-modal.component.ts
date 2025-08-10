@@ -22,15 +22,15 @@ export class DeleteModalComponent {
   delete: string = 'nothing';
 
   contactsService = inject(ContactsService);
-  contact: Contact | null = null;
+  contact = {
+    id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+  };
 
   constructor(public initialLettersService: InitialLettersService) { }
-
-  ngOnInit() {
-    if (this.contactToDelete) {
-      this.fullName = `${this.contactToDelete.firstName} ${this.contactToDelete.lastName}`;
-    }
-  }
 
   deleteContactModal(contactData: Contact) {
     this.delete = 'Contact';
@@ -61,6 +61,6 @@ export class DeleteModalComponent {
     setTimeout(() => {
       this.isOpen = false;
     }, 250);
-    
+
   }
 }
