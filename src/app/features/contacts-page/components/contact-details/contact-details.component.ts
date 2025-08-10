@@ -1,4 +1,11 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ContactsCommunicationService } from '../../services/contacts-communication.service';
 import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { Contact } from '../../../../shared/interfaces/contact';
@@ -27,6 +34,8 @@ export class ContactDetailsComponent implements OnInit {
   contactId$: string = '';
   currentContact?: Contact | null;
 
+  @Output() close = new EventEmitter<void>();
+
   icons = [
     { name: 'edit', src: './assets/icons/edit.svg' },
     { name: 'delete', src: './assets/icons/delete.svg' },
@@ -50,6 +59,10 @@ export class ContactDetailsComponent implements OnInit {
     this.icons.forEach((icon) => {
       this.convertIcon(icon.name, icon.src);
     });
+  }
+
+  onClose() {
+    this.close.emit();
   }
 
   updateDetailDisplay(id: string): void {
