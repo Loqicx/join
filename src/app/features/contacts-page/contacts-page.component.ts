@@ -34,49 +34,6 @@ export class ContactsPageComponent {
 
   contactsService: ContactsService = inject(ContactsService);
 
-  submitContact() {
-    let tempContact = this.generatePersonData(
-      this.contact.firstName,
-      this.contact.lastName
-    );
-    this.contactsService.addContactToDatabase({ id: '', ...tempContact });
-    this.contact.firstName = '';
-    this.contact.lastName = '';
-  }
-
-  // temp function
-  generatePersonData(fN: string, lN: string) {
-    const email = `${fN.toLowerCase()}.${lN.toLowerCase()}@mail.com`;
-
-    // random but real looking phone number
-    const mobilePrefixes = [
-      '0151',
-      '0160',
-      '0170',
-      '0171',
-      '0175',
-      '0176',
-      '0177',
-      '0178',
-      '0179',
-      '0162',
-      '0163',
-      '0157',
-      '0159',
-    ];
-    const randomPrefix =
-      mobilePrefixes[Math.floor(Math.random() * mobilePrefixes.length)];
-    const randomNumber = Math.floor(10000000 + Math.random() * 90000000); // random 8 digit number
-    const phoneNumber = `${randomPrefix}${randomNumber}`;
-
-    return {
-      firstName: fN,
-      lastName: lN,
-      email: email,
-      phoneNumber: phoneNumber,
-    };
-  }
-
   addContact() {
     this.isAddModalOpen = true;
   }
