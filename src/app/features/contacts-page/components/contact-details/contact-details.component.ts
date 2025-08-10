@@ -5,12 +5,13 @@ import { Contact } from '../../../../shared/interfaces/contact';
 import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
 import { EditContactModalComponent } from '../edit-contact-modal/edit-contact-modal.component';
+import { DeleteModalComponent } from '../../../../shared/ui/delete-modal/delete-modal.component';
 import { SVGInlineService } from '../../../../shared/services/svg-inline.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact-details',
-  imports: [ColoredProfilePipe, EditContactModalComponent],
+  imports: [ColoredProfilePipe, EditContactModalComponent, DeleteModalComponent],
   templateUrl: './contact-details.component.html',
   styleUrl: './contact-details.component.scss',
   providers: [SVGInlineService]
@@ -28,6 +29,7 @@ export class ContactDetailsComponent implements OnInit {
   ]
 
   @ViewChild(EditContactModalComponent) editModal!: EditContactModalComponent;
+  @ViewChild(DeleteModalComponent) deleteModal!: DeleteModalComponent;
 
   initialLettersService: InitialLettersService = inject(InitialLettersService);
 
@@ -64,6 +66,12 @@ export class ContactDetailsComponent implements OnInit {
   openEditModal() {
     if (this.currentContact) {
       this.editModal.openModal(this.currentContact);
+    }
+  }
+
+  openDeleteModal() {
+    if (this.currentContact) {
+      this.deleteModal.deleteContactModal(this.currentContact);
     }
   }
 
