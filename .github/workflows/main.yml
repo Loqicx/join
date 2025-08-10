@@ -1,0 +1,51 @@
+name: Manual Deploy from main to release
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to merge into release'
+        required: true
+        default: 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Release Branch
+        uses: actions/checkout@v4
+        with:
+          ref: 'release' 
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Merge Main into Release
+        run: |
+          git pull origin release
+          git merge origin/main --no-ff --no-edit # Merge den 'main' Branch in den 'release' Branch
+          git push origin release
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Angular project
+        run: ng build
+
+      - name: Deploy to FTP server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: './dist/join/browser/'
+          server-dir: '/angular_projects/join-mmc/'
+          protocol: 'ftp'
