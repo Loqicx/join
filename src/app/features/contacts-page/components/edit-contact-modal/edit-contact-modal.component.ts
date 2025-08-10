@@ -15,11 +15,12 @@ import { InitialLettersService } from '../../../../shared/services/get-initial-l
   styleUrls: ['./edit-contact-modal.component.scss'],
 })
 export class EditContactModalComponent {
-  constructor(public initialLettersService: InitialLettersService) {}
+  constructor(public initialLettersService: InitialLettersService) { }
   @Input() contactToEdit!: Contact;
   @Output() close = new EventEmitter<void>();
 
   isOpen = false;
+  isSlide = false
   contactsService = inject(ContactsService);
   fullName = '';
 
@@ -35,6 +36,9 @@ export class EditContactModalComponent {
     this.contact = { ...contactData };
     this.fullName = `${contactData.firstName} ${contactData.lastName}`;
     this.isOpen = true;
+    setTimeout(() => {
+      this.isSlide = true;
+    }, 25);
   }
 
   async saveContact() {
@@ -56,19 +60,23 @@ export class EditContactModalComponent {
   }
 
   async deleteContact() {
-  if (!this.contact?.id) {
-    console.error('No contact to delete or missing id');
-    return;
+    if (!this.contact?.id) {
+      console.error('No contact to delete or missing id');
+      return;
+    }
+    try {
+      await this.contactsService.deleteContact(this.contact.id);
+      this.close.emit();
+    } catch (error) {
+      console.error('Delete failed:', error);
+    }
   }
-  try {
-    await this.contactsService.deleteContact(this.contact.id);
-    this.close.emit();
-  } catch (error) {
-    console.error('Delete failed:', error);
-  }
-}
 
   closeModal() {
-    this.isOpen = false;
+    this.isSlide = false;
+    setTimeout(() => {
+      this.isOpen = false;
+    }, 25);
+    
   }
 }

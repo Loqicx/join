@@ -1,5 +1,5 @@
-<div *ngIf="isOpen" class="modal-backdrop">
-  <div class="modal-wrapper" [ngClass]="{ 'slide-in': isOpen }">
+<div *ngIf="isOpen" class="modal-backdrop" [ngClass]="{ 'open': isOpen }">
+  <div class="modal-wrapper" [ngClass]="{ 'slide-in': isSlide }">
     <div class="modal">
 
       <button class="modal-close-btn" (click)="closeModal()">
@@ -57,7 +57,7 @@
           }
 
           <div class="modal-buttons">
-            <app-button altText="Delete" [fontSize]="'16px'" [invert]="true" (btnClick)="deleteContact()">
+            <app-button iconSrc="assets/icons/delete.svg" altText="Delete" [fontSize]="'16px'" [invert]="true" (btnClick)="deleteContact()">
               Delete
             </app-button>
 

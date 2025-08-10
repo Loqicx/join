@@ -9,6 +9,13 @@
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+
+  &.open {
+    opacity: 1;
+    transition: opacity 0.4s ease-out;
+  }
 }
 
 .modal-wrapper {
@@ -20,8 +27,9 @@
   transition: transform 0.8s ease, opacity 0.8s ease;
 
   &.slide-in {
-    transform: translateX(0);
+    transform: translateX(0%);
     opacity: 1;
+    transition: transform 0.8s ease, opacity 0.8s ease;
   }
 }
 
@@ -69,14 +77,14 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   box-sizing: border-box;
   width: 30%;
 
   h1 {
     margin-top: 16px;
-    font-size: 24px;
+    font-size: 2.8rem;
   }
 
   h2 {
@@ -85,16 +93,19 @@
   }
 
   .horizontal-separator {
-    width: 90px;
+    position: absolute;
+    width: 80px;
     height: 3px;
     background-color: #29abe2;
-    margin-top: 16px;
+    margin-top: 8px;
+    top: 63%;
+    left: -3.5%;
   }
 
   .modal-logo {
-    width: 55px;
-    height: auto;
-    margin-bottom: 16px;
+    height: 54px;
+    margin-bottom: 4px;
+    
   }
 
   @include breakpoint-down("md") {
