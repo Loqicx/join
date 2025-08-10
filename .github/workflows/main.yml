@@ -25,9 +25,8 @@ jobs:
 
       - name: Merge Main into Release
         run: |
-          git pull origin release
-          git merge origin/main --no-ff --no-edit # Merge den 'main' Branch in den 'release' Branch
-          git push origin release
+          git pull origin main --no-ff --no-edit
+          git push
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
