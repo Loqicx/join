@@ -1,1 +1,29 @@
-<p>delete-modal works!</p>
+<div *ngIf="isOpen" class="modal-backdrop">
+    <div class="modal-wrapper">
+        <button class="modal-close-btn" (click)="closeModal()">
+            <img src="assets/icons/close.svg" alt="Close" />
+        </button>
+
+        <div class="modal">
+            <img src="assets/logo/join-logo-white.svg" alt="Join Logo" class="logo">
+            <h1>Delete {{this.delete}}</h1>
+            <div class="horizontal-separator"></div>
+            <span>
+                Are you shure you want do delete {{this.delete}}:
+            </span>
+            <div class="contact-list__contact-item">
+                <div class="contact-item__logo">
+                    <p class="logo-initials" [style.background-color]="contactToDelete.id | coloredProfile">
+                        {{ initialLettersService.getInitialLetters(contact) }}
+                    </p>
+                </div>
+                <div class="contact-item__info">
+                    <h3 class="contact-name">
+                        {{ contactToDelete.firstName }} {{ contactToDelete.lastName }}
+                    </h3>
+                    <span class="contact-email">{{ contactToDelete.email }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
