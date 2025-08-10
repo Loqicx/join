@@ -17,6 +17,7 @@ export class DeleteModalComponent {
   @Input() contactToDelete!: Contact;
 
   isOpen = false;
+  slideIn = false;
   fullName = '';
   delete: string = 'nothing';
 
@@ -36,6 +37,9 @@ export class DeleteModalComponent {
     this.contact = { ...contactData };
     this.fullName = `${contactData.firstName} ${contactData.lastName}`;
     this.isOpen = true;
+    setTimeout(() => {
+      this.slideIn = true;
+    }, 25);
   }
 
   async deleteContact() {
@@ -53,6 +57,10 @@ export class DeleteModalComponent {
   }
 
   closeModal() {
-    this.isOpen = false;
+    this.slideIn = false;
+    setTimeout(() => {
+      this.isOpen = false;
+    }, 250);
+    
   }
 }
