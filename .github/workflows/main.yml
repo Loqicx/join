@@ -4,9 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       release_type:
-        description: "Release type (major, minor or bugfix)"
+        type: choice
+        description: "Release type (major, minor or bugfix, eg. 1.2.1 => major.minor.bugfix)"
         required: true
-        default: "minor"
+        default: "bugfix"
+        options:
+          - major
+          - minor
+          - bugfix
 
 jobs:
   deploy:
