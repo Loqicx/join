@@ -1,3 +1,5 @@
+[![Build and deploy](https://github.com/Loqicx/join/actions/workflows/main.yml/badge.svg)](https://github.com/Loqicx/join/actions/workflows/main.yml)
+
 # Join
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
