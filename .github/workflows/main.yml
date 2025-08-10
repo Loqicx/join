@@ -1,4 +1,4 @@
-name: Manual Deploy from main to release
+name: Build and deploy
 
 on:
   workflow_dispatch:
