@@ -1,9 +1,5 @@
 <div *ngIf="isOpen" class="modal-backdrop" [ngClass]="{ 'open': isOpen }">
     <div class="modal-wrapper" [ngClass]="{ 'slide-in': slideIn }">
-        <button class="modal-close-btn" (click)="closeModal()">
-            <img src="assets/icons/close.svg" alt="Close" />
-        </button>
-
         <div class="modal">
             <div class="logo-background">
                 <img src="assets/logo/join-logo-white.svg" alt="Join Logo" class="logo">
@@ -40,11 +36,11 @@
                     </div>
                 </div>
             </div>
-            <div class="btn-wrapper flex">
-                <app-button [size]="'large'" [invert]="true" [iconSrc]="'assets/icons/close.svg'">
+            <div class="btn-wrapper">
+                <app-button (click)="closeModal()" [fontSize]="'18px'" [size]="'large'" [invert]="true" [iconSrc]="'assets/icons/close.svg'">
                     Cancel
                 </app-button>
-                <app-button [size]="'medium'" [invert]="true" [iconSrc]="'assets/icons/delete.svg'">
+                <app-button (click)="deleteContact()" [fontSize]="'18px'" [size]="'medium'" [invert]="false" [iconSrc]="'assets/icons/delete.svg'">
                     Delete
                 </app-button>
             </div>
