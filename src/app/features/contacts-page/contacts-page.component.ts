@@ -30,6 +30,7 @@ export class ContactsPageComponent {
   };
 
   isAddModalOpen = false;
+  isDetailOpen = false;
 
   contactsService: ContactsService = inject(ContactsService);
 
