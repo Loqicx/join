@@ -68,7 +68,6 @@
         }
       }
     }
-
   }
 }
 
@@ -108,4 +107,44 @@
   height: 53px;
   width: 100%;
   padding: 10px 16px;
+}
+
+.invert.danger {
+  color: $color-danger-red;
+  border-color: $color-danger-red;
+
+  .icon-invert {
+    stroke: $color-danger-red;
+
+    ::ng-deep svg {
+      path {
+        fill: $color-danger-red;
+      }
+    }
+  }
+
+  &:hover {
+    color: $color-danger-red-hover;
+    border-color: $color-danger-red-hover;
+
+    .icon-invert {
+      stroke: $color-danger-red-hover;
+
+      ::ng-deep svg {
+        path {
+          fill: $color-danger-red-hover;
+        }
+      }
+    }
+  }
+}
+
+.danger:not(.invert) {
+  border-color: $color-danger-red;
+  background-color: $color-danger-red;
+
+  &:hover {
+    border-color: $color-danger-red-hover;
+    background-color: $color-danger-red-hover;
+  }
 }
