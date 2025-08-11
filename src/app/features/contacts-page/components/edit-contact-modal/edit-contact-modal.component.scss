@@ -56,17 +56,26 @@
     padding: 4px;
     z-index: 20;
 
-    img {
+    .icon {
       width: 24px;
       height: 24px;
     }
-  }
 
-  .modal-close-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    /* leichtes Grau */
-    border-radius: 100%;
-    /* optional, für abgerundete Ecken */
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 100%;
+    }
+
+    @include breakpoint-down("lg") {
+      &:hover {
+        background-color: $color-primary-hover;
+      }
+      ::ng-deep {
+        path {
+          fill: $color-white
+        }
+      }
+    }
   }
 
   @include breakpoint-down("lg") {
@@ -86,7 +95,7 @@
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  
+
   width: 30%;
 
   h1 {
@@ -97,6 +106,7 @@
     @include breakpoint-down("xl") {
       font-size: 2.4rem;
     }
+
     @include breakpoint-down("lg") {
       font-size: 2.4rem;
       margin-top: 0;

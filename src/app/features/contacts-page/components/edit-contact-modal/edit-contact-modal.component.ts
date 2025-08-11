@@ -6,7 +6,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
-import { ContactDetailsComponent } from '../contact-details/contact-details.component';
+import { SVGInlineService } from '../../../../shared/services/svg-inline.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-edit-contact-modal',
@@ -16,7 +18,8 @@ import { ContactDetailsComponent } from '../contact-details/contact-details.comp
   styleUrls: ['./edit-contact-modal.component.scss'],
 })
 export class EditContactModalComponent {
-  constructor(public initialLettersService: InitialLettersService) {}
+  svgContent!: SafeHtml;
+
   @Input() contactToEdit!: Contact;
   @Output() close = new EventEmitter<void>();
   @Output() deleteModal = new EventEmitter<void>();
@@ -25,18 +28,30 @@ export class EditContactModalComponent {
   isSlide = false;
   contactsService = inject(ContactsService);
   fullName = '';
+  iconSrc = 'assets/icons/close.svg';
 
   contact: Contact | null = null;
+
+  constructor(public initialLettersService: InitialLettersService, private svgService: SVGInlineService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     if (this.contactToEdit) {
       this.fullName = `${this.contactToEdit.firstName} ${this.contactToEdit.lastName}`;
     }
+
+    if (this.iconSrc) {
+      this.svgService.getInlineSVG(this.iconSrc).subscribe({
+        next: (svg: string) => {
+          this.svgContent = this.sanitizer.bypassSecurityTrustHtml(svg);
+        },
+        error: err => console.error('SVG load error:', err)
+      });
+    }
   }
 
   get liveInitials(): string {
-  let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
-  return String(this.initialLettersService.getInitialLetters({ firstName, lastName }));
+    let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
+    return String(this.initialLettersService.getInitialLetters({ firstName, lastName }));
   }
 
 
