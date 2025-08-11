@@ -8,6 +8,15 @@
   @include breakpoint-down("lg") {
     height: calc(100% - $header-height - $footer-height);
   }
+
+  @include breakpoint-down("md") {
+    height: calc(100% - $header-height - $footer-height + 16px);
+  }
+
+  @include breakpoint-down("md") {
+    height: calc(100% - $header-height - $footer-height + 24px);
+  }
+
 }
 
 .content-wrapper {
