@@ -1,10 +1,22 @@
 <button [type]="type" class="add-contact-button" (click)="handleClick()" [class]="{ invert: invert }"
-  [class.large]="size === 'large'" [class.medium]="size === 'medium'" [class.small]="size === 'small'" [class.dynamic]="size === 'dynamic'" 
+  [class.round]="round == true" [class.large]="size === 'large'" [class.medium]="size === 'medium'"
+  [class.small]="size === 'small'" [class.xsmall]="size === 'xsmall'" [class.dynamic]="size === 'dynamic'"
   [ngStyle]="{ 'font-size': fontSize }" [disabled]="disabled">
 
+  @if (!round) {
   <span>
     <ng-content></ng-content>
   </span>
+  }
+  @if(iconSrc){
   <div [innerHTML]="svgContent" class="icon" [ngClass]="invert ? 'icon-invert' : ''"></div>
-  
+  }
 </button>
+
+<!-- EXAMPLE for round Button
+<app-button 
+  iconSrc="assets/icons/person_add.svg" 
+  [round]="true" 
+  [size]="'xsmall'">
+</app-button> 
+-->
