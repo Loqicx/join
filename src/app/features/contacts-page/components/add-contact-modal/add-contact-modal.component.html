@@ -1,5 +1,5 @@
-<div class="modal-backdrop">
-  <div class="modal-wrapper" [ngClass]="{ 'slide-in': isOpen }">
+<div class="modal-backdrop" [ngClass]="{ 'open': isOpen }">
+  <div class="modal-wrapper" [ngClass]="{ 'slide-in': isSlide }">
     <div class="modal">
       <button class="modal-close-btn" (click)="closeModal()">
         <img src="assets/icons/close.svg" alt="Close" />

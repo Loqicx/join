@@ -18,7 +18,8 @@ export class AddContactModalComponent {
    initialLettersService = inject(InitialLettersService);
   @Output() close = new EventEmitter<void>();
 
-  isOpen = true;
+  isOpen = false;
+  isSlide = false;
   contactsService = inject(ContactsService);
   fullName = '';
   contactName = '';
@@ -31,8 +32,21 @@ export class AddContactModalComponent {
     phoneNumber: '',
   };
 
+  // closeModal() {
+  //   this.close.emit();
+  // }
+  openModal() {
+    this.isOpen = true;
+    setTimeout(() => {
+      this.isSlide = true;
+    }, 25);
+  }
+
   closeModal() {
-    this.close.emit();
+    this.isSlide = false;
+    setTimeout(() => {
+      this.isOpen = false;
+    }, 600);
   }
 
   formSubmit(form: NgForm) {

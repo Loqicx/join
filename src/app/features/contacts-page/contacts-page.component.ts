@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { ContactsListComponent } from './components/contacts-list/contacts-list.component';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 import { ButtonComponent } from '../../shared/ui/button/button.component';
@@ -7,6 +7,7 @@ import { AddContactModalComponent } from './components/add-contact-modal/add-con
 
 import { ContactsService } from '../../shared/services/firebase/contacts.service';
 import { FormsModule } from '@angular/forms';
+import { EditContactModalComponent } from './components/edit-contact-modal/edit-contact-modal.component';
 
 @Component({
   selector: 'app-contacts-page',
@@ -29,18 +30,11 @@ export class ContactsPageComponent {
     phoneNumber: '',
   };
 
-  isAddModalOpen = false;
+  @ViewChild(AddContactModalComponent) addModal!: AddContactModalComponent
+
   isDetailOpen = false;
 
   contactsService: ContactsService = inject(ContactsService);
-
-  addContact() {
-    this.isAddModalOpen = true;
-  }
-
-  closeModal() {
-    this.isAddModalOpen = false;
-  }
 
   closeDetails() {
     this.isDetailOpen = false;
@@ -50,5 +44,12 @@ export class ContactsPageComponent {
     if (window.innerWidth < 993) {
       this.isDetailOpen = true;
     }
+  }
+
+  openAddContactModal(){
+    console.log('openAddContactModal called');
+    this.addModal.openModal();
+    
+    
   }
 }
