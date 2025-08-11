@@ -8,7 +8,10 @@
   <div class="contact-details__content slide-in" id="contactDetails">
     <div class="content__contact-heading">
       <div class="contact-item__logo">
-        <p class="logo-initials" [style.background-color]="currentContact.id | coloredProfile">
+        <p
+          class="logo-initials"
+          [style.background-color]="currentContact.id | coloredProfile"
+        >
           {{ initialLettersService.getInitialLetters(currentContact) }}
         </p>
       </div>
@@ -37,7 +40,9 @@
       </div>
     </div>
 
-    <app-edit-contact-modal (deleteModal)="openDeleteModal()"></app-edit-contact-modal>
+    <app-edit-contact-modal
+      (deleteModal)="openDeleteModal()"
+    ></app-edit-contact-modal>
     <app-delete-modal></app-delete-modal>
 
     <div class="contact-item__further-information">
@@ -47,7 +52,7 @@
       <p class="futher-information__subline-content">
         <a [href]="'mailto:' + currentContact.email" class="subline-email">{{
           currentContact.email
-          }}</a>
+        }}</a>
       </p>
       <p class="futher-information__subline">Phone</p>
       <p class="futher-information__subline-content subline-phone">
@@ -55,5 +60,35 @@
       </p>
     </div>
   </div>
+  <div class="mobile-action-button-wrapper">
+    @if(actionMenuOpen){
+    <div class="action-button-menu" [class.fade-in]="animateActionMenu">
+      <a class="action-button" (click)="openEditModal(); closeActionMenu()">
+        <div class="btn-inner">
+          <div [innerHTML]="svgContents['edit']" class="icon"></div>
+          <span>Edit</span>
+        </div>
+      </a>
+      <a class="action-button" (click)="openDeleteModal(); closeActionMenu()">
+        <div class="btn-inner">
+          <div [innerHTML]="svgContents['delete']" class="icon"></div>
+          <span>Delete</span>
+        </div>
+      </a>
+    </div>
+    }
+
+    <app-button
+      iconSrc="assets/icons/more_vert.svg"
+      altText="Add Contact"
+      (btnClick)="toggleActionMenu()"
+      [size]="'xsmall'"
+      [round]="true"
+      class="round-btn"
+    >
+      Add new contact
+    </app-button>
+  </div>
+
   }
 </div>
