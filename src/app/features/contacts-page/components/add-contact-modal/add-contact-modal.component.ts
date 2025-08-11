@@ -15,7 +15,7 @@ import { InitialLettersService } from '../../../../shared/services/get-initial-l
   styleUrls: ['./add-contact-modal.component.scss'],
 })
 export class AddContactModalComponent {
-   initialLettersService = inject(InitialLettersService);
+  initialLettersService = inject(InitialLettersService);
   @Output() close = new EventEmitter<void>();
 
   isOpen = false;
@@ -65,8 +65,8 @@ export class AddContactModalComponent {
     }
 
     const nameParts = this.fullName.trim().split(' ');
-    this.contact.firstName = nameParts[0];
-    this.contact.lastName = nameParts.slice(1).join(' ');
+    this.contact.firstName = nameParts[0].toUpperCase();
+    this.contact.lastName = nameParts.slice(1).join(' ').toUpperCase();
 
     try {
       await this.contactsService.addContactToDatabase(this.contact);
@@ -76,7 +76,7 @@ export class AddContactModalComponent {
     }
   }
   get liveInitials(): string {
-  let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
-  return String(this.initialLettersService.getInitialLetters({ firstName, lastName }));
-}
+    let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
+    return String(this.initialLettersService.getInitialLetters({ firstName, lastName }));
+  }
 }
