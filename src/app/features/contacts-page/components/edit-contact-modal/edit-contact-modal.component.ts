@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Renderer2, inject } from '@angular/core';
 import { Contact } from '../../../../shared/interfaces/contact';
 import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { ButtonComponent } from '../../../../shared/ui/button/button.component';
@@ -32,7 +32,14 @@ export class EditContactModalComponent {
 
   contact: Contact | null = null;
 
-  constructor(public initialLettersService: InitialLettersService, private svgService: SVGInlineService, private sanitizer: DomSanitizer) { }
+  constructor(public initialLettersService: InitialLettersService, private svgService: SVGInlineService, private sanitizer: DomSanitizer, private renderer: Renderer2) { 
+    this.renderer.listen('window', 'click', (event) => {
+      const modal = document.querySelector('.modal');
+      if (this.isOpen && modal && !modal.contains(event.target as Node)) {
+        this.closeModal();
+      }
+    });
+   }
 
   ngOnInit() {
     if (this.contactToEdit) {
