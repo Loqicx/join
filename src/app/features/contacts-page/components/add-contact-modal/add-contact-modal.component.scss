@@ -71,8 +71,10 @@
     width: 100%;
     height: auto;
     border-radius: 16px;
+    
   }
 }
+
 
 .modal-left {
   background-color: #2a3647;
@@ -204,4 +206,30 @@
       max-width: 100%;
     }
   }
+
+  @media (max-width: 768px) {
+  .cancel-btn  {
+    display: none !important;
+  }
+}
+
+  @media (max-width: 768px) {
+  .modal-close-btn  {
+    display: none;
+
+    .mobile {
+      display: block;
+    }
+  }
+}
+@media (min-width: 769px) {
+  .modal-close-btn  {
+    display: block;
+    
+
+    .mobile {
+      display: none;
+    }
+  }
+}
 }

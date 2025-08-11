@@ -5,6 +5,9 @@
       <button class="modal-close-btn" (click)="closeModal()">
         <img src="assets/icons/close.svg" alt="Close" />
       </button>
+      <button class="modal-close-btn mobile" (click)="closeModal()">
+        <img src="assets/icons/close responsive.svg" alt="Close" />
+      </button>
 
       <div class="modal-left">
         <img
@@ -87,6 +90,7 @@
 
           <div class="modal-buttons">
             <app-button
+              class="cancel-btn"
               iconSrc="assets/icons/iconoir_cancel.svg"
               altText="Cancel"
               [fontSize]="'16px'"
