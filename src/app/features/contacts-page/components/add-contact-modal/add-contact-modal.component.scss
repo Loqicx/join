@@ -7,8 +7,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0);
   z-index: 1000;
+  transition: background-color ease 0.8s;
+
+  &.open {
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: background-color ease 0.8s;
+  }
 }
 
 .modal-wrapper {
@@ -17,11 +23,12 @@
   margin: auto;
   transform: translateX(100%);
   opacity: 0;
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  transition: transform 0.8s ease, opacity 0.4s ease-out;
 
   &.slide-in {
-    transform: translateX(0);
+    transform: translateX(0%);
     opacity: 1;
+    transition: transform 0.8s ease, opacity 0.4s ease-in;
   }
 }
 
@@ -54,6 +61,36 @@
   }
 
   @include breakpoint-down("md") {
+    .modal-close-btn {
+      display: none;
+
+      &.mobile {
+        display: block;
+        top: 34px;
+        img {
+          height: 14px;
+          width: 14px;
+        }
+      }
+    }
+  }
+
+  @include breakpoint-up("md") {
+    .modal-close-btn {
+      display: block;
+
+      &.mobile {
+        display: none;
+      }
+    }
+  }
+
+  .modal-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 100%;
+  }
+
+  @include breakpoint-down("md") {
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -69,19 +106,29 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   box-sizing: border-box;
   width: 30%;
 
   h1 {
     margin-top: 16px;
-    font-size: 24px;
+    font-size: 40px;
   }
 
   h2 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: normal;
+  }
+
+  @include breakpoint-down("md") {
+    width: 100%;
+    padding: 24px;
+  }
+
+  .modal-logo {
+    height: 54px;
+    margin-bottom: 4px;
   }
 
   @include breakpoint-down("md") {
@@ -93,24 +140,22 @@
 .modal-avatar {
   width: 120px;
   height: 120px;
-  
 
   .logo-initials {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-      margin: 0;
+    margin: 0;
 
-      width: 120px;
-      aspect-ratio: 1 / 1;
-      border-radius: 100%;
-      border: 3px solid #fff;
-      font-size: 47px;
+    width: 120px;
+    aspect-ratio: 1 / 1;
+    border-radius: 100%;
+    border: 3px solid #fff;
+    font-size: 47px;
 
-      color: white;
-    }
-  
+    color: white;
+  }
 
   @include breakpoint-down("md") {
     position: relative;
@@ -150,6 +195,12 @@
         box-sizing: border-box;
       }
 
+      input.ng-invalid.ng-touched,
+      input.ng-invalid.ng-dirty {
+        border-color: red;
+        box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
+      }
+
       img {
         position: absolute;
         right: 12px;
@@ -172,10 +223,17 @@
   @include breakpoint-down("md") {
     width: 100%;
     padding: 24px;
+    flex-direction: column;
 
     form {
       padding-left: 0;
       max-width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cancel-btn {
+      display: none !important;
     }
   }
 }
