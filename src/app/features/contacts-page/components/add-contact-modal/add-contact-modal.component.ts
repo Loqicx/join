@@ -4,15 +4,18 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { Contact } from '../../../../shared/interfaces/contact';
+import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
+import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
 
 @Component({
   selector: 'app-add-contact-modal',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, FormsModule],
+  imports: [ButtonComponent, CommonModule, FormsModule, ColoredProfilePipe],
   templateUrl: './add-contact-modal.component.html',
   styleUrls: ['./add-contact-modal.component.scss'],
 })
 export class AddContactModalComponent {
+   initialLettersService = inject(InitialLettersService);
   @Output() close = new EventEmitter<void>();
 
   isOpen = true;
@@ -58,4 +61,8 @@ export class AddContactModalComponent {
       console.error('Fehler beim Speichern des Kontakts:', error);
     }
   }
+  get liveInitials(): string {
+  let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
+  return String(this.initialLettersService.getInitialLetters({ firstName, lastName }));
+}
 }
