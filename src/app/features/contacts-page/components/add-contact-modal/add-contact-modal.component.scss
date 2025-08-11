@@ -60,6 +60,31 @@
     }
   }
 
+  @include breakpoint-down("md") {
+    .modal-close-btn {
+      display: none;
+
+      &.mobile {
+        display: block;
+        top: 34px;
+        img {
+          height: 14px;
+          width: 14px;
+        }
+      }
+    }
+  }
+
+  @include breakpoint-up("md") {
+    .modal-close-btn {
+      display: block;
+
+      &.mobile {
+        display: none;
+      }
+    }
+  }
+
   .modal-close-btn:hover {
     background-color: rgba(0, 0, 0, 0.05);
     border-radius: 100%;
@@ -71,10 +96,8 @@
     width: 100%;
     height: auto;
     border-radius: 16px;
-    
   }
 }
-
 
 .modal-left {
   background-color: #2a3647;
@@ -208,28 +231,8 @@
   }
 
   @media (max-width: 768px) {
-  .cancel-btn  {
-    display: none !important;
-  }
-}
-
-  @media (max-width: 768px) {
-  .modal-close-btn  {
-    display: none;
-
-    .mobile {
-      display: block;
+    .cancel-btn {
+      display: none !important;
     }
   }
-}
-@media (min-width: 769px) {
-  .modal-close-btn  {
-    display: block;
-    
-
-    .mobile {
-      display: none;
-    }
-  }
-}
 }
