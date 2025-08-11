@@ -19,8 +19,9 @@ export class ButtonComponent {
   @Input() altText: string = 'Button icon';
   @Input() type: string = 'button';
   @Input() fontSize: string = '26px';
-  @Input() size: 'large' | 'medium' | 'small' | 'dynamic' = 'dynamic';
+  @Input() size: 'large' | 'medium' | 'small' | 'xsmall' | 'dynamic' = 'dynamic';
   @Input() invert: boolean = false;
+  @Input() round: boolean = false;
   @Input() disabled: boolean | null = false;
 
   @Output() btnClick = new EventEmitter<void>();

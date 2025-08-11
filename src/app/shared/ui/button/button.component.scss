@@ -72,6 +72,21 @@
   }
 }
 
+.round {
+  border-radius: 50%;
+  padding: 8px !important;
+}
+
+.xsmall {
+  height: 56px;
+  width: 56px;
+
+  .icon {
+    height: 32px;
+    width: 32px;
+  }
+}
+
 .small {
   height: 42px;
   max-width: 120px;
