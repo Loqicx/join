@@ -7,16 +7,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0);
   z-index: 1000;
-  opacity: 0;
-  transition: opacity 0.4s ease-out;
+  transition: background-color ease 0.8s;
 
   &.open {
-    opacity: 1;
-    transition: opacity 0.4s ease-out;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: background-color ease 0.8s;
   }
-
 }
 
 .modal-wrapper {
@@ -25,12 +23,12 @@
   margin: auto;
   transform: translateX(100%);
   opacity: 0;
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  transition: transform 0.8s ease, opacity 0.4s ease-out;
 
   &.slide-in {
     transform: translateX(0%);
     opacity: 1;
-    transition: transform 0.8s ease, opacity 0.8s ease;
+    transition: transform 0.8s ease, opacity 0.4s ease-in;
   }
 }
 
@@ -63,8 +61,8 @@
   }
 
   .modal-close-btn:hover {
-  background-color: rgba(0, 0, 0, 0.05); 
-  border-radius: 100%; 
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 100%;
   }
 
   @include breakpoint-down("md") {
@@ -107,24 +105,22 @@
 .modal-avatar {
   width: 120px;
   height: 120px;
-  
 
   .logo-initials {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-      margin: 0;
+    margin: 0;
 
-      width: 120px;
-      aspect-ratio: 1 / 1;
-      border-radius: 100%;
-      border: 3px solid #fff;
-      font-size: 47px;
+    width: 120px;
+    aspect-ratio: 1 / 1;
+    border-radius: 100%;
+    border: 3px solid #fff;
+    font-size: 47px;
 
-      color: white;
-    }
-  
+    color: white;
+  }
 
   @include breakpoint-down("md") {
     position: relative;
@@ -168,7 +164,7 @@
       input.ng-invalid.ng-dirty {
         border-color: red;
         box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
-        }
+      }
 
       img {
         position: absolute;
