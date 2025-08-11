@@ -14,8 +14,10 @@
 
       <div class="modal-right">
         <div class="modal-avatar">
-          <img src="assets/icons/Group 13.svg" alt="Avatar" class="avatar-svg" />
-        </div>
+  <p class="logo-initials" [style.background-color]="fullName | coloredProfile">
+    {{ liveInitials }}
+  </p>
+</div>
         <form (ngSubmit)="createContact()" #addContactForm="ngForm">
           <!-- Name -->
           <div class="input-with-icon">
