@@ -15,10 +15,11 @@ import { InitialLettersService } from '../../../../shared/services/get-initial-l
   styleUrls: ['./add-contact-modal.component.scss'],
 })
 export class AddContactModalComponent {
-   initialLettersService = inject(InitialLettersService);
+  initialLettersService = inject(InitialLettersService);
   @Output() close = new EventEmitter<void>();
 
-  isOpen = true;
+  isOpen = false;
+  isSlide = false;
   contactsService = inject(ContactsService);
   fullName = '';
   contactName = '';
@@ -31,8 +32,21 @@ export class AddContactModalComponent {
     phoneNumber: '',
   };
 
+  // closeModal() {
+  //   this.close.emit();
+  // }
+  openModal() {
+    this.isOpen = true;
+    setTimeout(() => {
+      this.isSlide = true;
+    }, 25);
+  }
+
   closeModal() {
-    this.close.emit();
+    this.isSlide = false;
+    setTimeout(() => {
+      this.isOpen = false;
+    }, 600);
   }
 
   formSubmit(form: NgForm) {
@@ -51,8 +65,8 @@ export class AddContactModalComponent {
     }
 
     const nameParts = this.fullName.trim().split(' ');
-    this.contact.firstName = nameParts[0];
-    this.contact.lastName = nameParts.slice(1).join(' ');
+    this.contact.firstName = nameParts[0].toUpperCase();
+    this.contact.lastName = nameParts.slice(1).join(' ').toUpperCase();
 
     try {
       await this.contactsService.addContactToDatabase(this.contact);
@@ -62,7 +76,16 @@ export class AddContactModalComponent {
     }
   }
   get liveInitials(): string {
-  let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
-  return String(this.initialLettersService.getInitialLetters({ firstName, lastName }));
+    let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
+    return String(this.initialLettersService.getInitialLetters({ firstName, lastName }));
+  }
+
+  onNameInput(event: Event) {
+  let value = (event.target as HTMLInputElement).value;
+  let parts = value.split(' ').filter(p => p.length > 0);
+
+  parts = parts.map(p => p.charAt(0).toUpperCase() + p.slice(1));
+
+  this.fullName = parts.join(' ');
 }
 }
