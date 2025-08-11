@@ -3,7 +3,7 @@ import { Contact } from '../../../../shared/interfaces/contact';
 import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { ButtonComponent } from '../../../../shared/ui/button/button.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
 import { ContactDetailsComponent } from '../contact-details/contact-details.component';
@@ -11,18 +11,18 @@ import { ContactDetailsComponent } from '../contact-details/contact-details.comp
 @Component({
   selector: 'app-edit-contact-modal',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, FormsModule, ColoredProfilePipe,],
+  imports: [ButtonComponent, CommonModule, FormsModule, ColoredProfilePipe],
   templateUrl: './edit-contact-modal.component.html',
   styleUrls: ['./edit-contact-modal.component.scss'],
 })
 export class EditContactModalComponent {
-  constructor(public initialLettersService: InitialLettersService) { }
+  constructor(public initialLettersService: InitialLettersService) {}
   @Input() contactToEdit!: Contact;
   @Output() close = new EventEmitter<void>();
   @Output() deleteModal = new EventEmitter<void>();
 
   isOpen = false;
-  isSlide = false
+  isSlide = false;
   contactsService = inject(ContactsService);
   fullName = '';
 
@@ -43,9 +43,12 @@ export class EditContactModalComponent {
     }, 25);
   }
 
-  async saveContact() {
+  async saveContact(form: NgForm) {
     if (!this.contact) {
       console.error('No contact loaded');
+      return;
+    }
+    if (form.invalid) {
       return;
     }
 
@@ -55,7 +58,7 @@ export class EditContactModalComponent {
 
     try {
       await this.contactsService.updateContact(this.contact, this.contact.id);
-      window.location.reload()
+      window.location.reload();
     } catch (error) {
       console.error('Update failed:', error);
     }
