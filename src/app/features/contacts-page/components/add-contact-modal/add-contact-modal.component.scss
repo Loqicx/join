@@ -223,6 +223,7 @@
   @include breakpoint-down("md") {
     width: 100%;
     padding: 24px;
+    flex-direction: column;
 
     form {
       padding-left: 0;
