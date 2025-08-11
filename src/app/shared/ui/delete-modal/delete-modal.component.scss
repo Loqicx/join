@@ -30,6 +30,14 @@
         transform: translateX(22.5%);
         opacity: 1;
         transition: transform 0.8s ease, opacity 0.8s ease;
+
+        @include breakpoint-down('md') {
+            transform: translateX(12.5%);
+        }
+
+        @include breakpoint-down('sm') {
+            transform: translateX(0%);
+        }
     }
 }
 
@@ -59,23 +67,42 @@
             margin-left: 0;
             color: $color-white;
             font-size: 48px;
+
+            @include breakpoint-down('lg') {
+                font-size: 32px;
+            }
         }
 
 
         .logo {
             height: 54px;
             margin-right: 18px;
+
+            @include breakpoint-down('lg') {
+                height: 42px;
+            }
+
+            @include breakpoint-down('sm') {
+                display: none;
+            }
         }
     }
 
     .title-wrap {
+        position: relative;
         background-color: $color-primary;
         width: 100%;
-        padding-bottom: 32px;
+        padding-top: 16px;
+        padding-bottom: 48px;
 
         h2 {
+            color: $color-text;
             font-size: 48px;
             margin: 0;
+
+            @include breakpoint-down('lg') {
+                font-size: 32px;
+            }
         }
 
         h3 {
@@ -84,12 +111,40 @@
             margin: 0;
             margin-top: 8px;
             margin-left: 18px;
+
+            @include breakpoint-down('lg') {
+                font-size: 28px;
+                margin-top: 0;
+                margin-left: 12px;
+            }
         }
+
+        .horizontal-separator {
+            position: absolute;
+            top: 62%;
+            left: 24%;
+            width: 24%;
+
+            @include breakpoint-down('lg') {
+                top: 52%;
+                left: 23%;
+                width: 22%;
+            }
+        }
+    }
+
+    @include breakpoint-down('md') {
+        width: 75%;
+    }
+
+    @include breakpoint-down('sm') {
+        width: 100%;
     }
 }
 
 .text {
     margin-top: 48px;
+    max-width: 80%;
 }
 
 .contact-item {
@@ -100,12 +155,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $color-primary;
     padding: 16px 32px;
     border-radius: 16px;
 
     &__logo {
         margin-right: 24px;
+
         .logo-initials {
             width: 56px;
             aspect-ratio: 1 / 1;
@@ -125,11 +180,10 @@
         flex-direction: column;
         align-items: start;
         justify-content: space-between;
-        color: $color-text;
+        color: $color-primary;
 
         .contact-name {
-            color: $color-white;
-            margin-bottom: 12px;
+            color: $color-primary;
         }
 
         .contact-email {
@@ -140,19 +194,16 @@
             color: $color-link;
         }
 
-        
+
     }
 }
 
 .btn-wrapper {
-    width: 100%;;
+    width: 100%;
+    ;
     padding-bottom: 32px;
     display: flex;
     justify-content: space-evenly;
-}
-
-.danger {
-    color: $color-danger-red;
 }
 
 .flex {
