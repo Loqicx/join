@@ -26,6 +26,10 @@
   display: flex;
   flex-direction: column;
 
+  @include breakpoint-down("lg1") {
+    max-width: 40%;
+  }
+
   @include breakpoint-down("lg") {
     max-width: 100%;
   }
