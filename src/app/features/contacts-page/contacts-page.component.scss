@@ -76,4 +76,8 @@
   margin: auto;
   padding-top: 10px;
   padding-bottom: 10px;
+
+  @include breakpoint-down('lg') {
+    display: none;
+  }
 }

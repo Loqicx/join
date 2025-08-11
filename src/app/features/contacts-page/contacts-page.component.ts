@@ -36,6 +36,8 @@ export class ContactsPageComponent {
 
   contactsService: ContactsService = inject(ContactsService);
 
+  constructor() {}
+
   closeDetails() {
     this.isDetailOpen = false;
   }
