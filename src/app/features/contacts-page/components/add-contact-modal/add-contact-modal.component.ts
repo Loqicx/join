@@ -79,4 +79,13 @@ export class AddContactModalComponent {
     let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
     return String(this.initialLettersService.getInitialLetters({ firstName, lastName }));
   }
+
+  onNameInput(event: Event) {
+  let value = (event.target as HTMLInputElement).value;
+  let parts = value.split(' ').filter(p => p.length > 0);
+
+  parts = parts.map(p => p.charAt(0).toUpperCase() + p.slice(1));
+
+  this.fullName = parts.join(' ');
+}
 }

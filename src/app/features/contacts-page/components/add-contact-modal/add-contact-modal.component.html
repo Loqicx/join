@@ -37,6 +37,7 @@
               name="fullName"
               aria-describedby="addContactHelp"
               #nameV="ngModel"
+              (input)="onNameInput($event)"
             />
             <img src="assets/icons/person.svg" alt="Name" />
           </div>
