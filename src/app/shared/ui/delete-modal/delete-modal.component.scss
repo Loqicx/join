@@ -69,11 +69,14 @@
     }
 
     .title-wrap {
+        position: relative;
         background-color: $color-primary;
         width: 100%;
-        padding-bottom: 32px;
+        padding-top: 16px;
+        padding-bottom: 48px;
 
         h2 {
+            color: $color-text;
             font-size: 48px;
             margin: 0;
         }
@@ -84,6 +87,13 @@
             margin: 0;
             margin-top: 8px;
             margin-left: 18px;
+        }
+
+        .horizontal-separator {
+            position: absolute;
+            top: 62%;
+            left: 24%;
+            width: 24%;
         }
     }
 }
@@ -100,7 +110,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $color-primary;
     padding: 16px 32px;
     border-radius: 16px;
 
@@ -125,11 +134,10 @@
         flex-direction: column;
         align-items: start;
         justify-content: space-between;
-        color: $color-text;
+        color: $color-primary;
 
         .contact-name {
-            color: $color-white;
-            margin-bottom: 12px;
+            color: $color-primary;
         }
 
         .contact-email {
@@ -149,10 +157,6 @@
     padding-bottom: 32px;
     display: flex;
     justify-content: space-evenly;
-}
-
-.danger {
-    color: $color-danger-red;
 }
 
 .flex {
