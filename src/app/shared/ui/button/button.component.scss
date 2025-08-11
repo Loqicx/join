@@ -29,10 +29,22 @@
   align-items: center;
   width: 32px;
   height: 32px;
+
+  ::ng-deep svg {
+    path {
+      fill: $color-white;
+    }
+  }
 }
 
 .icon-invert {
   stroke: $color-primary;
+
+  ::ng-deep svg {
+    path {
+      fill: $color-primary;
+    }
+  }
 }
 
 .invert {
@@ -46,10 +58,17 @@
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.203);
     transform: scale(1.018);
     transition: transform 0.4s ease-out;
-    
+
     .icon-invert {
       stroke: $color-primary-hover;
+
+      ::ng-deep svg {
+        path {
+          fill: $color-primary-hover;
+        }
+      }
     }
+
   }
 }
 
@@ -59,7 +78,7 @@
 }
 
 .medium {
-  height: 42px;
+  height: 48px;
   min-width: 100px;
   max-width: 280px;
 }

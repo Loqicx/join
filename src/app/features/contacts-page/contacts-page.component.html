@@ -11,13 +11,24 @@
       </app-button>
     </div>
 
-    <app-contacts-list></app-contacts-list>
+    <app-contacts-list (selectContact)="openDetails()"></app-contacts-list>
   </div>
 
   <!-- Add contact details as componemt -->
   <div class="contact-details-wrapper">
     <app-contact-details></app-contact-details>
   </div>
+  @if (isDetailOpen) {
+  <div class="contact-details-offcanvas">
+    <a
+      class="arrow-back"
+      routerLink=""
+      (click)="closeDetails(); $event.preventDefault()"
+      ><span>&#x2190;</span></a
+    >
+    <app-contact-details (close)="closeDetails()"></app-contact-details>
+  </div>
+  }
 
   <!-- Add "add contact" Modal as component -->
   <app-add-contact-modal
@@ -26,7 +37,4 @@
   ></app-add-contact-modal>
 
   <!-- Add "edit contact" Modal as component -->
-
-  
-
 </main>

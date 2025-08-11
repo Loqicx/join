@@ -26,7 +26,7 @@
             </a>
           </div>
           <div class="action-button-wrapper">
-            <a href="" class="action-button">
+            <a class="action-button" (click)="openDeleteModal()">
               <div class="btn-inner">
                 <div [innerHTML]="svgContents['delete']" class="icon"></div>
                 <span>Delete</span>
@@ -37,7 +37,8 @@
       </div>
     </div>
 
-    <app-edit-contact-modal></app-edit-contact-modal>
+    <app-edit-contact-modal (deleteModal)="openDeleteModal()"></app-edit-contact-modal>
+    <app-delete-modal></app-delete-modal>
 
     <div class="contact-item__further-information">
       <h3 class="further-information__headline">Contact Information</h3>

@@ -9,7 +9,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   selector: 'app-footer',
   imports: [CommonModule, RouterModule],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
   svgContents: { [key: string]: SafeHtml } = {};
@@ -20,20 +20,24 @@ export class FooterComponent {
   boardActive = false;
 
   icons = [
-    { name: 'contacts', src: '/assets/icons/contacts.svg' },
-    { name: 'summary', src: '/assets/icons/summary.svg' },
-    { name: 'addTask', src: '/assets/icons/add-task.svg' },
-    { name: 'board', src: '/assets/icons/board.svg' }
-  ]
+    { name: 'contacts', src: './assets/icons/contacts.svg' },
+    { name: 'summary', src: './assets/icons/summary.svg' },
+    { name: 'addTask', src: './assets/icons/add-task.svg' },
+    { name: 'board', src: './assets/icons/board.svg' },
+  ];
 
   /**
- * Constructor for the Footer component that initializes routing events and sets active Button based on current URL.
- * 
- * @param {Router} router - The Angular Router instance used to listen for navigation events.
- */
-  constructor(private router: Router, private svgService: SVGInlineService, private sanitizer: DomSanitizer) {
+   * Constructor for the Footer component that initializes routing events and sets active Button based on current URL.
+   *
+   * @param {Router} router - The Angular Router instance used to listen for navigation events.
+   */
+  constructor(
+    private router: Router,
+    private svgService: SVGInlineService,
+    private sanitizer: DomSanitizer
+  ) {
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         const currentUrl = event.urlAfterRedirects;
         this.resetAllActives();
@@ -50,8 +54,8 @@ export class FooterComponent {
   }
 
   /**
- * Resets all active tabs to false.
- */
+   * Resets all active tabs to false.
+   */
   private resetAllActives() {
     this.contactsActive = false;
     this.summaryActive = false;
@@ -60,7 +64,7 @@ export class FooterComponent {
   }
 
   ngOnInit(): void {
-    this.icons.forEach(icon => {
+    this.icons.forEach((icon) => {
       this.convertIcon(icon.name, icon.src);
     });
   }
@@ -68,10 +72,10 @@ export class FooterComponent {
   convertIcon(iconName: string, iconSrc: string): void {
     this.svgService.getInlineSVG(iconSrc).subscribe({
       next: (svg: string) => {
-        this.svgContents[iconName] = this.sanitizer.bypassSecurityTrustHtml(svg);
+        this.svgContents[iconName] =
+          this.sanitizer.bypassSecurityTrustHtml(svg);
       },
-      error: err => console.error('SVG load error:', err)
+      error: (err) => console.error('SVG load error:', err),
     });
   }
-
 }

@@ -1,19 +1,31 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ContactsCommunicationService } from '../../services/contacts-communication.service';
 import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { Contact } from '../../../../shared/interfaces/contact';
 import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
 import { EditContactModalComponent } from '../edit-contact-modal/edit-contact-modal.component';
+import { DeleteModalComponent } from '../../../../shared/ui/delete-modal/delete-modal.component';
 import { SVGInlineService } from '../../../../shared/services/svg-inline.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact-details',
-  imports: [ColoredProfilePipe, EditContactModalComponent],
+  imports: [
+    ColoredProfilePipe,
+    EditContactModalComponent,
+    DeleteModalComponent,
+  ],
   templateUrl: './contact-details.component.html',
   styleUrl: './contact-details.component.scss',
-  providers: [SVGInlineService]
+  providers: [SVGInlineService],
 })
 export class ContactDetailsComponent implements OnInit {
   svgContents: { [key: string]: SafeHtml } = {};
@@ -22,25 +34,35 @@ export class ContactDetailsComponent implements OnInit {
   contactId$: string = '';
   currentContact?: Contact | null;
 
+  @Output() close = new EventEmitter<void>();
+
   icons = [
-    { name: 'edit', src: '/assets/icons/edit.svg' },
-    { name: 'delete', src: '/assets/icons/delete.svg' }
-  ]
+    { name: 'edit', src: './assets/icons/edit.svg' },
+    { name: 'delete', src: './assets/icons/delete.svg' },
+  ];
 
   @ViewChild(EditContactModalComponent) editModal!: EditContactModalComponent;
+  @ViewChild(DeleteModalComponent) deleteModal!: DeleteModalComponent;
 
   initialLettersService: InitialLettersService = inject(InitialLettersService);
 
-  constructor(private svgService: SVGInlineService, private sanitizer: DomSanitizer) {}
+  constructor(
+    private svgService: SVGInlineService,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
     this.contactComService.currentContactId$.subscribe((id) =>
       this.updateDetailDisplay(id)
     );
 
-    this.icons.forEach(icon => {
+    this.icons.forEach((icon) => {
       this.convertIcon(icon.name, icon.src);
     });
+  }
+
+  onClose() {
+    this.close.emit();
   }
 
   updateDetailDisplay(id: string): void {
@@ -67,12 +89,19 @@ export class ContactDetailsComponent implements OnInit {
     }
   }
 
+  openDeleteModal() {
+    if (this.currentContact) {
+      this.deleteModal.deleteContactModal(this.currentContact);
+    }
+  }
+
   convertIcon(iconName: string, iconSrc: string): void {
     this.svgService.getInlineSVG(iconSrc).subscribe({
       next: (svg: string) => {
-        this.svgContents[iconName] = this.sanitizer.bypassSecurityTrustHtml(svg);
+        this.svgContents[iconName] =
+          this.sanitizer.bypassSecurityTrustHtml(svg);
       },
-      error: err => console.error('SVG load error:', err)
+      error: (err) => console.error('SVG load error:', err),
     });
   }
 }

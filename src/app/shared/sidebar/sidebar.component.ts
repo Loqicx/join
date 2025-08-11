@@ -10,9 +10,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   imports: [CommonModule, RouterModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
-  providers: [SVGInlineService]
+  providers: [SVGInlineService],
 })
-
 export class SidebarComponent {
   svgContents: { [key: string]: SafeHtml } = {};
 
@@ -24,20 +23,24 @@ export class SidebarComponent {
   legalActive = false;
 
   icons = [
-    { name: 'contacts', src: '/assets/icons/contacts.svg' },
-    { name: 'summary', src: '/assets/icons/summary.svg' },
-    { name: 'addTask', src: '/assets/icons/add-task.svg' },
-    { name: 'board', src: '/assets/icons/board.svg' }
-  ]
+    { name: 'contacts', src: './assets/icons/contacts.svg' },
+    { name: 'summary', src: './assets/icons/summary.svg' },
+    { name: 'addTask', src: './assets/icons/add-task.svg' },
+    { name: 'board', src: './assets/icons/board.svg' },
+  ];
 
   /**
    * Constructor for the Sidebar component that initializes routing events and sets active Button based on current URL.
-   * 
+   *
    * @param {Router} router - The Angular Router instance used to listen for navigation events.
    */
-  constructor(private router: Router, private svgService: SVGInlineService, private sanitizer: DomSanitizer) {
+  constructor(
+    private router: Router,
+    private svgService: SVGInlineService,
+    private sanitizer: DomSanitizer
+  ) {
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         const currentUrl = event.urlAfterRedirects;
         this.resetAllActives();
@@ -70,7 +73,7 @@ export class SidebarComponent {
   }
 
   ngOnInit(): void {
-    this.icons.forEach(icon => {
+    this.icons.forEach((icon) => {
       this.convertIcon(icon.name, icon.src);
     });
   }
@@ -78,9 +81,10 @@ export class SidebarComponent {
   convertIcon(iconName: string, iconSrc: string): void {
     this.svgService.getInlineSVG(iconSrc).subscribe({
       next: (svg: string) => {
-        this.svgContents[iconName] = this.sanitizer.bypassSecurityTrustHtml(svg);
+        this.svgContents[iconName] =
+          this.sanitizer.bypassSecurityTrustHtml(svg);
       },
-      error: err => console.error('SVG load error:', err)
+      error: (err) => console.error('SVG load error:', err),
     });
   }
 }

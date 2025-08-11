@@ -1,0 +1,49 @@
+<div *ngIf="isOpen" class="modal-backdrop" [ngClass]="{ 'open': isOpen }">
+    <div class="modal-wrapper" [ngClass]="{ 'slide-in': slideIn }">
+        <div class="modal">
+            <div class="logo-background">
+                <img src="assets/logo/join-logo-white.svg" alt="Join Logo" class="logo">
+                <h1>Please Confirm</h1>
+            </div>
+            <div class="flex title-wrap">
+                <h2 class="danger">Delete:</h2>
+                <h3>{{this.delete}}</h3>
+            </div>
+            <span class="text">
+                Are you shure you want to delete the following {{this.delete}} ?
+            </span>
+            <div class="contact-item">
+                <div class="contact-item__logo">
+                    <p class="logo-initials" [style.background-color]="contact.id | coloredProfile">
+                        {{ initialLettersService.getInitialLetters(contact) }}
+                    </p>
+                </div>
+                <div class="contact-item__info">
+                    <h3 class="contact-name">
+                        {{ contact.firstName }} {{ contact.lastName }}
+                    </h3>
+                    <div>
+                        <span>Email: </span>
+                        <span class="contact-email">
+                            {{ contact.email }}
+                        </span>
+                    </div>
+                    <div>
+                        <span>Phone:</span>
+                        <span class="contact-phone">
+                            {{contact.phoneNumber}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-wrapper">
+                <app-button (click)="closeModal()" [fontSize]="'18px'" [size]="'large'" [invert]="true" [iconSrc]="'assets/icons/close.svg'">
+                    Cancel
+                </app-button>
+                <app-button (click)="deleteContact()" [fontSize]="'18px'" [size]="'medium'" [invert]="false" [iconSrc]="'assets/icons/delete.svg'">
+                    Delete
+                </app-button>
+            </div>
+        </div>
+    </div>
+</div>

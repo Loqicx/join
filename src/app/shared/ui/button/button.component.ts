@@ -21,14 +21,14 @@ export class ButtonComponent {
   @Input() fontSize: string = '26px';
   @Input() size: 'large' | 'medium' | 'small' | 'dynamic' = 'dynamic';
   @Input() invert: boolean = false;
-
+  @Input() disabled: boolean | null = false;
 
   @Output() btnClick = new EventEmitter<void>();
 
   constructor(private svgService: SVGInlineService, private sanitizer: DomSanitizer) { }
 
   handleClick() {
-    this.btnClick.emit();
+      this.btnClick.emit();
   }
 
   ngOnInit(): void {

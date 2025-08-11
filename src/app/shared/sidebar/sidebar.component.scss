@@ -114,20 +114,22 @@
       align-items: start;
       gap: 16px;
       margin-bottom: 48px;
-      max-width: 55%;
+
 
       &__link {
+        width: 100%;
         display: flex;
         justify-content: start;
         align-items: center;
         text-decoration: none;
         color: #cdcdcd;
         font-family: Inter;
+        padding: 10px 60px 10px 55px;
 
-        &:hover {
+        &:hover:not(.active) {
           transform: scale(1.02) translateX(2px);
           transition: transform 0.3s ease-out;
-          color: #29abe2;
+          color: #29abe2 !important;
           cursor: pointer;
         }
 
@@ -140,6 +142,7 @@
       .active {
         background-color: #091931 !important;
         color: white !important;
+        cursor: default !important;
       }
     }
   }

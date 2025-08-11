@@ -3,10 +3,21 @@ $color-primary-hover: #29abe2;
 $color-dark-hover: #313e50;
 $color-white: #ffffff;
 $color-text: #cdcdcd;
+$color-link: #007cee;
 $color-dark-text: #a8a8a8;
 $body-font-family: Inter;
+$color-danger-red: #F03211;
 
 $header-height: 96px;
 $footer-height: 80px;
 
 $mq-mobile: 980px;
+
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
