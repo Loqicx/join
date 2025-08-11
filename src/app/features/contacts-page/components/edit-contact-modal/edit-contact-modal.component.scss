@@ -85,6 +85,11 @@
   h1 {
     margin-top: 16px;
     font-size: 2.8rem;
+    white-space: nowrap;
+
+    @include breakpoint-down("xl") {
+      font-size: 2.4rem;
+    }
   }
 
   h2 {
@@ -93,19 +98,20 @@
   }
 
   .horizontal-separator {
-    position: absolute;
     width: 80px;
     height: 3px;
     background-color: #29abe2;
     margin-top: 8px;
-    top: 63%;
-    left: -3.5%;
+    margin-left: 0;
+
+    @include breakpoint-down("xl") {
+      width: 64px;
+    }
   }
 
   .modal-logo {
     height: 54px;
     margin-bottom: 4px;
-    
   }
 
   @include breakpoint-down("md") {

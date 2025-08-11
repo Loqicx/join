@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
+import { ContactDetailsComponent } from '../contact-details/contact-details.component';
 
 @Component({
   selector: 'app-edit-contact-modal',
@@ -18,6 +19,7 @@ export class EditContactModalComponent {
   constructor(public initialLettersService: InitialLettersService) { }
   @Input() contactToEdit!: Contact;
   @Output() close = new EventEmitter<void>();
+  @Output() deleteModal = new EventEmitter<void>();
 
   isOpen = false;
   isSlide = false
@@ -53,30 +55,21 @@ export class EditContactModalComponent {
 
     try {
       await this.contactsService.updateContact(this.contact, this.contact.id);
-      this.close.emit();
+      window.location.reload()
     } catch (error) {
       console.error('Update failed:', error);
     }
   }
 
-  async deleteContact() {
-    if (!this.contact?.id) {
-      console.error('No contact to delete or missing id');
-      return;
-    }
-    try {
-      await this.contactsService.deleteContact(this.contact.id);
-      this.close.emit();
-    } catch (error) {
-      console.error('Delete failed:', error);
-    }
+  deleteContact() {
+    this.deleteModal.emit();
+    this.closeModal();
   }
 
   closeModal() {
     this.isSlide = false;
     setTimeout(() => {
       this.isOpen = false;
-    }, 25);
-    
+    }, 600);
   }
 }

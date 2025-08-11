@@ -19,7 +19,7 @@
           </p>
         </div>
 
-        <form (ngSubmit)="saveContact()" #editContactForm="ngForm">
+        <form #editContactForm="ngForm">
 
           <!-- Name -->
           <div class="input-with-icon">
@@ -61,7 +61,7 @@
               Delete
             </app-button>
 
-            <app-button iconSrc="assets/icons/check.svg" altText="Save" [fontSize]="'16px'" (btnClick)="saveContact()">
+            <app-button iconSrc="assets/icons/check.svg" altText="Save" [fontSize]="'16px'" (btnClick)="saveContact(); closeModal()" [disabled]="editContactForm.invalid">
               Save Contact
             </app-button>
           </div>
