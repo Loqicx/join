@@ -15,6 +15,7 @@ import { EditContactModalComponent } from '../edit-contact-modal/edit-contact-mo
 import { DeleteModalComponent } from '../../../../shared/ui/delete-modal/delete-modal.component';
 import { SVGInlineService } from '../../../../shared/services/svg-inline.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ButtonComponent } from '../../../../shared/ui/button/button.component';
 
 @Component({
   selector: 'app-contact-details',
@@ -22,6 +23,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     ColoredProfilePipe,
     EditContactModalComponent,
     DeleteModalComponent,
+    ButtonComponent,
   ],
   templateUrl: './contact-details.component.html',
   styleUrl: './contact-details.component.scss',
@@ -33,6 +35,9 @@ export class ContactDetailsComponent implements OnInit {
   contactsService = inject(ContactsService);
   contactId$: string = '';
   currentContact?: Contact | null;
+
+  actionMenuOpen: boolean = false;
+  animateActionMenu: boolean = false;
 
   @Output() close = new EventEmitter<void>();
 
@@ -80,6 +85,28 @@ export class ContactDetailsComponent implements OnInit {
       if (detailsEl) {
         detailsEl.classList.add('slide-in');
       }
+    }
+  }
+
+  openActionMenu() {
+    this.actionMenuOpen = true;
+    setTimeout(() => {
+      this.animateActionMenu = true;
+    }, 10);
+  }
+
+  closeActionMenu() {
+    this.animateActionMenu = false;
+    setTimeout(() => {
+      this.actionMenuOpen = false;
+    }, 300);
+  }
+
+  toggleActionMenu() {
+    if (!this.actionMenuOpen) {
+      this.openActionMenu();
+    } else {
+      this.closeActionMenu();
     }
   }
 

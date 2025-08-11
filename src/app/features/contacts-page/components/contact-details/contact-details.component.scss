@@ -1,27 +1,5 @@
-// <div class="contact-details__header">
-//     <h2 class="header__headline">Contacts</h2>
-//     <div class="vertical-separator"></div>
-//     <span class="header__subline">Better with a team</span>
-//   </div>
-// <div class="contact-details__content">
-//     @if (currentContact) {
-//     <div class="contact-item__logo">
-//       <p
-//         class="logo-initials"
-//         [style.background-color]="currentContact.id | coloredProfile"
-//       >
-//         {{ initialLettersService.getInitialLetters(currentContact) }}
-//       </p>
-//     </div>
-//     <div class="contact-item__info">
-//       <h3 class="contact-name">
-//         {{ currentContact.firstName }} {{ currentContact.lastName }}
-//       </h3>
-//       <span class="contact-email">{{ currentContact.email }}</span>
-//     </div>
-//     }
-//   </div>
-@use '../../../../../styles/variables.scss' as *;
+@use "../../../../../styles/variables.scss" as *;
+@use "../../../../../styles/mixings.scss" as *;
 
 @keyframes slide-in {
   from {
@@ -150,40 +128,89 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @include breakpoint-down("lg") {
+    display: none;
+  }
+}
 
-  .action-button {
-    text-decoration: none;
+.action-button {
+  text-decoration: none;
 
-    .btn-inner {
-      display: flex;
+  .btn-inner {
+    display: flex;
 
-      .icon {
-        margin-right: 12px;
-      }
-
-      span {
-        color: $color-primary;
-        text-decoration: none;
-      }
+    .icon {
+      margin-right: 12px;
     }
 
-    &:hover {
-      cursor: pointer;
-
-      .btn-inner {
-        transform: scale(1.04);
-        transition: transform 0.3s ease-out;
-      }
-
-      ::ng-deep .icon {
-        path {
-          fill: $color-primary-hover !important;
-        }
-      }
-
-      span {
-        color: $color-primary-hover !important;
-      }
+    span {
+      color: $color-primary;
+      text-decoration: none;
     }
   }
+
+  &:hover {
+    cursor: pointer;
+
+    .btn-inner {
+      transform: scale(1.04);
+      transition: transform 0.3s ease-out;
+    }
+
+    ::ng-deep .icon {
+      path {
+        fill: $color-primary-hover !important;
+      }
+    }
+
+    span {
+      color: $color-primary-hover !important;
+    }
+  }
+}
+
+.action-button-menu {
+  display: none;
+  opacity: 0;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  position: fixed;
+  flex-direction: column;
+  bottom: 177px;
+  right: 33px;
+  background-color: #fff;
+  padding: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition: all ease 0.3s;
+  transform: scale(0.8, 0.8) translate(10%, 10%);
+
+  .action-button {
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.round-btn {
+  display: none;
+}
+
+@include breakpoint-down("lg") {
+  .round-btn {
+    position: fixed;
+    display: block;
+    bottom: 108px;
+    right: 32px;
+  }
+  .action-button-menu {
+    display: flex;
+  }
+}
+
+.fade-in {
+  transform: scale(1, 1) translate(0%, 0%);
+  transition: all ease 0.3s;
+  opacity: 1;
 }
