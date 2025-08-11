@@ -9,7 +9,7 @@
         <img
           src="assets/logo/join-logo-white.svg"
           alt="Logo"
-          class="modal-logo"
+          class="modal-logo desktop"
         />
         <h1>Edit Contact</h1>
         <div class="horizontal-separator"></div>
@@ -91,6 +91,19 @@
               [fontSize]="'16px'"
               [invert]="true"
               (btnClick)="deleteContact()"
+              class="desktop"
+              [size]="'medium'"
+            >
+              Delete
+            </app-button>
+
+            <app-button
+              altText="Delete"
+              [fontSize]="'16px'"
+              [invert]="true"
+              (btnClick)="deleteContact()"
+              class="mobile"
+              [size]="'small'"
             >
               Delete
             </app-button>
@@ -100,8 +113,21 @@
               altText="Save"
               [fontSize]="'16px'"
               [type]="'submit'"
+              [size]="'medium'"
+              class="desktop"
             >
               Save Contact
+            </app-button>
+
+            <app-button
+              iconSrc="assets/icons/check.svg"
+              altText="Save"
+              [fontSize]="'16px'"
+              [type]="'submit'"
+              [size]="'small'"
+              class="mobile"
+            >
+              Save
             </app-button>
           </div>
         </form>
