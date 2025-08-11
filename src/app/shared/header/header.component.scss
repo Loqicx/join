@@ -4,6 +4,9 @@
 :host {
   height: $header-height;
   display: block;
+  @include breakpoint-down('md') {
+    height: 80px;
+  }
 }
 
 .head-wrapper {
@@ -18,7 +21,7 @@
 
   .head {
     width: 88%;
-    margin-right: 48px;
+    margin: 0 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -116,6 +119,12 @@
         border-color: black;
         border-width: 2px;
         color: $color-primary-hover;
+
+        @include breakpoint-down('md') {
+          height: 48px;
+          width: 48px;
+          font-size: 16px;
+        }
       }
     }
   }
@@ -123,6 +132,10 @@
 
 .logo {
   height: 56px;
+
+  @include breakpoint-down('md') {
+    height: 48px;
+  }
 }
 
 .mobile {
