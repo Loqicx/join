@@ -15,19 +15,20 @@
           alt="Logo"
           class="modal-logo"
         />
-        <h1>Add Contact</h1>
-        <h2>Tasks are better with a team!</h2>
-        <div class="horizontal-separator"></div>
+        <div class="modal-left__content">
+          <h1>Add Contact</h1>
+          <h2>Tasks are better with a team!</h2>
+          <div class="horizontal-separator"></div>
+        </div>
       </div>
 
       <div class="modal-right">
         <div class="modal-avatar">
-          <p
-            class="logo-initials"
-            [style.background-color]="fullName | coloredProfile"
-          >
-            {{ liveInitials }}
-          </p>
+          <img
+            src="assets/icons/Group 13.svg"
+            alt="Avatar"
+            class="avatar-svg"
+          />
         </div>
         <form (ngSubmit)="createContact()" #addContactForm="ngForm">
           <!-- Name -->
@@ -107,6 +108,7 @@
               [fontSize]="'16px'"
               [size]="'medium'"
               [type]="'submit'"
+              class="add-contact-submit-button"
             >
               Create Contact
             </app-button>
