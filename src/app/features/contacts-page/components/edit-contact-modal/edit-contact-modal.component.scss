@@ -11,6 +11,7 @@
   z-index: 1000;
   opacity: 0;
   transition: opacity 0.4s ease-out;
+  overflow-y: scroll;
 
   &.open {
     opacity: 1;
@@ -55,18 +56,29 @@
     padding: 4px;
     z-index: 20;
 
-    img {
+    .icon {
       width: 24px;
       height: 24px;
     }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 100%;
+    }
+
+    @include breakpoint-down("lg") {
+      &:hover {
+        background-color: $color-primary-hover;
+      }
+      ::ng-deep {
+        path {
+          fill: $color-white
+        }
+      }
+    }
   }
 
-  .modal-close-btn:hover {
-  background-color: rgba(0, 0, 0, 0.05); /* leichtes Grau */
-  border-radius: 100%; /* optional, für abgerundete Ecken */
-}
-
-  @include breakpoint-down("md") {
+  @include breakpoint-down("lg") {
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -79,12 +91,11 @@
   background-color: #2a3647;
   color: white;
   padding: 32px;
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  box-sizing: border-box;
+
   width: 30%;
 
   h1 {
@@ -94,6 +105,11 @@
 
     @include breakpoint-down("xl") {
       font-size: 2.4rem;
+    }
+
+    @include breakpoint-down("lg") {
+      font-size: 2.4rem;
+      margin-top: 0;
     }
   }
 
@@ -119,9 +135,10 @@
     margin-bottom: 4px;
   }
 
-  @include breakpoint-down("md") {
+  @include breakpoint-down("lg") {
     width: 100%;
-    padding: 24px;
+    padding: 100px;
+    padding-left: 24px;
   }
 }
 
@@ -131,21 +148,25 @@
   margin: 16px auto;
 
   .logo-initials {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-      margin: 0;
+    margin: 0;
 
-      width: 120px;
-      aspect-ratio: 1 / 1;
-      border-radius: 100%;
-      border: 3px solid #fff;
-      font-size: 47px;
+    width: 120px;
+    aspect-ratio: 1 / 1;
+    border-radius: 100%;
+    border: 3px solid #fff;
+    font-size: 47px;
 
-      color: white;
+    color: white;
+
+    @include breakpoint-down("lg") {
+      margin-top: -100px;
     }
   }
+}
 
 
 .modal-right {
@@ -185,7 +206,7 @@
       input.ng-invalid.ng-dirty {
         border-color: red;
         box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
-        }
+      }
 
       img {
         position: absolute;
@@ -203,10 +224,15 @@
       justify-content: flex-end;
       gap: 12px;
       margin-top: 24px;
+
+      @include breakpoint-down("lg") {
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 
-  @include breakpoint-down("md") {
+  @include breakpoint-down("lg") {
     width: 100%;
     padding: 24px;
     display: block;
@@ -215,5 +241,19 @@
       padding-left: 0;
       max-width: 100%;
     }
+  }
+}
+
+.mobile {
+  display: none;
+}
+
+@include breakpoint-down("md") {
+  .mobile {
+    display: flex;
+  }
+
+  .desktop {
+    display: none;
   }
 }
