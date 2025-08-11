@@ -44,6 +44,13 @@ $contact-list--horizontal-gutter: 30px;
     }
   }
 
+  @include breakpoint-down('xl') {
+    padding: 10px 12px;
+    gap: 12px;
+    width: 90%;
+    margin: auto;
+  }
+
   @include breakpoint-down('xsm') {
     margin: 8px;
   }
@@ -57,6 +64,10 @@ $contact-list--horizontal-gutter: 30px;
     font-size: 20px;
     font-weight: 400;
     padding: 10px 32px;
+  }
+
+  @include breakpoint-down('xl') {
+    margin: 8px;
   }
 
   @include breakpoint-down('xsm') {
@@ -88,12 +99,28 @@ $contact-list--horizontal-gutter: 30px;
       font-size: 20px;
       font-weight: 400;
       transition: all ease 0.35s;
+
     }
 
     .contact-email {
       color: #007cee;
     }
+
+    @include breakpoint-down("lg1") {
+      .contact-name {
+        font-size: 16px;
+      }
+      
+      .contact-email {
+        font-size: 14px;
+      }
+    }
+
+    @include breakpoint-down("xl") {
+    gap: 4px;
   }
+  }
+  
 }
 
 .round-btn {
