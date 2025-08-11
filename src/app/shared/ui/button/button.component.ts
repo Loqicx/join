@@ -29,15 +29,17 @@ export class ButtonComponent {
   constructor(private svgService: SVGInlineService, private sanitizer: DomSanitizer) { }
 
   handleClick() {
-      this.btnClick.emit();
+    this.btnClick.emit();
   }
 
   ngOnInit(): void {
-    this.svgService.getInlineSVG(this.iconSrc).subscribe({
-      next: (svg: string) => {
-        this.svgContent = this.sanitizer.bypassSecurityTrustHtml(svg);
-      },
-      error: err => console.error('SVG load error:', err)
-    });
+    if (this.iconSrc) {
+      this.svgService.getInlineSVG(this.iconSrc).subscribe({
+        next: (svg: string) => {
+          this.svgContent = this.sanitizer.bypassSecurityTrustHtml(svg);
+        },
+        error: err => console.error('SVG load error:', err)
+      });
+    }
   }
 }
