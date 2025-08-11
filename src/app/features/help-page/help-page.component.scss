@@ -9,6 +9,10 @@
     height: calc(100% - $header-height - $footer-height);
   }
 
+  @include breakpoint-down("md") {
+    height: calc(100% - $header-height - $footer-height  + 16px);
+  }
+
   .help-page {
     position: relative;
     height: 100%;
