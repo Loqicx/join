@@ -30,6 +30,14 @@
         transform: translateX(22.5%);
         opacity: 1;
         transition: transform 0.8s ease, opacity 0.8s ease;
+
+        @include breakpoint-down('md') {
+            transform: translateX(12.5%);
+        }
+
+        @include breakpoint-down('sm') {
+            transform: translateX(0%);
+        }
     }
 }
 
@@ -59,12 +67,24 @@
             margin-left: 0;
             color: $color-white;
             font-size: 48px;
+
+            @include breakpoint-down('lg') {
+                font-size: 32px;
+            }
         }
 
 
         .logo {
             height: 54px;
             margin-right: 18px;
+
+            @include breakpoint-down('lg') {
+                height: 42px;
+            }
+
+            @include breakpoint-down('sm') {
+                display: none;
+            }
         }
     }
 
@@ -79,6 +99,10 @@
             color: $color-text;
             font-size: 48px;
             margin: 0;
+
+            @include breakpoint-down('lg') {
+                font-size: 32px;
+            }
         }
 
         h3 {
@@ -87,6 +111,12 @@
             margin: 0;
             margin-top: 8px;
             margin-left: 18px;
+
+            @include breakpoint-down('lg') {
+                font-size: 28px;
+                margin-top: 0;
+                margin-left: 12px;
+            }
         }
 
         .horizontal-separator {
@@ -94,12 +124,27 @@
             top: 62%;
             left: 24%;
             width: 24%;
+
+            @include breakpoint-down('lg') {
+                top: 52%;
+                left: 23%;
+                width: 22%;
+            }
         }
+    }
+
+    @include breakpoint-down('md') {
+        width: 75%;
+    }
+
+    @include breakpoint-down('sm') {
+        width: 100%;
     }
 }
 
 .text {
     margin-top: 48px;
+    max-width: 80%;
 }
 
 .contact-item {
@@ -115,6 +160,7 @@
 
     &__logo {
         margin-right: 24px;
+
         .logo-initials {
             width: 56px;
             aspect-ratio: 1 / 1;
@@ -148,12 +194,13 @@
             color: $color-link;
         }
 
-        
+
     }
 }
 
 .btn-wrapper {
-    width: 100%;;
+    width: 100%;
+    ;
     padding-bottom: 32px;
     display: flex;
     justify-content: space-evenly;
