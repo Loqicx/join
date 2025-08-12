@@ -57,9 +57,13 @@ export class ContactDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.contactComService.currentContactId$.subscribe((id) =>
-      this.updateDetailDisplay(id)
-    );
+    this.contactComService.currentContactId$.subscribe((id) => {
+      if (this.currentContact) {
+        this.updateDetailDisplay(id, true);
+        return;
+      }
+      this.updateDetailDisplay(id, false);
+    });
 
     this.icons.forEach((icon) => {
       this.convertIcon(icon.name, icon.src);
@@ -70,7 +74,15 @@ export class ContactDetailsComponent implements OnInit {
     this.close.emit();
   }
 
-  updateDetailDisplay(id: string): void {
+  updateDetailDisplay(id: string, refresh: boolean): void {
+    if (id === '') {
+      this.currentContact = null;
+      return;
+    }
+    if (refresh) {
+      this.currentContact = this.contactsService.getContactById(id);
+      return;
+    }
     const detailsEl = document.querySelector('#contactDetails');
     if (detailsEl && this.currentContact) {
       detailsEl.classList.remove('slide-in');
