@@ -29,10 +29,40 @@
   animation: slide-in 0.35s ease;
 }
 
+.horizontal-separator {
+  border-width: 3px;
+  width: 90px;
+}
+
 .contact-details {
   padding: 40px;
   padding-top: 80px;
   overflow-x: hidden;
+
+  @include breakpoint-down("md") {
+    padding-top: 35px;
+  }
+
+  &__mobile-header {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
+    @include breakpoint-down("md") {
+      display: flex;
+    }
+
+    .header__headline {
+      font-weight: bold;
+      font-size: 47px;
+      margin: 0;
+    }
+
+    .header__subline {
+      font-weight: 400;
+      font-size: 20px;
+    }
+  }
 
   &__header {
     display: flex;
@@ -40,16 +70,25 @@
     gap: 35px;
     align-items: center;
     margin-bottom: 30px;
+    @include breakpoint-down("md") {
+      display: none;
+    }
 
     .header__headline {
       font-weight: bold;
       font-size: 61px;
       margin: 0;
+      @include breakpoint-down("xl") {
+        font-size: 52px;
+      }
     }
 
     .header__subline {
       font-weight: 400;
       font-size: 27px;
+      @include breakpoint-down("xl") {
+        font-size: 22px;
+      }
     }
   }
 
@@ -101,6 +140,10 @@
       font-size: 47px;
 
       color: white;
+      @include breakpoint-down("md") {
+        width: 80px;
+        font-size: 27px;
+      }
     }
   }
 
@@ -110,11 +153,18 @@
     gap: 10px;
     justify-content: center;
     margin-left: 50px;
+    @include breakpoint-down("md") {
+      margin-left: 20px;
+    }
 
     .contact-name {
       margin: 0;
       font-size: 47px;
       font-weight: 500;
+      @include breakpoint-down("md") {
+        font-size: 36px;
+        font-weight: 700;
+      }
     }
 
     .contact-email {

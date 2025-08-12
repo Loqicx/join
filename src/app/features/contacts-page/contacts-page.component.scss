@@ -63,8 +63,7 @@
   width: 100vw;
   height: calc(100vh - $header-height - $footer-height);
   background: #f6f7f8;
-  z-index: 1000;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  z-index: 9;
 
   @include breakpoint-up("lg") {
     display: none;
@@ -83,9 +82,9 @@
   .arrow-back {
     position: absolute;
     top: 25px;
-    left: 25px;
+    right: 25px;
     height: 24px;
-    width: 80px;
+    width: 40px;
     font-size: 32px;
     color: $color-primary-hover;
     text-decoration: none;
