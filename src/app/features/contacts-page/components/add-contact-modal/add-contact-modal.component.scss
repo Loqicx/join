@@ -249,4 +249,19 @@
       display: none !important;
     }
   }
+
+  .mobile {
+  display: none;
+}
+
+@include breakpoint-down("md") {
+  .mobile {
+    display: flex;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+}
 }
