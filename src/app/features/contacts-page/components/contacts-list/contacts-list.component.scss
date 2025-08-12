@@ -10,15 +10,14 @@ $contact-list--horizontal-gutter: 30px;
 }
 
 .contact-list {
-
   // overflow-y: scroll;
   // height: 100%;
-  @include breakpoint-down('lg') {
+  @include breakpoint-down("lg") {
     width: 85%;
     margin: auto;
   }
 
-  @include breakpoint-down('sm') {
+  @include breakpoint-down("sm") {
     width: 100%;
     padding-bottom: 96px;
   }
@@ -35,7 +34,9 @@ $contact-list--horizontal-gutter: 30px;
   transition: all ease 0.25s;
   cursor: pointer;
 
-  &:hover,
+  &:hover:not(.active) {
+    background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
+  }
   &.active {
     background-color: #2a3647;
 
@@ -44,14 +45,14 @@ $contact-list--horizontal-gutter: 30px;
     }
   }
 
-  @include breakpoint-down('xl') {
+  @include breakpoint-down("xl") {
     padding: 10px 12px;
     gap: 12px;
     width: 90%;
     margin: auto;
   }
 
-  @include breakpoint-down('xsm') {
+  @include breakpoint-down("xsm") {
     margin: 8px;
   }
 }
@@ -66,11 +67,11 @@ $contact-list--horizontal-gutter: 30px;
     padding: 10px 32px;
   }
 
-  @include breakpoint-down('xl') {
+  @include breakpoint-down("xl") {
     margin: 8px;
   }
 
-  @include breakpoint-down('xsm') {
+  @include breakpoint-down("xsm") {
     margin: 4px;
   }
 }
@@ -99,7 +100,6 @@ $contact-list--horizontal-gutter: 30px;
       font-size: 20px;
       font-weight: 400;
       transition: all ease 0.35s;
-
     }
 
     .contact-email {
@@ -110,24 +110,23 @@ $contact-list--horizontal-gutter: 30px;
       .contact-name {
         font-size: 16px;
       }
-      
+
       .contact-email {
         font-size: 14px;
       }
     }
 
     @include breakpoint-down("xl") {
-    gap: 4px;
+      gap: 4px;
+    }
   }
-  }
-  
 }
 
 .round-btn {
   display: none;
 }
 
-@include breakpoint-down('lg') {
+@include breakpoint-down("lg") {
   .round-btn {
     position: fixed;
     display: block;
