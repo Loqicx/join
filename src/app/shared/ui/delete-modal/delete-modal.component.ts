@@ -30,8 +30,8 @@ export class DeleteModalComponent {
     phoneNumber: '',
   };
 
-  constructor(public initialLettersService: InitialLettersService, private renderer: Renderer2) { 
-    this.renderer.listen('window', 'click', (event) => {
+  constructor(public initialLettersService: InitialLettersService, private renderer: Renderer2) {
+    this.renderer.listen('window', 'pointerdown', (event) => {
       const modal = document.querySelector('.modal');
       if (this.isOpen && modal && !modal.contains(event.target as Node)) {
         this.closeModal();

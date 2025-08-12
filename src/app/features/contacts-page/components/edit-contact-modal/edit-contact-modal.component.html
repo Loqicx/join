@@ -1,4 +1,5 @@
-<div *ngIf="isOpen" class="modal-backdrop" [ngClass]="{ open: isOpen }">
+@if(isOpen) {
+<div class="modal-backdrop" [ngClass]="{ 'open': isSlide }">
   <div class="modal-wrapper" [ngClass]="{ 'slide-in': isSlide }">
     <div class="modal">
       <button class="modal-close-btn" (click)="closeModal()">
@@ -135,3 +136,4 @@
     </div>
   </div>
 </div>
+}
