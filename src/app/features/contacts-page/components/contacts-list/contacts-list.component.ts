@@ -54,7 +54,6 @@ export class ContactsListComponent {
   }
 
   openAddContactModal(){
-    console.log('openAddContactModal called');
     this.addModal.openModal();
   }
 }
