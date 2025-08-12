@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, Renderer2, inject } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  Renderer2,
+  inject,
+} from '@angular/core';
 import { Contact } from '../../../../shared/interfaces/contact';
 import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { ButtonComponent } from '../../../../shared/ui/button/button.component';
@@ -8,7 +15,7 @@ import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pip
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
 import { SVGInlineService } from '../../../../shared/services/svg-inline.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
+import { ContactsCommunicationService } from '../../services/contacts-communication.service';
 
 @Component({
   selector: 'app-edit-contact-modal',
@@ -32,7 +39,16 @@ export class EditContactModalComponent {
 
   contact: Contact | null = null;
 
-  constructor(public initialLettersService: InitialLettersService, private svgService: SVGInlineService, private sanitizer: DomSanitizer, private renderer: Renderer2) {
+  contactComService: ContactsCommunicationService = inject(
+    ContactsCommunicationService
+  );
+
+  constructor(
+    public initialLettersService: InitialLettersService,
+    private svgService: SVGInlineService,
+    private sanitizer: DomSanitizer,
+    private renderer: Renderer2
+  ) {
     this.renderer.listen('window', 'pointerdown', (event) => {
       const modal = document.querySelector('.modal');
       if (this.isOpen && modal && !modal.contains(event.target as Node)) {
@@ -51,16 +67,17 @@ export class EditContactModalComponent {
         next: (svg: string) => {
           this.svgContent = this.sanitizer.bypassSecurityTrustHtml(svg);
         },
-        error: err => console.error('SVG load error:', err)
+        error: (err) => console.error('SVG load error:', err),
       });
     }
   }
 
   get liveInitials(): string {
     let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
-    return String(this.initialLettersService.getInitialLetters({ firstName, lastName }));
+    return String(
+      this.initialLettersService.getInitialLetters({ firstName, lastName })
+    );
   }
-
 
   openModal(contactData: Contact) {
     this.contact = { ...contactData };
@@ -86,7 +103,8 @@ export class EditContactModalComponent {
 
     try {
       await this.contactsService.updateContact(this.contact, this.contact.id);
-      window.location.reload();
+      this.closeModal();
+      this.contactComService.setContactId(this.contact.id);
     } catch (error) {
       console.error('Update failed:', error);
     }
