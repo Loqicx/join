@@ -1,8 +1,9 @@
 @use "./../../../styles/variables.scss" as *;
+@use "./../../../styles/mixings.scss" as *;
 
 :host {
-  height: $footer-height;
-  display: block;
+    height: $footer-height;
+    display: block;
 }
 
 .foot-wrapper {
@@ -17,12 +18,14 @@
 
     .footer {
         width: 100%;
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
 
         .main-nav {
             width: 100%;
+            height: 100%;
             display: flex;
             justify-content: space-evenly;
             align-items: center;
@@ -32,6 +35,18 @@
                 text-decoration: none;
                 padding: 12px;
                 border-radius: 16px;
+                width: 100px;
+                height: 100%;
+
+                @include breakpoint-down("sm") {
+                    width: 80px;
+                }
+
+                @include breakpoint-down("xsm") {
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    width: 70px;
+                }
 
                 &:not(.active) {
                     transition: background-color 0.2s;
@@ -59,6 +74,20 @@
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
+
+                    .icon {
+                        @include breakpoint-down("sm") {
+                            transform: scale(0.9);
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    span {
+                        @include breakpoint-down("sm") {
+                            font-size: 14px;
+                            white-space: nowrap;
+                        }
+                    }
                 }
             }
 
