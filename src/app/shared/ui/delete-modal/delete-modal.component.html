@@ -6,8 +6,9 @@
                 <h1>Please Confirm</h1>
             </div>
             <div class="flex title-wrap">
-                <h2 class="danger">Delete:</h2>
+                <h2 class="">Delete:</h2>
                 <h3>{{this.delete}}</h3>
+                <div class="horizontal-separator"></div>
             </div>
             <span class="text">
                 Are you shure you want to delete the following {{this.delete}} ?
@@ -22,7 +23,7 @@
                     <h3 class="contact-name">
                         {{ contact.firstName }} {{ contact.lastName }}
                     </h3>
-                    <div>
+                    <!-- <div>
                         <span>Email: </span>
                         <span class="contact-email">
                             {{ contact.email }}
@@ -33,14 +34,14 @@
                         <span class="contact-phone">
                             {{contact.phoneNumber}}
                         </span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="btn-wrapper">
                 <app-button (click)="closeModal()" [fontSize]="'18px'" [size]="'large'" [invert]="true" [iconSrc]="'assets/icons/close.svg'">
                     Cancel
                 </app-button>
-                <app-button (click)="deleteContact()" [fontSize]="'18px'" [size]="'medium'" [invert]="false" [iconSrc]="'assets/icons/delete.svg'">
+                <app-button (click)="deleteContact()" [fontSize]="'18px'" [size]="'medium'" [invert]="false" [iconSrc]="'assets/icons/delete.svg'" [color]="'danger'">
                     Delete
                 </app-button>
             </div>

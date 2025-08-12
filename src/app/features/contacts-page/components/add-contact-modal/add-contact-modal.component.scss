@@ -121,25 +121,31 @@
     font-weight: normal;
   }
 
-  @include breakpoint-down("md") {
-    width: 100%;
-    padding: 24px;
-  }
-
   .modal-logo {
     height: 54px;
     margin-bottom: 4px;
+    @include breakpoint-down("md") {
+      display: none;
+    }
   }
 
   @include breakpoint-down("md") {
     width: 100%;
-    padding: 24px;
+    padding: 100px 0;
+    align-items: center;
+    &__content {
+    }
   }
 }
 
 .modal-avatar {
   width: 120px;
   height: 120px;
+
+  .avatar-svg {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
 
   .logo-initials {
     display: flex;
@@ -159,8 +165,8 @@
 
   @include breakpoint-down("md") {
     position: relative;
-    transform: none;
-    margin: 16px 0;
+    transform: translateY(-50%);
+    margin: 0;
   }
 }
 
@@ -217,17 +223,24 @@
       justify-content: flex-end;
       gap: 12px;
       margin-top: 24px;
+      @include breakpoint-down("md") {
+        justify-content: center;
+        margin-top: 6px;
+      }
     }
   }
 
   @include breakpoint-down("md") {
     width: 100%;
     padding: 24px;
+    padding-top: 0;
     flex-direction: column;
 
     form {
       padding-left: 0;
       max-width: 100%;
+      width: 100%;
+      transform: translateY(-30px);
     }
   }
 

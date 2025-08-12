@@ -22,6 +22,7 @@ export class ButtonComponent {
   @Input() size: 'large' | 'medium' | 'small' | 'xsmall' | 'dynamic' = 'dynamic';
   @Input() invert: boolean = false;
   @Input() round: boolean = false;
+  @Input() color: 'normal' | 'danger' = 'normal'
   @Input() disabled: boolean | null = false;
 
   @Output() btnClick = new EventEmitter<void>();
