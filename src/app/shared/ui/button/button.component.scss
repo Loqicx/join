@@ -1,4 +1,4 @@
-@use './../../../../styles/variables.scss' as *;
+@use "./../../../../styles/variables.scss" as *;
 
 .add-contact-button {
   background-color: $color-primary;
@@ -88,7 +88,6 @@
 
 .small {
   height: 42px;
-  max-width: 120px;
 }
 
 .medium {
