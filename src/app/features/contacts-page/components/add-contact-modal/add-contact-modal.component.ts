@@ -1,4 +1,10 @@
-import { Component, Output, EventEmitter, inject, Renderer2 } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  inject,
+  Renderer2,
+} from '@angular/core';
 import { ButtonComponent } from '../../../../shared/ui/button/button.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -41,9 +47,6 @@ export class AddContactModalComponent {
     });
   }
 
-  // closeModal() {
-  //   this.close.emit();
-  // }
   openModal() {
     this.isOpen = true;
     setTimeout(() => {
@@ -67,15 +70,16 @@ export class AddContactModalComponent {
     this.contactName = form.controls['fullName'].value;
   }
 
-  async createContact() {
+  async createContact(form: NgForm) {
     if (!this.fullName || !this.contact.email || !this.contact.phoneNumber) {
       console.warn('Pflichtfelder fehlen');
       return;
     }
+    if (!form.valid) return;
 
     const nameParts = this.fullName.trim().split(' ');
-    this.contact.firstName = nameParts[0].toUpperCase();
-    this.contact.lastName = nameParts.slice(1).join(' ').toUpperCase();
+    this.contact.firstName = nameParts.slice(0, 1).join('');
+    this.contact.lastName = nameParts.slice(1).join('');
 
     try {
       await this.contactsService.addContactToDatabase(this.contact);
@@ -86,14 +90,19 @@ export class AddContactModalComponent {
   }
   get liveInitials(): string {
     let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
-    return String(this.initialLettersService.getInitialLetters({ firstName, lastName }));
+    return String(
+      this.initialLettersService.getInitialLetters({ firstName, lastName })
+    );
   }
 
   onNameInput(event: Event) {
     let value = (event.target as HTMLInputElement).value;
-    let parts = value.split(' ').filter(p => p.length > 0);
 
-    parts = parts.map(p => p.charAt(0).toUpperCase() + p.slice(1));
+    console.log(value);
+
+    let parts = value.split(' ').filter((p) => p.length > 0);
+
+    parts = parts.map((p) => p.charAt(0).toUpperCase() + p.slice(1));
 
     this.fullName = parts.join(' ');
   }
