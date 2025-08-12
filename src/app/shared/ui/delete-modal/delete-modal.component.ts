@@ -6,12 +6,13 @@ import { ContactsService } from '../../services/firebase/contacts.service';
 import { InitialLettersService } from '../../services/get-initial-letters.service';
 import { ColoredProfilePipe } from '../../pipes/colored-profile.pipe';
 import { ButtonComponent } from '../button/button.component';
+import { ContactsCommunicationService } from '../../../features/contacts-page/services/contacts-communication.service';
 
 @Component({
   selector: 'app-delete-modal',
   imports: [ButtonComponent, CommonModule, FormsModule, ColoredProfilePipe],
   templateUrl: './delete-modal.component.html',
-  styleUrl: './delete-modal.component.scss'
+  styleUrl: './delete-modal.component.scss',
 })
 export class DeleteModalComponent {
   @Input() contactToDelete!: Contact;
@@ -22,6 +23,7 @@ export class DeleteModalComponent {
   delete: string = 'nothing';
 
   contactsService = inject(ContactsService);
+  contactComService = inject(ContactsCommunicationService);
   contact = {
     id: '',
     firstName: '',
@@ -30,7 +32,10 @@ export class DeleteModalComponent {
     phoneNumber: '',
   };
 
-  constructor(public initialLettersService: InitialLettersService, private renderer: Renderer2) {
+  constructor(
+    public initialLettersService: InitialLettersService,
+    private renderer: Renderer2
+  ) {
     this.renderer.listen('window', 'pointerdown', (event) => {
       const modal = document.querySelector('.modal');
       if (this.isOpen && modal && !modal.contains(event.target as Node)) {
@@ -57,8 +62,8 @@ export class DeleteModalComponent {
 
     try {
       await this.contactsService.deleteContact(this.contact.id);
+      this.contactComService.setContactId('');
       this.isOpen = false; // Close the modal after deletion
-      window.location.reload()
     } catch (error) {
       console.error('Delete failed:', error);
     }
