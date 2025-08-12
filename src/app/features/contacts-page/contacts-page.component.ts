@@ -49,9 +49,6 @@ export class ContactsPageComponent {
   }
 
   openAddContactModal(){
-    console.log('openAddContactModal called');
-    this.addModal.openModal();
-    
-    
+    this.addModal.openModal(); 
   }
 }
