@@ -93,7 +93,7 @@ jobs:
         run: npm install -g @angular/cli
 
       - name: Build Angular project
-        run: ng build --base-href /angular_projects/join-mmc/
+        run: ng build --base-href /angular-projects/join-mmc/
 
       - name: Create and push tag
         id: create_tag
@@ -109,7 +109,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: "./dist/join/browser/"
-          server-dir: "/angular_projects/join-mmc/"
+          server-dir: "/angular-projects/join-mmc/"
           protocol: "ftp"
 
       - name: Delete remote release branch
