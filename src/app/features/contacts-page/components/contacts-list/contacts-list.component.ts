@@ -4,6 +4,7 @@ import {
   inject,
   OnChanges,
   OnInit,
+  ViewChild,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -12,10 +13,12 @@ import { ContactsCommunicationService } from '../../services/contacts-communicat
 import { ObjectToArrayPipe } from '../../../../shared/pipes/object-to-array.pipe';
 import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
+import { ButtonComponent } from '../../../../shared/ui/button/button.component';
+import { AddContactModalComponent } from '../add-contact-modal/add-contact-modal.component';
 
 @Component({
   selector: 'app-contacts-list',
-  imports: [ObjectToArrayPipe, ColoredProfilePipe],
+  imports: [ObjectToArrayPipe, ColoredProfilePipe, ButtonComponent, AddContactModalComponent],
   templateUrl: './contacts-list.component.html',
   styleUrl: './contacts-list.component.scss',
 })
@@ -28,6 +31,9 @@ export class ContactsListComponent {
   };
 
   @Output() selectContact = new EventEmitter<void>();
+
+  @ViewChild(AddContactModalComponent) addModal!: AddContactModalComponent
+
 
   activeContactId: string | null = null;
   initialLetterService: InitialLettersService = inject(InitialLettersService);
@@ -45,5 +51,10 @@ export class ContactsListComponent {
     this.activeContactId = id;
     this.contactsComService.setContactId(id);
     this.selectContact.emit();
+  }
+
+  openAddContactModal(){
+    console.log('openAddContactModal called');
+    this.addModal.openModal();
   }
 }

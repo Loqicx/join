@@ -1,3 +1,6 @@
+@use "../../../../../styles/variables.scss" as *;
+@use "../../../../../styles/mixings.scss" as *;
+
 $contact-list--vertical-gutter: 10px;
 $contact-list--horizontal-gutter: 30px;
 
@@ -7,8 +10,18 @@ $contact-list--horizontal-gutter: 30px;
 }
 
 .contact-list {
+
   // overflow-y: scroll;
   // height: 100%;
+  @include breakpoint-down('lg') {
+    width: 85%;
+    margin: auto;
+  }
+
+  @include breakpoint-down('sm') {
+    width: 100%;
+    padding-bottom: 96px;
+  }
 }
 
 .contact-list__contact-item {
@@ -30,15 +43,35 @@ $contact-list--horizontal-gutter: 30px;
       color: white;
     }
   }
+
+  @include breakpoint-down('xl') {
+    padding: 10px 12px;
+    gap: 12px;
+    width: 90%;
+    margin: auto;
+  }
+
+  @include breakpoint-down('xsm') {
+    margin: 8px;
+  }
 }
 
 .contact-list__contact-separator {
   margin: $contact-list--vertical-gutter $contact-list--horizontal-gutter;
+
   .contact-separator__content {
     border-bottom: 1px solid #d1d1d1;
     font-size: 20px;
     font-weight: 400;
     padding: 10px 32px;
+  }
+
+  @include breakpoint-down('xl') {
+    margin: 8px;
+  }
+
+  @include breakpoint-down('xsm') {
+    margin: 4px;
   }
 }
 
@@ -60,14 +93,45 @@ $contact-list--horizontal-gutter: 30px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+
     .contact-name {
       margin: 0;
       font-size: 20px;
       font-weight: 400;
       transition: all ease 0.35s;
+
     }
+
     .contact-email {
       color: #007cee;
     }
+
+    @include breakpoint-down("lg1") {
+      .contact-name {
+        font-size: 16px;
+      }
+      
+      .contact-email {
+        font-size: 14px;
+      }
+    }
+
+    @include breakpoint-down("xl") {
+    gap: 4px;
+  }
+  }
+  
+}
+
+.round-btn {
+  display: none;
+}
+
+@include breakpoint-down('lg') {
+  .round-btn {
+    position: fixed;
+    display: block;
+    bottom: 108px;
+    right: 32px;
   }
 }

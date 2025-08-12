@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Output, EventEmitter, inject, Renderer2 } from '@angular/core';
 import { ButtonComponent } from '../../../../shared/ui/button/button.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -31,6 +31,15 @@ export class AddContactModalComponent {
     email: '',
     phoneNumber: '',
   };
+
+  constructor(private renderer: Renderer2) {
+    this.renderer.listen('window', 'pointerdown', (event) => {
+      const modal = document.querySelector('.modal');
+      if (this.isOpen && modal && !modal.contains(event.target as Node)) {
+        this.closeModal();
+      }
+    });
+  }
 
   // closeModal() {
   //   this.close.emit();
@@ -81,11 +90,11 @@ export class AddContactModalComponent {
   }
 
   onNameInput(event: Event) {
-  let value = (event.target as HTMLInputElement).value;
-  let parts = value.split(' ').filter(p => p.length > 0);
+    let value = (event.target as HTMLInputElement).value;
+    let parts = value.split(' ').filter(p => p.length > 0);
 
-  parts = parts.map(p => p.charAt(0).toUpperCase() + p.slice(1));
+    parts = parts.map(p => p.charAt(0).toUpperCase() + p.slice(1));
 
-  this.fullName = parts.join(' ');
-}
+    this.fullName = parts.join(' ');
+  }
 }

@@ -28,4 +28,17 @@
     </div>
   </div>
   } }
+
+  <app-button
+        iconSrc="assets/icons/person_add.svg"
+        altText="Add Contact"
+        (btnClick)="openAddContactModal()"
+        [size]="'xsmall'"
+        [round]="true"
+        class="round-btn"
+      >
+        Add new contact
+      </app-button>
+
+      <app-add-contact-modal></app-add-contact-modal>
 </div>
