@@ -30,7 +30,8 @@
             class="avatar-svg"
           />
         </div>
-        <form (ngSubmit)="createContact()" #addContactForm="ngForm">
+        <form (ngSubmit)="addContactForm.valid && createContact()" #addContactForm="ngForm">
+
           <!-- Name -->
           <div class="input-with-icon">
             <input
