@@ -76,7 +76,7 @@
 
   @include breakpoint-down("sm") {
     height: calc(100% - $header-height - $footer-height + 24px);
-    top: calc($header-height - 24px);
+    top: calc($header-height - 16px);
   }
 
   .arrow-back {
