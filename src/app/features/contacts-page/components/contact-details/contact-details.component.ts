@@ -12,7 +12,7 @@ import { Contact } from '../../../../shared/interfaces/contact';
 import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
 import { EditContactModalComponent } from '../edit-contact-modal/edit-contact-modal.component';
-import { DeleteModalComponent } from '../../../../shared/ui/delete-modal/delete-modal.component';
+import { DeleteModalComponent } from '../../../../shared/delete-modal/delete-modal.component';
 import { SVGInlineService } from '../../../../shared/services/svg-inline.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ButtonComponent } from '../../../../shared/ui/button/button.component';
