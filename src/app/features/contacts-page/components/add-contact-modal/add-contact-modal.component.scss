@@ -96,6 +96,9 @@
     width: 100%;
     height: auto;
     border-radius: 16px;
+
+    .modal-close-btn:active {
+      background-color: $color-primary-hover;
   }
 }
 
@@ -271,4 +274,5 @@
       display: none;
     }
   }
+}
 }
