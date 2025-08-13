@@ -1,1 +1,81 @@
-<p>add-task works!</p>
+<div class="page-wrapper">
+    <div class="add-task-wrapper">
+        <h1 class="title">Add Task</h1>
+        <div class="add-task">
+            <form (ngSubmit)="saveTask(addTaskForm)" #addTaskForm="ngForm">
+                <div class="left-wrapper">
+                    <div class="input-wrapper">
+                        <div class="input input-text">
+                            <label for="taskTitle" class="input-title">Title<div class="required-star">*</div></label>
+                            <input type="text" placeholder="Enter a Title" required [(ngModel)]="taskTitle"
+                                name="taskTitle" #taskTitleVar="ngModel" />
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="input input-description">
+                            <label for="taskDescription" class="input-title">Description</label>
+                            <input type="text" placeholder="Enter a Description" required [(ngModel)]="taskDescription"
+                                name="taskDescription" #taskDescriptionVar="ngModel" />
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="input input-text">
+                            <label for="taskDueDate" class="input-title">Due date<div class="required-star">*</div>
+                            </label>
+                            <input type="date" placeholder="tt/mm/yyyy" required [(ngModel)]="taskDueDate"
+                                name="taskDueDate" #taskDueDateVar="ngModel" />
+                        </div>
+                    </div>
+                </div>
+                <div class="seperator">
+                    <!-- Seperator things going on here -->
+                </div>
+                <div class="right-wrapper">
+                    <div class="priority-btn-wrapper">
+                        <app-button [invert]="true" [iconSrc]="'assets/icons/urgent.svg'" [size]="'medium'">
+                            Urgent
+                        </app-button>
+
+                        <app-button [invert]="true" [iconSrc]="'assets/icons/medium.svg'" [size]="'medium'">
+                            Medium
+                        </app-button>
+
+                        <app-button [invert]="true" [iconSrc]="'assets/icons/low.svg'" [size]="'medium'">
+                            Low
+                        </app-button>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="input input-dropdown">
+                            <label for="taskAssigned" class="input-title">Assigned to</label>
+                            <select data-placeholder="Select Contacts to assign" multiple size="1"
+                                [(ngModel)]="taskAssigned" name="taskAssigned" #taskAssignedVar="ngModel"
+                                list="contactsToAssign">
+
+                                <!-- Add Contacts Render Logic Here! -->
+                                @for (contacts of contactsService.contacts | objectToArray; track contacts.key) {
+                                    @for (contact of contacts.value; track $index) {
+                                    <option value="{{contact.id}}" class="contact-choose-wrapper">
+                                        <div class="contact-logo">
+                                            <p class="logo-initials" [style.background-color]="contact.id | coloredProfile">
+                                                {{ initialLetterService.getInitialLetters(contact) }}
+                                            </p>
+                                        </div>
+                                        <span class="contact-firstName">{{contact.firstName}} </span>
+                                        <span class="contact-lastName">{{contact.lastName}}</span>
+                                        
+                                    </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="selected-contact-icons">
+                            <!-- Add conditional Logic to show contact Icons Here -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
