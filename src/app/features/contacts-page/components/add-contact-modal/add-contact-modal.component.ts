@@ -57,6 +57,7 @@ export class AddContactModalComponent {
     this.isSlide = false;
     setTimeout(() => {
       this.isOpen = false;
+      this.clearModalForm();
     }, 600);
   }
 
@@ -100,5 +101,16 @@ export class AddContactModalComponent {
     parts = parts.map((p) => p.charAt(0).toUpperCase() + p.slice(1));
 
     this.fullName = parts.join(' ');
+  }
+
+  clearModalForm() {
+    this.fullName = '';
+    this.contact = {
+      id: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phoneNumber: '',
+    };
   }
 }
