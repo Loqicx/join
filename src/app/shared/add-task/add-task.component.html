@@ -2,7 +2,7 @@
     <div class="add-task-wrapper">
         <h1 class="title">Add Task</h1>
         <div class="add-task">
-            <form (ngSubmit)="saveTask(addTaskForm)" #addTaskForm="ngForm">
+            <form (ngSubmit)="saveTask(addTaskForm)" #addTaskForm="ngForm" class="add-task-form">
                 <div class="left-wrapper">
                     <div class="input-wrapper">
                         <div class="input input-text">
@@ -45,32 +45,53 @@
                         </app-button>
                     </div>
                     <div class="input-wrapper">
-                        <div class="input input-dropdown">
-                            <label for="taskAssigned" class="input-title">Assigned to</label>
-                            <select data-placeholder="Select Contacts to assign" multiple size="1"
-                                [(ngModel)]="taskAssigned" name="taskAssigned" #taskAssignedVar="ngModel"
-                                list="contactsToAssign">
+                        <label for="taskAssigned" class="input-title">Assigned to</label>
+                        <select data-placeholder="Select Contacts to assign" multiple size="1"
+                            [(ngModel)]="taskAssigned" name="taskAssigned" #taskAssignedVar="ngModel"
+                            list="contactsToAssign" class="multiple-select">
 
-                                <!-- Add Contacts Render Logic Here! -->
-                                @for (contacts of contactsService.contacts | objectToArray; track contacts.key) {
-                                    @for (contact of contacts.value; track $index) {
-                                    <option value="{{contact.id}}" class="contact-choose-wrapper">
-                                        <div class="contact-logo">
-                                            <p class="logo-initials" [style.background-color]="contact.id | coloredProfile">
-                                                {{ initialLetterService.getInitialLetters(contact) }}
-                                            </p>
-                                        </div>
-                                        <span class="contact-firstName">{{contact.firstName}} </span>
-                                        <span class="contact-lastName">{{contact.lastName}}</span>
-                                        
-                                    </option>
-                                    }
+                            <!-- Add Contacts Render Logic Here! -->
+                            @for (contacts of contactsService.contacts | objectToArray; track contacts.key) {
+                                @for (contact of contacts.value; track $index) {
+                                <option value="{{contact.id}}" class="contact-choose-wrapper">
+                                    <p class="logo-initials" [style.background-color]="contact.id | coloredProfile">
+                                        {{ initialLetterService.getInitialLetters(contact) }}
+                                    </p>
+                                    <span class="contact-name">{{contact.firstName}} {{contact.lastName}}</span>
+                                    <input type="checkbox" name="" id="">
+                                </option>
                                 }
-                            </select>
-                        </div>
-                        <div class="selected-contact-icons">
-                            <!-- Add conditional Logic to show contact Icons Here -->
-                        </div>
+                            }
+                        </select>
+                    </div>
+                    <div class="selected-contact-icons">
+                        <!-- Add conditional Logic to show contact Icons Here -->
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="taskCategory">Category<div class="required-star">*</div></label>
+                        <select data-placeholder="Select task Category" size="1"
+                        [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel" 
+                        list="categorys" class="category-list">
+                        @for (category of categoryDummy; track $index) {
+                            <option value="{{categoryDummy[$index]}}">{{categoryDummy[$index]}}</option>
+                        }
+                        </select>
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="taskSubtask">Subtasks</label>
+                        <input placeholder="Add new Subtask" size="1"
+                        [(ngModel)]="taskSubtask" name="taskSubtask" #taskCategoryVar="ngModel" 
+                        class="subtask-input"/>
+                        <div class="icon-plus">+</div>
+                    </div>
+                    <div class="subtask-wrapper">
+                    @if (subtasks) {
+                        <ul>
+                        @for (subtask of subtasks; track $index) {
+                            <li>{{subtasks[$index].title}}</li>
+                        }
+                        </ul>
+                    }
                     </div>
 
                 </div>

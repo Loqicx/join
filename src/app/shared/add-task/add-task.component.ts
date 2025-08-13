@@ -15,14 +15,19 @@ import { InitialLettersService } from '../services/get-initial-letters.service';
 })
 export class AddTaskComponent {
 
-  dropdownCatergory = ['Nutzlos', 'Sinnlos', 'ABM']
+  categoryDummy = ['Nutzlos', 'Sinnlos', 'ABM']
+  subtasks: { id: number, title: string }[] = [];
+
   taskTitle: any;
   taskDescription: any;
   taskDueDate: any;
   taskAssigned: any;
+  taskCategory: any;
+  taskSubtask: any;
 
   contactsService: ContactsService = inject(ContactsService);
   initialLetterService: InitialLettersService = inject(InitialLettersService);
+
 
   saveTask(taskForm: NgForm) {
     console.log('task Saved!' + taskForm)
