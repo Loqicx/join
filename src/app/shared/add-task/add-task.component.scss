@@ -1,3 +1,104 @@
+@use '../../../styles/variables.scss' as *;
+@use '../../../styles/mixings.scss' as *;
 
+.page-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.add-task-wrapper {
+    height: 90%;
+    width: 90%;
+    margin: auto;
+}
+
+.add-task {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+}
+
+.add-task-form {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-wrapper {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.right-wrapper {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.input-wrapper {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 16px 0;
+
+    .input {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+
+        .input-title {
+            display: flex;
+            margin-bottom: 4px;
+        }
+
+        .input-sm {
+            height: 48px;
+            width: 100%;
+        }
+
+        .input-bg {
+            height: 120px;
+            width: 100%;
+        }
+
+        .multiple-select {
+            height: 48px;
+            width: 100%;
+        }
+
+        .single-select {
+            height: 48px;
+            width: 100%;
+        }
+
+        .border {
+            border: 1px solid $color-input-border;
+            border-radius: 8px;
+            padding: 8px
+        }
+    }
+}
+
+.priority-btn-wrapper {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 
