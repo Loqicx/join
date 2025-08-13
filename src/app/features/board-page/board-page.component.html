@@ -1,0 +1,39 @@
+<main class="content-wrapper">
+  <div class="board-header">
+    <h2 class="header__headline page-headline">Board</h2>
+    <div class="header__actions">
+      <div class="search-input-field">
+        <input type="text" class="text-input" placeholder="Find Task" />
+        <div class="search-icon-container">
+          <img src="./assets/icons/search.svg" alt="" class="search-icon" />
+        </div>
+      </div>
+      <app-button
+        class="cancel-btn"
+        iconSrc="assets/icons/add.svg"
+        altText="Cancel"
+        [fontSize]="'21px'"
+        [invert]="false"
+        [size]="'large'"
+        >Add Task</app-button
+      >
+    </div>
+  </div>
+  <div class="board-content" cdkDropListGroup>
+    @for (list of board.lists; track $index) {
+    <div class="list-container">
+      <h3>{{ list.name }}</h3>
+      <div
+        class="task-list"
+        cdkDropList
+        [cdkDropListData]="list.items"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for (task of list.items; track $index) {
+        <div class="task-item" cdkDrag>{{ task }}</div>
+        }
+      </div>
+    </div>
+    }
+  </div>
+</main>

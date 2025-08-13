@@ -1,0 +1,66 @@
+import { Component } from '@angular/core';
+import { ButtonComponent } from '../../shared/ui/button/button.component';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+  CdkDrag,
+  CdkDropList,
+  CdkDropListGroup,
+} from '@angular/cdk/drag-drop';
+
+@Component({
+  selector: 'app-board-page',
+  imports: [ButtonComponent, CdkDropList, CdkDrag, CdkDropListGroup],
+  templateUrl: './board-page.component.html',
+  styleUrl: './board-page.component.scss',
+})
+export class BoardPageComponent {
+  board = {
+    lists: [
+      {
+        name: 'To do',
+        items: [],
+      },
+      {
+        name: 'In progress',
+        items: ['Kochen', 'Putzen'],
+      },
+      {
+        name: 'Await feedback',
+        items: [],
+      },
+      {
+        name: 'Done',
+        items: ['Hausaufgaben'],
+      },
+    ],
+  };
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+  }
+
+  others(currentListName: string) {
+    let otherLists: string[] = [];
+    this.board.lists.forEach((list) => {
+      if (list.name !== currentListName) {
+        otherLists.push(list.name);
+      }
+    });
+    return otherLists;
+  }
+}

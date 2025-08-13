@@ -3,12 +3,17 @@ import { ContactsPageComponent } from './features/contacts-page/contacts-page.co
 import { PrivacyPolicyPageComponent } from './features/privacy-policy-page/privacy-policy-page.component';
 import { LegalNoticePageComponent } from './features/legal-notice-page/legal-notice-page.component';
 import { HelpPageComponent } from './features/help-page/help-page.component';
+import { BoardPageComponent } from './features/board-page/board-page.component';
 import { AddTaskPageComponent } from './features/add-task-page/add-task-page.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: ContactsPageComponent, // TODO: add "home" component
+  },
+  {
+    path: 'board',
+    component: BoardPageComponent,
   },
   {
     path: 'contacts',
