@@ -1,12 +1,12 @@
 import { Component, Input, Renderer2, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Contact } from '../../interfaces/contact';
-import { ContactsService } from '../../services/firebase/contacts.service';
-import { InitialLettersService } from '../../services/get-initial-letters.service';
-import { ColoredProfilePipe } from '../../pipes/colored-profile.pipe';
-import { ButtonComponent } from '../button/button.component';
-import { ContactsCommunicationService } from '../../../features/contacts-page/services/contacts-communication.service';
+import { Contact } from '../interfaces/contact';
+import { ContactsService } from '../services/firebase/contacts.service';
+import { InitialLettersService } from '../services/get-initial-letters.service';
+import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';
+import { ButtonComponent } from '../ui/button/button.component';
+import { ContactsCommunicationService } from '../../features/contacts-page/services/contacts-communication.service';
 
 @Component({
   selector: 'app-delete-modal',
