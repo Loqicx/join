@@ -3,6 +3,7 @@ import { ContactsPageComponent } from './features/contacts-page/contacts-page.co
 import { PrivacyPolicyPageComponent } from './features/privacy-policy-page/privacy-policy-page.component';
 import { LegalNoticePageComponent } from './features/legal-notice-page/legal-notice-page.component';
 import { HelpPageComponent } from './features/help-page/help-page.component';
+import { AddTaskPageComponent } from './features/add-task-page/add-task-page.component';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,10 @@ export const routes: Routes = [
   {
     path: 'contacts',
     component: ContactsPageComponent,
+  },
+  {
+    path: 'addTask',
+    component: AddTaskPageComponent,
   },
   {
     path: 'privacy',
