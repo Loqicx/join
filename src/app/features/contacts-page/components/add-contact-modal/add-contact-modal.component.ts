@@ -10,13 +10,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { Contact } from '../../../../shared/interfaces/contact';
-import { ColoredProfilePipe } from '../../../../shared/pipes/colored-profile.pipe';
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
 
 @Component({
   selector: 'app-add-contact-modal',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, FormsModule, ColoredProfilePipe],
+  imports: [ButtonComponent, CommonModule, FormsModule],
   templateUrl: './add-contact-modal.component.html',
   styleUrls: ['./add-contact-modal.component.scss'],
 })
@@ -58,13 +57,12 @@ export class AddContactModalComponent {
     this.isSlide = false;
     setTimeout(() => {
       this.isOpen = false;
+      this.clearModalForm();
     }, 600);
   }
 
   formSubmit(form: NgForm) {
-    console.log('form clicked');
     if (!form.valid) {
-      console.log('form invalid');
       return;
     }
     this.contactName = form.controls['fullName'].value;
@@ -98,12 +96,21 @@ export class AddContactModalComponent {
   onNameInput(event: Event) {
     let value = (event.target as HTMLInputElement).value;
 
-    console.log(value);
-
     let parts = value.split(' ').filter((p) => p.length > 0);
 
     parts = parts.map((p) => p.charAt(0).toUpperCase() + p.slice(1));
 
     this.fullName = parts.join(' ');
+  }
+
+  clearModalForm() {
+    this.fullName = '';
+    this.contact = {
+      id: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phoneNumber: '',
+    };
   }
 }

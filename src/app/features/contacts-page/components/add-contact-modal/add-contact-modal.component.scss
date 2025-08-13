@@ -143,8 +143,6 @@
     width: 100%;
     padding: 80px 0;
     align-items: center;
-    &__content {
-    }
   }
 }
 
@@ -212,7 +210,8 @@
       }
 
       input.ng-invalid.ng-touched,
-      input.ng-invalid.ng-dirty {
+      input.ng-invalid.ng-dirty,
+      input.has-error {
         border-color: red;
         box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
       }

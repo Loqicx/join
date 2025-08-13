@@ -47,6 +47,7 @@
                 #nameV="ngModel"
                 (input)="onNameInput($event)"
                 pattern="^[A-Za-zÄÖÜäöüß]{2,}\s[A-Za-zÄÖÜäöüß]{2,}$"
+                [class.has-error]="addContactForm.submitted && nameV.errors"
               />
               <img src="assets/icons/person.svg" alt="Name" />
             </div>
@@ -70,6 +71,7 @@
                 name="email"
                 #emailV="ngModel"
                 email
+                [class.has-error]="addContactForm.submitted && emailV.errors"
               />
               <img src="assets/icons/mail.svg" alt="Email" />
             </div>
@@ -91,6 +93,7 @@
                 name="phoneNumber"
                 pattern="^[0-9\s\-\+\(\)]{6,}$"
                 #phoneV="ngModel"
+                [class.has-error]="addContactForm.submitted && phoneV.errors"
               />
               <img src="assets/icons/call.svg" alt="Phone" />
             </div>
