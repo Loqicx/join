@@ -54,33 +54,8 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <div class="input assign-input">
-                            <label for="taskAssigned" class="input-title">Assigned to</label>
-                            <input placeholder="Select Contacts to assign" multiple size="1"
-                                [(ngModel)]="taskAssignedInput" name="taskAssignedInput" #taskAssignedInputVar="ngModel"
-                                class="input-sm border" />
-
-                            <div class="input hidden-input" id="assignContactInput">
-                                <mat-select multiple [(ngModel)]="taskAssigned" name="taskAssigned"
-                                    #taskAssignedVar="ngModel" list="contactsToAssign" class="multiple-select border">
-
-                                    <!-- Add Contacts Render Logic Here! -->
-                                    @for (contacts of contactsService.contacts | objectToArray; track contacts.key) {
-                                    @for (contact of contacts.value; track $index) {
-                                    <mat-option value="{{contact.id}}" class="contact-choose-wrapper">
-                                        <p class="logo-initials" [style.background-color]="contact.id | coloredProfile">
-                                            {{ initialLetterService.getInitialLetters(contact) }}
-                                        </p>
-                                        <span class="contact-name">
-                                            {{contact.firstName}} {{contact.lastName}}
-                                            <input type="checkbox" name="taskContactCheckbox{{contact.id}}"
-                                                id="taskContactCheckbox{{contact.id}}">
-                                        </span>
-                                    </mat-option>
-                                    }
-                                    }
-                                </mat-select>
-                            </div>
+                        <div class="input">
+                            <app-assign-contact-input></app-assign-contact-input>
                         </div>
                     </div>
                     <div class="selected-contact-icons">

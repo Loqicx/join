@@ -4,13 +4,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from "../ui/button/button.component";
 import { ContactsService } from '../services/firebase/contacts.service';
-import { ObjectToArrayPipe } from '../pipes/object-to-array.pipe';
-import { ColoredProfilePipe } from "../pipes/colored-profile.pipe";
 import { InitialLettersService } from '../services/get-initial-letters.service';
+import { AssignContactInputComponent } from "../ui/assign-contact-input/assign-contact-input.component";
 
 @Component({
   selector: 'app-add-task',
-  imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, ObjectToArrayPipe, ColoredProfilePipe],
+  imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, AssignContactInputComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
