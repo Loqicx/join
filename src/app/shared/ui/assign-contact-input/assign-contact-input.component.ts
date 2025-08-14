@@ -10,33 +10,42 @@ import { CommonModule } from '@angular/common';
   imports: [FormsModule, CommonModule],
   templateUrl: './assign-contact-input.component.html',
   styleUrl: './assign-contact-input.component.scss',
-  providers: [ObjectToArrayPipe]
+  providers: [ObjectToArrayPipe],
 })
 export class AssignContactInputComponent {
   taskAssignInput: any;
-  contacts: {} | Contact = {};
+  contacts: Contact[] = [];
   contactsArray: [] | any = [];
   searchArray: [] | any = [];
+  filteredContacts: Contact[] = [];
 
-  contactsService: ContactsService = inject(ContactsService);
-
-  constructor(private contactPipe: ObjectToArrayPipe) {
-
-  }
+  constructor(
+    private contactPipe: ObjectToArrayPipe,
+    private contactsService: ContactsService
+  ) {}
 
   ngAfterViewInit() {
-    this.findContact('An');
+    this.loadContacts();
   }
 
-  findContact(name: string) {
-    this.contacts = 
-    this.contactsArray = [];
-    this.contactsArray = this.contactPipe.transform(this.contactsService.contacts)
+  async loadContacts() {
+    this.contacts = await this.contactsService.getContacts();
+  }
 
-    this.contactsArray.forEach((key: any)=> {
-      console.log(key)
+  filterContacts(searchValue: string) {
+    if (!searchValue || searchValue.length < 3) {
+      return this.contacts;
+    }
+
+    this.filteredContacts = this.contacts.filter((contact) => {
+      const fullName =
+        `${contact.firstName} ${contact.lastName}`.toLocaleLowerCase();
+
+      return fullName.includes(searchValue.toLocaleLowerCase());
     });
-    console.log(this.contactsArray)
+    console.log(this.filteredContacts);
+
+    return this.filteredContacts;
   }
 }
 

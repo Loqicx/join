@@ -1,12 +1,14 @@
 <div class="assign-wrapper">
-    <label for="assignInput">Assign to</label>
-    <input type="text" placeholder="Select Contacts to assign"
-    [(ngModel)]="taskAssignInput" name="taskAssignInput" #taskAssignInputVar="ngModel"
-    class="input-sm">
+  <label for="assignInput">Assign to</label>
+  <input
+    type="text"
+    placeholder="Select Contacts to assign"
+    [(ngModel)]="taskAssignInput"
+    name="taskAssignInput"
+    #taskAssignInputVar="ngModel"
+    class="input-sm"
+    (input)="filterContacts(taskAssignInputVar.value)"
+  />
 
-    <div class="select-list">
-
-    </div>
-
+  <div class="select-list"></div>
 </div>
-
