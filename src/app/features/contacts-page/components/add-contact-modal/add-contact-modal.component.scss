@@ -53,6 +53,7 @@
     cursor: pointer;
     padding: 4px;
     z-index: 20;
+    transition: all 0.3s ease;
 
     img {
       width: 24px;
@@ -96,6 +97,9 @@
     width: 100%;
     height: auto;
     border-radius: 16px;
+
+    .modal-close-btn:active {
+      background-color: $color-primary-hover;
   }
 }
 
@@ -271,4 +275,5 @@
       display: none;
     }
   }
+}
 }
