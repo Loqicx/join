@@ -1,1 +1,24 @@
-<p>task-card works!</p>
+<div *ngFor="let task of tasks" class="task-card">
+  <div class="task-type">{{ task.type }}</div>
+  <h3>{{ task.title }}</h3>
+  <p>{{ task.description }}</p>
+
+  <div class="progress-wrapper">
+    <div class="progress-container">
+      <div
+        class="progress-bar"
+        [style.width.%]="(task.subtasksDone / task.subtasksTotal) * 100"
+      ></div>
+    </div>
+    <div class="progress-text">
+      {{ task.subtasksDone }}/{{ task.subtasksTotal }} Subtasks
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <div class="assignees">
+      <span *ngFor="let a of task.assignees">{{ a }}</span>
+    </div>
+    <img src="assets/icons/Priority symbols.svg" alt="Priority" class="priority-icon" />
+  </div>
+</div>
