@@ -8,10 +8,11 @@ import {
   CdkDropList,
   CdkDropListGroup,
 } from '@angular/cdk/drag-drop';
+import { TaskCardComponent } from '../../shared/task-card/task-card.component';
 
 @Component({
   selector: 'app-board-page',
-  imports: [ButtonComponent, CdkDropList, CdkDrag, CdkDropListGroup],
+  imports: [ButtonComponent, CdkDropList, CdkDrag, CdkDropListGroup, TaskCardComponent],
   templateUrl: './board-page.component.html',
   styleUrl: './board-page.component.scss',
 })
