@@ -4,6 +4,7 @@
 .page-wrapper {
     height: 100%;
     width: 100%;
+    background-color: $color-primary-bg;
 }
 
 .add-task-wrapper {
@@ -94,8 +95,18 @@
     }
 }
 
-.priority-btn-wrapper {
+.priority-wrapper {
     width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 4px;
+}
+
+.priority-btn-wrapper {
+    width: 100%;
+    margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;

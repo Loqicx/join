@@ -20,6 +20,7 @@ export class ButtonComponent {
   @Input() type: string = 'button';
   @Input() fontSize: string = '26px';
   @Input() size: 'large' | 'medium' | 'small' | 'xsmall' | 'dynamic' | 'priority' = 'dynamic';
+  @Input() active: boolean = false;
   @Input() invert: boolean = false;
   @Input() round: boolean = false;
   @Input() color: 'normal' | 'danger' | 'warn' | 'success' = 'normal';

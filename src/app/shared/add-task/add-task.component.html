@@ -7,23 +7,23 @@
                     <div class="input-wrapper">
                         <div class="input input-text">
                             <label for="taskTitle" class="input-title">Title<div class="required-star">*</div></label>
-                            <input class="input-sm border" type="text" placeholder="Enter a Title" required [(ngModel)]="taskTitle"
-                                name="taskTitle" #taskTitleVar="ngModel" />
+                            <input class="input-sm border" type="text" placeholder="Enter a Title" required
+                                [(ngModel)]="taskTitle" name="taskTitle" #taskTitleVar="ngModel" />
                         </div>
                     </div>
                     <div class="input-wrapper">
                         <div class="input input-description">
                             <label for="taskDescription" class="input-title">Description</label>
-                            <input class="input-bg border" type="text" placeholder="Enter a Description" required [(ngModel)]="taskDescription"
-                                name="taskDescription" #taskDescriptionVar="ngModel" />
+                            <input class="input-bg border" type="text" placeholder="Enter a Description" required
+                                [(ngModel)]="taskDescription" name="taskDescription" #taskDescriptionVar="ngModel" />
                         </div>
                     </div>
                     <div class="input-wrapper">
                         <div class="input input-text">
                             <label for="taskDueDate" class="input-title">Due date<div class="required-star">*</div>
                             </label>
-                            <input class="input-sm border" type="date" placeholder="tt/mm/yyyy" required [(ngModel)]="taskDueDate"
-                                name="taskDueDate" #taskDueDateVar="ngModel" />
+                            <input class="input-sm border" type="date" placeholder="tt/mm/yyyy" required
+                                [(ngModel)]="taskDueDate" name="taskDueDate" #taskDueDateVar="ngModel" />
                         </div>
                     </div>
                 </div>
@@ -31,30 +31,38 @@
                     <!-- Seperator things going on here -->
                 </div>
                 <div class="right-wrapper">
-                    <div class="priority-btn-wrapper">
-                        <app-button [invert]="true" [iconSrc]="'assets/icons/urgent.svg'" [size]="'small'" [fontSize]="'20px'">
-                            Urgent
-                        </app-button>
+                    <div class="priority-wrapper">
+                        <label for="priority-btn-wrapper">Priority</label>
+                        <div class="priority-btn-wrapper">
+                            <app-button (btnClick)="activateButton('urgent')" [invert]="false"
+                                [active]="this.buttonState.urgent" [iconSrc]="'assets/icons/urgent.svg'"
+                                [size]="'priority'" [fontSize]="'20px'" [color]="'danger'">
+                                Urgent
+                            </app-button>
 
-                        <app-button [invert]="false" [iconSrc]="'assets/icons/medium.svg'" [size]="'priority'" [fontSize]="'20px'" [color]="'warn'">
-                            Medium
-                        </app-button>
+                            <app-button (btnClick)="activateButton('medium')" [invert]="false"
+                                [active]="this.buttonState.medium" [iconSrc]="'assets/icons/medium.svg'"
+                                [size]="'priority'" [fontSize]="'20px'" [color]="'warn'">
+                                Medium
+                            </app-button>
 
-                        <app-button [invert]="true" [iconSrc]="'assets/icons/low.svg'" [size]="'small'" [fontSize]="'20px'">
-                            Low
-                        </app-button>
+                            <app-button (btnClick)="activateButton('low')" [invert]="false"
+                                [active]="this.buttonState.low" [iconSrc]="'assets/icons/low.svg'" [size]="'priority'"
+                                [fontSize]="'20px'" [color]="'success'">
+                                Low
+                            </app-button>
+                        </div>
                     </div>
                     <div class="input-wrapper">
                         <div class="input">
                             <label for="taskAssigned" class="input-title">Assigned to</label>
                             <input placeholder="Select Contacts to assign" multiple size="1"
                                 [(ngModel)]="taskAssignedInput" name="taskAssignedInput" #taskAssignedInputVar="ngModel"
-                                class="input-sm border"/>
+                                class="input-sm border" />
                         </div>
                         <div class="input hidden-input" id="assignContactInput">
-                            <mat-select multiple
-                                [(ngModel)]="taskAssigned" name="taskAssigned" #taskAssignedVar="ngModel"
-                                list="contactsToAssign" class="multiple-select border">
+                            <mat-select multiple [(ngModel)]="taskAssigned" name="taskAssigned"
+                                #taskAssignedVar="ngModel" list="contactsToAssign" class="multiple-select border">
 
                                 <!-- Add Contacts Render Logic Here! -->
                                 @for (contacts of contactsService.contacts | objectToArray; track contacts.key) {
@@ -66,7 +74,7 @@
                                     <span class="contact-name">
                                         {{contact.firstName}} {{contact.lastName}}
                                         <input type="checkbox" name="taskContactCheckbox{{contact.id}}"
-                                        id="taskContactCheckbox{{contact.id}}">
+                                            id="taskContactCheckbox{{contact.id}}">
                                     </span>
                                 </mat-option>
                                 }
@@ -79,9 +87,10 @@
                     </div>
                     <div class="input-wrapper">
                         <div class="input">
-                            <label for="taskCategory" class="input-title">Category<div class="required-star">*</div></label>
-                            <select size="1" [(ngModel)]="taskCategory"
-                                name="taskCategory" #taskCategoryVar="ngModel" list="categorys" class="single-select border">
+                            <label for="taskCategory" class="input-title">Category<div class="required-star">*</div>
+                                </label>
+                            <select size="1" [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel"
+                                list="categorys" class="single-select border">
                                 <option value="" disabled selected hidden>Select task Category</option>
                                 @for (category of categoryDummy; track $index) {
                                 <option value="{{categoryDummy[$index]}}">{{categoryDummy[$index]}}</option>

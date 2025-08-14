@@ -25,13 +25,26 @@ export class AddTaskComponent {
   taskAssigned: any;
   taskCategory: any;
   taskSubtask: any;
+  taskAssignedInput: any;
+
+  buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
+    urgent: false,
+    medium: false,
+    low: false
+  };
 
   contactsService: ContactsService = inject(ContactsService);
   initialLetterService: InitialLettersService = inject(InitialLettersService);
-taskAssignedInput: any;
-
 
   saveTask(taskForm: NgForm) {
     console.log('task Saved!' + taskForm)
+  }
+
+  activateButton(btnName: 'urgent' | 'medium' | 'low') {
+    if (this.buttonState[btnName]) {
+      this.buttonState[btnName] = false
+    } else {
+      this.buttonState[btnName] = true
+    }
   }
 }
