@@ -112,4 +112,23 @@
     align-items: center;
 }
 
+.assign-input {
+    position: relative;
+
+    .input-sm {
+        z-index: 999;
+        width: 90% !important;
+        border-right: none !important;
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+
+    .hidden-input {
+        position: absolute;
+        top: 23px;
+
+        background-color: white;
+    }
+}
+
 
