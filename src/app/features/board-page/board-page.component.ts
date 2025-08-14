@@ -21,7 +21,7 @@ export class BoardPageComponent {
     lists: [
       {
         name: 'To do',
-        items: [],
+        items: ['Header einbauen', 'Footer einbauen'],
       },
       {
         name: 'In progress',
@@ -29,7 +29,7 @@ export class BoardPageComponent {
       },
       {
         name: 'Await feedback',
-        items: [],
+        items: ['Kontaktliste bauen'],
       },
       {
         name: 'Done',
