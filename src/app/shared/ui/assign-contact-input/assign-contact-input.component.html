@@ -1,14 +1,34 @@
 <div class="assign-wrapper">
   <label for="assignInput">Assign to</label>
-  <input
-    type="text"
-    placeholder="Select Contacts to assign"
-    [(ngModel)]="taskAssignInput"
-    name="taskAssignInput"
-    #taskAssignInputVar="ngModel"
-    class="input-sm"
-    (input)="filterContacts(taskAssignInputVar.value)"
-  />
+  <input type="text" placeholder="Select Contacts to assign" [(ngModel)]="taskAssignInput" name="taskAssignInput"
+    #taskAssignInputVar="ngModel" class="input-sm" [class.active]="show"
+    (input)="filterContacts(taskAssignInputVar.value); visibleTrue()" (pointerdown)="filterContacts(taskAssignInputVar.value); visibleTrue()"
+    autocomplete="off" />
 
-  <div class="select-list"></div>
+  <!-- Live Rendered Contact List -->
+  <div class="select-wrapper" [class.d-none]="dNone">
+    <div class="select-list" [class.show]="show">
+      @for (contact of this.searchArray; track contact.id) {
+      <div class="contact-card" id="contactCard{{contact.id}}" (click)="toggleContactStyle(contact)">
+        <div class="contact-card__logo">
+          <p class="logo-initials" [style.background-color]="contact.id | coloredProfile">
+            {{ initialLettersService.getInitialLetters(contact) }}
+          </p>
+        </div>
+        <!-- Contact Card -->
+        <div class="contact-card__info">
+          <h4 class="contact-card__info__name">{{contact.firstName}} {{contact.lastName}}</h4>
+          <!-- Checkmark  -->
+          <div class="contact-card__info__checkdiv">
+            <div class="box" id="contactSelectBox{{contact.id}}"></div>
+            <div class="checkmark-slide">
+              <div class="checkmark-wrap" id="contactSelectCheckWrap{{contact.id}}">
+                <img src="assets/icons/check.svg" class="checkmark" alt="Checkmark">
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
 </div>
