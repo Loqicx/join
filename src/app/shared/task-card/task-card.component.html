@@ -16,9 +16,9 @@
   </div>
 
   <div class="bottom-row">
-    <div class="assignees">
-      <span *ngFor="let a of task.assignees">{{ a }}</span>
-    </div>
-    <img src="assets/icons/Priority symbols.svg" alt="Priority" class="priority-icon" />
+  <div class="assignees">
+    <span *ngFor="let a of task.assignees" class="avatar">{{ a }}</span>
   </div>
+  <img src="assets/icons/Priority symbols.svg" alt="Priority" class="priority-icon" />
+</div>
 </div>
