@@ -10,6 +10,28 @@
     width: 100%;
 }
 
+.input-wrapper {
+    position: relative;
+
+    .img-wrap {
+        position: absolute;
+        top: 32px;
+        right: 12px;
+        height: 24px;
+        width: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotate(0deg);
+        transition: transform 0.2s ease;
+    }
+
+    .img-wrap.active {
+        transform: rotate(-540deg);
+        transition: transform 0.2s ease;
+    }
+}
+
 .input-sm {
     height: 48px;
     width: 100%;
@@ -144,6 +166,17 @@
         .checkmark {
             width: 26px;           
         } 
+    }
+}
+
+.choosen-contacts {
+    width: 100%;
+
+    .contact-wrap {
+        margin-top: 8px;
+        display: flex;
+        justify-content: start;
+        align-items: center;
     }
 }
 

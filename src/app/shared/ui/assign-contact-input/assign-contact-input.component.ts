@@ -15,7 +15,7 @@ import { InitialLettersService } from '../../services/get-initial-letters.servic
 export class AssignContactInputComponent {
   taskAssignInput: any;
   contacts: Contact[] = [];
-  contactsArray: [] | any = [];
+  selectedContactsArray: [] | any = [];
   searchArray: [] | any = [];
   filteredContacts: Contact[] = [];
 
@@ -23,8 +23,8 @@ export class AssignContactInputComponent {
   dNone: boolean = true;
 
   constructor(private renderer: Renderer2) {
-    this.renderer.listen('document', 'pointerdown', (event) => {
-      const wrapper = document.querySelector('.assing-wrapper');
+    this.renderer.listen('window', 'pointerdown', (event) => {
+      const wrapper = document.querySelector('#assignWrapper');
       if (this.show && wrapper && !wrapper.contains(event.target as Node)) {
         this.visibleFalse();
       }
@@ -60,10 +60,26 @@ export class AssignContactInputComponent {
     return this.filteredContacts;
   }
 
+  toggleContact(contact: Contact) {
+    this.toggleContactStyle(contact);
+    this.toggleContactSelection(contact);
+  }
+
   toggleContactStyle(contact: Contact) {
     document.getElementById(`contactCard${contact.id}`)?.classList.toggle('active');
     document.getElementById(`contactSelectBox${contact.id}`)?.classList.toggle('active');
     document.getElementById(`contactSelectCheckWrap${contact.id}`)?.classList.toggle('active');
+  }
+
+  toggleContactSelection(contact: Contact) {
+    const index = this.selectedContactsArray.findIndex((c: Contact) => c.id === contact.id);
+    if (index > -1) {
+      this.selectedContactsArray.splice(index, 1);
+      console.log(this.selectedContactsArray);
+    } else {
+      this.selectedContactsArray.push(contact);
+      console.log(this.selectedContactsArray);
+    }
   }
 
   toggleVisibility() {

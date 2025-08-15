@@ -1,15 +1,20 @@
-<div class="assign-wrapper">
-  <label for="assignInput">Assign to</label>
-  <input type="text" placeholder="Select Contacts to assign" [(ngModel)]="taskAssignInput" name="taskAssignInput"
-    #taskAssignInputVar="ngModel" class="input-sm" [class.active]="show"
-    (input)="filterContacts(taskAssignInputVar.value); visibleTrue()" (pointerdown)="filterContacts(taskAssignInputVar.value); visibleTrue()"
-    autocomplete="off" />
+<div class="assign-wrapper" id="assignWrapper">
+  <div class="input-wrapper">
+    <label for="assignInput">Assign to</label>
+    <input type="text" placeholder="Select Contacts to assign" [(ngModel)]="taskAssignInput" name="taskAssignInput"
+      #taskAssignInputVar="ngModel" class="input-sm" [class.active]="show"
+      (input)="filterContacts(taskAssignInputVar.value); visibleTrue()"
+      (pointerdown)="filterContacts(taskAssignInputVar.value); visibleTrue()" autocomplete="off" />
+    <div class="img-wrap" (click)="toggleVisibility()" [class.active]="show">
+      <img src="assets/icons/arrow_drop_down.svg" alt="Drop Down" class="arrow-icon">
+    </div>
+  </div>
 
   <!-- Live Rendered Contact List -->
   <div class="select-wrapper" [class.d-none]="dNone">
     <div class="select-list" [class.show]="show">
       @for (contact of this.searchArray; track contact.id) {
-      <div class="contact-card" id="contactCard{{contact.id}}" (click)="toggleContactStyle(contact)">
+      <div class="contact-card" id="contactCard{{contact.id}}" (click)="toggleContact(contact)">
         <div class="contact-card__logo">
           <p class="logo-initials" [style.background-color]="contact.id | coloredProfile">
             {{ initialLettersService.getInitialLetters(contact) }}
@@ -25,10 +30,25 @@
               <div class="checkmark-wrap" id="contactSelectCheckWrap{{contact.id}}">
                 <img src="assets/icons/check.svg" class="checkmark" alt="Checkmark">
               </div>
+            </div>
           </div>
         </div>
+        @for (contact of this.selectedContactsArray; track contact.id) {
+          {{ this.toggleContactStyle(contact) }}
+        }
       </div>
+      }
     </div>
-    }
   </div>
-</div>
+
+  <div class="choosen-contacts">
+    <div class="contact-wrap">
+      @for (contact of this.selectedContactsArray; track contact.id) {
+        <div class="contact-card__logo">
+          <p class="logo-initials" [style.background-color]="contact.id | coloredProfile">
+            {{ initialLettersService.getInitialLetters(contact) }}
+          </p>
+        </div>
+      }
+    </div>
+  </div>
