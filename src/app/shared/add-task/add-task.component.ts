@@ -17,6 +17,7 @@ export class AddTaskComponent {
 
   categoryDummy = ['Nutzlos', 'Sinnlos', 'ABM']
   subtasks: { id: number, title: string }[] = [];
+  selectedContactsArray: any;
 
   taskTitle: any;
   taskDescription: any;
@@ -45,5 +46,9 @@ export class AddTaskComponent {
     } else {
       this.buttonState[btnName] = true
     }
+  }
+
+  log() {
+    console.log(this.selectedContactsArray);
   }
 }

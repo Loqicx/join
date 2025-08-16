@@ -170,6 +170,7 @@
 }
 
 .choosen-contacts {
+    display: none;
     width: 100%;
 
     .contact-wrap {
@@ -178,6 +179,10 @@
         justify-content: start;
         align-items: center;
     }
+}
+
+.choosen-contacts.preview {
+    display: block;
 }
 
 .d-none {

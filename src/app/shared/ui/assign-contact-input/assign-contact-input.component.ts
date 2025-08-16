@@ -1,4 +1,4 @@
-import { Component, inject, Renderer2 } from '@angular/core';
+import { Component, inject, Renderer2, Output, Input, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ContactsService } from '../../services/firebase/contacts.service';
 import { Contact } from '../../interfaces/contact';
@@ -13,9 +13,10 @@ import { InitialLettersService } from '../../services/get-initial-letters.servic
   styleUrl: './assign-contact-input.component.scss',
 })
 export class AssignContactInputComponent {
+  @Input() preview: boolean = false;
   taskAssignInput: any;
   contacts: Contact[] = [];
-  selectedContactsArray: [] | any = [];
+  selectedContactsArray: Contact[] = [];
   searchArray: [] | any = [];
   filteredContacts: Contact[] = [];
 
@@ -49,7 +50,6 @@ export class AssignContactInputComponent {
     } else if (searchInputValue?.includes(',')) {
         searchValue = searchInputValue?.substring(searchInputValue?.lastIndexOf(',') +1);
     } else {
-      console.log("Kein Komma im String.");
         searchValue = searchInputValue;
     }
     return searchValue

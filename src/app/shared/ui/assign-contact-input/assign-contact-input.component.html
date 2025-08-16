@@ -41,7 +41,7 @@
     </div>
   </div>
 
-  <div class="choosen-contacts">
+  <div class="choosen-contacts" [class.preview]="preview">
     <div class="contact-wrap">
       @for (contact of this.selectedContactsArray; track contact.id) {
         <div class="contact-card__logo">
