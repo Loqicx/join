@@ -107,23 +107,14 @@
   }
 
   .cdk-drop-list-dragging {
-    .task-item:not(.cdk-drag-placeholder) {
+    :not(.cdk-drag-placeholder) {
       transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
     }
   }
 }
 
-.task-item,
 .cdk-drag-preview,
 .cdk-drag-placeholder {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 190px;
-  border-radius: 24px;
-
-  background-color: white;
-  box-shadow: 0px 0px 10px 3px #00000014;
 }
 
 .cdk-drag-animating {
