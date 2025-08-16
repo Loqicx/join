@@ -1,7 +1,6 @@
 <div class="page-wrapper">
     <div class="add-task-wrapper">
         <h1 class="title">Add Task</h1>
-        <button (click)="log()">LOG</button>
         <div class="add-task">
             <form (ngSubmit)="saveTask(addTaskForm)" #addTaskForm="ngForm" class="add-task-form">
                 <div class="left-wrapper">
@@ -56,7 +55,7 @@
                     </div>
                     <div class="input-wrapper">
                         <div class="input">
-                            <app-assign-contact-input [preview]="true"></app-assign-contact-input>
+                            <app-assign-contact-input [preview]="true" (selectedContacts)="selectContacts($event)"></app-assign-contact-input>
                         </div>
                     </div>
                     <div class="selected-contact-icons">

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from "../ui/button/button.component";
@@ -17,7 +17,7 @@ export class AddTaskComponent {
 
   categoryDummy = ['Nutzlos', 'Sinnlos', 'ABM']
   subtasks: { id: number, title: string }[] = [];
-  selectedContactsArray: any;
+  @Input() selectedContacts: any;
 
   taskTitle: any;
   taskDescription: any;
@@ -48,7 +48,7 @@ export class AddTaskComponent {
     }
   }
 
-  log() {
-    console.log(this.selectedContactsArray);
+  selectContacts(contacts: any) {
+    this.selectedContacts = contacts[0];
   }
 }

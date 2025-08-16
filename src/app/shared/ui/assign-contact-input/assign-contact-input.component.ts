@@ -17,6 +17,7 @@ export class AssignContactInputComponent {
   taskAssignInput: any;
   contacts: Contact[] = [];
   selectedContactsArray: Contact[] = [];
+  @Output() selectedContacts: EventEmitter<[Contact[]]> = new EventEmitter<[Contact[]]>();
   searchArray: [] | any = [];
   filteredContacts: Contact[] = [];
 
@@ -101,6 +102,7 @@ export class AssignContactInputComponent {
       this.selectedContactsArray.push(contact);
       this.taskAssignInput = this.selectedContactsArray.map((c: Contact) => c.firstName + ' ' + c.lastName + ',').join(' ');
     }
+    this.selectedContacts.emit([this.selectedContactsArray]);
   }
 
   toggleVisibility() {
