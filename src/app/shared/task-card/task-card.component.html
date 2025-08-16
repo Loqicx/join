@@ -1,4 +1,5 @@
-<div *ngFor="let task of tasks" class="task-card">
+@for (task of tasks; track task) {  
+  <div class="task-card">
   <div class="task-type">{{ task.type }}</div>
   <h3>{{ task.title }}</h3>
   <p>{{ task.description }}</p>
@@ -16,9 +17,12 @@
   </div>
 
   <div class="bottom-row">
-    <div class="assignees">
-      <span *ngFor="let a of task.assignees">{{ a }}</span>
-    </div>
-    <img src="assets/icons/Priority symbols.svg" alt="Priority" class="priority-icon" />
-  </div>
+  <div class="assignees">
+        @for (a of task.assignees; track a) {
+          <span class="avatar">{{ a }}</span>
+        }
+      </div>
+  <img src="assets/icons/Priority symbols.svg" alt="Priority" class="priority-icon" />
 </div>
+</div>
+}
