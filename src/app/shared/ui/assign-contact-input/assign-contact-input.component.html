@@ -33,11 +33,11 @@
             </div>
           </div>
         </div>
-        @for (contact of this.selectedContactsArray; track contact.id) {
-          {{ this.toggleContactStyle(contact) }}
-        }
       </div>
       }
+      @for (contact of this.selectedContactsArray; track contact.id) {
+          {{ this.setContactStyle(contact) }}
+        }
     </div>
   </div>
 

@@ -1,4 +1,4 @@
-import { Component, inject,Renderer2 } from '@angular/core';
+import { Component, inject, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ContactsService } from '../../services/firebase/contacts.service';
 import { Contact } from '../../interfaces/contact';
@@ -42,7 +42,22 @@ export class AssignContactInputComponent {
     this.contacts = await this.contactsService.getContacts();
   }
 
-  filterContacts(searchValue?: string) {
+  cleanupValue(searchInputValue?: string) {
+    let searchValue: string | undefined;
+    if (searchInputValue?.includes(', ')) {
+        searchValue = searchInputValue?.substring(searchInputValue?.lastIndexOf(', ') +2);
+    } else if (searchInputValue?.includes(',')) {
+        searchValue = searchInputValue?.substring(searchInputValue?.lastIndexOf(',') +1);
+    } else {
+      console.log("Kein Komma im String.");
+        searchValue = searchInputValue;
+    }
+    return searchValue
+  }
+
+  filterContacts(searchInputValue?: string) {
+    let searchValue = this.cleanupValue(searchInputValue)
+
     if (!searchValue || searchValue.length < 1) {
       this.searchArray = this.contacts
 
@@ -71,14 +86,20 @@ export class AssignContactInputComponent {
     document.getElementById(`contactSelectCheckWrap${contact.id}`)?.classList.toggle('active');
   }
 
+  setContactStyle(contact: Contact) {
+    document.getElementById(`contactCard${contact.id}`)?.classList.add('active');
+    document.getElementById(`contactSelectBox${contact.id}`)?.classList.add('active');
+    document.getElementById(`contactSelectCheckWrap${contact.id}`)?.classList.add('active');
+  }
+
   toggleContactSelection(contact: Contact) {
     const index = this.selectedContactsArray.findIndex((c: Contact) => c.id === contact.id);
     if (index > -1) {
       this.selectedContactsArray.splice(index, 1);
-      console.log(this.selectedContactsArray);
+      this.taskAssignInput = this.selectedContactsArray.map((c: Contact) => c.firstName + ' ' + c.lastName + ',').join(' ');
     } else {
       this.selectedContactsArray.push(contact);
-      console.log(this.selectedContactsArray);
+      this.taskAssignInput = this.selectedContactsArray.map((c: Contact) => c.firstName + ' ' + c.lastName + ',').join(' ');
     }
   }
 
