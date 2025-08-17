@@ -41,6 +41,16 @@ export class AddTaskComponent {
   }
 
   activateButton(btnName: 'urgent' | 'medium' | 'low') {
+    if (btnName === 'low') {
+      this.buttonState['urgent'] = false
+      this.buttonState['medium'] = false
+    } else if (btnName === 'medium') {
+      this.buttonState['urgent'] = false
+      this.buttonState['low'] = false
+    } else if (btnName === 'urgent') {
+      this.buttonState['low'] = false
+      this.buttonState['medium'] = false
+    }
     if (this.buttonState[btnName]) {
       this.buttonState[btnName] = false
     } else {
