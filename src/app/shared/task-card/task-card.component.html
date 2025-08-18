@@ -1,4 +1,5 @@
 <div class="task-card">
+  <!-- Category Tag -->
   <div
     class="task-type"
     [class.user-story]="taskUserStory"
@@ -6,9 +7,12 @@
   >
     {{ taskCategory }}
   </div>
+
+  <!-- Title & Description -->
   <h3>{{ task.title }}</h3>
   <p>{{ task.description }}</p>
 
+  <!-- Progress Bar -->
   <div class="progress-wrapper">
     <div class="progress-container">
       <div
@@ -21,12 +25,18 @@
     </div>
   </div>
 
+  <!-- Bottom Row -->
   <div class="bottom-row">
+    <!-- Assignees -->
     <div class="assignees">
-  @for (initial of assignedInitials; track initial) {
-    <span class="avatar">{{ initial }}</span>
-  }
-</div>
+      @for (a of assignedInitials; track a.initials) {
+        <span class="avatar" [style.background-color]="a.color">
+          {{ a.initials }}
+        </span>
+      }
+    </div>
+
+    <!-- Priority Icon -->
     <img
       src="assets/icons/Priority symbols.svg"
       alt="Priority"

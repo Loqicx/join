@@ -1,10 +1,11 @@
-import { Component, inject, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';
 import { TaskCategory } from '../services/firebase/tasks.service';
 import { Contact } from '../interfaces/contact';
 import { ContactsService } from '../services/firebase/contacts.service';
-import { Subscription } from 'rxjs';
+import { InitialLettersService } from '../services/get-initial-letters.service';
+import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';          
 
 @Component({
   selector: 'app-task-card',
@@ -12,18 +13,20 @@ import { Subscription } from 'rxjs';
   imports: [CommonModule],
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss'],
+  providers: [ColoredProfilePipe] 
 })
-export class TaskCardComponent implements OnInit, OnDestroy {
+export class TaskCardComponent implements OnInit {
   @Input() task!: Task;
+
   taskTechnical: boolean = false;
   taskUserStory: boolean = false;
   taskCategory: string = '';
 
-  assignedInitials: string[] = [];
+  assignedInitials: { initials: String; color: String }[] = [];
 
   contactsService: ContactsService = inject(ContactsService);
-
-  private contactSub: Subscription | null = null;
+  initialLetterService: InitialLettersService = inject(InitialLettersService);
+  coloredProfilePipe: ColoredProfilePipe = inject(ColoredProfilePipe);
 
   constructor() {}
 
@@ -32,30 +35,42 @@ export class TaskCardComponent implements OnInit, OnDestroy {
     this.updateAssignedInitials();
   }
 
-  ngOnDestroy(): void {
-    if (this.contactSub) this.contactSub.unsubscribe();
-  }
-
   updateAssignedInitials(): void {
-    this.assignedInitials = this.task.assignedTo.map((id: string) => {
+    this.assignedInitials = [];
+
+    if (!this.task || !this.task.assignedTo) {
+      return;
+    }
+
+    for (let i = 0; i < this.task.assignedTo.length; i++) {
+      const id = this.task.assignedTo[i];
       const contact: Contact | undefined = this.contactsService.getContactById(id);
+
       if (contact) {
-        return (contact.firstName.charAt(0) + contact.lastName.charAt(0)).toUpperCase();
+        const initials: String = this.initialLetterService.getInitialLetters(contact);
+        const color: String = this.coloredProfilePipe.transform(contact.id);
+        this.assignedInitials.push({ initials: initials, color: color });
       } else {
-        return '??';
+        this.assignedInitials.push({ initials: '??', color: '#999' });
       }
-    });
+    }
   }
 
   subtasksDone(): number {
-    return this.task.subtasks.filter((s) => s.done).length;
+    let count = 0;
+    if (!this.task || !this.task.subtasks) return 0;
+    for (let i = 0; i < this.task.subtasks.length; i++) {
+      if (this.task.subtasks[i].done) count++;
+    }
+    return count;
   }
 
   subtasksTotal(): number {
+    if (!this.task || !this.task.subtasks) return 0;
     return this.task.subtasks.length;
   }
 
-  getTaskCategory() {
+  getTaskCategory(): string {
     switch (this.task.category) {
       case TaskCategory.TECHNICAL_TASK:
         this.taskTechnical = true;
@@ -66,6 +81,8 @@ export class TaskCardComponent implements OnInit, OnDestroy {
         this.taskUserStory = true;
         return 'User Story';
       default:
+        this.taskTechnical = false;
+        this.taskUserStory = false;
         return 'Default Task';
     }
   }
