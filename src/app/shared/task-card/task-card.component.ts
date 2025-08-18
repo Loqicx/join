@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';
 import { TaskCategory } from '../services/firebase/tasks.service';
+import { Contact } from '../interfaces/contact';
 
 @Component({
   selector: 'app-task-card',
@@ -10,10 +11,20 @@ import { TaskCategory } from '../services/firebase/tasks.service';
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss',
 })
-export class TaskCardComponent {
+export class TaskCardComponent implements OnInit {
   @Input() task!: Task;
+  taskTechnical: boolean = false;
+  taskUserStory: boolean = false;
+  taskCategory: string = '';
+
+  assignedContacts: Contact[] = [];
+
 
   constructor() {}
+
+  async ngOnInit(): Promise<void> {
+    this.taskCategory = this.getTaskCategory();
+  }
 
   subtasksDone(): number {
     let count = 0;
@@ -30,9 +41,13 @@ export class TaskCardComponent {
   getTaskCategory() {
     switch (this.task.category) {
       case TaskCategory.TECHNICAL_TASK:
+        this.taskTechnical = true;
+        this.taskUserStory = false;
         return 'Technical Task';
         break;
       case TaskCategory.USER_STORY:
+        this.taskTechnical = false;
+        this.taskUserStory = true;
         return 'User Story';
         break;
 
