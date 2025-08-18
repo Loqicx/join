@@ -12,7 +12,6 @@ import { TaskCategory } from '../services/firebase/tasks.service';
 })
 export class TaskCardComponent {
   @Input() task!: Task;
-  contactsService: ContactsService = inject(ContactsService);
 
   constructor() {}
 
