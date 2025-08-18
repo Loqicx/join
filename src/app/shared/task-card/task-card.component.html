@@ -1,6 +1,5 @@
-@for (task of tasks; track task) {  
-  <div class="task-card">
-  <div class="task-type">{{ task.type }}</div>
+<div class="task-card">
+  <div class="task-type">{{ getTaskCategory() }}</div>
   <h3>{{ task.title }}</h3>
   <p>{{ task.description }}</p>
 
@@ -8,21 +7,24 @@
     <div class="progress-container">
       <div
         class="progress-bar"
-        [style.width.%]="(task.subtasksDone / task.subtasksTotal) * 100"
+        [style.width.%]="(subtasksDone() / subtasksTotal()) * 100"
       ></div>
     </div>
     <div class="progress-text">
-      {{ task.subtasksDone }}/{{ task.subtasksTotal }} Subtasks
+      {{ subtasksDone() }}/{{ subtasksTotal() }} Subtasks
     </div>
   </div>
 
   <div class="bottom-row">
-  <div class="assignees">
-        @for (a of task.assignees; track a) {
-          <span class="avatar">{{ a }}</span>
-        }
-      </div>
-  <img src="assets/icons/Priority symbols.svg" alt="Priority" class="priority-icon" />
+    <div class="assignees">
+      @for (a of task.assignedTo; track a) {
+      <span class="avatar">CH</span>
+      }
+    </div>
+    <img
+      src="assets/icons/Priority symbols.svg"
+      alt="Priority"
+      class="priority-icon"
+    />
+  </div>
 </div>
-</div>
-}

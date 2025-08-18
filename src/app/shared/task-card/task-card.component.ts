@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskService, Task } from '../../services/task.service';
+import { Task } from '../interfaces/task';
+import { TaskCategory } from '../services/firebase/tasks.service';
 
 @Component({
   selector: 'app-task-card',
@@ -10,12 +11,34 @@ import { TaskService, Task } from '../../services/task.service';
   styleUrl: './task-card.component.scss',
 })
 export class TaskCardComponent {
-  tasks: Task[] = [];
+  @Input() task!: Task;
 
-  constructor(private taskService: TaskService) {
-    this.taskService.tasks$.subscribe((data) => {
-      this.tasks = data;
+  constructor() {}
+
+  subtasksDone(): number {
+    let count = 0;
+    this.task.subtasks.forEach((subtask) => {
+      if (subtask.done) count++;
     });
+    return count;
+  }
+
+  subtasksTotal(): number {
+    return this.task.subtasks.length;
+  }
+
+  getTaskCategory() {
+    switch (this.task.category) {
+      case TaskCategory.TECHNICAL_TASK:
+        return 'Technical Task';
+        break;
+      case TaskCategory.USER_STORY:
+        return 'User Story';
+        break;
+
+      default:
+        return 'Default Task';
+        break;
+    }
   }
 }
-

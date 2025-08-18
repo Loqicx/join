@@ -11,6 +11,7 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { Task } from '../../interfaces/task';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export enum TaskCategory {
   USER_STORY = 1,
@@ -29,8 +30,8 @@ export enum TaskStatus {
 })
 export class TasksService implements OnDestroy {
   unsubTasks;
-
-  tasks: Task[] = [];
+  private tasksSubject = new BehaviorSubject<Task[]>([]);
+  public tasks$: Observable<Task[]> = this.tasksSubject.asObservable();
 
   firestore: Firestore = inject(Firestore);
 
@@ -53,12 +54,11 @@ export class TasksService implements OnDestroy {
    * @returns {Function} Unsubscribe function to stop listening for updates.
    */
   subTasks() {
-    return onSnapshot(this.getTasksRef(), (tasksList) => {
-      this.tasks = [];
-      tasksList.forEach((el) => {
-        this.tasks.push(this.setTaskObject(el.data(), el.id));
+    return onSnapshot(this.getTasksRef(), (snapshot) => {
+      const tasks = snapshot.docs.map((doc) => {
+        return this.setTaskObject(doc.data(), doc.id);
       });
-      console.log(this.tasks);
+      this.tasksSubject.next(tasks);
     });
   }
 
