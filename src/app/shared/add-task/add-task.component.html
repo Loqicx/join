@@ -64,8 +64,8 @@
                             <label for="taskCategory" class="input-title">Category<div class="required-star">*</div>
                             </label>
                             <select size="1" [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel"
-                                list="categorys" class="single-select border">
-                                <option value="" disabled selected hidden>Select task Category</option>
+                                list="categorys" class="single-select border" required autocomplete='off'>
+                                <option value="" selected disabled hidden>Select task Category</option>
                                 @for (category of categoryDummy; track $index) {
                                 <option value="{{categoryDummy[$index]}}">{{categoryDummy[$index]}}</option>
                                 }
@@ -76,14 +76,16 @@
                         <div class="input subtask-input">
                             <label for="taskSubtask" class="input-title">Subtasks</label>
                             <input placeholder="Add new Subtask" size="1" [(ngModel)]="taskSubtask" name="taskSubtask"
-                                #taskCategoryVar="ngModel" class="input-sm border" />
+                                #taskCategoryVar="ngModel" class="input-sm border" 
+                                (click)="this.subtaskActive=true"/>
                             <div class="icon-wrapper">
-                                <div class="icon-plus start">+</div>
-                                <div class="wrap-create">
-                                    <div class="icon-x create">
+                                <div class="icon-plus" [class.d-none]="subtaskActive">+</div>
+                                <div class="wrap-create" [class.d-flex]="subtaskActive">
+                                    <div class="icon-x">
                                         <img src="assets/icons/close.svg" alt="Cancel">
                                     </div>
-                                    <div class="icon-check create">
+                                    <div class="seperator seperator-mini"></div>
+                                    <div class="icon-check" (click)="addSubtask()">
                                         <img src="assets/icons/check_pri.svg" alt="Add Subtask">
                                     </div>
                                 </div>                              
@@ -92,9 +94,14 @@
                     </div>
                     <div class="subtask-wrapper">
                         @if (subtasks) {
-                        <ul>
+                        <ul class="subtask-list">
                             @for (subtask of subtasks; track $index) {
-                            <li>{{subtasks[$index].title}}</li>
+                            <li class="subtask">
+                                <span>
+                                    {{subtasks[$index].title}}
+                                </span> 
+                                
+                            </li>
                             }
                         </ul>
                         }

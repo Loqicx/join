@@ -109,6 +109,27 @@
     }
 }
 
+select {
+    appearance: none;
+    background-image: url('../../../../public/assets/icons/arrow_drop_down.svg');
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 7px;
+}
+
+select:required:invalid {
+    color: #666;
+}
+
+option {
+    color: #000;
+}
+
+.seperator-mini {
+    height: 24px;
+    width: 1.2px;
+}
+
 .assign-contact {
     z-index: 20;
 }
@@ -122,13 +143,62 @@
         top: 32px;
         right: 20px;
         font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .wrap-create {
         justify-content: center;
         align-items: center;
+        gap: 4px;
         display: none;
+
+        .icon-x {
+            margin-top: 4px;
+            height: 24px;
+
+            &:hover {
+                background-color: $color-input-border;
+                border-radius: 50%;
+            }
+        }
+
+        .icon-check {
+            height: 24px;
+            width: 24px;
+            padding-left: 3px;
+
+            &:hover {
+                background-color: $color-input-border;
+                border-radius: 50%;
+            }
+        }
     }
+}
+
+
+.subtask-wrapper {
+    width: 80%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+
+    .subtask-list {
+        width: 100%;
+    }
+
+    .subtask {
+        width: 100%;
+    }
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.d-none {
+    display: none !important;
 }
 
 .priority-wrapper {

@@ -23,9 +23,12 @@ export class AddTaskComponent {
   taskDescription: any;
   taskDueDate: any;
   taskAssigned: any;
-  taskCategory: any;
+  taskCategory: any = '';
   taskSubtask: any;
   taskAssignedInput: any;
+
+  subtaskActive: boolean = false;
+  subtaskInput: boolean = false;
 
   buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
     urgent: false,
@@ -60,5 +63,14 @@ export class AddTaskComponent {
 
   selectContacts(contacts: any) {
     this.selectedContacts = contacts[0];
+  }
+
+  addSubtask() {
+    if (this.taskSubtask) {
+      this.subtasks.push({ id: this.subtasks.length + 1, title: this.taskSubtask });
+      this.taskSubtask = '';
+      this.subtaskInput = false;
+    }
+    this.subtaskActive = false;
   }
 }
