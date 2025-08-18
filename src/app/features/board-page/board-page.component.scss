@@ -113,6 +113,22 @@
   }
 }
 
+.list-header {
+  display: inline-flex;
+  justify-content: space-between;
+
+  .list-add-task-button {
+    aspect-ratio: 1 / 1;
+    height: 24px;
+    transition: all ease 0.3s;
+    border-radius: 10px;
+    border: none;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.096);
+    }
+  }
+}
+
 .cdk-drag-preview,
 .cdk-drag-placeholder {
 }
