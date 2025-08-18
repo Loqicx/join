@@ -1,5 +1,11 @@
 <div class="task-card">
-  <div class="task-type">{{ getTaskCategory() }}</div>
+  <div
+    class="task-type"
+    [class.user-story]="taskUserStory"
+    [class.technical]="taskTechnical"
+  >
+    {{ taskCategory }}
+  </div>
   <h3>{{ task.title }}</h3>
   <p>{{ task.description }}</p>
 
