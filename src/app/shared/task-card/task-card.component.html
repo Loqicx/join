@@ -23,10 +23,10 @@
 
   <div class="bottom-row">
     <div class="assignees">
-      @for (a of task.assignedTo; track a) {
-      <span class="avatar">CH</span>
-      }
-    </div>
+  @for (initial of assignedInitials; track initial) {
+    <span class="avatar">{{ initial }}</span>
+  }
+</div>
     <img
       src="assets/icons/Priority symbols.svg"
       alt="Priority"
