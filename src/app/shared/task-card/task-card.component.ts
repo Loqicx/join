@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskService, Task } from '../../services/task.service';
+import { Task } from '../interfaces/task';
+import { TaskCategory } from '../services/firebase/tasks.service';
+import { Contact } from '../interfaces/contact';
+import { ContactsService } from '../services/firebase/contacts.service';
 
 @Component({
   selector: 'app-task-card',
@@ -9,13 +12,50 @@ import { TaskService, Task } from '../../services/task.service';
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss',
 })
-export class TaskCardComponent {
-  tasks: Task[] = [];
+export class TaskCardComponent implements OnInit {
+  @Input() task!: Task;
+  taskTechnical: boolean = false;
+  taskUserStory: boolean = false;
+  taskCategory: string = '';
 
-  constructor(private taskService: TaskService) {
-    this.taskService.tasks$.subscribe((data) => {
-      this.tasks = data;
+  assignedContacts: Contact[] = [];
+
+  contactsService: ContactsService = inject(ContactsService);
+
+  constructor() {}
+
+  async ngOnInit(): Promise<void> {
+    this.taskCategory = this.getTaskCategory();
+  }
+
+  subtasksDone(): number {
+    let count = 0;
+    this.task.subtasks.forEach((subtask) => {
+      if (subtask.done) count++;
     });
+    return count;
+  }
+
+  subtasksTotal(): number {
+    return this.task.subtasks.length;
+  }
+
+  getTaskCategory() {
+    switch (this.task.category) {
+      case TaskCategory.TECHNICAL_TASK:
+        this.taskTechnical = true;
+        this.taskUserStory = false;
+        return 'Technical Task';
+        break;
+      case TaskCategory.USER_STORY:
+        this.taskTechnical = false;
+        this.taskUserStory = true;
+        return 'User Story';
+        break;
+
+      default:
+        return 'Default Task';
+        break;
+    }
   }
 }
-

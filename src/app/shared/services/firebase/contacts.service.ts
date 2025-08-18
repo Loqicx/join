@@ -5,6 +5,7 @@ import {
   deleteDoc,
   doc,
   Firestore,
+  getDocs,
   onSnapshot,
   updateDoc,
 } from '@angular/fire/firestore';
@@ -78,6 +79,16 @@ export class ContactsService implements OnDestroy {
       if (result) return result;
     }
     return undefined;
+  }
+
+  async getContacts() {
+    let currentContacts: Contact[] = [];
+    const snapshot = await getDocs(this.getContactsRef());
+    snapshot.forEach((doc) => {
+      currentContacts.push(this.setContactObject(doc.data(), doc.id));
+    });
+
+    return currentContacts;
   }
 
   async deleteContact(contactId: string) {

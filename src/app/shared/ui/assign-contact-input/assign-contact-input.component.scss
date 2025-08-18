@@ -1,0 +1,191 @@
+@use "./../../../../styles/variables.scss" as *;
+@use "./../../../../styles/mixings.scss" as *;
+
+:host {
+    width: 100%;
+}
+
+.assign-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-wrapper {
+    position: relative;
+
+    .img-wrap {
+        position: absolute;
+        top: 32px;
+        right: 12px;
+        height: 24px;
+        width: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotate(0deg);
+        transition: transform 0.2s ease;
+    }
+
+    .img-wrap.active {
+        transform: rotate(-540deg);
+        transition: transform 0.2s ease;
+    }
+}
+
+.input-sm {
+    height: 48px;
+    width: 100%;
+    border: 1px solid $color-input-border;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.select-wrapper {
+    position: absolute;
+    top: 68px;
+    left: 0;
+    height: 288px;
+    width: 100%;
+}
+
+.select-list {
+    opacity: 0;
+    height: 0;
+    width: 100%;
+    overflow-y: scroll;
+    background-color: $color-white;
+    scrollbar-width: small;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    transition: height 0.3s ease, opacity 0.16s ease-in;
+}
+
+.show {
+    height: 100%;
+    opacity: 1;
+    transition: height 0.3s ease, opacity 0.15s ease-in;
+}
+
+.contact-card {
+    height: 56px;
+    width: 100%;
+    padding: 0 8px;
+    margin: 2px 0;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    border-radius: 8px;
+
+    &:hover {
+        background-color: $color-primary-bg;
+        cursor: pointer;
+    }
+
+    &.active {
+        background-color: $color-primary;
+        color: white;
+    }
+
+    &.active:hover {
+        background-color: $color-secondary-hover;
+    }
+
+    &__logo {
+        height: 44px;
+        width: 44px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        font-size: 12px;
+        font-weight: 400;
+        color: $color-white;
+        border-radius: 50%;
+
+        .logo-initials {
+            height: 40px;
+            width: 40px;
+            padding: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            aspect-ratio: 1 / 1;
+            border: 2px solid $color-white;
+            border-radius: 50%;            
+        }
+    }
+
+    &__info {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &__name {
+            font-size: 20px;
+            font-weight: 400;
+        }
+    }
+
+    &__info__checkdiv {
+        position: relative;
+        height: 24px;
+        width: 24px;
+        
+        .box {
+            height: 16px;
+            width: 16px;
+            border: 2px solid $color-primary;
+        }
+
+        .box.active {
+            border-color: $color-white;
+            transition: border-color 0.15s ease;
+        }
+
+        .checkmark-slide {
+            position: absolute;
+            bottom: 3px;
+            right: -1px;
+            width: 28px;
+            height: 28px;
+        }
+
+        .checkmark-wrap {
+            width: 0%;
+            overflow: hidden;
+            transition: width 0.2s ease-in;
+        }
+
+        .checkmark-wrap.active {
+            width: 100%;
+            transition: width 0.2s ease-out;
+        }
+
+        .checkmark {
+            width: 26px;           
+        } 
+    }
+}
+
+.choosen-contacts {
+    display: none;
+    width: 100%;
+
+    .contact-wrap {
+        margin-top: 8px;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+}
+
+.choosen-contacts.preview {
+    display: block;
+}
+
+.d-none {
+    display: none !important;
+}
