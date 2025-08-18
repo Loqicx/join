@@ -55,7 +55,7 @@
                     </div>
                     <div class="input-wrapper">
                         <div class="input">
-                            <app-assign-contact-input [preview]="true" (selectedContacts)="selectContacts($event)"></app-assign-contact-input>
+                            <app-assign-contact-input class="assign-contact" [preview]="true" (selectedContacts)="selectContacts($event)"></app-assign-contact-input>
                         </div>
                     </div>
                     <div class="input-wrapper">
@@ -72,11 +72,19 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <div class="input">
+                        <div class="input subtask-input">
                             <label for="taskSubtask" class="input-title">Subtasks</label>
                             <input placeholder="Add new Subtask" size="1" [(ngModel)]="taskSubtask" name="taskSubtask"
                                 #taskCategoryVar="ngModel" class="input-sm border" />
-                            <div class="icon-plus">+</div>
+                            <div class="icon-wrapper">
+                                <div class="icon-plus start">+</div>
+                                <div class="icon-x create">
+                                    <img src="assets/icons/close.svg" alt="Cancel">
+                                </div>
+                                <div class="icon-check create">
+                                    <img src="assets/icons/check_pri.svg" alt="Add Subtask">
+                                </div>
+                            </div>   
                         </div>
                     </div>
                     <div class="subtask-wrapper">
