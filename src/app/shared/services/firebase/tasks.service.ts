@@ -81,7 +81,7 @@ export class TasksService implements OnDestroy {
       priority: obj.priority || '',
       title: obj.title || '',
       category: obj.category || null,
-      subtasks: obj.subTasks || [],
+      subtasks: obj.subtasks || [],
       dueDate: obj.dueDate || new Timestamp(0, 0),
       assignedTo: obj.assignedTo || [],
       description: obj.description || '',
