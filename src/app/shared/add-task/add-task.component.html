@@ -1,0 +1,100 @@
+<div class="page-wrapper">
+    <div class="add-task-wrapper">
+        <h1 class="title">Add Task</h1>
+        <div class="add-task">
+            <form (ngSubmit)="saveTask(addTaskForm)" #addTaskForm="ngForm" class="add-task-form">
+                <div class="left-wrapper">
+                    <div class="input-wrapper">
+                        <div class="input input-text">
+                            <label for="taskTitle" class="input-title">Title<div class="required-star">*</div></label>
+                            <input class="input-sm border" type="text" placeholder="Enter a Title" required
+                                [(ngModel)]="taskTitle" name="taskTitle" #taskTitleVar="ngModel" />
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="input input-description">
+                            <label for="taskDescription" class="input-title">Description</label>
+                            <input class="input-bg border" type="text" placeholder="Enter a Description" required
+                                [(ngModel)]="taskDescription" name="taskDescription" #taskDescriptionVar="ngModel" />
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="input input-text">
+                            <label for="taskDueDate" class="input-title">Due date<div class="required-star">*</div>
+                            </label>
+                            <input class="input-sm border" type="date" placeholder="tt/mm/yyyy" required
+                                [(ngModel)]="taskDueDate" name="taskDueDate" #taskDueDateVar="ngModel" />
+                        </div>
+                    </div>
+                </div>
+                <div class="seperator">
+                    <!-- Seperator things going on here -->
+                </div>
+                <div class="right-wrapper">
+                    <div class="priority-wrapper">
+                        <label for="priority-btn-wrapper">Priority</label>
+                        <div class="priority-btn-wrapper">
+                            <app-button (btnClick)="activateButton('urgent')" [invert]="false"
+                                [active]="this.buttonState.urgent" [iconSrc]="'assets/icons/urgent.svg'"
+                                [size]="'priority'" [fontSize]="'20px'" [color]="'danger'">
+                                Urgent
+                            </app-button>
+
+                            <app-button (btnClick)="activateButton('medium')" [invert]="false"
+                                [active]="this.buttonState.medium" [iconSrc]="'assets/icons/medium.svg'"
+                                [size]="'priority'" [fontSize]="'20px'" [color]="'warn'">
+                                Medium
+                            </app-button>
+
+                            <app-button (btnClick)="activateButton('low')" [invert]="false"
+                                [active]="this.buttonState.low" [iconSrc]="'assets/icons/low.svg'" [size]="'priority'"
+                                [fontSize]="'20px'" [color]="'success'">
+                                Low
+                            </app-button>
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="input">
+                            <app-assign-contact-input></app-assign-contact-input>
+                        </div>
+                    </div>
+                    <div class="selected-contact-icons">
+                        <!-- Add conditional Logic to show contact Icons Here -->
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="input">
+                            <label for="taskCategory" class="input-title">Category<div class="required-star">*</div>
+                            </label>
+                            <select size="1" [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel"
+                                list="categorys" class="single-select border">
+                                <option value="" disabled selected hidden>Select task Category</option>
+                                @for (category of categoryDummy; track $index) {
+                                <option value="{{categoryDummy[$index]}}">{{categoryDummy[$index]}}</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="input">
+                            <label for="taskSubtask" class="input-title">Subtasks</label>
+                            <input placeholder="Add new Subtask" size="1" [(ngModel)]="taskSubtask" name="taskSubtask"
+                                #taskCategoryVar="ngModel" class="input-sm border" />
+                            <div class="icon-plus">+</div>
+                        </div>
+                    </div>
+                    <div class="subtask-wrapper">
+                        @if (subtasks) {
+                        <ul>
+                            @for (subtask of subtasks; track $index) {
+                            <li>{{subtasks[$index].title}}</li>
+                            }
+                        </ul>
+                        }
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

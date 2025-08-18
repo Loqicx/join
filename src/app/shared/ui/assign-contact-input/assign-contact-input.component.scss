@@ -1,0 +1,22 @@
+@use "./../../../../styles/variables.scss" as *;
+@use "./../../../../styles/mixings.scss" as *;
+
+:host {
+    width: 100%;
+}
+
+.assign-wrapper {
+    width: 100%;
+}
+
+.input-sm {
+    height: 48px;
+    width: 100%;
+    border: 1px solid $color-input-border;
+    border-radius: 8px;
+    padding: 8px
+}
+
+.hidden {
+    opacity: 0;
+}

@@ -108,6 +108,11 @@
   padding: 10px 16px;
 }
 
+.priority {
+  height: 56px;
+  width: 136px;
+}
+
 .invert.danger {
   color: $color-danger-red;
   border-color: $color-danger-red;
@@ -142,8 +147,157 @@
   border-color: $color-danger-red;
   background-color: $color-danger-red;
 
-  &:hover {
+  &:hover:not(.active) {
     border-color: $color-danger-red-hover;
     background-color: $color-danger-red-hover;
   }
 }
+
+.invert.warn {
+  color: $color-warn-yellow;
+  border-color: $color-warn-yellow;
+
+  .icon-invert {
+    stroke: $color-warn-yellow;
+
+    ::ng-deep svg {
+      path {
+        fill: $color-warn-yellow;
+      }
+    }
+  }
+
+  &:hover {
+    color: $color-warn-yellow-hover;
+    border-color: $color-warn-yellow-hover;
+
+    .icon-invert {
+      stroke: $color-warn-yellow-hover;
+
+      ::ng-deep svg {
+        path {
+          fill: $color-warn-yellow-hover;
+        }
+      }
+    }
+  }
+}
+
+.warn:not(.invert) {
+  border-color: $color-warn-yellow;
+  background-color: $color-warn-yellow;
+
+  &:hover:not(.active) {
+    border-color: $color-warn-yellow-hover;
+    background-color: $color-warn-yellow-hover;
+  }
+}
+
+.invert.success {
+  color: $color-success-green;
+  border-color: $color-success-green;
+
+  .icon-invert {
+    stroke: $color-success-green;
+
+    ::ng-deep svg {
+      path {
+        fill: $color-success-green;
+      }
+    }
+  }
+
+  &:hover {
+    color: $color-success-green-hover;
+    border-color: $color-success-green-hover;
+
+    .icon-invert {
+      stroke: $color-success-green-hover;
+
+      ::ng-deep svg {
+        path {
+          fill: $color-success-green-hover;
+        }
+      }
+    }
+  }
+}
+
+.success:not(.invert) {
+  border-color: $color-success-green;
+  background-color: $color-success-green;
+
+  &:hover:not(.active) {
+    border-color: $color-success-green-hover;
+    background-color: $color-success-green-hover;
+  }
+}
+
+.priority.success:not(.active):not(.invert) {
+  border: 0.5px solid $color-text;
+  background-color: $color-white;
+  color: $color-black;
+
+  font-weight: 500;
+
+  .icon {
+    stroke: $color-success-green;
+
+    ::ng-deep svg {
+      path {
+        fill: $color-success-green;
+      }
+    }
+  }
+}
+
+.priority.warn:not(.active):not(.invert) {
+  border: 0.5px solid $color-text;
+  background-color: $color-white;
+  color: $color-black;
+
+  font-weight: 500;
+
+  .icon {
+    stroke: $color-warn-yellow;
+
+    ::ng-deep svg {
+      path {
+        fill: $color-warn-yellow;
+      }
+    }
+  }
+}
+
+.priority.danger:not(.active):not(.invert) {
+  border: 0.5px solid $color-text;
+  background-color: $color-white;
+  color: $color-black;
+
+  font-weight: 500;
+
+  .icon {
+    stroke: $color-danger-red;
+
+    ::ng-deep svg {
+      path {
+        fill: $color-danger-red;
+      }
+    }
+  }
+}
+
+.priority {
+  &:hover {
+    box-shadow: 0px 2px 1px 1px $color-text;
+    transform: scale(1.005);
+  }
+}
+
+.priority.active {
+  &:hover {
+    box-shadow: 0px 2px 1px 1px $color-text;
+    transform: scale(1);
+  }
+}
+
