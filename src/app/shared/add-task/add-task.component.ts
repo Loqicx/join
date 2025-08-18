@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from "../ui/button/button.component";
@@ -17,6 +17,7 @@ export class AddTaskComponent {
 
   categoryDummy = ['Nutzlos', 'Sinnlos', 'ABM']
   subtasks: { id: number, title: string }[] = [];
+  @Input() selectedContacts: any;
 
   taskTitle: any;
   taskDescription: any;
@@ -40,10 +41,24 @@ export class AddTaskComponent {
   }
 
   activateButton(btnName: 'urgent' | 'medium' | 'low') {
+    if (btnName === 'low') {
+      this.buttonState['urgent'] = false
+      this.buttonState['medium'] = false
+    } else if (btnName === 'medium') {
+      this.buttonState['urgent'] = false
+      this.buttonState['low'] = false
+    } else if (btnName === 'urgent') {
+      this.buttonState['low'] = false
+      this.buttonState['medium'] = false
+    }
     if (this.buttonState[btnName]) {
       this.buttonState[btnName] = false
     } else {
       this.buttonState[btnName] = true
     }
+  }
+
+  selectContacts(contacts: any) {
+    this.selectedContacts = contacts[0];
   }
 }

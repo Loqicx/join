@@ -1,28 +1,40 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Renderer2, Output, Input, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ContactsService } from '../../services/firebase/contacts.service';
-import { ObjectToArrayPipe } from '../../pipes/object-to-array.pipe';
 import { Contact } from '../../interfaces/contact';
 import { CommonModule } from '@angular/common';
+import { ColoredProfilePipe } from '../../pipes/colored-profile.pipe';
+import { InitialLettersService } from '../../services/get-initial-letters.service';
 
 @Component({
   selector: 'app-assign-contact-input',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ColoredProfilePipe],
   templateUrl: './assign-contact-input.component.html',
   styleUrl: './assign-contact-input.component.scss',
-  providers: [ObjectToArrayPipe],
 })
 export class AssignContactInputComponent {
+  @Input() preview: boolean = false;
   taskAssignInput: any;
   contacts: Contact[] = [];
-  contactsArray: [] | any = [];
+  selectedContactsArray: Contact[] = [];
+  @Output() selectedContacts: EventEmitter<[Contact[]]> = new EventEmitter<[Contact[]]>();
   searchArray: [] | any = [];
   filteredContacts: Contact[] = [];
 
-  constructor(
-    private contactPipe: ObjectToArrayPipe,
-    private contactsService: ContactsService
-  ) {}
+  show = false
+  dNone: boolean = true;
+
+  constructor(private renderer: Renderer2) {
+    this.renderer.listen('window', 'pointerdown', (event) => {
+      const wrapper = document.querySelector('#assignWrapper');
+      if (this.show && wrapper && !wrapper.contains(event.target as Node)) {
+        this.visibleFalse();
+      }
+    });
+  }
+
+  private contactsService: ContactsService = inject(ContactsService)
+  public initialLettersService: InitialLettersService = inject(InitialLettersService);
 
   ngAfterViewInit() {
     this.loadContacts();
@@ -32,8 +44,24 @@ export class AssignContactInputComponent {
     this.contacts = await this.contactsService.getContacts();
   }
 
-  filterContacts(searchValue: string) {
-    if (!searchValue || searchValue.length < 3) {
+  cleanupValue(searchInputValue?: string) {
+    let searchValue: string | undefined;
+    if (searchInputValue?.includes(', ')) {
+        searchValue = searchInputValue?.substring(searchInputValue?.lastIndexOf(', ') +2);
+    } else if (searchInputValue?.includes(',')) {
+        searchValue = searchInputValue?.substring(searchInputValue?.lastIndexOf(',') +1);
+    } else {
+        searchValue = searchInputValue;
+    }
+    return searchValue
+  }
+
+  filterContacts(searchInputValue?: string) {
+    let searchValue = this.cleanupValue(searchInputValue)
+
+    if (!searchValue || searchValue.length < 1) {
+      this.searchArray = this.contacts
+
       return this.contacts;
     }
 
@@ -41,19 +69,58 @@ export class AssignContactInputComponent {
       const fullName =
         `${contact.firstName} ${contact.lastName}`.toLocaleLowerCase();
 
-      return fullName.includes(searchValue.toLocaleLowerCase());
+      return fullName.match(searchValue.toLocaleLowerCase());
     });
-    console.log(this.filteredContacts);
+    this.searchArray = this.filteredContacts;
 
     return this.filteredContacts;
   }
-}
 
-/* findContact(name: string) {
-    this.contactsArray = [];
-    Object.values(this.contactsService.contacts).forEach((contact: Contact | any) => {
-      let search = contact.firstName.toLowerCase().includes(name.toLowerCase()) || contact
-      this.contactsArray.push = search;
-    });
-    console.log(this.contactsArray)
-  } */
+  toggleContact(contact: Contact) {
+    this.toggleContactStyle(contact);
+    this.toggleContactSelection(contact);
+  }
+
+  toggleContactStyle(contact: Contact) {
+    document.getElementById(`contactCard${contact.id}`)?.classList.toggle('active');
+    document.getElementById(`contactSelectBox${contact.id}`)?.classList.toggle('active');
+    document.getElementById(`contactSelectCheckWrap${contact.id}`)?.classList.toggle('active');
+  }
+
+  setContactStyle(contact: Contact) {
+    document.getElementById(`contactCard${contact.id}`)?.classList.add('active');
+    document.getElementById(`contactSelectBox${contact.id}`)?.classList.add('active');
+    document.getElementById(`contactSelectCheckWrap${contact.id}`)?.classList.add('active');
+  }
+
+  toggleContactSelection(contact: Contact) {
+    const index = this.selectedContactsArray.findIndex((c: Contact) => c.id === contact.id);
+    if (index > -1) {
+      this.selectedContactsArray.splice(index, 1);
+      this.taskAssignInput = this.selectedContactsArray.map((c: Contact) => c.firstName + ' ' + c.lastName + ',').join(' ');
+    } else {
+      this.selectedContactsArray.push(contact);
+      this.taskAssignInput = this.selectedContactsArray.map((c: Contact) => c.firstName + ' ' + c.lastName + ',').join(' ');
+    }
+    this.selectedContacts.emit([this.selectedContactsArray]);
+  }
+
+  toggleVisibility() {
+    this.show ? this.visibleFalse() : this.visibleTrue();
+  }
+
+  visibleTrue() {
+    this.dNone = false;
+    setTimeout(() => {
+      this.show = true;
+    }, 50);
+  }
+
+  visibleFalse() {
+    this.show = false;
+    setTimeout(() => {
+      this.dNone = true;
+    }, 300);
+  }
+
+}

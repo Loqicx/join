@@ -7,6 +7,20 @@
     background-color: $color-primary-bg;
 }
 
+.title {
+    font-size: 62px;
+    line-height: 120%;
+    font-weight: 700;
+    margin-left: 12px;
+}
+
+.seperator {
+    height: 60%;
+    width: 2px;
+    background-color: $color-text;
+    border-radius: 4px;
+}
+
 .add-task-wrapper {
     height: 90%;
     width: 90%;
@@ -26,7 +40,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 
 .left-wrapper {
@@ -95,6 +109,28 @@
     }
 }
 
+.assign-contact {
+    z-index: 20;
+}
+
+.subtask-input {
+    position: relative;
+    z-index: 0;
+
+    .icon-wrapper {
+        position: absolute;
+        top: 32px;
+        right: 20px;
+        font-size: 20px;
+    }
+
+    .wrap-create {
+        justify-content: center;
+        align-items: center;
+        display: none;
+    }
+}
+
 .priority-wrapper {
     width: 95%;
     display: flex;
@@ -102,6 +138,7 @@
     justify-content: center;
     align-items: start;
     gap: 4px;
+    margin: 16px 0;
 }
 
 .priority-btn-wrapper {
@@ -111,8 +148,3 @@
     justify-content: space-between;
     align-items: center;
 }
-
-
-
-
-
