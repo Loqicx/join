@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../../shared/ui/button/button.component';
 import {
   CdkDragDrop,
@@ -9,14 +9,22 @@ import {
   CdkDropListGroup,
 } from '@angular/cdk/drag-drop';
 import { TaskCardComponent } from '../../shared/task-card/task-card.component';
+import { TasksService } from '../../shared/services/firebase/tasks.service';
 
 @Component({
   selector: 'app-board-page',
-  imports: [ButtonComponent, CdkDropList, CdkDrag, CdkDropListGroup, TaskCardComponent],
+  imports: [
+    ButtonComponent,
+    CdkDropList,
+    CdkDrag,
+    CdkDropListGroup,
+    TaskCardComponent,
+  ],
   templateUrl: './board-page.component.html',
   styleUrl: './board-page.component.scss',
 })
 export class BoardPageComponent {
+  tasks;
   board = {
     lists: [
       {
@@ -37,6 +45,12 @@ export class BoardPageComponent {
       },
     ],
   };
+
+  tasksService: TasksService = inject(TasksService);
+
+  constructor() {
+    this.tasks = this.tasksService.tasks;
+  }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
