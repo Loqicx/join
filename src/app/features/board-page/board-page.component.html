@@ -25,13 +25,14 @@
       <h3>{{ list.name }}</h3>
       <div
         class="task-list"
+        [id]="'list-' + $index"
         cdkDropList
         [cdkDropListData]="list.items"
         (cdkDropListDropped)="drop($event)"
       >
         @for (task of list.items; track $index) {
         <!-- <div class="task-item" cdkDrag>{{ task }}</div> -->
-         <app-task-card cdkDrag></app-task-card>
+        <app-task-card [task]="task" cdkDrag></app-task-card>
         }
       </div>
     </div>
