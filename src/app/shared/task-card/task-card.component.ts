@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';
 import { TaskCategory } from '../services/firebase/tasks.service';
 import { Contact } from '../interfaces/contact';
+import { ContactsService } from '../services/firebase/contacts.service';
 
 @Component({
   selector: 'app-task-card',
@@ -19,6 +20,7 @@ export class TaskCardComponent implements OnInit {
 
   assignedContacts: Contact[] = [];
 
+  contactsService: ContactsService = inject(ContactsService);
 
   constructor() {}
 
