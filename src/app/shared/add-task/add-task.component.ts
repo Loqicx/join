@@ -7,7 +7,9 @@ import { ContactsService } from '../services/firebase/contacts.service';
 import { InitialLettersService } from '../services/get-initial-letters.service';
 import { AssignContactInputComponent } from "../ui/assign-contact-input/assign-contact-input.component";
 import { AssignSubtaskInputComponent } from "../ui/assign-subtask-input/assign-subtask-input.component";
-
+import { TasksService } from '../services/firebase/tasks.service';
+import { Task } from '../interfaces/task';
+import { TaskCategory } from '../services/firebase/tasks.service';
 @Component({
   selector: 'app-add-task',
   imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, AssignContactInputComponent, AssignSubtaskInputComponent],
@@ -15,17 +17,16 @@ import { AssignSubtaskInputComponent } from "../ui/assign-subtask-input/assign-s
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent {
-  selectedSubTasks: string[] = [];
+  selectedSubTasks: {id: string, title: string, done: boolean}[] = [];
 
-  categoryDummy = ['Nutzlos', 'Sinnlos', 'ABM']
   @Input() selectedContacts: any;
+  @Input() taskCategory: number | string = '';
 
-  taskTitle: any;
-  taskDescription: any;
-  taskDueDate: any;
+  taskTitle: string = '';
+  taskDescription: string = '';
+  taskDueDate: Date = new Date;
   taskAssigned: any;
-  taskCategory: any = '';
-  taskAssignedInput: any;
+  priority: number | null = 2;
 
   buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
     urgent: false,
@@ -33,11 +34,63 @@ export class AddTaskComponent {
     low: false
   };
 
+  task: Task = {
+    priority: this.priority,
+    title: this.taskTitle,
+    category: this.taskCategory,
+    subtasks: [{ title: '', done: false }],
+    dueDate: this.taskDueDate,
+    assignedTo: [''],
+    description: this.taskDescription,
+    status: 0,
+    id: '',
+  }
+
+  taskCategoryTitles: Record<TaskCategory, string> = {
+    [TaskCategory.USER_STORY]: 'User Story',
+    [TaskCategory.TECHNICAL_TASK]: 'Technical Task',
+  };
+
+  categoryArray: any[] = Object.keys(TaskCategory)
+    .filter(key => !isNaN(Number(TaskCategory[key as any])))
+    .map(key => {
+      const value = Number(TaskCategory[key as any]);
+      return {
+        value: value,
+        enum: key,
+        title: this.taskCategoryTitles[value as TaskCategory]
+      };
+    });
+
   contactsService: ContactsService = inject(ContactsService);
   initialLetterService: InitialLettersService = inject(InitialLettersService);
+  tasksService: TasksService = inject(TasksService)
 
-  saveTask(taskForm: NgForm) {
-    console.log('task Saved!' + taskForm)
+  ngOnInit() {
+    this.activateButton('medium');
+  }
+
+  setData() {
+    this.task.assignedTo = this.selectedContacts?.map((contact: { id: any; }) => contact.id)
+    this.task.subtasks = this.selectedSubTasks;
+  }
+
+  async saveTask(taskForm: NgForm) {
+    if (!this.taskTitle || this.taskDueDate || this.taskCategory ) {
+      console.error('Insufficient / Invalid Data in task Form!')
+      return
+    }
+    this.setData();
+    console.log('task Saved!', taskForm)
+    console.log('assigned to:', this.task.assignedTo)
+    console.log('subtasks', this.task.subtasks)
+    console.log('priority', this.priority)
+
+    try {
+      await this.tasksService.addTaskToDatabase(this.task);
+    } catch (error) {
+      console.error('Failed to Save Task!')
+    }
   }
 
   activateButton(btnName: 'urgent' | 'medium' | 'low') {
@@ -51,11 +104,7 @@ export class AddTaskComponent {
       this.buttonState['low'] = false
       this.buttonState['medium'] = false
     }
-    if (this.buttonState[btnName]) {
-      this.buttonState[btnName] = false
-    } else {
-      this.buttonState[btnName] = true
-    }
+    this.buttonState[btnName] = true
   }
 
   selectContacts(contacts: any) {
@@ -63,6 +112,6 @@ export class AddTaskComponent {
   }
 
   selectSubTasks(subtasks: any) {
-    this.selectedSubTasks = subtasks[0];
+    this.selectedSubTasks = subtasks;
   }
 }

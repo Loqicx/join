@@ -13,6 +13,12 @@ import {
 import { Task } from '../../interfaces/task';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+export enum TaskPriority {
+  LOW = 1,
+  MEDIUM = 2,
+  HIGH = 3,
+}
+
 export enum TaskCategory {
   USER_STORY = 1,
   TECHNICAL_TASK = 2,
