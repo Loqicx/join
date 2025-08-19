@@ -7,7 +7,8 @@ import { ContactsService } from '../services/firebase/contacts.service';
 import { InitialLettersService } from '../services/get-initial-letters.service';
 import { AssignContactInputComponent } from "../ui/assign-contact-input/assign-contact-input.component";
 import { AssignSubtaskInputComponent } from "../ui/assign-subtask-input/assign-subtask-input.component";
-
+import { TaskService } from '../../services/task.service';
+import { Task } from '../interfaces/task';
 @Component({
   selector: 'app-add-task',
   imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, AssignContactInputComponent, AssignSubtaskInputComponent],
@@ -33,36 +34,50 @@ export class AddTaskComponent {
     low: false
   };
 
-  contactsService: ContactsService = inject(ContactsService);
-  initialLetterService: InitialLettersService = inject(InitialLettersService);
+  task: Task = {
+  priority: 0,
+  title: '',
+  category: 1,
+  subtasks: [{title: '', done: false}],
+  dueDate: new Date(),
+  assignedTo: [''],
+  description: '',
+  status: 0,
+  id: '',
+}
 
-  saveTask(taskForm: NgForm) {
-    console.log('task Saved!' + taskForm)
-  }
+contactsService: ContactsService = inject(ContactsService);
+initialLetterService: InitialLettersService = inject(InitialLettersService);
 
-  activateButton(btnName: 'urgent' | 'medium' | 'low') {
-    if (btnName === 'low') {
-      this.buttonState['urgent'] = false
-      this.buttonState['medium'] = false
-    } else if (btnName === 'medium') {
-      this.buttonState['urgent'] = false
-      this.buttonState['low'] = false
-    } else if (btnName === 'urgent') {
-      this.buttonState['low'] = false
-      this.buttonState['medium'] = false
-    }
-    if (this.buttonState[btnName]) {
-      this.buttonState[btnName] = false
-    } else {
-      this.buttonState[btnName] = true
-    }
-  }
+taskService = inject(TaskService)
 
-  selectContacts(contacts: any) {
-    this.selectedContacts = contacts[0];
-  }
+saveTask(taskForm: NgForm) {
+  console.log('task Saved!' + taskForm)
+}
 
-  selectSubTasks(subtasks: any) {
-    this.selectedSubTasks = subtasks[0];
+activateButton(btnName: 'urgent' | 'medium' | 'low') {
+  if (btnName === 'low') {
+    this.buttonState['urgent'] = false
+    this.buttonState['medium'] = false
+  } else if (btnName === 'medium') {
+    this.buttonState['urgent'] = false
+    this.buttonState['low'] = false
+  } else if (btnName === 'urgent') {
+    this.buttonState['low'] = false
+    this.buttonState['medium'] = false
   }
+  if (this.buttonState[btnName]) {
+    this.buttonState[btnName] = false
+  } else {
+    this.buttonState[btnName] = true
+  }
+}
+
+selectContacts(contacts: any) {
+  this.selectedContacts = contacts[0];
+}
+
+selectSubTasks(subtasks: any) {
+  this.selectedSubTasks = subtasks[0];
+}
 }
