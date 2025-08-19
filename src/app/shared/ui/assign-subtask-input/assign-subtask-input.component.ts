@@ -10,18 +10,24 @@ import { FormsModule } from '@angular/forms';
 })
 export class AssignSubtaskInputComponent {
 
-  subtasks: { id: number, title: string, hover: boolean}[] = [];
+  subtasks: { id: number, title: string, hover: boolean, edit: boolean}[] = [];
   taskSubtask: any;
 
   subtaskActive: boolean = false;
   subtaskInput: boolean = false;
+  subtaskEditInput: string = '';
 
   addSubtask() {
     if (this.taskSubtask) {
-      this.subtasks.push({ id: this.subtasks.length + 1, title: this.taskSubtask, hover: false });
+      this.subtasks.push({ id: this.subtasks.length + 1, title: this.taskSubtask, hover: false, edit: false});
       this.taskSubtask = '';
       this.subtaskInput = false;
     }
+    this.subtaskActive = false;
+  }
+
+  clearCreateInput() {
+    this.taskSubtask = '';
     this.subtaskActive = false;
   }
 
@@ -30,6 +36,10 @@ export class AssignSubtaskInputComponent {
   }
 
   editSubtask(index: number) {
-    
+    this.subtasks[index].title = this.subtaskEditInput;
   }
+
+  reloadInput(index: number) {
+    this.subtaskEditInput = this.subtasks[index].title;
+}
 }

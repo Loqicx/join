@@ -1,12 +1,13 @@
 <div class="input subtask-input">
     <label for="taskSubtask" class="input-title">Subtasks</label>
     <input placeholder="Add new Subtask" size="1" [(ngModel)]="taskSubtask" name="taskSubtask"
-        #taskCategoryVar="ngModel" class="input-sm border" (click)="this.subtaskActive=true" />
+        #taskSubtaskVar="ngModel" class="input-sm border" (click)="this.subtaskActive=true" 
+        autocomplete="off"/>
     <div class="icon-wrapper">
         <div class="icon-plus btn" (click)="this.subtaskActive=true" [class.d-none]="subtaskActive"><span
                 class="plus">+</span></div>
         <div class="wrap-create btn" [class.d-flex]="subtaskActive">
-            <div class="icon-x">
+            <div class="icon-x" (click)="clearCreateInput()">
                 <img src="assets/icons/close.svg" alt="Cancel">
             </div>
             <div class="seperator-mini"></div>
@@ -22,19 +23,30 @@
     <ul class="subtask-list">
         @for (subtask of subtasks; track $index) {
         <li class="subtask" [class.hover]="subtask.hover">
-            <div class="subtask__inner" (pointerenter)="subtask.hover = true" 
-                (pointerdown)="subtask.hover = true" 
-                (pointerleave)="subtask.hover = false">
+            <div class="subtask__inner" (pointerenter)="subtask.hover = true" (pointerdown)="subtask.hover = true"
+                (pointerleave)="subtask.hover = false" [class.d-none]="subtask.edit">
                 <span class="subtask__inner_title">
                     {{subtasks[$index].title}}
                 </span>
-                <div class="icon-wrapper-small" (click)="editSubtask($index)" [class.hover]="subtask.hover">
-                    <div class="icon-container icon-edit">
+                <div class="icon-wrapper-small hidden" [class.hover]="subtask.hover">
+                    <div class="icon-container icon-edit" (click)="subtask.edit = true; reloadInput($index);">
                         <img src="assets/icons/edit.svg" alt="Edit Subtask" class="icon">
                     </div>
-                    <div class="seperator-mini" (click)="deleteSubtask($index)" [class.hover]="subtask.hover"></div>
-                    <div class="icon-container icon-delete">
+                    <div class="seperator-mini" [class.hover]="subtask.hover"></div>
+                    <div class="icon-container icon-delete" (click)="deleteSubtask($index)">
                         <img src="assets/icons/delete.svg" alt="Delete Subtask" class="icon">
+                    </div>
+                </div>
+            </div>
+            <div class="subtask__inner subtask-edit" [class.d-none]="!subtask.edit">
+                <input type="text" class="subtask-edit__input" [value]="subtasks[$index].title" [(ngModel)]="subtaskEditInput" #subtaskEditInputVar="ngModel"> 
+                <div class="icon-wrapper-small" [class.hover]="subtask.hover">
+                    <div class="icon-container edit icon-close" (click)="subtask.edit = false; reloadInput($index);">
+                        <img src="assets/icons/close.svg" alt="Close Edit" class="icon">
+                    </div>
+                    <div class="seperator-mini" [class.hover]="subtask.hover"></div>
+                    <div class="icon-container edit icon-save" (click)="subtask.edit = false; editSubtask($index)" >
+                        <img src="assets/icons/check_pri.svg" alt="Save Edit" class="">
                     </div>
                 </div>
             </div>
