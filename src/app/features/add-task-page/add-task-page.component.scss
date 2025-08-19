@@ -1,0 +1,24 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixings.scss" as *;
+
+:host {
+  height: calc(100% - $header-height);
+  display: block;
+
+  @include breakpoint-down("lg") {
+    height: calc(100% - $header-height - $footer-height);
+  }
+
+  @include breakpoint-down("md") {
+    height: calc(100% - $header-height - $footer-height + 16px);
+  }
+
+  @include breakpoint-down("sm") {
+    height: calc(100% - $header-height - $footer-height + 24px);
+  }
+}
+
+.content-wrapper {
+    height: 100%;
+    overflow-y: scroll;
+}
