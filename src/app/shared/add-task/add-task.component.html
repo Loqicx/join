@@ -34,19 +34,19 @@
                     <div class="priority-wrapper">
                         <label for="priority-btn-wrapper">Priority</label>
                         <div class="priority-btn-wrapper">
-                            <app-button (btnClick)="activateButton('urgent')" [invert]="false"
+                            <app-button (btnClick)="activateButton('urgent'); this.priority = 3" [invert]="false"
                                 [active]="this.buttonState.urgent" [iconSrc]="'assets/icons/urgent.svg'"
                                 [size]="'priority'" [fontSize]="'20px'" [color]="'danger'">
                                 Urgent
                             </app-button>
 
-                            <app-button (btnClick)="activateButton('medium')" [invert]="false"
+                            <app-button (btnClick)="activateButton('medium'); this.priority = 2" [invert]="false"
                                 [active]="this.buttonState.medium" [iconSrc]="'assets/icons/medium.svg'"
                                 [size]="'priority'" [fontSize]="'20px'" [color]="'warn'">
                                 Medium
                             </app-button>
 
-                            <app-button (btnClick)="activateButton('low')" [invert]="false"
+                            <app-button (btnClick)="activateButton('low'); this.priority = 1" [invert]="false"
                                 [active]="this.buttonState.low" [iconSrc]="'assets/icons/low.svg'" [size]="'priority'"
                                 [fontSize]="'20px'" [color]="'success'">
                                 Low
@@ -66,8 +66,8 @@
                             <select size="1" [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel"
                                 list="categorys" class="single-select border" required autocomplete='off'>
                                 <option value="" selected disabled hidden>Select task Category</option>
-                                @for (category of categoryDummy; track $index) {
-                                <option value="{{categoryDummy[$index]}}">{{categoryDummy[$index]}}</option>
+                                @for (category of categoryArray; track $index) {
+                                <option value="{{categoryArray[$index].value}}">{{categoryArray[$index].title}}</option>
                                 }
                             </select>
                         </div>
@@ -76,6 +76,7 @@
                         <app-assign-subtask-input (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
                     </div>
                 </div>
+                <app-button [type]="'submit'">Send</app-button>
             </form>
         </div>
     </div>

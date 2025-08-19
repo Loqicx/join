@@ -9,6 +9,7 @@ import { AssignContactInputComponent } from "../ui/assign-contact-input/assign-c
 import { AssignSubtaskInputComponent } from "../ui/assign-subtask-input/assign-subtask-input.component";
 import { TaskService } from '../../services/task.service';
 import { Task } from '../interfaces/task';
+import { TaskCategory } from '../services/firebase/tasks.service';
 @Component({
   selector: 'app-add-task',
   imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, AssignContactInputComponent, AssignSubtaskInputComponent],
@@ -16,17 +17,16 @@ import { Task } from '../interfaces/task';
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent {
-  selectedSubTasks: string[] = [];
+  selectedSubTasks: {id: string, title: string, done: boolean}[] = [];
 
-  categoryDummy = ['Nutzlos', 'Sinnlos', 'ABM']
   @Input() selectedContacts: any;
+  @Input() taskCategory: number | string = '';
 
-  taskTitle: any;
-  taskDescription: any;
-  taskDueDate: any;
+  taskTitle: string = '';
+  taskDescription: string = '';
+  taskDueDate: Date = new Date;
   taskAssigned: any;
-  taskCategory: any = '';
-  taskAssignedInput: any;
+  priority: number | null = 2;
 
   buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
     urgent: false,
@@ -35,49 +35,75 @@ export class AddTaskComponent {
   };
 
   task: Task = {
-  priority: 0,
-  title: '',
-  category: 1,
-  subtasks: [{title: '', done: false}],
-  dueDate: new Date(),
-  assignedTo: [''],
-  description: '',
-  status: 0,
-  id: '',
-}
-
-contactsService: ContactsService = inject(ContactsService);
-initialLetterService: InitialLettersService = inject(InitialLettersService);
-
-taskService = inject(TaskService)
-
-saveTask(taskForm: NgForm) {
-  console.log('task Saved!' + taskForm)
-}
-
-activateButton(btnName: 'urgent' | 'medium' | 'low') {
-  if (btnName === 'low') {
-    this.buttonState['urgent'] = false
-    this.buttonState['medium'] = false
-  } else if (btnName === 'medium') {
-    this.buttonState['urgent'] = false
-    this.buttonState['low'] = false
-  } else if (btnName === 'urgent') {
-    this.buttonState['low'] = false
-    this.buttonState['medium'] = false
+    priority: this.priority,
+    title: this.taskTitle,
+    category: this.taskCategory,
+    subtasks: [{ title: '', done: false }],
+    dueDate: new Date(),
+    assignedTo: [''],
+    description: '',
+    status: 0,
+    id: '',
   }
-  if (this.buttonState[btnName]) {
-    this.buttonState[btnName] = false
-  } else {
+
+  taskCategoryTitles: Record<TaskCategory, string> = {
+    [TaskCategory.USER_STORY]: 'User Story',
+    [TaskCategory.TECHNICAL_TASK]: 'Technical Task',
+  };
+
+  categoryArray: any[] = Object.keys(TaskCategory)
+    .filter(key => !isNaN(Number(TaskCategory[key as any])))
+    .map(key => {
+      const value = Number(TaskCategory[key as any]);
+      return {
+        value: value,
+        enum: key,
+        title: this.taskCategoryTitles[value as TaskCategory]
+      };
+    });
+
+  contactsService: ContactsService = inject(ContactsService);
+  initialLetterService: InitialLettersService = inject(InitialLettersService);
+
+  taskService = inject(TaskService)
+
+  ngOnInit() {
+    this.activateButton('medium');
+  }
+
+  setData() {
+    this.task.assignedTo = this.selectedContacts?.map((contact: { id: any; }) => contact.id)
+    this.task.subtasks = this.selectedSubTasks;
+  }
+
+  saveTask(taskForm: NgForm) {
+    this.setData();
+    console.log('task Saved!', taskForm)
+    console.log('assigned to:', this.task.assignedTo)
+    console.log('subtask RAW', this.selectedSubTasks)
+    console.log('subtasks', this.task.subtasks)
+    console.log('priority', this.priority)
+  }
+
+  activateButton(btnName: 'urgent' | 'medium' | 'low') {
+    if (btnName === 'low') {
+      this.buttonState['urgent'] = false
+      this.buttonState['medium'] = false
+    } else if (btnName === 'medium') {
+      this.buttonState['urgent'] = false
+      this.buttonState['low'] = false
+    } else if (btnName === 'urgent') {
+      this.buttonState['low'] = false
+      this.buttonState['medium'] = false
+    }
     this.buttonState[btnName] = true
   }
-}
 
-selectContacts(contacts: any) {
-  this.selectedContacts = contacts[0];
-}
+  selectContacts(contacts: any) {
+    this.selectedContacts = contacts[0];
+  }
 
-selectSubTasks(subtasks: any) {
-  this.selectedSubTasks = subtasks[0];
-}
+  selectSubTasks(subtasks: any) {
+    this.selectedSubTasks = subtasks;
+  }
 }
