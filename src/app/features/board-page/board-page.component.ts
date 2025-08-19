@@ -53,6 +53,8 @@ export class BoardPageComponent implements OnInit {
 
   tasksService: TasksService = inject(TasksService);
 
+  selectedTask: Task | null = null;
+
   constructor() {}
 
   ngOnInit(): void {
@@ -61,6 +63,10 @@ export class BoardPageComponent implements OnInit {
       console.log(this.tasks);
       this.handleTaskUpdate();
     });
+  }
+
+  openTask(task: Task) {
+    this.selectedTask = task;
   }
 
   drop(event: CdkDragDrop<Task[]>) {

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';
 import { TaskCategory } from '../services/firebase/tasks.service';
@@ -18,6 +18,8 @@ import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';
 export class TaskCardComponent implements OnInit {
   @Input() task!: Task;
 
+  @Output() open = new EventEmitter<Task>();
+
   taskTechnical: boolean = false;
   taskUserStory: boolean = false;
   taskCategory: string = '';
@@ -33,6 +35,10 @@ export class TaskCardComponent implements OnInit {
   ngOnInit(): void {
     this.taskCategory = this.getTaskCategory();
     this.updateAssignedInitials();
+  }
+
+  openModal() {
+    this.open.emit(this.task);
   }
 
   updateAssignedInitials(): void {

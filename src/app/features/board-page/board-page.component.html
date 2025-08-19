@@ -41,7 +41,7 @@
       >
         @for (task of list.items; track $index) {
         <!-- <div class="task-item" cdkDrag>{{ task }}</div> -->
-        <app-task-card [task]="task" cdkDrag></app-task-card>
+        <app-task-card [task]="task" (open)="selectedTask = $event" cdkDrag></app-task-card>
         }
       </div>
     </div>
