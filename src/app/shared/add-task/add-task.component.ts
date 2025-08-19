@@ -15,6 +15,7 @@ import { AssignSubtaskInputComponent } from "../ui/assign-subtask-input/assign-s
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent {
+  selectedSubTasks: string[] = [];
 
   categoryDummy = ['Nutzlos', 'Sinnlos', 'ABM']
   @Input() selectedContacts: any;
@@ -59,5 +60,9 @@ export class AddTaskComponent {
 
   selectContacts(contacts: any) {
     this.selectedContacts = contacts[0];
+  }
+
+  selectSubTasks(subtasks: any) {
+    this.selectedSubTasks = subtasks[0];
   }
 }
