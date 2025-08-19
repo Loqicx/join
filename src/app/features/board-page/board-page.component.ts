@@ -11,6 +11,7 @@ import {
 import { TaskCardComponent } from '../../shared/task-card/task-card.component';
 import { TasksService } from '../../shared/services/firebase/tasks.service';
 import { Task } from '../../shared/interfaces/task';
+import { TaskCardModalComponent } from '../../shared/task-card-modal/task-card-modal.component';
 
 @Component({
   selector: 'app-board-page',
@@ -20,6 +21,7 @@ import { Task } from '../../shared/interfaces/task';
     CdkDrag,
     CdkDropListGroup,
     TaskCardComponent,
+    TaskCardModalComponent
   ],
   templateUrl: './board-page.component.html',
   styleUrl: './board-page.component.scss',
@@ -53,6 +55,10 @@ export class BoardPageComponent implements OnInit {
 
   tasksService: TasksService = inject(TasksService);
 
+  selectedTask: Task | null = null;
+
+  isModalOpen = false;
+
   constructor() {}
 
   ngOnInit(): void {
@@ -62,6 +68,17 @@ export class BoardPageComponent implements OnInit {
       this.handleTaskUpdate();
     });
   }
+
+  openTask(task: Task) {
+    this.selectedTask = task;
+    this.isModalOpen = true;
+  }
+
+  closeTask() {
+  this.isModalOpen = false;
+  this.selectedTask = null;
+
+}
 
   drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
