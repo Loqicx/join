@@ -75,8 +75,10 @@
                     <div class="input-wrapper">
                         <app-assign-subtask-input (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
                     </div>
+                    <div class="lower-btn-wrapper">
+                        <app-button [type]="'submit'">Send</app-button>
+                    </div>
                 </div>
-                <app-button [type]="'submit'">Send</app-button>
             </form>
         </div>
     </div>

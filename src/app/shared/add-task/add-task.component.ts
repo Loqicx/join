@@ -76,10 +76,13 @@ export class AddTaskComponent {
   }
 
   async saveTask(taskForm: NgForm) {
+    if (!this.taskTitle || this.taskDueDate || this.taskCategory ) {
+      console.error('Insufficient / Invalid Data in task Form!')
+      return
+    }
     this.setData();
     console.log('task Saved!', taskForm)
     console.log('assigned to:', this.task.assignedTo)
-    console.log('subtask RAW', this.selectedSubTasks)
     console.log('subtasks', this.task.subtasks)
     console.log('priority', this.priority)
 
