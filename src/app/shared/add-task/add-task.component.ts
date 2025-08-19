@@ -7,7 +7,7 @@ import { ContactsService } from '../services/firebase/contacts.service';
 import { InitialLettersService } from '../services/get-initial-letters.service';
 import { AssignContactInputComponent } from "../ui/assign-contact-input/assign-contact-input.component";
 import { AssignSubtaskInputComponent } from "../ui/assign-subtask-input/assign-subtask-input.component";
-import { TaskService } from '../../services/task.service';
+import { TasksService } from '../services/firebase/tasks.service';
 import { Task } from '../interfaces/task';
 import { TaskCategory } from '../services/firebase/tasks.service';
 @Component({
@@ -39,9 +39,9 @@ export class AddTaskComponent {
     title: this.taskTitle,
     category: this.taskCategory,
     subtasks: [{ title: '', done: false }],
-    dueDate: new Date(),
+    dueDate: this.taskDueDate,
     assignedTo: [''],
-    description: '',
+    description: this.taskDescription,
     status: 0,
     id: '',
   }
@@ -64,8 +64,7 @@ export class AddTaskComponent {
 
   contactsService: ContactsService = inject(ContactsService);
   initialLetterService: InitialLettersService = inject(InitialLettersService);
-
-  taskService = inject(TaskService)
+  tasksService: TasksService = inject(TasksService)
 
   ngOnInit() {
     this.activateButton('medium');
@@ -76,13 +75,19 @@ export class AddTaskComponent {
     this.task.subtasks = this.selectedSubTasks;
   }
 
-  saveTask(taskForm: NgForm) {
+  async saveTask(taskForm: NgForm) {
     this.setData();
     console.log('task Saved!', taskForm)
     console.log('assigned to:', this.task.assignedTo)
     console.log('subtask RAW', this.selectedSubTasks)
     console.log('subtasks', this.task.subtasks)
     console.log('priority', this.priority)
+
+    try {
+      await this.tasksService.addTaskToDatabase(this.task);
+    } catch (error) {
+      console.error('Failed to Save Task!')
+    }
   }
 
   activateButton(btnName: 'urgent' | 'medium' | 'low') {
