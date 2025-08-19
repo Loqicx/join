@@ -1,0 +1,31 @@
+<div class="input subtask-input">
+    <label for="taskSubtask" class="input-title">Subtasks</label>
+    <input placeholder="Add new Subtask" size="1" [(ngModel)]="taskSubtask" name="taskSubtask"
+        #taskCategoryVar="ngModel" class="input-sm border" (click)="this.subtaskActive=true" />
+    <div class="icon-wrapper">
+        <div class="icon-plus btn" (click)="this.subtaskActive=true" [class.d-none]="subtaskActive"><span class="plus">+</span></div>
+        <div class="wrap-create btn" [class.d-flex]="subtaskActive">
+            <div class="icon-x">
+                <img src="assets/icons/close.svg" alt="Cancel">
+            </div>
+            <div class="seperator-mini"></div>
+            <div class="icon-check btn" (click)="addSubtask()">
+                <img src="assets/icons/check_pri.svg" alt="Add Subtask">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="subtask-wrapper">
+    @if (subtasks) {
+    <ul class="subtask-list">
+        @for (subtask of subtasks; track $index) {
+        <li class="subtask">
+            <span>
+                {{subtasks[$index].title}}
+            </span>
+        </li>
+        }
+    </ul>
+    }
+</div>
