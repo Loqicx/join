@@ -64,8 +64,8 @@
                             <label for="taskCategory" class="input-title">Category<div class="required-star">*</div>
                             </label>
                             <select size="1" [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel"
-                                list="categorys" class="single-select border">
-                                <option value="" disabled selected hidden>Select task Category</option>
+                                list="categorys" class="single-select border" required autocomplete='off'>
+                                <option value="" selected disabled hidden>Select task Category</option>
                                 @for (category of categoryDummy; track $index) {
                                 <option value="{{categoryDummy[$index]}}">{{categoryDummy[$index]}}</option>
                                 }
@@ -73,34 +73,9 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <div class="input subtask-input">
-                            <label for="taskSubtask" class="input-title">Subtasks</label>
-                            <input placeholder="Add new Subtask" size="1" [(ngModel)]="taskSubtask" name="taskSubtask"
-                                #taskCategoryVar="ngModel" class="input-sm border" />
-                            <div class="icon-wrapper">
-                                <div class="icon-plus start">+</div>
-                                <div class="wrap-create">
-                                    <div class="icon-x create">
-                                        <img src="assets/icons/close.svg" alt="Cancel">
-                                    </div>
-                                    <div class="icon-check create">
-                                        <img src="assets/icons/check_pri.svg" alt="Add Subtask">
-                                    </div>
-                                </div>                              
-                            </div>
-                        </div>
-                    </div>
-                    <div class="subtask-wrapper">
-                        @if (subtasks) {
-                        <ul>
-                            @for (subtask of subtasks; track $index) {
-                            <li>{{subtasks[$index].title}}</li>
-                            }
-                        </ul>
-                        }
+                        <app-assign-subtask-input (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>

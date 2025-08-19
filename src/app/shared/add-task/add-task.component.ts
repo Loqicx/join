@@ -6,25 +6,25 @@ import { ButtonComponent } from "../ui/button/button.component";
 import { ContactsService } from '../services/firebase/contacts.service';
 import { InitialLettersService } from '../services/get-initial-letters.service';
 import { AssignContactInputComponent } from "../ui/assign-contact-input/assign-contact-input.component";
+import { AssignSubtaskInputComponent } from "../ui/assign-subtask-input/assign-subtask-input.component";
 
 @Component({
   selector: 'app-add-task',
-  imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, AssignContactInputComponent],
+  imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, AssignContactInputComponent, AssignSubtaskInputComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent {
+  selectedSubTasks: string[] = [];
 
   categoryDummy = ['Nutzlos', 'Sinnlos', 'ABM']
-  subtasks: { id: number, title: string }[] = [];
   @Input() selectedContacts: any;
 
   taskTitle: any;
   taskDescription: any;
   taskDueDate: any;
   taskAssigned: any;
-  taskCategory: any;
-  taskSubtask: any;
+  taskCategory: any = '';
   taskAssignedInput: any;
 
   buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
@@ -60,5 +60,9 @@ export class AddTaskComponent {
 
   selectContacts(contacts: any) {
     this.selectedContacts = contacts[0];
+  }
+
+  selectSubTasks(subtasks: any) {
+    this.selectedSubTasks = subtasks[0];
   }
 }
