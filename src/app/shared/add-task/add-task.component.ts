@@ -21,6 +21,7 @@ export class AddTaskComponent {
 
   @Input() selectedContacts: any;
   @Input() taskCategory: number | string = '';
+  @Input() taskStatus: number = 1;
 
   taskTitle: string = '';
   taskDescription: string = '';
@@ -42,7 +43,7 @@ export class AddTaskComponent {
     dueDate: this.taskDueDate,
     assignedTo: [''],
     description: this.taskDescription,
-    status: 1,
+    status: this.taskStatus,
     id: '',
   }
 
