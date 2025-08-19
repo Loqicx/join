@@ -146,3 +146,12 @@ option {
     justify-content: space-between;
     align-items: center;
 }
+
+.lower-btn-wrapper {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 16px;
+    margin-top: 8px;
+}

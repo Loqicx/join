@@ -9,7 +9,6 @@ import { AssignContactInputComponent } from "../ui/assign-contact-input/assign-c
 import { AssignSubtaskInputComponent } from "../ui/assign-subtask-input/assign-subtask-input.component";
 import { TasksService } from '../services/firebase/tasks.service';
 import { Task } from '../interfaces/task';
-import { TaskCategory } from '../services/firebase/tasks.service';
 @Component({
   selector: 'app-add-task',
   imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, AssignContactInputComponent, AssignSubtaskInputComponent],
@@ -118,4 +117,20 @@ export class AddTaskComponent {
   selectSubTasks(subtasks: any) {
     this.selectedSubTasks = subtasks;
   }
-}
+
+  resetForm(form: NgForm) {
+    form.resetForm();
+    this.selectedContacts = [];
+    this.selectedSubTasks = [];
+    this.taskTitle = '';
+    this.taskDescription = '';
+    this.taskDueDate = new Date();
+    this.taskCategory = '';
+    this.priority = 2;
+    this.buttonState = {
+      urgent: false,
+      medium: true,
+      low: false
+    };
+  }
+  }

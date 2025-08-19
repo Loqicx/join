@@ -75,7 +75,8 @@
                         <app-assign-subtask-input (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
                     </div>
                     <div class="lower-btn-wrapper">
-                        <app-button [type]="'submit'">Send</app-button>
+                        <app-button (btnClick)="ngOnInit()" [invert]="true" [fontSize]="'18px'" [iconSrc]="'assets/icons/close.svg'">Cancel</app-button>
+                        <app-button [type]="'submit'" [fontSize]="'20px'" [iconSrc]="'assets/icons/check.svg'">Send</app-button>
                     </div>
                 </div>
             </form>
