@@ -28,11 +28,11 @@
                 <span class="subtask__inner_title">
                     {{subtasks[$index].title}}
                 </span>
-                <div class="icon-wrapper-small" [class.hover]="subtask.hover">
+                <div class="icon-wrapper-small" (click)="editSubtask($index)" [class.hover]="subtask.hover">
                     <div class="icon-container icon-edit">
                         <img src="assets/icons/edit.svg" alt="Edit Subtask" class="icon">
                     </div>
-                    <div class="seperator-mini" [class.hover]="subtask.hover"></div>
+                    <div class="seperator-mini" (click)="deleteSubtask($index)" [class.hover]="subtask.hover"></div>
                     <div class="icon-container icon-delete">
                         <img src="assets/icons/delete.svg" alt="Delete Subtask" class="icon">
                     </div>

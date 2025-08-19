@@ -24,4 +24,12 @@ export class AssignSubtaskInputComponent {
     }
     this.subtaskActive = false;
   }
+
+  deleteSubtask(index: number) {
+    this.subtasks.splice(index, 1);
+  }
+
+  editSubtask(index: number) {
+    
+  }
 }
