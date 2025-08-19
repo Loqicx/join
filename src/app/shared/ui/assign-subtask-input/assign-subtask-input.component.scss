@@ -52,13 +52,13 @@
             width: 24px;
             text-align: center;
             display: flex;
-                align-items: center;
-                justify-content: center;
+            align-items: center;
+            justify-content: center;
 
             .plus {
                 font-size: 24px;
                 position: absolute;
-                bottom: 0;                
+                bottom: 0;
             }
 
             &:hover {
@@ -102,12 +102,51 @@
     .subtask-list {
         width: 100%;
         display: flex;
-        justify-content: end;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: end;
+        margin-top: 16px;
     }
 
     .subtask {
         width: 90%;
+        padding: 4px;
+        margin-right: 12px;
+
+        &__inner {
+            height: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    .subtask.hover {
+        background-color: $color-input-border;
+        border-radius: 8px;
+    }
+
+    .icon-wrapper-small {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+
+        .icon-container {
+            height: 24px;
+            width: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon {
+            height: 18px;
+        }
+    }
+
+    .icon-wrapper-small.hover {
+        display: flex;
     }
 }
 
@@ -116,6 +155,10 @@
     width: 1.2px;
     background-color: $color-text;
     border-radius: 1px;
+}
+
+.seperator-mini.hover {
+    background-color: $color-dark-text;
 }
 
 .d-flex {

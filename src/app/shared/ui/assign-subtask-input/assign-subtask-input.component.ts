@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AssignSubtaskInputComponent {
 
-  subtasks: { id: number, title: string }[] = [];
+  subtasks: { id: number, title: string, hover: boolean}[] = [];
   taskSubtask: any;
 
   subtaskActive: boolean = false;
@@ -18,7 +18,7 @@ export class AssignSubtaskInputComponent {
 
   addSubtask() {
     if (this.taskSubtask) {
-      this.subtasks.push({ id: this.subtasks.length + 1, title: this.taskSubtask });
+      this.subtasks.push({ id: this.subtasks.length + 1, title: this.taskSubtask, hover: false });
       this.taskSubtask = '';
       this.subtaskInput = false;
     }

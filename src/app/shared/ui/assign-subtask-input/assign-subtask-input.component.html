@@ -3,7 +3,8 @@
     <input placeholder="Add new Subtask" size="1" [(ngModel)]="taskSubtask" name="taskSubtask"
         #taskCategoryVar="ngModel" class="input-sm border" (click)="this.subtaskActive=true" />
     <div class="icon-wrapper">
-        <div class="icon-plus btn" (click)="this.subtaskActive=true" [class.d-none]="subtaskActive"><span class="plus">+</span></div>
+        <div class="icon-plus btn" (click)="this.subtaskActive=true" [class.d-none]="subtaskActive"><span
+                class="plus">+</span></div>
         <div class="wrap-create btn" [class.d-flex]="subtaskActive">
             <div class="icon-x">
                 <img src="assets/icons/close.svg" alt="Cancel">
@@ -20,10 +21,23 @@
     @if (subtasks) {
     <ul class="subtask-list">
         @for (subtask of subtasks; track $index) {
-        <li class="subtask">
-            <span>
-                {{subtasks[$index].title}}
-            </span>
+        <li class="subtask" [class.hover]="subtask.hover">
+            <div class="subtask__inner" (pointerenter)="subtask.hover = true" 
+                (pointerdown)="subtask.hover = true" 
+                (pointerleave)="subtask.hover = false">
+                <span class="subtask__inner_title">
+                    {{subtasks[$index].title}}
+                </span>
+                <div class="icon-wrapper-small" [class.hover]="subtask.hover">
+                    <div class="icon-container icon-edit">
+                        <img src="assets/icons/edit.svg" alt="Edit Subtask" class="icon">
+                    </div>
+                    <div class="seperator-mini" [class.hover]="subtask.hover"></div>
+                    <div class="icon-container icon-delete">
+                        <img src="assets/icons/delete.svg" alt="Delete Subtask" class="icon">
+                    </div>
+                </div>
+            </div>
         </li>
         }
     </ul>
