@@ -41,10 +41,17 @@
       >
         @for (task of list.items; track $index) {
         <!-- <div class="task-item" cdkDrag>{{ task }}</div> -->
-        <app-task-card [task]="task" (open)="selectedTask = $event" cdkDrag></app-task-card>
+        <app-task-card [task]="task" (open)="openTask($event)" cdkDrag></app-task-card>
         }
       </div>
     </div>
     }
   </div>
+  <!-- Modal -->
+  @if (isModalOpen && selectedTask) {
+    <app-task-card-modal
+      [task]="selectedTask"
+      (close)="closeTask()"
+    ></app-task-card-modal>
+  }
 </main>
