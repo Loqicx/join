@@ -17,10 +17,11 @@ import { TaskCategory } from '../services/firebase/tasks.service';
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent {
-  selectedSubTasks: {id: string, title: string, done: boolean}[] = [];
+  selectedSubTasks: { id: string, title: string, done: boolean }[] = [];
 
   @Input() selectedContacts: any;
   @Input() taskCategory: number | string = '';
+  @Input() taskStatus: number = 1;
 
   taskTitle: string = '';
   taskDescription: string = '';
@@ -42,7 +43,7 @@ export class AddTaskComponent {
     dueDate: this.taskDueDate,
     assignedTo: [''],
     description: this.taskDescription,
-    status: 0,
+    status: this.taskStatus,
     id: '',
   }
 
@@ -71,20 +72,26 @@ export class AddTaskComponent {
   }
 
   setData() {
+    this.task.priority = this.priority;
+    this.task.category = this.taskCategory;
+    this.task.title = this.taskTitle;
+    this.task.description = this.taskDescription;
+    this.task.dueDate = this.taskDueDate;
     this.task.assignedTo = this.selectedContacts?.map((contact: { id: any; }) => contact.id)
     this.task.subtasks = this.selectedSubTasks;
   }
 
   async saveTask(taskForm: NgForm) {
-    if (!this.taskTitle || this.taskDueDate || this.taskCategory ) {
+    if (!this.taskTitle || !this.taskDueDate || !this.taskCategory) {
+      this.setData();
       console.error('Insufficient / Invalid Data in task Form!')
+      console.log('task Data', this.task)
+      console.log('assigned to:', this.task.assignedTo)
+      console.log('subtasks', this.task.subtasks)
+      console.log('priority', this.priority)
       return
     }
     this.setData();
-    console.log('task Saved!', taskForm)
-    console.log('assigned to:', this.task.assignedTo)
-    console.log('subtasks', this.task.subtasks)
-    console.log('priority', this.priority)
 
     try {
       await this.tasksService.addTaskToDatabase(this.task);
