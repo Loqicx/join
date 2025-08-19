@@ -20,13 +20,13 @@ export class AddTaskComponent {
   selectedSubTasks: { id: string, title: string, done: boolean }[] = [];
 
   @Input() selectedContacts: any;
-  @Input() taskCategory: number | string = '';
   @Input() taskStatus: number = 1;
 
   taskTitle: string = '';
   taskDescription: string = '';
   taskDueDate: Date = new Date;
   taskAssigned: any;
+  taskCategory: string = '';
   priority: number | null = 2;
 
   buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
@@ -38,30 +38,14 @@ export class AddTaskComponent {
   task: Task = {
     priority: this.priority,
     title: this.taskTitle,
-    category: this.taskCategory,
-    subtasks: [{ title: '', done: false }],
+    category: this.setTaskCategory(),
+    subtasks: [],
     dueDate: this.taskDueDate,
-    assignedTo: [''],
+    assignedTo: [],
     description: this.taskDescription,
     status: this.taskStatus,
     id: '',
   }
-
-  taskCategoryTitles: Record<TaskCategory, string> = {
-    [TaskCategory.USER_STORY]: 'User Story',
-    [TaskCategory.TECHNICAL_TASK]: 'Technical Task',
-  };
-
-  categoryArray: any[] = Object.keys(TaskCategory)
-    .filter(key => !isNaN(Number(TaskCategory[key as any])))
-    .map(key => {
-      const value = Number(TaskCategory[key as any]);
-      return {
-        value: value,
-        enum: key,
-        title: this.taskCategoryTitles[value as TaskCategory]
-      };
-    });
 
   contactsService: ContactsService = inject(ContactsService);
   initialLetterService: InitialLettersService = inject(InitialLettersService);
@@ -71,9 +55,21 @@ export class AddTaskComponent {
     this.activateButton('medium');
   }
 
+  setTaskCategory() {
+    let taskCategoryNumber = 0;
+    if (this.taskCategory === '2') {
+      taskCategoryNumber = 2;
+    } else if (this.taskCategory === '1') {
+      taskCategoryNumber = 1;
+    } else {
+      taskCategoryNumber = 0;
+    }
+    return taskCategoryNumber;
+  }
+
   setData() {
     this.task.priority = this.priority;
-    this.task.category = this.taskCategory;
+    this.task.category = this.setTaskCategory()
     this.task.title = this.taskTitle;
     this.task.description = this.taskDescription;
     this.task.dueDate = this.taskDueDate;
@@ -89,6 +85,7 @@ export class AddTaskComponent {
       console.log('assigned to:', this.task.assignedTo)
       console.log('subtasks', this.task.subtasks)
       console.log('priority', this.priority)
+      console.log('category', this.taskCategory)
       return
     }
     this.setData();

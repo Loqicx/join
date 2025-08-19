@@ -65,10 +65,9 @@
                             </label>
                             <select size="1" [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel"
                                 list="categorys" class="single-select border" required autocomplete='off'>
-                                <option value="" selected disabled hidden>Select task Category</option>
-                                @for (category of categoryArray; track $index) {
-                                <option value="{{categoryArray[$index].value}}">{{categoryArray[$index].title}}</option>
-                                }
+                                <option value='' selected disabled hidden>Select task Category</option>
+                                <option value='1'>Technical Task</option>
+                                <option value='2'>User Story</option>
                             </select>
                         </div>
                     </div>
