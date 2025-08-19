@@ -42,7 +42,7 @@ export class AddTaskComponent {
     dueDate: this.taskDueDate,
     assignedTo: [''],
     description: this.taskDescription,
-    status: 0,
+    status: 1,
     id: '',
   }
 
@@ -81,7 +81,7 @@ export class AddTaskComponent {
   }
 
   async saveTask(taskForm: NgForm) {
-    if (!this.taskTitle || this.taskDueDate || this.taskCategory) {
+    if (!this.taskTitle || !this.taskDueDate || !this.taskCategory) {
       this.setData();
       console.error('Insufficient / Invalid Data in task Form!')
       console.log('task Data', this.task)
