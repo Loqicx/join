@@ -1,11 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Task } from '../interfaces/task';
 
 @Component({
   selector: 'app-task-card-modal',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './task-card-modal.component.html',
-  styleUrl: './task-card-modal.component.scss'
+  styleUrls: ['./task-card-modal.component.scss'],
 })
 export class TaskCardModalComponent {
+  @Input() task!: Task;
+  @Output() close = new EventEmitter<void>();
 
+  onClose() {
+    this.close.emit();
+  }
 }
