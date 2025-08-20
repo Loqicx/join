@@ -1,19 +1,27 @@
-import { Component, inject, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnInit,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';
 import { TaskCategory } from '../services/firebase/tasks.service';
 import { Contact } from '../interfaces/contact';
 import { ContactsService } from '../services/firebase/contacts.service';
 import { InitialLettersService } from '../services/get-initial-letters.service';
-import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';          
+import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';
+import { TruncateStringPipe } from '../pipes/truncate-string.pipe';
 
 @Component({
   selector: 'app-task-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TruncateStringPipe],
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss'],
-  providers: [ColoredProfilePipe] 
+  providers: [ColoredProfilePipe, TruncateStringPipe],
 })
 export class TaskCardComponent implements OnInit {
   @Input() task!: Task;
@@ -50,10 +58,12 @@ export class TaskCardComponent implements OnInit {
 
     for (let i = 0; i < this.task.assignedTo.length; i++) {
       const id = this.task.assignedTo[i];
-      const contact: Contact | undefined = this.contactsService.getContactById(id);
+      const contact: Contact | undefined =
+        this.contactsService.getContactById(id);
 
       if (contact) {
-        const initials: String = this.initialLetterService.getInitialLetters(contact);
+        const initials: String =
+          this.initialLetterService.getInitialLetters(contact);
         const color: String = this.coloredProfilePipe.transform(contact.id);
         this.assignedInitials.push({ initials: initials, color: color });
       } else {
