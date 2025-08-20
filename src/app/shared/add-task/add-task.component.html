@@ -72,10 +72,10 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <app-assign-subtask-input (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
+                        <app-assign-subtask-input [subtasks]="this.selectedSubTasks" (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
                     </div>
                     <div class="lower-btn-wrapper">
-                        <app-button (btnClick)="ngOnInit()" [invert]="true" [fontSize]="'18px'" [iconSrc]="'assets/icons/close.svg'">Cancel</app-button>
+                        <app-button (btnClick)="resetForm(addTaskForm)" [invert]="true" [fontSize]="'18px'" [iconSrc]="'assets/icons/close.svg'">Cancel</app-button>
                         <app-button [type]="'submit'" [fontSize]="'20px'" [iconSrc]="'assets/icons/check.svg'">Send</app-button>
                     </div>
                 </div>

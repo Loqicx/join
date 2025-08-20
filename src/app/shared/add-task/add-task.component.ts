@@ -16,7 +16,7 @@ import { Task } from '../interfaces/task';
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent {
-  selectedSubTasks: { id: string, title: string, done: boolean }[] = [];
+  selectedSubTasks: { id: number, title: string, done: boolean }[] = [];
 
   @Input() selectedContacts: any;
   @Input() taskStatus: number = 1;
@@ -129,8 +129,9 @@ export class AddTaskComponent {
     this.priority = 2;
     this.buttonState = {
       urgent: false,
-      medium: true,
+      medium: false,
       low: false
     };
+    this.ngOnInit();
   }
   }
