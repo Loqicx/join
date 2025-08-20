@@ -14,10 +14,11 @@ import { InitialLettersService } from '../../services/get-initial-letters.servic
 })
 export class AssignContactInputComponent {
   @Input() preview: boolean = false;
+  @Input() selectedContactsArray: Contact[] = [];
+  
   taskAssignInput: any;
   contacts: Contact[] = [];
-  selectedContactsArray: Contact[] = [];
-  @Output() selectedContacts: EventEmitter<[Contact[]]> = new EventEmitter<[Contact[]]>();
+  @Output() selectedContacts: EventEmitter<Contact[]> = new EventEmitter<Contact[]>();
   searchArray: [] | any = [];
   filteredContacts: Contact[] = [];
 
@@ -102,7 +103,7 @@ export class AssignContactInputComponent {
       this.selectedContactsArray.push(contact);
       this.taskAssignInput = this.selectedContactsArray.map((c: Contact) => c.firstName + ' ' + c.lastName + ',').join(' ');
     }
-    this.selectedContacts.emit([this.selectedContactsArray]);
+    this.selectedContacts.emit(this.selectedContactsArray);
   }
 
   toggleVisibility() {

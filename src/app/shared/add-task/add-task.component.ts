@@ -18,13 +18,12 @@ import { Task } from '../interfaces/task';
 export class AddTaskComponent {
   selectedSubTasks: { id: number, title: string, done: boolean }[] = [];
 
-  @Input() selectedContacts: any;
+  @Input() selectedContacts: any[] = [];
   @Input() taskStatus: number = 1;
 
   taskTitle: string = '';
   taskDescription: string = '';
   taskDueDate: Date = new Date;
-  taskAssigned: any;
   taskCategory: string = '';
   priority: number | null = 2;
 
@@ -111,7 +110,7 @@ export class AddTaskComponent {
   }
 
   selectContacts(contacts: any) {
-    this.selectedContacts = contacts[0];
+    this.selectedContacts = contacts;
   }
 
   selectSubTasks(subtasks: any) {
