@@ -26,6 +26,12 @@
                                 [(ngModel)]="taskDueDate" name="taskDueDate" #taskDueDateVar="ngModel" />
                         </div>
                     </div>
+                    <div class="required-text-wrapper">
+                        <span class="required-text">
+                            <div class="required-star">*</div>
+                            This field is required
+                        </span>
+                    </div>
                 </div>
                 <div class="seperator">
                     <!-- Seperator things going on here -->
@@ -76,7 +82,7 @@
                         <app-assign-subtask-input [subtasks]="this.selectedSubTasks" (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
                     </div>
                     <div class="lower-btn-wrapper">
-                        <app-button (btnClick)="resetForm(addTaskForm)" [invert]="true" [fontSize]="'18px'" [iconSrc]="'assets/icons/close.svg'">Cancel</app-button>
+                        <app-button (btnClick)="resetForm(addTaskForm)" [invert]="true" [fontSize]="'20px'" [iconSrc]="'assets/icons/close.svg'">Cancel</app-button>
                         <app-button [type]="'submit'" [fontSize]="'20px'" [iconSrc]="'assets/icons/check.svg'">Send</app-button>
                     </div>
                 </div>
