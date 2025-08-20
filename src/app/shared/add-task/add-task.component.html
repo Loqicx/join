@@ -56,7 +56,8 @@
                     <div class="input-wrapper">
                         <div class="input">
                             <app-assign-contact-input class="assign-contact" [preview]="true"
-                                (selectedContacts)="selectContacts($event)"></app-assign-contact-input>
+                                (selectedContacts)="selectContacts($event)"
+                                [selectedContactsArray]="selectedContacts"></app-assign-contact-input>
                         </div>
                     </div>
                     <div class="input-wrapper">
@@ -65,18 +66,18 @@
                             </label>
                             <select size="1" [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel"
                                 list="categorys" class="single-select border" required autocomplete='off'>
-                                <option value="" selected disabled hidden>Select task Category</option>
-                                @for (category of categoryArray; track $index) {
-                                <option value="{{categoryArray[$index].value}}">{{categoryArray[$index].title}}</option>
-                                }
+                                <option value='' selected disabled hidden>Select task Category</option>
+                                <option value='1'>Technical Task</option>
+                                <option value='2'>User Story</option>
                             </select>
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <app-assign-subtask-input (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
+                        <app-assign-subtask-input [subtasks]="this.selectedSubTasks" (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
                     </div>
                     <div class="lower-btn-wrapper">
-                        <app-button [type]="'submit'">Send</app-button>
+                        <app-button (btnClick)="resetForm(addTaskForm)" [invert]="true" [fontSize]="'18px'" [iconSrc]="'assets/icons/close.svg'">Cancel</app-button>
+                        <app-button [type]="'submit'" [fontSize]="'20px'" [iconSrc]="'assets/icons/check.svg'">Send</app-button>
                     </div>
                 </div>
             </form>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AssignSubtaskInputComponent {
 
-  subtasks: { id: number, title: string, done: boolean, hover: boolean, edit: boolean }[] = [];
+  @Input() subtasks: { id: number, title: string, done: boolean, hover?: boolean, edit?: boolean }[] = [];
   subtaskData: { title: string, done: boolean }[] = [{ title: '', done: false }];
   taskSubtask: any;
 
@@ -20,8 +20,6 @@ export class AssignSubtaskInputComponent {
 
   @Output() selectedSubTasks: EventEmitter<{ id: number, title: string, done: boolean }[]> =
     new EventEmitter<{ id: number, title: string, done: boolean }[]>();
-
-
 
   addSubtask() {
     if (this.taskSubtask) {

@@ -1,7 +1,7 @@
 export interface Task {
   priority: number | null;
   title: string;
-  category: number | null | string;
+  category: number | null;
   subtasks: { title: string; done: boolean }[];
   dueDate: Date;
   assignedTo: string[];
