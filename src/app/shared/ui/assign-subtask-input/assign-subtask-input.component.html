@@ -1,7 +1,7 @@
 <div class="input subtask-input">
     <label for="taskSubtask" class="input-title">Subtasks</label>
     <input placeholder="Add new Subtask" size="1" [(ngModel)]="taskSubtask" name="taskSubtask"
-        #taskSubtaskVar="ngModel" class="input-sm border" (click)="this.subtaskActive=true" 
+        #taskSubtaskVar="ngModel" class="input-sm border blue-focus" (click)="this.subtaskActive=true" 
         autocomplete="off"/>
     <div class="icon-wrapper">
         <div class="icon-plus btn" (click)="this.subtaskActive=true" [class.d-none]="subtaskActive"><span

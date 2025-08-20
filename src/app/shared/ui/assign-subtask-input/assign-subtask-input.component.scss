@@ -199,6 +199,28 @@
     background-color: $color-dark-text;
 }
 
+.blue-focus {
+    &:focus {
+        outline: none;
+        border: 2px solid $color-primary-hover !important;
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
+        border: 2px solid $color-primary-hover !important;
+    }
+
+    &:focus-visible {
+        outline: none;
+        border: 2px solid $color-primary-hover !important;
+    }
+
+    &:focus-within {
+        outline: none;
+        border: 2px solid $color-primary-hover !important;
+    }
+}
+
 .d-flex {
     display: flex !important;
 }
