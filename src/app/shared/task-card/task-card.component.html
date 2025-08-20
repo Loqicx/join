@@ -10,7 +10,7 @@
 
   <!-- Title & Description -->
   <h3>{{ task.title }}</h3>
-  <p>{{ task.description }}</p>
+  <p>{{ task.description | truncateString : 45 }}</p>
 
   <!-- Progress Bar -->
   <div class="progress-wrapper">
@@ -30,9 +30,9 @@
     <!-- Assignees -->
     <div class="assignees">
       @for (a of assignedInitials; track a.initials) {
-        <span class="avatar" [style.background-color]="a.color">
-          {{ a.initials }}
-        </span>
+      <span class="avatar" [style.background-color]="a.color">
+        {{ a.initials }}
+      </span>
       }
     </div>
 
