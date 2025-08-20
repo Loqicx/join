@@ -21,7 +21,7 @@ import { TaskCardModalComponent } from '../../shared/task-card-modal/task-card-m
     CdkDrag,
     CdkDropListGroup,
     TaskCardComponent,
-    TaskCardModalComponent
+    TaskCardModalComponent,
   ],
   templateUrl: './board-page.component.html',
   styleUrl: './board-page.component.scss',
@@ -64,7 +64,6 @@ export class BoardPageComponent implements OnInit {
   ngOnInit(): void {
     this.tasksService.tasks$.subscribe((tasks) => {
       this.tasks = tasks;
-      console.log(this.tasks);
       this.handleTaskUpdate();
     });
   }
@@ -75,10 +74,9 @@ export class BoardPageComponent implements OnInit {
   }
 
   closeTask() {
-  this.isModalOpen = false;
-  this.selectedTask = null;
-
-}
+    this.isModalOpen = false;
+    this.selectedTask = null;
+  }
 
   drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
@@ -87,6 +85,7 @@ export class BoardPageComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+      console.log(event.container.data);
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -94,6 +93,9 @@ export class BoardPageComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+
+      console.log(event.previousContainer.data);
+      console.log(event.container.data);
 
       const targetListId = event.container.id;
       const targetListIndex = parseInt(targetListId.replace('list-', ''));
