@@ -26,6 +26,7 @@ export class AddTaskComponent {
   taskDueDate: Date = new Date;
   taskCategory: string = '';
   priority: number | null = 2;
+  reset: boolean = false;
 
   buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
     urgent: false,
@@ -118,13 +119,14 @@ export class AddTaskComponent {
   }
 
   resetForm(form: NgForm) {
+    this.reset = true;
     form.resetForm();
     this.selectedContacts = [];
     this.selectedSubTasks = [];
     this.taskTitle = '';
     this.taskDescription = '';
     this.taskDueDate = new Date();
-    this.taskCategory = '';
+    this.taskCategory = '0';
     this.priority = 2;
     this.buttonState = {
       urgent: false,
@@ -132,5 +134,8 @@ export class AddTaskComponent {
       low: false
     };
     this.ngOnInit();
+    setTimeout(() => {
+      this.reset = false;
+    }, 180);
   }
   }

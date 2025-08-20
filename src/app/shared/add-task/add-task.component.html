@@ -22,7 +22,7 @@
                         <div class="input input-text">
                             <label for="taskDueDate" class="input-title">Due date<div class="required-star">*</div>
                             </label>
-                            <input class="input-sm blue-focus border" type="date" placeholder="tt/mm/yyyy" required
+                            <input class="input-sm blue-focus border" type="date" required
                                 [(ngModel)]="taskDueDate" name="taskDueDate" #taskDueDateVar="ngModel" />
                         </div>
                     </div>
@@ -63,7 +63,8 @@
                         <div class="input">
                             <app-assign-contact-input class="assign-contact" [preview]="true"
                                 (selectedContacts)="selectContacts($event)"
-                                [selectedContactsArray]="selectedContacts"></app-assign-contact-input>
+                                [reset]="this.reset">
+                            </app-assign-contact-input>
                         </div>
                     </div>
                     <div class="input-wrapper">
@@ -73,6 +74,7 @@
                             <select size="1" [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel"
                                 list="categorys" class="single-select border blue-focus" required autocomplete='off'>
                                 <option value='' selected disabled hidden>Select task Category</option>
+                                <option value='0' disabled hidden>Select task Category</option>
                                 <option value='1'>User Story</option>
                                 <option value='2'>Technical Task</option>
                             </select>
