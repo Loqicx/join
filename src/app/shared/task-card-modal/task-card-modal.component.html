@@ -6,11 +6,7 @@
       <button class="close-btn" (click)="onClose()">×</button>
     </div>
 
-    <div
-      class="task-type"
-      [class.user-story]="taskUserStory"
-      [class.technical]="taskTechnical"
-    >
+    <div class="task-type" [class.user-story]="taskUserStory" [class.technical]="taskTechnical">
       {{ taskCategory }}
     </div>
 
@@ -21,7 +17,9 @@
     <!-- Meta Infos -->
     <div class="task-meta">
       <p><strong>Due Date:</strong> {{ task.dueDate | date }}</p>
-      <p><strong>Priority:</strong> {{ task.priority }}</p>
+      <p><strong>Priority:</strong>
+        <img [src]="taskPriority()" alt="Priority" class="priority-icon" />
+      </p>
     </div>
 
     <!-- Assigned To -->

@@ -12,7 +12,7 @@ import { Contact } from '../interfaces/contact';
 import { ContactsService } from '../services/firebase/contacts.service';
 import { InitialLettersService } from '../services/get-initial-letters.service';
 import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';
-import { TaskCategory, TasksService } from '../services/firebase/tasks.service';
+import { TaskCategory, TasksService, TaskPriority } from '../services/firebase/tasks.service';
 import { SVGInlineService } from '../services/svg-inline.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
@@ -25,33 +25,41 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
   providers: [ColoredProfilePipe, SVGInlineService],
 })
 export class TaskCardModalComponent implements OnInit {
+  // SVG & Icons
   svgContents: { [key: string]: SafeHtml } = {};
   icons = [
     { name: 'edit', src: './assets/icons/edit.svg' },
     { name: 'delete', src: './assets/icons/delete.svg' },
   ];
 
-  constructor(
-    private svgService: SVGInlineService,
-    private sanitizer: DomSanitizer
-  ) {}
+  // Priority Icons
+  priorities = {
+    low: './assets/icons/low.svg',
+    medium: './assets/icons/medium.svg',
+    high: './assets/icons/urgent.svg',
+  };
 
+  // Inputs & Outputs
   @Input() task!: Task;
-
   @Output() close = new EventEmitter<void>();
   @Output() delete = new EventEmitter<Task>();
   @Output() edit = new EventEmitter<Task>();
 
+  // Assigned Contacts
   assignedContacts: { initials: String; color: String; name: String }[] = [];
 
+  // Services
   contactsService: ContactsService = inject(ContactsService);
   initialLetterService: InitialLettersService = inject(InitialLettersService);
   coloredProfilePipe: ColoredProfilePipe = inject(ColoredProfilePipe);
+  tasksService: TasksService = inject(TasksService);
+  svgService: SVGInlineService = inject(SVGInlineService);
+  sanitizer: DomSanitizer = inject(DomSanitizer);
+
+  // Task Category
   taskTechnical: boolean = false;
   taskUserStory: boolean = false;
   taskCategory: string = '';
-  tasksService: TasksService = inject(TasksService);
-
 
   ngOnInit(): void {
     this.updateAssignedContacts();
@@ -60,6 +68,15 @@ export class TaskCardModalComponent implements OnInit {
     this.icons.forEach((icon) => {
       this.convertIcon(icon.name, icon.src);
     });
+  }
+
+  // Priority Icon Methode
+  taskPriority(): string {
+    if (!this.task) return this.priorities.medium;
+    if (this.task.priority == TaskPriority.LOW) return this.priorities.low;
+    if (this.task.priority == TaskPriority.MEDIUM) return this.priorities.medium;
+    if (this.task.priority == TaskPriority.HIGH) return this.priorities.high;
+    return this.priorities.medium;
   }
 
   updateAssignedContacts(): void {
@@ -123,16 +140,14 @@ export class TaskCardModalComponent implements OnInit {
   }
 
   async openDeleteModal() {
-  if (this.task) {
-    try {
-      await this.tasksService.deleteTask(this.task.id);
-
-      console.log(`Task with ID ${this.task.id} deleted from DB.`);
-
-      this.close.emit();
-    } catch (error) {
-      console.error('Error deleting task:', error);
+    if (this.task) {
+      try {
+        await this.tasksService.deleteTask(this.task.id);
+        console.log(`Task with ID ${this.task.id} deleted from DB.`);
+        this.close.emit();
+      } catch (error) {
+        console.error('Error deleting task:', error);
+      }
     }
   }
-}
 }
