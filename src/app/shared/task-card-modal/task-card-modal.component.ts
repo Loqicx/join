@@ -119,4 +119,13 @@ export class TaskCardModalComponent implements OnInit {
   onClose() {
     this.close.emit();
   }
+
+  openDeleteModal() {
+  if (this.task) {
+    this.delete.emit(this.task);
+    console.log(`Task with ID ${this.task.id} deleted.`);
+    
+    this.close.emit(); 
+  }
+}
 }
