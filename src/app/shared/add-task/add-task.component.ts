@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from "../ui/button/button.component";
@@ -26,6 +26,7 @@ export class AddTaskComponent {
   taskDueDate: Date = new Date;
   taskCategory: string = '';
   priority: number | null = 2;
+  reset: boolean = false;
 
   buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
     urgent: false,
@@ -44,7 +45,7 @@ export class AddTaskComponent {
     status: this.taskStatus,
     id: '',
   }
-
+  
   contactsService: ContactsService = inject(ContactsService);
   initialLetterService: InitialLettersService = inject(InitialLettersService);
   tasksService: TasksService = inject(TasksService)
@@ -82,7 +83,7 @@ export class AddTaskComponent {
       console.log('task Data', this.task)
       console.log('assigned to:', this.task.assignedTo)
       console.log('subtasks', this.task.subtasks)
-      console.log('priority', this.priority)
+      console.log('priority', this.task.priority)
       console.log('category', this.taskCategory)
       return
     }
@@ -90,6 +91,7 @@ export class AddTaskComponent {
 
     try {
       await this.tasksService.addTaskToDatabase(this.task);
+      this.resetForm(taskForm);
     } catch (error) {
       console.error('Failed to Save Task!')
     }
@@ -118,19 +120,24 @@ export class AddTaskComponent {
   }
 
   resetForm(form: NgForm) {
+    this.reset = true;
     form.resetForm();
     this.selectedContacts = [];
     this.selectedSubTasks = [];
     this.taskTitle = '';
     this.taskDescription = '';
     this.taskDueDate = new Date();
-    this.taskCategory = '';
+    this.taskCategory = '0';
     this.priority = 2;
     this.buttonState = {
       urgent: false,
       medium: false,
       low: false
     };
-    this.ngOnInit();
+    this.activateButton('medium');
+  }
+
+  resetDone(value: boolean) {
+    this.reset = value
   }
   }

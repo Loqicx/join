@@ -12,10 +12,13 @@
 
 .input-wrapper {
     position: relative;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
 
     .img-wrap {
         position: absolute;
-        top: 32px;
+        top: 36px;
         right: 12px;
         height: 24px;
         width: 24px;
@@ -38,11 +41,14 @@
     border: 1px solid $color-input-border;
     border-radius: 8px;
     padding: 8px;
+    font-size: 18px;
+    font-family: Inter;
+    font-weight: 400;
 }
 
 .select-wrapper {
     position: absolute;
-    top: 68px;
+    top: 72px;
     left: 0;
     height: 288px;
     width: 100%;

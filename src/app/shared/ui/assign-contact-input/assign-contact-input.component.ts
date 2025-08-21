@@ -15,7 +15,19 @@ import { InitialLettersService } from '../../services/get-initial-letters.servic
 export class AssignContactInputComponent {
   @Input() preview: boolean = false;
   @Input() selectedContactsArray: Contact[] = [];
-  
+  @Input() set reset(value: boolean) {
+    if (value) {
+      for (const contact of this.selectedContactsArray) {
+        this.removeContactStyle(contact);
+      }
+      this.selectedContactsArray = [];
+      this.taskAssignInput = null;
+      this.resetDone.emit(false);
+    }
+  }
+
+  @Output() resetDone = new EventEmitter<boolean>;
+
   taskAssignInput: any;
   contacts: Contact[] = [];
   @Output() selectedContacts: EventEmitter<Contact[]> = new EventEmitter<Contact[]>();
@@ -48,11 +60,11 @@ export class AssignContactInputComponent {
   cleanupValue(searchInputValue?: string) {
     let searchValue: string | undefined;
     if (searchInputValue?.includes(', ')) {
-        searchValue = searchInputValue?.substring(searchInputValue?.lastIndexOf(', ') +2);
+      searchValue = searchInputValue?.substring(searchInputValue?.lastIndexOf(', ') + 2);
     } else if (searchInputValue?.includes(',')) {
-        searchValue = searchInputValue?.substring(searchInputValue?.lastIndexOf(',') +1);
+      searchValue = searchInputValue?.substring(searchInputValue?.lastIndexOf(',') + 1);
     } else {
-        searchValue = searchInputValue;
+      searchValue = searchInputValue;
     }
     return searchValue
   }
@@ -92,6 +104,12 @@ export class AssignContactInputComponent {
     document.getElementById(`contactCard${contact.id}`)?.classList.add('active');
     document.getElementById(`contactSelectBox${contact.id}`)?.classList.add('active');
     document.getElementById(`contactSelectCheckWrap${contact.id}`)?.classList.add('active');
+  }
+
+  removeContactStyle(contact: Contact) {
+    document.getElementById(`contactCard${contact.id}`)?.classList.remove('active');
+    document.getElementById(`contactSelectBox${contact.id}`)?.classList.remove('active');
+    document.getElementById(`contactSelectCheckWrap${contact.id}`)?.classList.remove('active');
   }
 
   toggleContactSelection(contact: Contact) {

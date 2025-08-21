@@ -2,9 +2,10 @@
 @use '../../../styles/mixings.scss' as *;
 
 .page-wrapper {
-    height: 100%;
+    height: 88%;
     width: 100%;
     background-color: $color-primary-bg;
+    padding-top: 4%;
 }
 
 .title {
@@ -79,26 +80,39 @@
         .input-title {
             display: flex;
             margin-bottom: 4px;
+            font-size: 20px;
         }
 
         .input-sm {
             height: 48px;
             width: 100%;
+            font-size: 18px;
+            font-family: Inter;
+            font-weight: 400;
         }
 
         .input-bg {
             height: 120px;
             width: 100%;
+            font-size: 18px;
+            font-family: Inter;
+            font-weight: 400;
         }
 
         .multiple-select {
             height: 48px;
             width: 100%;
+            font-size: 18px;
+            font-family: Inter;
+            font-weight: 400;
         }
 
         .single-select {
             height: 48px;
             width: 100%;
+            font-size: 18px;
+            font-family: Inter;
+            font-weight: 400;
         }
 
         .border {
@@ -137,6 +151,9 @@ option {
     align-items: start;
     gap: 4px;
     margin: 16px 0;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
 }
 
 .priority-btn-wrapper {
@@ -149,6 +166,7 @@ option {
 
 .lower-btn-wrapper {
     width: 95%;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: end;
@@ -184,16 +202,17 @@ option {
 
 .required-text-wrapper {
     width: 95%;
-    height: 21.5%;
+    flex: 1;
     display: flex;
-    align-items: end;
+    align-items: center;
     justify-content: start;
+    margin-top: 68px;
 }
 
 .required-text {
     display: flex;
     font-size: 18px;
-    
+
     .required-star {
         margin-top: -2px;
     }
