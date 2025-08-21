@@ -134,7 +134,7 @@ export class AddTaskComponent {
       medium: false,
       low: false
     };
-    this.ngOnInit();
+    this.activateButton('medium');
     setTimeout(() => {
       this.reset = false;
     }, 180);

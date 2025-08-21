@@ -41,13 +41,6 @@ export class AssignContactInputComponent {
         this.visibleFalse();
       }
     });
-
-    setInterval(() => {
-      if (this.reset) {
-
-        this.reset = false;
-      }
-    }, 500);
   }
 
   private contactsService: ContactsService = inject(ContactsService)
