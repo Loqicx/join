@@ -14,15 +14,16 @@
                     <div class="input-wrapper">
                         <div class="input input-description">
                             <label for="taskDescription" class="input-title">Description</label>
-                            <input class="input-bg blue-focus border" type="text" placeholder="Enter a Description" required
-                                [(ngModel)]="taskDescription" name="taskDescription" #taskDescriptionVar="ngModel" />
+                            <textarea class="input-bg blue-focus border" type="text" placeholder="Enter a Description" required
+                                [(ngModel)]="taskDescription" name="taskDescription" #taskDescriptionVar="ngModel">
+                            </textarea>
                         </div>
                     </div>
                     <div class="input-wrapper">
                         <div class="input input-text">
                             <label for="taskDueDate" class="input-title">Due date<div class="required-star">*</div>
                             </label>
-                            <input class="input-sm blue-focus border" type="date" required
+                            <input class="input-sm blue-focus border date-input" type="date" required
                                 [(ngModel)]="taskDueDate" name="taskDueDate" #taskDueDateVar="ngModel" />
                         </div>
                     </div>
