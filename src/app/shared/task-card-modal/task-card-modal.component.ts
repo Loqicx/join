@@ -12,7 +12,7 @@ import { Contact } from '../interfaces/contact';
 import { ContactsService } from '../services/firebase/contacts.service';
 import { InitialLettersService } from '../services/get-initial-letters.service';
 import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';
-import { TaskCategory } from '../services/firebase/tasks.service';
+import { TaskCategory, TasksService } from '../services/firebase/tasks.service';
 import { SVGInlineService } from '../services/svg-inline.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
@@ -50,6 +50,8 @@ export class TaskCardModalComponent implements OnInit {
   taskTechnical: boolean = false;
   taskUserStory: boolean = false;
   taskCategory: string = '';
+  tasksService: TasksService = inject(TasksService);
+
 
   ngOnInit(): void {
     this.updateAssignedContacts();
@@ -120,12 +122,17 @@ export class TaskCardModalComponent implements OnInit {
     this.close.emit();
   }
 
-  openDeleteModal() {
+  async openDeleteModal() {
   if (this.task) {
-    this.delete.emit(this.task);
-    console.log(`Task with ID ${this.task.id} deleted.`);
-    
-    this.close.emit(); 
+    try {
+      await this.tasksService.deleteTask(this.task.id);
+
+      console.log(`Task with ID ${this.task.id} deleted from DB.`);
+
+      this.close.emit();
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
   }
 }
 }
