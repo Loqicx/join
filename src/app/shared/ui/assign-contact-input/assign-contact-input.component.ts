@@ -22,8 +22,11 @@ export class AssignContactInputComponent {
       }
       this.selectedContactsArray = [];
       this.taskAssignInput = null;
+      this.resetDone.emit(false);
     }
   }
+
+  @Output() resetDone = new EventEmitter<boolean>;
 
   taskAssignInput: any;
   contacts: Contact[] = [];

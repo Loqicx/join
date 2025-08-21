@@ -64,7 +64,7 @@
                         <div class="input">
                             <app-assign-contact-input class="assign-contact" [preview]="true"
                                 (selectedContacts)="selectContacts($event)"
-                                [reset]="this.reset">
+                                [reset]="this.reset" (resetDone)="this.resetDone($event)">
                             </app-assign-contact-input>
                         </div>
                     </div>

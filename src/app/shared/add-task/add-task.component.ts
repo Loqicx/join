@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from "../ui/button/button.component";
@@ -45,7 +45,7 @@ export class AddTaskComponent {
     status: this.taskStatus,
     id: '',
   }
-
+  
   contactsService: ContactsService = inject(ContactsService);
   initialLetterService: InitialLettersService = inject(InitialLettersService);
   tasksService: TasksService = inject(TasksService)
@@ -135,8 +135,9 @@ export class AddTaskComponent {
       low: false
     };
     this.activateButton('medium');
-    setTimeout(() => {
-      this.reset = false;
-    }, 180);
+  }
+
+  resetDone(value: boolean) {
+    this.reset = value
   }
   }
