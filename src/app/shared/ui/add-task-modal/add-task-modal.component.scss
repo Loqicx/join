@@ -61,12 +61,19 @@
     @include breakpoint-down("lg") {
         &:hover {
             background-color: $color-primary-hover;
-        }
 
-        ::ng-deep {
-            path {
-                fill: $color-white
+
+            ::ng-deep {
+                path {
+                    fill: $color-white
+                }
             }
         }
     }
+}
+
+.button-wrapper {
+    position: absolute;
+    top: 32px;
+    right: 32px;
 }
