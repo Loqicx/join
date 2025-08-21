@@ -1,1 +1,13 @@
-<p>add-task-modal works!</p>
+@if (isOpen){
+<div class="modal-wrapper" [class.open]="isSlide">
+    <button class="modal-close-btn" (click)="closeModal()">
+        <img src="assets/icons/close.svg" alt="Close" />
+      </button>
+      <button class="modal-close-btn mobile" (click)="closeModal()">
+        <img src="assets/icons/close responsive.svg" alt="Close" />
+      </button>
+    <div class="modal-content" [class.slide-in]="isSlide">
+        <app-add-task [selectedContacts]="selectedContacts" [taskStatus]="taskStatus"></app-add-task>
+    </div>
+</div>
+}
