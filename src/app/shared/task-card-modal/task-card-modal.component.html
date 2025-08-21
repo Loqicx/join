@@ -1,8 +1,60 @@
-<div class="modal-backdrop">
-  <div class="modal-content">
-    <h2>{{ task.title }}</h2>
-    <p>{{ task.description }}</p>
-    <button (click)="onClose()">Close</button>
-  </div>
-</div>
+@if (task) {
+  <div class="modal-overlay">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <button class="close-btn" (click)="onClose()">×</button>
+      </div>
 
+      <div
+    class="task-type"
+    [class.user-story]="taskUserStory"
+    [class.technical]="taskTechnical"
+  >
+    {{ taskCategory }}
+  </div>
+
+      <!-- Title + Description -->
+      <h2 class="task-title">{{ task.title }}</h2>
+      <p class="task-description">{{ task.description }}</p>
+
+      <!-- Meta Infos -->
+      <div class="task-meta">
+        <p><strong>Due Date:</strong> {{ task.dueDate | date }}</p>
+        <p><strong>Priority:</strong> {{ task.priority }}</p>
+      </div>
+
+      <!-- Assigned To -->
+      <div class="assigned-section">
+        <p>Assigned to:</p>
+        <div class="assignees">
+          @for (a of assignedContacts; track a.initials) {
+            <div class="assignee">
+              <span class="avatar" [style.background-color]="a.color">
+                {{ a.initials }}
+              </span>
+              <span class="name">{{ a.name }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Subtasks -->
+      <div class="subtasks">
+        <p>Subtasks:</p>
+        @for (subtask of task.subtasks; track subtask.title) {
+          <div class="subtask">
+            <input type="checkbox" [checked]="subtask.done" />
+            <label>{{ subtask.title }}</label>
+          </div>
+        }
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button>🗑 Delete</button>
+        <button>✏ Edit</button>
+      </div>
+    </div>
+  </div>
+}
