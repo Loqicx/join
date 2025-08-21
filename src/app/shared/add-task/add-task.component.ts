@@ -20,6 +20,7 @@ export class AddTaskComponent {
 
   @Input() selectedContacts: any[] = [];
   @Input() taskStatus: number = 1;
+  @Input() background: boolean = true;
 
   taskTitle: string = '';
   taskDescription: string = '';
