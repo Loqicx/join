@@ -97,7 +97,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        
+
         font-size: 12px;
         font-weight: 400;
         color: $color-white;
@@ -112,7 +112,7 @@
             align-items: center;
             aspect-ratio: 1 / 1;
             border: 2px solid $color-white;
-            border-radius: 50%;            
+            border-radius: 50%;
         }
     }
 
@@ -132,7 +132,7 @@
         position: relative;
         height: 24px;
         width: 24px;
-        
+
         .box {
             height: 16px;
             width: 16px;
@@ -164,8 +164,8 @@
         }
 
         .checkmark {
-            width: 26px;           
-        } 
+            width: 26px;
+        }
     }
 }
 
@@ -179,6 +179,28 @@
         justify-content: start;
         align-items: center;
         flex-wrap: wrap;
+    }
+}
+
+.blue-focus {
+    &:focus {
+        outline: none;
+        border: 2px solid $color-primary-hover !important;
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
+        border: 2px solid $color-primary-hover !important;
+    }
+
+    &:focus-visible {
+        outline: none;
+        border: 2px solid $color-primary-hover !important;
+    }
+
+    &:focus-within {
+        outline: none;
+        border: 2px solid $color-primary-hover !important;
     }
 }
 

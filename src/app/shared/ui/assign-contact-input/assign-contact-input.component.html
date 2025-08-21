@@ -2,7 +2,7 @@
   <div class="input-wrapper">
     <label for="assignInput">Assign to</label>
     <input type="text" placeholder="Select Contacts to assign" [(ngModel)]="taskAssignInput" name="taskAssignInput"
-      #taskAssignInputVar="ngModel" class="input-sm" [class.active]="show"
+      #taskAssignInputVar="ngModel" class="input-sm blue-focus" [class.active]="show"
       (input)="filterContacts(taskAssignInputVar.value); visibleTrue()"
       (pointerdown)="filterContacts(taskAssignInputVar.value); visibleTrue()" autocomplete="off" />
     <div class="img-wrap" (click)="toggleVisibility()" [class.active]="show">

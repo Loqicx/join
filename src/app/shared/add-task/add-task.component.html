@@ -7,14 +7,14 @@
                     <div class="input-wrapper">
                         <div class="input input-text">
                             <label for="taskTitle" class="input-title">Title<div class="required-star">*</div></label>
-                            <input class="input-sm border" type="text" placeholder="Enter a Title" required
+                            <input class="input-sm blue-focus border" type="text" placeholder="Enter a Title" required
                                 [(ngModel)]="taskTitle" name="taskTitle" #taskTitleVar="ngModel" />
                         </div>
                     </div>
                     <div class="input-wrapper">
                         <div class="input input-description">
                             <label for="taskDescription" class="input-title">Description</label>
-                            <input class="input-bg border" type="text" placeholder="Enter a Description" required
+                            <input class="input-bg blue-focus border" type="text" placeholder="Enter a Description" required
                                 [(ngModel)]="taskDescription" name="taskDescription" #taskDescriptionVar="ngModel" />
                         </div>
                     </div>
@@ -22,9 +22,15 @@
                         <div class="input input-text">
                             <label for="taskDueDate" class="input-title">Due date<div class="required-star">*</div>
                             </label>
-                            <input class="input-sm border" type="date" placeholder="tt/mm/yyyy" required
+                            <input class="input-sm blue-focus border" type="date" placeholder="tt/mm/yyyy" required
                                 [(ngModel)]="taskDueDate" name="taskDueDate" #taskDueDateVar="ngModel" />
                         </div>
+                    </div>
+                    <div class="required-text-wrapper">
+                        <span class="required-text">
+                            <div class="required-star">*</div>
+                            This field is required
+                        </span>
                     </div>
                 </div>
                 <div class="seperator">
@@ -65,10 +71,10 @@
                             <label for="taskCategory" class="input-title">Category<div class="required-star">*</div>
                             </label>
                             <select size="1" [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel"
-                                list="categorys" class="single-select border" required autocomplete='off'>
+                                list="categorys" class="single-select border blue-focus" required autocomplete='off'>
                                 <option value='' selected disabled hidden>Select task Category</option>
-                                <option value='1'>Technical Task</option>
-                                <option value='2'>User Story</option>
+                                <option value='1'>User Story</option>
+                                <option value='2'>Technical Task</option>
                             </select>
                         </div>
                     </div>
@@ -76,7 +82,7 @@
                         <app-assign-subtask-input [subtasks]="this.selectedSubTasks" (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
                     </div>
                     <div class="lower-btn-wrapper">
-                        <app-button (btnClick)="resetForm(addTaskForm)" [invert]="true" [fontSize]="'18px'" [iconSrc]="'assets/icons/close.svg'">Cancel</app-button>
+                        <app-button (btnClick)="resetForm(addTaskForm)" [invert]="true" [fontSize]="'20px'" [iconSrc]="'assets/icons/close.svg'">Cancel</app-button>
                         <app-button [type]="'submit'" [fontSize]="'20px'" [iconSrc]="'assets/icons/check.svg'">Send</app-button>
                     </div>
                 </div>
