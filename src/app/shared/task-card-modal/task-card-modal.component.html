@@ -1,60 +1,78 @@
 @if (task) {
-  <div class="modal-overlay">
-    <div class="modal-content">
-      <!-- Header -->
-      <div class="modal-header">
-        <button class="close-btn" (click)="onClose()">×</button>
-      </div>
+<div class="modal-overlay">
+  <div class="modal-content">
+    <!-- Header -->
+    <div class="modal-header">
+      <button class="close-btn" (click)="onClose()">×</button>
+    </div>
 
-      <div
-    class="task-type"
-    [class.user-story]="taskUserStory"
-    [class.technical]="taskTechnical"
-  >
-    {{ taskCategory }}
-  </div>
+    <div
+      class="task-type"
+      [class.user-story]="taskUserStory"
+      [class.technical]="taskTechnical"
+    >
+      {{ taskCategory }}
+    </div>
 
-      <!-- Title + Description -->
-      <h2 class="task-title">{{ task.title }}</h2>
-      <p class="task-description">{{ task.description }}</p>
+    <!-- Title + Description -->
+    <h2 class="task-title">{{ task.title }}</h2>
+    <p class="task-description">{{ task.description }}</p>
 
-      <!-- Meta Infos -->
-      <div class="task-meta">
-        <p><strong>Due Date:</strong> {{ task.dueDate | date }}</p>
-        <p><strong>Priority:</strong> {{ task.priority }}</p>
-      </div>
+    <!-- Meta Infos -->
+    <div class="task-meta">
+      <p><strong>Due Date:</strong> {{ task.dueDate | date }}</p>
+      <p><strong>Priority:</strong> {{ task.priority }}</p>
+    </div>
 
-      <!-- Assigned To -->
-      <div class="assigned-section">
-        <p>Assigned to:</p>
-        <div class="assignees">
-          @for (a of assignedContacts; track a.initials) {
-            <div class="assignee">
-              <span class="avatar" [style.background-color]="a.color">
-                {{ a.initials }}
-              </span>
-              <span class="name">{{ a.name }}</span>
-            </div>
-          }
+    <!-- Assigned To -->
+    <div class="assigned-section">
+      <p>Assigned to:</p>
+      <div class="assignees">
+        @for (a of assignedContacts; track $index) {
+        <div class="assignee">
+          <span class="avatar" [style.background-color]="a.color">
+            {{ a.initials }}
+          </span>
+          <span class="name">{{ a.name }}</span>
         </div>
-      </div>
-
-      <!-- Subtasks -->
-      <div class="subtasks">
-        <p>Subtasks:</p>
-        @for (subtask of task.subtasks; track subtask.title) {
-          <div class="subtask">
-            <input type="checkbox" [checked]="subtask.done" />
-            <label>{{ subtask.title }}</label>
-          </div>
         }
       </div>
+    </div>
 
-      <!-- Footer -->
-      <div class="modal-footer">
-        <button>🗑 Delete</button>
-        <button>✏ Edit</button>
+    <!-- Subtasks -->
+    <div class="subtasks">
+      <p>Subtasks:</p>
+      @for (subtask of task.subtasks; track subtask.title) {
+      <div class="subtask">
+        <input type="checkbox" [checked]="subtask.done" />
+        <label>{{ subtask.title }}</label>
+      </div>
+      }
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer">
+      <!-- <button>🗑 Delete</button>
+      <button>✏ Edit</button> -->
+      <div class="task-action-buttons">
+        <div class="action-button-wrapper">
+          <a class="action-button">
+            <div class="btn-inner">
+              <div [innerHTML]="svgContents['edit']" class="icon"></div>
+              <span>Edit</span>
+            </div>
+          </a>
+        </div>
+        <div class="action-button-wrapper">
+          <a class="action-button">
+            <div class="btn-inner">
+              <div [innerHTML]="svgContents['delete']" class="icon"></div>
+              <span>Delete</span>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
+</div>
 }

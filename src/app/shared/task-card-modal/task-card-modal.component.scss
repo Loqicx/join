@@ -1,3 +1,6 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixings.scss" as *;
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -8,6 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 }
 
 .modal-content {
@@ -127,7 +131,7 @@
       align-items: center;
       margin-bottom: 6px;
 
-      input[type='checkbox'] {
+      input[type="checkbox"] {
         margin-right: 8px;
       }
 
@@ -171,6 +175,58 @@
           background-color: #17c3b2;
         }
       }
+    }
+  }
+}
+
+.task-action-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  @include breakpoint-down("lg") {
+    display: none;
+  }
+}
+
+.action-button {
+  text-decoration: none;
+
+  &-wrapper {
+    &:first-child {
+      border-right: 1px solid gray;
+      padding-right: 10px;
+    }
+  }
+
+  .btn-inner {
+    display: flex;
+
+    .icon {
+      margin-right: 12px;
+    }
+
+    span {
+      color: $color-primary;
+      text-decoration: none;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    .btn-inner {
+      transform: scale(1.04);
+      transition: transform 0.3s ease-out;
+    }
+
+    ::ng-deep .icon {
+      path {
+        fill: $color-primary-hover !important;
+      }
+    }
+
+    span {
+      color: $color-primary-hover !important;
     }
   }
 }
