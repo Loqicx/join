@@ -83,7 +83,7 @@ export class AddTaskComponent {
       console.log('task Data', this.task)
       console.log('assigned to:', this.task.assignedTo)
       console.log('subtasks', this.task.subtasks)
-      console.log('priority', this.priority)
+      console.log('priority', this.task.priority)
       console.log('category', this.taskCategory)
       return
     }
@@ -91,6 +91,7 @@ export class AddTaskComponent {
 
     try {
       await this.tasksService.addTaskToDatabase(this.task);
+      this.resetForm(taskForm);
     } catch (error) {
       console.error('Failed to Save Task!')
     }
