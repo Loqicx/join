@@ -1,4 +1,4 @@
-import { Component, inject, Renderer2, Output, Input, EventEmitter } from '@angular/core';
+import { Component, inject, Renderer2, Output, Input, EventEmitter, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ContactsService } from '../../services/firebase/contacts.service';
 import { Contact } from '../../interfaces/contact';
@@ -15,18 +15,6 @@ import { InitialLettersService } from '../../services/get-initial-letters.servic
 export class AssignContactInputComponent {
   @Input() preview: boolean = false;
   @Input() selectedContactsArray: Contact[] = [];
-  @Input() set reset(value: boolean) {
-    if (value) {
-      for (const contact of this.selectedContactsArray) {
-        this.removeContactStyle(contact);
-      }
-      this.selectedContactsArray = [];
-      this.taskAssignInput = null;
-      this.resetDone.emit(false);
-    }
-  }
-
-  @Output() resetDone = new EventEmitter<boolean>;
 
   taskAssignInput: any;
   contacts: Contact[] = [];
@@ -51,6 +39,12 @@ export class AssignContactInputComponent {
 
   ngAfterViewInit() {
     this.loadContacts();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['reset']?.currentValue === true) {
+      this.performReset();
+    }
   }
 
   async loadContacts() {
@@ -142,4 +136,11 @@ export class AssignContactInputComponent {
     }, 300);
   }
 
+  performReset() {
+    for (const contact of this.selectedContactsArray) {
+      this.removeContactStyle(contact);
+    }
+    this.selectedContactsArray = [];
+    this.taskAssignInput = null;
+  }
 }

@@ -26,7 +26,8 @@ export class AddTaskComponent {
   taskDueDate: Date = new Date;
   taskCategory: string = '';
   priority: number | null = 2;
-  reset: boolean = false;
+
+  @ViewChild (AssignContactInputComponent) AssignContactInputComponent!: AssignContactInputComponent;
 
   buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
     urgent: false,
@@ -120,7 +121,7 @@ export class AddTaskComponent {
   }
 
   resetForm(form: NgForm) {
-    this.reset = true;
+    this.AssignContactInputComponent.performReset()
     form.resetForm();
     this.selectedContacts = [];
     this.selectedSubTasks = [];
@@ -135,9 +136,5 @@ export class AddTaskComponent {
       low: false
     };
     this.activateButton('medium');
-  }
-
-  resetDone(value: boolean) {
-    this.reset = value
   }
   }
