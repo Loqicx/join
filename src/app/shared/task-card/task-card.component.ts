@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';
-import { TaskCategory } from '../services/firebase/tasks.service';
+import { TaskCategory, TaskPriority } from '../services/firebase/tasks.service';
 import { Contact } from '../interfaces/contact';
 import { ContactsService } from '../services/firebase/contacts.service';
 import { InitialLettersService } from '../services/get-initial-letters.service';
@@ -27,6 +27,12 @@ export class TaskCardComponent implements OnInit {
   @Input() task!: Task;
 
   @Output() open = new EventEmitter<Task>();
+
+  priorities = {
+    low: './assets/icons/low.svg',
+    medium: './assets/icons/medium.svg',
+    high: './assets/icons/urgent.svg',
+  };
 
   taskTechnical: boolean = false;
   taskUserStory: boolean = false;
@@ -70,6 +76,14 @@ export class TaskCardComponent implements OnInit {
         this.assignedInitials.push({ initials: '??', color: '#999' });
       }
     }
+  }
+
+  taskPriority(): string {
+    if (this.task.priority == TaskPriority.LOW) return this.priorities.low;
+    if (this.task.priority == TaskPriority.MEDIUM)
+      return this.priorities.medium;
+    if (this.task.priority == TaskPriority.HIGH) return this.priorities.high;
+    return this.priorities.medium;
   }
 
   subtasksDone(): number {
