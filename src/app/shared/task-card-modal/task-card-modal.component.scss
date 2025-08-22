@@ -194,31 +194,44 @@
 }
 
 .task-meta {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap: 16px; // Abstand zwischen den Meta-Items
-    margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 16px; 
+  margin-bottom: 16px;
 
-    .meta-item {
+  .meta-item {
+    p {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #444;
+
+      strong {
+        font-weight: 600;
+        margin-right: 12px;
+      }
+
+      img.priority-icon {
+        
+        vertical-align: middle;
+      }
+    }
+
+    &.due-date {
       p {
-        margin: 4px 0;
-        font-size: 14px;
-        color: #444;
+        display: flex;
+        gap: 5px;
+      }
+    }
 
-        strong {
-          font-weight: 600;
-          margin-right: 6px;
-        }
-
-        img.priority-icon {
-          margin-left: 6px;
-          vertical-align: middle;
-
-        }
+    &.priority {
+      p {
+        display: flex;
+        gap: 18px;
       }
     }
   }
+}
 
 .task-action-buttons {
   display: flex;
