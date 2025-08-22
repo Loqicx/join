@@ -121,6 +121,14 @@ export class TaskCardModalComponent implements OnInit {
     this.task.subtasks = updatedSubtasks;
   }
 
+  getPriorityLabel(): string {
+    if (!this.task) return 'Medium';
+    if (this.task.priority === TaskPriority.LOW) return 'Low';
+    if (this.task.priority === TaskPriority.MEDIUM) return 'Medium';
+    if (this.task.priority === TaskPriority.HIGH) return 'Urgent';
+    return 'Medium';
+  }
+
 
   getTaskCategory(): string {
     switch (this.task.category) {
