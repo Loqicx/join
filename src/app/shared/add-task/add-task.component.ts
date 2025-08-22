@@ -9,9 +9,16 @@ import { AssignContactInputComponent } from "../ui/assign-contact-input/assign-c
 import { AssignSubtaskInputComponent } from "../ui/assign-subtask-input/assign-subtask-input.component";
 import { TasksService } from '../services/firebase/tasks.service';
 import { Task } from '../interfaces/task';
+import {MAT_DATE_LOCALE, provideNativeDateAdapter} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+
 @Component({
   selector: 'app-add-task',
-  imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, AssignContactInputComponent, AssignSubtaskInputComponent],
+  providers: [provideNativeDateAdapter(), {provide: MAT_DATE_LOCALE, useValue: 'de-DE'}],
+  imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, AssignContactInputComponent, AssignSubtaskInputComponent, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatIconModule],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
@@ -24,7 +31,7 @@ export class AddTaskComponent {
 
   taskTitle: string = '';
   taskDescription: string = '';
-  taskDueDate: Date = new Date;
+  taskDueDate: Date | null = null;
   taskCategory: string = '';
   priority: number | null = 2;
 
@@ -41,7 +48,7 @@ export class AddTaskComponent {
     title: this.taskTitle,
     category: this.setTaskCategory(),
     subtasks: [],
-    dueDate: this.taskDueDate,
+    dueDate: this.taskDueDate ? this.taskDueDate : new Date(),
     assignedTo: [],
     description: this.taskDescription,
     status: this.taskStatus,
@@ -73,7 +80,7 @@ export class AddTaskComponent {
     this.task.category = this.setTaskCategory()
     this.task.title = this.taskTitle;
     this.task.description = this.taskDescription;
-    this.task.dueDate = this.taskDueDate;
+    this.task.dueDate = this.taskDueDate ? this.taskDueDate : new Date();
     this.task.assignedTo = this.selectedContacts?.map((contact: { id: any; }) => contact.id)
     this.task.subtasks = this.selectedSubTasks;
   }

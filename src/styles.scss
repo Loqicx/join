@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use "./styles/variables.scss" as *;
+@use '@angular/material' as mat;
 
 @font-face {
   font-family: Inter;
@@ -51,3 +52,16 @@ app-root {
   font-weight: bold;
   font-size: 61px;
 }
+
+//class for material-design date picker
+
+:root {
+  @include mat.datepicker-overrides((
+    calendar-body-label-text-color: $color-dark-text,
+    calendar-container-background-color: $color-text,
+    calendar-text-font: $body-font-family,
+    calendar-date-selected-disabled-state-background-color: white,
+  ));
+}
+
+
