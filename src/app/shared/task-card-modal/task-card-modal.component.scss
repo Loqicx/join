@@ -34,8 +34,20 @@
       border: none;
       font-size: 24px;
       cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
     }
   }
+
 
   .task-type {
     font-size: 24px;
@@ -87,8 +99,10 @@
 
     .assignees {
       display: flex;
+      flex-direction: column;
       flex-wrap: wrap;
       gap: 8px;
+      padding: 10px;
 
       .assignee {
         display: flex;
@@ -178,6 +192,33 @@
     }
   }
 }
+
+.task-meta {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 16px; // Abstand zwischen den Meta-Items
+    margin-bottom: 16px;
+
+    .meta-item {
+      p {
+        margin: 4px 0;
+        font-size: 14px;
+        color: #444;
+
+        strong {
+          font-weight: 600;
+          margin-right: 6px;
+        }
+
+        img.priority-icon {
+          margin-left: 6px;
+          vertical-align: middle;
+
+        }
+      }
+    }
+  }
 
 .task-action-buttons {
   display: flex;
