@@ -43,14 +43,18 @@
 
     <!-- Subtasks -->
     <div class="subtasks">
-      <p>Subtasks:</p>
-      @for (subtask of task.subtasks; track subtask.title; let i = $index) {
-      <div class="subtask">
-        <input type="checkbox" [checked]="subtask.done" (change)="toggleSubtask(i)" />
-        <label>{{ subtask.title }}</label>
-      </div>
-      }
-    </div>
+  <p>Subtasks:</p>
+  @for (subtask of task.subtasks; track subtask.title; let i = $index) {
+  <div class="subtask">
+    <input 
+      type="checkbox" 
+      id="subtask-{{i}}" 
+      [checked]="subtask.done" 
+      (change)="toggleSubtask(i)" />
+    <label for="subtask-{{i}}">{{ subtask.title }}</label>
+  </div>
+  }
+</div>
 
     <!-- Footer -->
     <div class="modal-footer">
