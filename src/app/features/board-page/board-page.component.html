@@ -15,6 +15,7 @@
         [fontSize]="'21px'"
         [invert]="false"
         [size]="'large'"
+        (btnClick)="addTaskModal()"
         >Add Task</app-button
       >
     </div>
@@ -51,6 +52,10 @@
     </div>
     }
   </div>
+  <app-add-task-modal 
+    [selectedContacts]="[]" 
+    [taskStatus]="1">
+  </app-add-task-modal>
   <!-- Modal -->
   @if (isModalOpen && selectedTask) {
   <app-task-card-modal

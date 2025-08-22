@@ -1,0 +1,16 @@
+@if (isOpen){
+<div class="modal-wrapper" [class.open]="isSlide">
+    <div class="modal-content" [class.slide-in]="isSlide">
+        <div class="button-wrapper">
+            <button class="modal-close-btn" (click)="closeModal()">
+            <div class="icon" [innerHTML]="this.svgContent"></div>
+      </button>
+        </div>
+        <app-add-task 
+            [asModal]="true" 
+            [selectedContacts]="selectedContacts" 
+            [taskStatus]="taskStatus" class="modal">
+        </app-add-task>
+    </div>
+</div>
+}
