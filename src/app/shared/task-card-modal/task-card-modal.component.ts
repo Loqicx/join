@@ -108,6 +108,20 @@ export class TaskCardModalComponent implements OnInit {
     }
   }
 
+  toggleSubtask(index: number) {
+
+    const updatedSubtasks = [...this.task.subtasks];
+    updatedSubtasks[index].done = !updatedSubtasks[index].done;
+
+    this.tasksService.updateTask(
+      { subtasks: updatedSubtasks },
+      this.task.id
+    );
+
+    this.task.subtasks = updatedSubtasks;
+  }
+
+
   getTaskCategory(): string {
     switch (this.task.category) {
       case TaskCategory.TECHNICAL_TASK:
