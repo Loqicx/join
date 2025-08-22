@@ -152,6 +152,11 @@
   display: inline-flex;
   justify-content: space-between;
 
+  @include breakpoint-down("xxl") {
+    max-width: 250px;
+    width: 100%;
+  }
+
   .list-add-task-button {
     aspect-ratio: 1 / 1;
     height: 24px;
