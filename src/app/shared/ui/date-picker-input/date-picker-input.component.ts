@@ -10,13 +10,14 @@ import { ControlValueAccessor, FormsModule } from '@angular/forms';
   styleUrls: ['./date-picker-input.component.scss']
 })
 export class DatePickerInputComponent implements ControlValueAccessor {
-  dateInputVal: string = '';
-  disabled = false;
   showCalendar = false;
   currentMonth: Date = new Date();
   calendarDays: { date: Date; isToday: boolean; isSelected: boolean }[] = [];
   dayNames: string[] = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
+  @Input() dateInputVal: string = '';
+  @Input() showWarning = false;
+  @Input() disabled: boolean = false;
   @Output() dateSelected: EventEmitter<string> = new EventEmitter<string>();
 
   private onChange = (value: string) => { };
@@ -101,26 +102,32 @@ export class DatePickerInputComponent implements ControlValueAccessor {
    * @param {Event} event - The input event object.
    */
   onInput(event: Event): void {
-  const input = (event.target as HTMLInputElement).value;
-  
-  const normalized = input.replace(/[-.]/g, '/');
-  this.dateInputVal = input;
-  this.onChange(this.dateInputVal);
+    const input = (event.target as HTMLInputElement).value;
 
-  const parts = normalized.split('/');
-  if (parts.length === 3) {
-    const [day, month, year] = parts.map(Number);
-    const parsedDate = new Date(year, month - 1, day);
-    if (!isNaN(parsedDate.getTime())) {
-      this.currentMonth = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), 1);
+    const normalized = input.replace(/[-.]/g, '/');
+    this.dateInputVal = input;
+    this.onChange(this.dateInputVal);
+
+    const parts = normalized.split('/');
+    if (parts.length === 3) {
+      const [day, month, year] = parts.map(Number);
+      const parsedDate = new Date(year, month - 1, day);
+      if (!isNaN(parsedDate.getTime())) {
+        this.currentMonth = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), 1);
+      }
+      if (this.isValidDate(parsedDate) && this.isFutureDate(parsedDate)) {
+        this.onDateSelected(parsedDate);
+      }
+      if (!this.isValidDate(parsedDate) || !this.isFutureDate(parsedDate)) {
+        this.showWarning = true;
+      }
     }
-    if (this.isValidDate(parsedDate) && this.isFutureDate(parsedDate)) {
-      this.onDateSelected(parsedDate);
+    if (input.length > 10) {
+      this.showWarning = true;
     }
+
+    this.generateCalendar();
   }
-
-  this.generateCalendar();
-}
 
   /**
    * Toggles the visibility of the calendar Popp-up.
@@ -151,6 +158,7 @@ export class DatePickerInputComponent implements ControlValueAccessor {
     this.currentMonth = new Date(date.getFullYear(), date.getMonth(), 1);
     this.generateCalendar();
     this.showCalendar = false;
+    this.showWarning = false;
   }
 
   /**
@@ -213,6 +221,28 @@ export class DatePickerInputComponent implements ControlValueAccessor {
     }
   }
 
+  /**
+ * Sets today's date and updates the calendar.
+ * 
+ */
+  setToday(): void {
+    this.showWarning = false;
+
+    const today = new Date();
+    this.dateInputVal = String(today.getDate()).padStart(2, '0') + '/' +
+      String(today.getMonth() + 1).padStart(2, '0') + '/' +
+      today.getFullYear();
+
+    this.onChange(this.dateInputVal);
+    this.onTouched();
+
+    this.currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    this.generateCalendar();
+  }
+
+  /**
+   * Resets the calendar to its initial state.
+   */
   resetCalendar(): void {
     this.dateInputVal = '';
     this.currentMonth = new Date();

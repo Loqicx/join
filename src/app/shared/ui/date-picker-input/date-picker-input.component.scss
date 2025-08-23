@@ -16,23 +16,28 @@
 .blue-focus {
     &:focus {
         outline: none;
-        border: 2px solid $color-primary-hover !important;
+        border: 2px solid $color-primary-hover;
     }
 
     &:focus:not(:focus-visible) {
         outline: none;
-        border: 2px solid $color-primary-hover !important;
+        border: 2px solid $color-primary-hover;
     }
 
     &:focus-visible {
         outline: none;
-        border: 2px solid $color-primary-hover !important;
+        border: 2px solid $color-primary-hover;
     }
 
     &:focus-within {
         outline: none;
-        border: 2px solid $color-primary-hover !important;
+        border: 2px solid $color-primary-hover;
     }
+}
+
+.red-border {
+    outline: none;
+    border: 2px solid $color-danger-red !important;
 }
 
 .border {
@@ -114,4 +119,24 @@
             }
         }
     }
+}
+
+.warning-format {
+    color: $color-danger-red !important;
+    display: flex;
+    justify-content: space-between;
+
+    .btn {
+        margin-top: 4px;
+        padding: 4px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        text-decoration: underline;
+
+        &:hover {
+            color: $color-primary-hover;
+        }
+    }
+
 }
