@@ -1,0 +1,117 @@
+@use '../../../../styles/variables.scss' as *;
+
+
+:host {
+    width: 100%;
+}
+
+.input-sm {
+    height: 48px;
+    width: 100%;
+    font-size: 18px;
+    font-family: Inter;
+    font-weight: 400;
+}
+
+.blue-focus {
+    &:focus {
+        outline: none;
+        border: 2px solid $color-primary-hover !important;
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
+        border: 2px solid $color-primary-hover !important;
+    }
+
+    &:focus-visible {
+        outline: none;
+        border: 2px solid $color-primary-hover !important;
+    }
+
+    &:focus-within {
+        outline: none;
+        border: 2px solid $color-primary-hover !important;
+    }
+}
+
+.border {
+    border: 1px solid $color-input-border;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.date-picker-wrapper {
+    position: relative;
+    width: 100%;
+
+    .calendar-icon {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        cursor: pointer;
+    }
+}
+
+.calendar-popup {
+    position: absolute;
+    bottom: 56px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid $color-input-border;
+    border-radius: 8px;
+    padding: 8px;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+
+        .day-name {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .day-cell {
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 4px;
+
+            &.today {
+                border: 1px solid $color-primary-hover;
+            }
+
+            &.selected {
+                background-color: $color-primary-hover;
+                color: #fff;
+            }
+
+            &.past {
+                color: $color-text;
+            }
+
+            &.past:hover {
+                color: $color-text;
+                background-color: $color-white;
+                cursor: default;
+            }
+
+            &:hover {
+                background-color: $color-primary-hover;
+                color: #fff;
+            }
+        }
+    }
+}

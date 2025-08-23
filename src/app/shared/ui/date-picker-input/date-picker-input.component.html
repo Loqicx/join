@@ -1,1 +1,29 @@
-<p>date-picker-input works!</p>
+<div class="date-picker-wrapper" [class.disabled]="disabled">
+    <input class="input-sm blue-focus border" type="text" [value]="dateInputVal" (input)="onInput($event)"
+        (focus)="toggleCalendar()" placeholder="dd/mm/yyyy" [disabled]="disabled" required />
+
+    <span class="calendar-icon" (click)="toggleCalendar()">📅</span>
+
+    @if (showCalendar) {
+    <div class="calendar-popup">
+        <div class="calendar-header">
+            <button (click)="prevMonth()" type="button">&lt;</button>
+            <span>{{ currentMonth | date: 'MMMM yyyy' }}</span>
+            <button (click)="nextMonth()" type="button">&gt;</button>
+        </div>
+        <div class="calendar-grid">
+            @for (day of dayNames; track $index) {
+            <div class="day-name">{{ day }}</div>
+            }
+
+            @for (day of calendarDays; track $index) {
+            <div class="day-cell" [class.today]="day.isToday" [class.selected]="day.isSelected"
+                [class.empty]="!isValidDate(day.date)" [class.past]="!isFutureDate(day.date)"
+                (click)="!isFutureDate(day.date) ? true : isValidDate(day.date) && onDateSelected(day.date)">
+                {{ isValidDate(day.date) ? day.date.getDate() : '' }}
+            </div>
+            }
+        </div>
+    </div>
+    }
+</div>
