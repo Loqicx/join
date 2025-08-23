@@ -103,7 +103,6 @@ export class DatePickerInputComponent implements ControlValueAccessor {
   onInput(event: Event): void {
   const input = (event.target as HTMLInputElement).value;
   
-  // Ersetze Trennzeichen durch "/"
   const normalized = input.replace(/[-.]/g, '/');
   this.dateInputVal = input;
   this.onChange(this.dateInputVal);
