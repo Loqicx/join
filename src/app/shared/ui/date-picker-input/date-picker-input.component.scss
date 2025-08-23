@@ -1,0 +1,174 @@
+@use '../../../../styles/variables.scss' as *;
+
+
+:host {
+    width: 100%;
+}
+
+.input-sm {
+    height: 48px;
+    width: 100%;
+    font-size: 18px;
+    font-family: Inter;
+    font-weight: 400;
+}
+
+.blue-focus {
+    &:focus {
+        outline: none;
+        border: 2px solid $color-primary-hover;
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
+        border: 2px solid $color-primary-hover;
+    }
+
+    &:focus-visible {
+        outline: none;
+        border: 2px solid $color-primary-hover;
+    }
+
+    &:focus-within {
+        outline: none;
+        border: 2px solid $color-primary-hover;
+    }
+}
+
+.red-border {
+    outline: none;
+    border: 2px solid $color-danger-red !important;
+}
+
+.border {
+    border: 1px solid $color-input-border;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.date-picker-wrapper {
+    position: relative;
+    width: 100%;
+
+    .calendar-icon {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        cursor: pointer;
+    }
+}
+
+.calendar-popup {
+    position: absolute;
+    bottom: 56px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid $color-input-border;
+    border-radius: 8px;
+    padding: 16px;
+
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px;
+        margin-bottom: 8px;
+
+        .btn {
+            height: 20px;
+            width: 20px;
+            padding: 1px;
+            background-color: transparent;
+            border: 1px solid black;
+            border-radius: 50%;
+        }
+
+        .btn:hover {
+            transform: scale(1.12);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+
+        .day-name {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .day-cell {
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 4px;
+
+            &.today {
+                border: 1px solid $color-primary-hover;
+            }
+
+            &.selected {
+                background-color: $color-primary-hover;
+                color: #fff;
+            }
+
+            &.past {
+                color: $color-text;
+            }
+
+            &.past:hover {
+                color: $color-text;
+                background-color: $color-white;
+                cursor: default;
+            }
+
+            &:hover {
+                background-color: $color-primary-hover;
+                color: #fff;
+                transform: scale(1.08);
+                transition: all 0.2s ease;
+            }
+        }
+    }
+
+    .calendar-wrapper {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in, opacity 0.6s ease;
+
+        &.slide {
+            opacity: 1;
+            max-height: 300px;
+            transition: max-height 0.3s ease-out, opacity 0.6s ease;
+        }
+    }
+}
+
+.warning-format {
+    color: $color-danger-red !important;
+    display: flex;
+    justify-content: space-between;
+
+    .btn {
+        margin-top: 4px;
+        padding: 4px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        text-decoration: underline;
+
+        &:hover {
+            color: $color-primary-hover;
+        }
+    }
+
+}

@@ -3,7 +3,7 @@ export interface Task {
   title: string;
   category: number | null;
   subtasks: { title: string; done: boolean }[];
-  dueDate: Date;
+  dueDate: string;
   assignedTo: string[];
   description: string;
   status: number | null;
