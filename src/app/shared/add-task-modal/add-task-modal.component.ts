@@ -1,6 +1,6 @@
 import { Component, Input, Renderer2 } from '@angular/core';
-import { AddTaskComponent } from "../../add-task/add-task.component";
-import { SVGInlineService } from '../../services/svg-inline.service';
+import { AddTaskComponent } from "../add-task/add-task.component";
+import { SVGInlineService } from '../services/svg-inline.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
