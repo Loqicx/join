@@ -23,8 +23,9 @@
                         <div class="input input-text">
                             <label for="taskDueDate" class="input-title">Due date<div class="required-star">*</div>
                             </label>
-                            <input class="input-sm blue-focus border date-input" type="date" required
-                                [(ngModel)]="taskDueDate" name="taskDueDate" #taskDueDateVar="ngModel" />
+                            <!-- <input class="input-sm blue-focus border date-input" type="date" required
+                                [(ngModel)]="taskDueDate" name="taskDueDate" #taskDueDateVar="ngModel" /> -->
+                            <app-date-picker-input (dateSelected)="setTaskDueDate($event)"></app-date-picker-input>
                         </div>
                     </div>
                     <div class="required-text-wrapper">

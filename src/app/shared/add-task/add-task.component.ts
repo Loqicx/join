@@ -9,9 +9,11 @@ import { AssignContactInputComponent } from "../ui/assign-contact-input/assign-c
 import { AssignSubtaskInputComponent } from "../ui/assign-subtask-input/assign-subtask-input.component";
 import { TasksService } from '../services/firebase/tasks.service';
 import { Task } from '../interfaces/task';
+import { DatePickerInputComponent } from "../ui/date-picker-input/date-picker-input.component";
+
 @Component({
   selector: 'app-add-task',
-  imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, AssignContactInputComponent, AssignSubtaskInputComponent],
+  imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, AssignContactInputComponent, AssignSubtaskInputComponent, DatePickerInputComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
@@ -24,11 +26,12 @@ export class AddTaskComponent {
 
   taskTitle: string = '';
   taskDescription: string = '';
-  taskDueDate: Date = new Date;
+  taskDueDate: string = new Date().toISOString().split('T')[0];
   taskCategory: string = '';
   priority: number | null = 2;
 
   @ViewChild (AssignContactInputComponent) AssignContactInputComponent!: AssignContactInputComponent;
+  @ViewChild (DatePickerInputComponent) DatePickerInputComponent!: DatePickerInputComponent;
 
   buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
     urgent: false,
@@ -54,6 +57,10 @@ export class AddTaskComponent {
 
   ngOnInit() {
     this.activateButton('medium');
+  }
+
+  setTaskDueDate(date: string) {
+    this.taskDueDate = date;
   }
 
   setTaskCategory() {
@@ -122,13 +129,14 @@ export class AddTaskComponent {
   }
 
   resetForm(form: NgForm) {
-    this.AssignContactInputComponent.performReset()
+    this.AssignContactInputComponent.performReset();
+    this.DatePickerInputComponent.resetCalendar();
     form.resetForm();
     this.selectedContacts = [];
     this.selectedSubTasks = [];
     this.taskTitle = '';
     this.taskDescription = '';
-    this.taskDueDate = new Date();
+    this.taskDueDate = '';
     this.taskCategory = '0';
     this.priority = 2;
     this.buttonState = {
