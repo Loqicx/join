@@ -148,7 +148,7 @@
         &.slide {
             opacity: 1;
             max-height: 300px;
-            transition: max-height 0.3s ease-in, opacity 0.6s ease;
+            transition: max-height 0.3s ease-out, opacity 0.6s ease;
         }
     }
 }
