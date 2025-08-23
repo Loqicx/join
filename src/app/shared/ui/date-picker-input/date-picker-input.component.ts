@@ -101,19 +101,27 @@ export class DatePickerInputComponent implements ControlValueAccessor {
    * @param {Event} event - The input event object.
    */
   onInput(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.dateInputVal = input.value;
-    this.onChange(this.dateInputVal);
-    const parts = this.dateInputVal.split('/');
-    if (parts.length === 3) {
-      const [day, month, year] = parts.map(Number);
-      const parsedDate = new Date(year, month - 1, day);
-      if (!isNaN(parsedDate.getTime())) {
-        this.currentMonth = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), 1);
-      }
+  const input = (event.target as HTMLInputElement).value;
+  
+  // Ersetze Trennzeichen durch "/"
+  const normalized = input.replace(/[-.]/g, '/');
+  this.dateInputVal = input;
+  this.onChange(this.dateInputVal);
+
+  const parts = normalized.split('/');
+  if (parts.length === 3) {
+    const [day, month, year] = parts.map(Number);
+    const parsedDate = new Date(year, month - 1, day);
+    if (!isNaN(parsedDate.getTime())) {
+      this.currentMonth = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), 1);
     }
-    this.generateCalendar();
+    if (this.isValidDate(parsedDate) && this.isFutureDate(parsedDate)) {
+      this.onDateSelected(parsedDate);
+    }
   }
+
+  this.generateCalendar();
+}
 
   /**
    * Toggles the visibility of the calendar Popp-up.
