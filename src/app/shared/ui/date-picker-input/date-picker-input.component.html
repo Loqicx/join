@@ -1,37 +1,43 @@
 <div class="date-picker-wrapper" [class.disabled]="disabled">
     <input class="input-sm blue-focus border" type="text" [value]="dateInputVal" (input)="onInput($event)"
-        (focus)="toggleCalendar()" placeholder="dd/mm/yyyy" [disabled]="disabled" required [class.red-border]="showWarning" />
+        (focus)="toggleCalendar()" placeholder="dd/mm/yyyy" [disabled]="disabled" required
+        [class.red-border]="showWarning" />
 
     <span class="calendar-icon" (click)="toggleCalendar()">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M580-240q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+            <path
+                d="M580-240q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z" />
+        </svg>
     </span>
 
     @if (showWarning) {
-        <div class="warning-format">
-            <span class="warn-text">Date must be in future and format dd/mm/yyyy</span>
-            <button class="btn" (click)="setToday()">set Today</button>
-        </div>
+    <div class="warning-format">
+        <span class="warn-text">Date must be in future and format dd/mm/yyyy</span>
+        <button class="btn" (click)="setToday()">set Today</button>
+    </div>
     }
 
     @if (showCalendar) {
     <div class="calendar-popup">
-        <div class="calendar-header">
-            <button (click)="prevMonth()" type="button">&lt;</button>
-            <span>{{ currentMonth | date: 'MMMM yyyy' }}</span>
-            <button (click)="nextMonth()" type="button">&gt;</button>
-        </div>
-        <div class="calendar-grid">
-            @for (day of dayNames; track $index) {
-            <div class="day-name">{{ day }}</div>
-            }
-
-            @for (day of calendarDays; track $index) {
-            <div class="day-cell" [class.today]="day.isToday" [class.selected]="day.isSelected"
-                [class.empty]="!isValidDate(day.date)" [class.past]="!isFutureDate(day.date)"
-                (click)="!isFutureDate(day.date) ? true : isValidDate(day.date) && onDateSelected(day.date)">
-                {{ isValidDate(day.date) ? day.date.getDate() : '' }}
+        <div class="calendar-wrapper" [class.slide]="slide">
+            <div class="calendar-header">
+                <button (click)="prevMonth()" class="btn" type="button">&lt;</button>
+                <span>{{ currentMonth | date: 'MMMM yyyy' }}</span>
+                <button (click)="nextMonth()" class="btn" type="button">&gt;</button>
             </div>
-            }
+            <div class="calendar-grid">
+                @for (day of dayNames; track $index) {
+                <div class="day-name">{{ day }}</div>
+                }
+
+                @for (day of calendarDays; track $index) {
+                <div class="day-cell" [class.today]="day.isToday" [class.selected]="day.isSelected"
+                    [class.empty]="!isValidDate(day.date)" [class.past]="!isFutureDate(day.date)"
+                    (click)="!isFutureDate(day.date) ? true : isValidDate(day.date) && onDateSelected(day.date)">
+                    {{ isValidDate(day.date) ? day.date.getDate() : '' }}
+                </div>
+                }
+            </div>
         </div>
     </div>
     }

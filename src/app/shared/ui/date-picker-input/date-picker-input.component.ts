@@ -14,6 +14,7 @@ export class DatePickerInputComponent implements ControlValueAccessor {
   currentMonth: Date = new Date();
   calendarDays: { date: Date; isToday: boolean; isSelected: boolean }[] = [];
   dayNames: string[] = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  slide = false;
 
   @Input() dateInputVal: string = '';
   @Input() showWarning = false;
@@ -35,7 +36,10 @@ export class DatePickerInputComponent implements ControlValueAccessor {
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: MouseEvent): void {
     if (!this.el.nativeElement.contains(event.target)) {
-      this.showCalendar = false;
+      this.slide = false;
+      setTimeout(() => {
+        this.showCalendar = false;
+      }, 300);
     }
   }
 
@@ -133,11 +137,20 @@ export class DatePickerInputComponent implements ControlValueAccessor {
    * Toggles the visibility of the calendar Popp-up.
    */
   toggleCalendar(): void {
-    if (!this.disabled) {
+    if (!this.disabled && !this.showCalendar) {
       this.showCalendar = !this.showCalendar;
+      setTimeout(() => {
+        this.slide = this.showCalendar;
+      }, 10);
       if (this.showCalendar) this.generateCalendar();
-    }
+    } else if (!this.disabled && this.showCalendar) {
+      this.slide = !this.showCalendar;
+      setTimeout(() => {
+        this.showCalendar = !this.showCalendar;
+      }, 250);
+      if (this.showCalendar) this.generateCalendar();
   }
+}
 
   /**
    * Handles date selection in the calendar Pop-up.

@@ -65,15 +65,32 @@
     background-color: #fff;
     border: 1px solid $color-input-border;
     border-radius: 8px;
-    padding: 8px;
-    z-index: 1000;
+    padding: 16px;
+
+    overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
     .calendar-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 4px;
         margin-bottom: 8px;
+
+        .btn {
+            height: 20px;
+            width: 20px;
+            padding: 1px;
+            background-color: transparent;
+            border: 1px solid black;
+            border-radius: 50%;
+        }
+
+        .btn:hover {
+            transform: scale(1.12);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
     }
 
     .calendar-grid {
@@ -116,7 +133,22 @@
             &:hover {
                 background-color: $color-primary-hover;
                 color: #fff;
+                transform: scale(1.08);
+                transition: all 0.2s ease;
             }
+        }
+    }
+
+    .calendar-wrapper {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in, opacity 0.6s ease;
+
+        &.slide {
+            opacity: 1;
+            max-height: 300px;
+            transition: max-height 0.3s ease-in, opacity 0.6s ease;
         }
     }
 }
