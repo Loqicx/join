@@ -146,11 +146,11 @@
       margin-bottom: 6px;
 
       input[type="checkbox"] {
-        display: none; // Standard Checkbox verstecken
+        display: none; 
 
         & + label {
           position: relative;
-          padding-left: 32px; // Platz für das Icon
+          padding-left: 32px; 
           font-size: 14px;
           color: #555;
           cursor: pointer;
