@@ -101,6 +101,12 @@ export class DatePickerInputComponent implements ControlValueAccessor {
     return checkDate >= today;
   }
 
+  /**
+ * Checks if the `compareDate` is a valid future date.
+ * 
+ * @returns {boolean} - Returns true if `compareDate` is a valid future date, otherwise false.
+ * @throws {TypeError} If `compareDate` is not provided or is of an invalid type.
+ */
   checkValidDate(): boolean {
     if (!this.compareDate) return false;
     if (this.isValidDate(this.compareDate) && this.isFutureDate(this.compareDate)) {
@@ -160,8 +166,8 @@ export class DatePickerInputComponent implements ControlValueAccessor {
         this.showCalendar = !this.showCalendar;
       }, 250);
       if (this.showCalendar) this.generateCalendar();
+    }
   }
-}
 
   /**
    * Handles date selection in the calendar Pop-up.
