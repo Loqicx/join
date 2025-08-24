@@ -29,6 +29,8 @@ export class AddTaskComponent {
   taskDueDate: string = new Date().toISOString().split('T')[0];
   taskCategory: string = '';
   priority: number | null = 2;
+  showTitleWarning: boolean = false;
+  showCategoryWarning: boolean = false;
 
   @ViewChild (AssignContactInputComponent) AssignContactInputComponent!: AssignContactInputComponent;
   @ViewChild (DatePickerInputComponent) DatePickerInputComponent!: DatePickerInputComponent;
@@ -86,14 +88,17 @@ export class AddTaskComponent {
   }
 
   async saveTask(taskForm: NgForm) {
-    if (!this.taskTitle || !this.taskDueDate || !this.taskCategory) {
+    if (!this.taskTitle || !this.taskCategory || !this.DatePickerInputComponent.checkValidDate()) {
+      if (!this.DatePickerInputComponent.checkValidDate()) {
+        this.DatePickerInputComponent.showWarning = true;
+      }
+      if (!this.taskTitle) {
+        this.showTitleWarning = true;
+      }
+      if (!this.taskCategory) {
+        this.showCategoryWarning = true;
+      }
       this.setData();
-      console.error('Insufficient / Invalid Data in task Form!')
-      console.log('task Data', this.task)
-      console.log('assigned to:', this.task.assignedTo)
-      console.log('subtasks', this.task.subtasks)
-      console.log('priority', this.task.priority)
-      console.log('category', this.taskCategory)
       return
     }
     this.setData();
@@ -126,6 +131,16 @@ export class AddTaskComponent {
 
   selectSubTasks(subtasks: any) {
     this.selectedSubTasks = subtasks;
+  }
+
+  resetWarning(warn: string) {
+    if (warn === 'title') {
+      this.showTitleWarning = false;
+    } else if (warn === 'date') {
+      this.DatePickerInputComponent.showWarning = false;
+    } else if (warn === 'category') {
+      this.showCategoryWarning = false;
+    }
   }
 
   resetForm(form: NgForm) {

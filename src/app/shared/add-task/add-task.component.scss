@@ -125,6 +125,11 @@
             border-radius: 8px;
             padding: 8px;
         }
+
+        .red-border {
+            outline: none;
+            border: 2px solid $color-danger-red !important;
+        }
     }
 }
 
@@ -222,4 +227,24 @@ option {
     .required-star {
         margin-top: -2px;
     }
+}
+
+.warning-format {
+    color: $color-danger-red !important;
+    display: flex;
+    justify-content: space-between;
+
+    .btn {
+        margin-top: 4px;
+        padding: 4px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        text-decoration: underline;
+
+        &:hover {
+            color: $color-primary-hover;
+        }
+    }
+
 }
