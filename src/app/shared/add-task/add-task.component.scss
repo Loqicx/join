@@ -8,6 +8,10 @@
     padding-top: 4%;
     border-radius: 16px;
 
+    &.edit {
+        height: 100%;
+    }
+
     @include breakpoint-down('md') {
         height: 100%;
     }
@@ -30,6 +34,10 @@
     background-color: $color-text;
     border-radius: 4px;
 
+    &.edit {
+        display: none;
+    }
+
     @include breakpoint-down('md') {
         display: none;
     }
@@ -41,6 +49,13 @@
     margin: auto;
     display: flex;
     flex-direction: column;
+
+    &.edit {
+        height: 100%;
+        width: 100%;
+        padding-top: 24px;
+        overflow: visible;
+    }
 
     @include breakpoint-down('md') {
         height: 100%;
@@ -63,6 +78,14 @@
     justify-content: center;
     align-items: start;
 
+    &.edit {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+    }
+
     @include breakpoint-down('md') {
         height: 100%;
         display: flex;
@@ -80,6 +103,12 @@
     justify-content: start;
     align-items: center;
 
+    &.edit {
+        margin-top: 24px;
+        height: 50%;
+        width: 100%;
+    }
+
     @include breakpoint-down('md') {
         margin-top: 24px;
         height: 50%;
@@ -94,6 +123,12 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
+
+    &.edit {
+        margin-top: 64px;
+        height: 50%;
+        width: 100%;
+    }
 
     @include breakpoint-down('md') {
         margin-top: 8px;
@@ -257,6 +292,10 @@ option {
     align-items: center;
     justify-content: start;
     margin-top: 68px;
+
+    &.edit {
+        display: none;
+    }
 
     @include breakpoint-down('md') {
         display: none;

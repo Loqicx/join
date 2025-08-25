@@ -1,15 +1,19 @@
-<div class="page-wrapper" [class.background-grey]="!asModal">
-    <div class="add-task-wrapper">
-        <h1 class="title">Add Task</h1>
+<div class="page-wrapper" [class.background-grey]="!asModal" [class.edit]="asEdit">
+    <div class="add-task-wrapper" [class.edit]="asEdit">
+        @if (!asEdit) {
+            <h1 class="title">Add Task</h1>
+        } @else {
+            <h1 class="title">Edit Task</h1>
+        }
         <div class="add-task">
-            <form (ngSubmit)="saveTask(addTaskForm)" #addTaskForm="ngForm" class="add-task-form">
-                <div class="left-wrapper">
+            <form (ngSubmit)="saveTask(addTaskForm)" #addTaskForm="ngForm" class="add-task-form" [class.edit]="asEdit">
+                <div class="left-wrapper" [class.edit]="asEdit">
                     <div class="input-wrapper">
                         <div class="input input-text">
                             <label for="taskTitle" class="input-title">Title<div class="required-star">*</div></label>
                             <input class="input-sm blue-focus border" type="text" placeholder="Enter a Title" required
-                                [(ngModel)]="taskTitle" name="taskTitle" #taskTitleVar="ngModel" [class.red-border]="showTitleWarning"
-                                (input)="showTitleWarning=false">
+                                [(ngModel)]="taskTitle" name="taskTitle" #taskTitleVar="ngModel"
+                                [class.red-border]="showTitleWarning" (input)="showTitleWarning=false">
                             @if (showTitleWarning) {
                             <div class="warning-format">
                                 <span class="warn-text">This field is required</span>
@@ -32,20 +36,21 @@
                             </label>
                             <!-- <input class="input-sm blue-focus border date-input" type="date" required
                                 [(ngModel)]="taskDueDate" name="taskDueDate" #taskDueDateVar="ngModel" /> -->
-                            <app-date-picker-input [dateInputVal]="cleanedTaskDueDate" (dateSelected)="setTaskDueDate($event)"></app-date-picker-input>
+                            <app-date-picker-input [dateInputVal]="cleanedTaskDueDate"
+                                (dateSelected)="setTaskDueDate($event)"></app-date-picker-input>
                         </div>
                     </div>
-                    <div class="required-text-wrapper">
+                    <div class="required-text-wrapper" [class.edit]="asEdit">
                         <span class="required-text">
                             <div class="required-star">*</div>
                             This field is required
                         </span>
                     </div>
                 </div>
-                <div class="seperator">
+                <div class="seperator" [class.edit]="asEdit">
                     <!-- Seperator things going on here -->
                 </div>
-                <div class="right-wrapper" [class.modal]="asModal">
+                <div class="right-wrapper" [class.modal]="asModal" [class.edit]="asEdit">
                     <div class="priority-wrapper">
                         <label for="priority-btn-wrapper">Priority</label>
                         <div class="priority-btn-wrapper">
@@ -70,7 +75,8 @@
                     </div>
                     <div class="input-wrapper">
                         <div class="input">
-                            <app-assign-contact-input class="assign-contact" [preview]="true" [selectedContactsArray]="selectedContacts" [taskAssignInput]="assignedContactsNames"
+                            <app-assign-contact-input class="assign-contact" [preview]="true"
+                                [selectedContactsArray]="selectedContacts" [taskAssignInput]="assignedContactsNames"
                                 (selectedContacts)="selectContacts($event)">
                             </app-assign-contact-input>
                         </div>
