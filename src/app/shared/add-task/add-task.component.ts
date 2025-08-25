@@ -32,6 +32,8 @@ export class AddTaskComponent {
   @Input() selectedContacts: any[] = [];
   @Input() taskStatus: number = 1;
   @Input() asModal: boolean = false;
+  @Input() asEdit: boolean = false;
+  @Input() taskToEdit?: string;
 
   taskTitle: string = '';
   taskDescription: string = '';
@@ -68,6 +70,9 @@ export class AddTaskComponent {
 
   ngOnInit() {
     this.activateButton('medium');
+    if (this.asEdit && this.taskToEdit) {
+      this.getTask(this.taskToEdit);
+    }
   }
 
   setTaskDueDate(date: string) {
@@ -130,6 +135,14 @@ export class AddTaskComponent {
       this.resetForm(taskForm);
     } catch (error) {
       console.error('Failed to Save Task!')
+    }
+  }
+
+  async getTask(taskId: string) {
+    try {
+      this.task = await this.tasksService.getTaskById(taskId);
+    } catch (error) {
+      console.error('Failed to get Task with Id:', taskId)
     }
   }
 
