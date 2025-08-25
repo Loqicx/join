@@ -8,14 +8,21 @@
                         <div class="input input-text">
                             <label for="taskTitle" class="input-title">Title<div class="required-star">*</div></label>
                             <input class="input-sm blue-focus border" type="text" placeholder="Enter a Title" required
-                                [(ngModel)]="taskTitle" name="taskTitle" #taskTitleVar="ngModel" />
+                                [(ngModel)]="taskTitle" name="taskTitle" #taskTitleVar="ngModel" [class.red-border]="showTitleWarning"
+                                (input)="showTitleWarning=false">
+                            @if (showTitleWarning) {
+                            <div class="warning-format">
+                                <span class="warn-text">This field is required</span>
+                            </div>
+                            }
                         </div>
                     </div>
                     <div class="input-wrapper">
                         <div class="input input-description">
                             <label for="taskDescription" class="input-title">Description</label>
-                            <textarea class="input-bg blue-focus border" type="text" placeholder="Enter a Description" required
-                                [(ngModel)]="taskDescription" name="taskDescription" #taskDescriptionVar="ngModel">
+                            <textarea class="input-bg blue-focus border" type="text" placeholder="Enter a Description"
+                                required [(ngModel)]="taskDescription" name="taskDescription"
+                                #taskDescriptionVar="ngModel">
                             </textarea>
                         </div>
                     </div>
@@ -38,7 +45,7 @@
                 <div class="seperator">
                     <!-- Seperator things going on here -->
                 </div>
-                <div class="right-wrapper">
+                <div class="right-wrapper" [class.modal]="asModal">
                     <div class="priority-wrapper">
                         <label for="priority-btn-wrapper">Priority</label>
                         <div class="priority-btn-wrapper">
@@ -73,20 +80,29 @@
                             <label for="taskCategory" class="input-title">Category<div class="required-star">*</div>
                             </label>
                             <select size="1" [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel"
-                                list="categorys" class="single-select border blue-focus" required autocomplete='off'>
+                                list="categorys" class="single-select border blue-focus" required autocomplete='off'
+                                (change)="showCategoryWarning = false">
                                 <option value='' selected disabled hidden>Select task Category</option>
                                 <option value='0' disabled hidden>Select task Category</option>
                                 <option value='1'>User Story</option>
                                 <option value='2'>Technical Task</option>
                             </select>
+                            @if (showCategoryWarning) {
+                            <div class="warning-format">
+                                <span class="warn-text">This field is required</span>
+                            </div>
+                            }
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <app-assign-subtask-input [subtasks]="this.selectedSubTasks" (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
+                        <app-assign-subtask-input [subtasks]="this.selectedSubTasks"
+                            (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
                     </div>
                     <div class="lower-btn-wrapper">
-                        <app-button (btnClick)="resetForm(addTaskForm)" [invert]="true" [fontSize]="'20px'" [iconSrc]="'assets/icons/close.svg'">Cancel</app-button>
-                        <app-button [type]="'submit'" [fontSize]="'20px'" [iconSrc]="'assets/icons/check.svg'">Send</app-button>
+                        <app-button (btnClick)="resetForm(addTaskForm)" [invert]="true" [fontSize]="'20px'"
+                            [iconSrc]="'assets/icons/close.svg'">Cancel</app-button>
+                        <app-button [type]="'submit'" [fontSize]="'20px'"
+                            [iconSrc]="'assets/icons/check.svg'">Send</app-button>
                     </div>
                 </div>
             </form>

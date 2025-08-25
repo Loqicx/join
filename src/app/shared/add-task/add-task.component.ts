@@ -11,6 +11,15 @@ import { TasksService } from '../services/firebase/tasks.service';
 import { Task } from '../interfaces/task';
 import { DatePickerInputComponent } from "../ui/date-picker-input/date-picker-input.component";
 
+/**
+ * Component responsible for adding a new task.
+ * 
+ * @param {boolean} asModal - Indicates if the component is being used in a modal context.
+ * @param {AssignContactInputComponent} AssignContactInputComponent - ViewChild for handling contact input.
+ * @param {DatePickerInputComponent} DatePickerInputComponent - ViewChild for handling date picker input.
+ * @param {Task[]} task - The task object containing all task details.
+ * @throws {Error} If any input validation fails or the task cannot be saved to the database.
+ */
 @Component({
   selector: 'app-add-task',
   imports: [CommonModule, FormsModule, MatSelectModule, ButtonComponent, AssignContactInputComponent, AssignSubtaskInputComponent, DatePickerInputComponent],
@@ -29,9 +38,11 @@ export class AddTaskComponent {
   taskDueDate: string = new Date().toISOString().split('T')[0];
   taskCategory: string = '';
   priority: number | null = 2;
+  showTitleWarning: boolean = false;
+  showCategoryWarning: boolean = false;
 
-  @ViewChild (AssignContactInputComponent) AssignContactInputComponent!: AssignContactInputComponent;
-  @ViewChild (DatePickerInputComponent) DatePickerInputComponent!: DatePickerInputComponent;
+  @ViewChild(AssignContactInputComponent) AssignContactInputComponent!: AssignContactInputComponent;
+  @ViewChild(DatePickerInputComponent) DatePickerInputComponent!: DatePickerInputComponent;
 
   buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
     urgent: false,
@@ -50,7 +61,7 @@ export class AddTaskComponent {
     status: this.taskStatus,
     id: '',
   }
-  
+
   contactsService: ContactsService = inject(ContactsService);
   initialLetterService: InitialLettersService = inject(InitialLettersService);
   tasksService: TasksService = inject(TasksService)
@@ -63,7 +74,12 @@ export class AddTaskComponent {
     this.taskDueDate = date;
   }
 
-  setTaskCategory() {
+  /**
+     * Sets the task category based on input value.
+     * 
+     * @returns {number} The numerical representation of the task category (0, 1, or 2).
+     */
+  setTaskCategory(): number {
     let taskCategoryNumber = 0;
     if (this.taskCategory === '2') {
       taskCategoryNumber = 2;
@@ -75,9 +91,12 @@ export class AddTaskComponent {
     return taskCategoryNumber;
   }
 
+  /**
+   * Updates the task data based on current input values.
+   */
   setData() {
     this.task.priority = this.priority;
-    this.task.category = this.setTaskCategory()
+    this.task.category = this.setTaskCategory();
     this.task.title = this.taskTitle;
     this.task.description = this.taskDescription;
     this.task.dueDate = this.taskDueDate;
@@ -85,19 +104,27 @@ export class AddTaskComponent {
     this.task.subtasks = this.selectedSubTasks;
   }
 
-  async saveTask(taskForm: NgForm) {
-    if (!this.taskTitle || !this.taskDueDate || !this.taskCategory) {
+  /**
+   * Saves the task to the database.
+   * 
+   * @param {NgForm} taskForm - The NgForm instance representing the task form.
+   * @returns {Promise<void>} A promise that resolves once the task is saved successfully or an error occurs.
+   */
+  async saveTask(taskForm: NgForm): Promise<void> {
+    if (!this.taskTitle || !this.taskCategory || !this.DatePickerInputComponent.checkValidDate()) {
+      if (!this.DatePickerInputComponent.checkValidDate()) {
+        this.DatePickerInputComponent.showWarning = true;
+      }
+      if (!this.taskTitle) {
+        this.showTitleWarning = true;
+      }
+      if (!this.taskCategory) {
+        this.showCategoryWarning = true;
+      }
       this.setData();
-      console.error('Insufficient / Invalid Data in task Form!')
-      console.log('task Data', this.task)
-      console.log('assigned to:', this.task.assignedTo)
-      console.log('subtasks', this.task.subtasks)
-      console.log('priority', this.task.priority)
-      console.log('category', this.taskCategory)
       return
     }
     this.setData();
-
     try {
       await this.tasksService.addTaskToDatabase(this.task);
       this.resetForm(taskForm);
@@ -106,6 +133,11 @@ export class AddTaskComponent {
     }
   }
 
+  /**
+   * Activates the button corresponding to the specified priority level.
+   * 
+   * @param {string} btnName - The name of the button ('urgent', 'medium', or 'low').
+   */
   activateButton(btnName: 'urgent' | 'medium' | 'low') {
     if (btnName === 'low') {
       this.buttonState['urgent'] = false
@@ -120,14 +152,44 @@ export class AddTaskComponent {
     this.buttonState[btnName] = true
   }
 
+  /**
+   * Gets the selected contacts from the assign contact Input's Output.
+   * 
+   * @param {any[]} contacts - The selected contacts to assign to the task.
+   */
   selectContacts(contacts: any) {
     this.selectedContacts = contacts;
   }
 
+  /**
+   * Gets the selected subtasks from the assign subtask Input's Output.
+   * 
+   * @param {any[]} subtasks - The selected subtasks to add to the task.
+   */
   selectSubTasks(subtasks: any) {
     this.selectedSubTasks = subtasks;
   }
 
+  /**
+   * Resets warning messages according to input type.
+   * 
+   * @param {string} warn - The type of warning message ('title', 'date', or 'category').
+   */
+  resetWarning(warn: string) {
+    if (warn === 'title') {
+      this.showTitleWarning = false;
+    } else if (warn === 'date') {
+      this.DatePickerInputComponent.showWarning = false;
+    } else if (warn === 'category') {
+      this.showCategoryWarning = false;
+    }
+  }
+
+  /**
+   * Resets the form and clears task data.
+   * 
+   * @param {NgForm} form - The NgForm instance representing the task form.
+   */
   resetForm(form: NgForm) {
     this.AssignContactInputComponent.performReset();
     this.DatePickerInputComponent.resetCalendar();
@@ -146,4 +208,4 @@ export class AddTaskComponent {
     };
     this.activateButton('medium');
   }
-  }
+}

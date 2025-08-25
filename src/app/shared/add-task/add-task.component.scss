@@ -7,6 +7,10 @@
     background-color: $color-white;
     padding-top: 4%;
     border-radius: 16px;
+
+    @include breakpoint-down('md') {
+        height: 100%;
+    }
 }
 
 .background-grey {
@@ -25,12 +29,23 @@
     width: 2px;
     background-color: $color-text;
     border-radius: 4px;
+
+    @include breakpoint-down('md') {
+        display: none;
+    }
 }
 
 .add-task-wrapper {
     height: 90%;
     width: 90%;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+
+    @include breakpoint-down('md') {
+        height: 100%;
+        overflow: scroll;
+    }
 }
 
 .add-task {
@@ -47,6 +62,14 @@
     flex-direction: row;
     justify-content: center;
     align-items: start;
+
+    @include breakpoint-down('md') {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+    }
 }
 
 .left-wrapper {
@@ -56,6 +79,12 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
+
+    @include breakpoint-down('md') {
+        margin-top: 24px;
+        height: 50%;
+        width: 100%;
+    }
 }
 
 .right-wrapper {
@@ -65,6 +94,16 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
+
+    @include breakpoint-down('md') {
+        margin-top: 8px;
+        height: 50%;
+        width: 100%;
+
+        &:not(.modal) {
+            margin-top: 68px;
+        }
+    }
 }
 
 .input-wrapper {
@@ -124,6 +163,11 @@
             border: 1px solid $color-input-border;
             border-radius: 8px;
             padding: 8px;
+        }
+
+        .red-border {
+            outline: none;
+            border: 2px solid $color-danger-red !important;
         }
     }
 }
@@ -213,6 +257,10 @@ option {
     align-items: center;
     justify-content: start;
     margin-top: 68px;
+
+    @include breakpoint-down('md') {
+        display: none;
+    }
 }
 
 .required-text {
@@ -222,4 +270,24 @@ option {
     .required-star {
         margin-top: -2px;
     }
+}
+
+.warning-format {
+    color: $color-danger-red !important;
+    display: flex;
+    justify-content: space-between;
+
+    .btn {
+        margin-top: 4px;
+        padding: 4px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        text-decoration: underline;
+
+        &:hover {
+            color: $color-primary-hover;
+        }
+    }
+
 }

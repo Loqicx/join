@@ -15,6 +15,7 @@ export class DatePickerInputComponent implements ControlValueAccessor {
   calendarDays: { date: Date; isToday: boolean; isSelected: boolean }[] = [];
   dayNames: string[] = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
   slide = false;
+  compareDate?: Date;
 
   @Input() dateInputVal: string = '';
   @Input() showWarning = false;
@@ -101,6 +102,21 @@ export class DatePickerInputComponent implements ControlValueAccessor {
   }
 
   /**
+ * Checks if the `compareDate` is a valid future date.
+ * 
+ * @returns {boolean} - Returns true if `compareDate` is a valid future date, otherwise false.
+ * @throws {TypeError} If `compareDate` is not provided or is of an invalid type.
+ */
+  checkValidDate(): boolean {
+    if (!this.compareDate) return false;
+    if (this.isValidDate(this.compareDate) && this.isFutureDate(this.compareDate)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
    * Handles input events for the date picker component.
    * Updates the input value and generates the calendar days based on user input.
    * @param {Event} event - The input event object.
@@ -116,6 +132,7 @@ export class DatePickerInputComponent implements ControlValueAccessor {
     if (parts.length === 3) {
       const [day, month, year] = parts.map(Number);
       const parsedDate = new Date(year, month - 1, day);
+      this.compareDate = parsedDate;
       if (!isNaN(parsedDate.getTime())) {
         this.currentMonth = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), 1);
       }
@@ -149,8 +166,8 @@ export class DatePickerInputComponent implements ControlValueAccessor {
         this.showCalendar = !this.showCalendar;
       }, 250);
       if (this.showCalendar) this.generateCalendar();
+    }
   }
-}
 
   /**
    * Handles date selection in the calendar Pop-up.
@@ -158,6 +175,7 @@ export class DatePickerInputComponent implements ControlValueAccessor {
    * @param {Date} date - The selected date.
    */
   onDateSelected(date: Date): void {
+    this.compareDate = date;
     const formattedDate = String(date.getDate()).padStart(2, '0') + '/' +
       String(date.getMonth() + 1).padStart(2, '0') + '/' +
       date.getFullYear();
@@ -251,6 +269,7 @@ export class DatePickerInputComponent implements ControlValueAccessor {
 
     this.currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
     this.generateCalendar();
+    this.compareDate = today;
   }
 
   /**
