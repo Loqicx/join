@@ -33,7 +33,7 @@ import { ViewChild } from '@angular/core';
   providers: [ColoredProfilePipe, SVGInlineService],
 })
 export class TaskCardModalComponent implements OnInit {
-  
+
   /**
    * Stores inline SVGs after sanitization.
    */
@@ -116,22 +116,22 @@ export class TaskCardModalComponent implements OnInit {
    * @returns {string} Path to the priority icon.
    */
   taskPriority(): string {
-  if (this.task.priority === TaskPriority.LOW) return this.priorities.low;
-  if (this.task.priority === TaskPriority.MEDIUM) return this.priorities.medium;
-  if (this.task.priority === TaskPriority.HIGH) return this.priorities.high;
-  return this.priorities.medium; // fallback
-}
+    if (this.task.priority === TaskPriority.LOW) return this.priorities.low;
+    if (this.task.priority === TaskPriority.MEDIUM) return this.priorities.medium;
+    if (this.task.priority === TaskPriority.HIGH) return this.priorities.high;
+    return this.priorities.medium; // fallback
+  }
 
   /**
    * Returns the human-readable label for the task priority.
    * @returns {string} Priority label.
    */
   getPriorityLabel(): string {
-  if (this.task.priority === TaskPriority.LOW) return 'Low';
-  if (this.task.priority === TaskPriority.MEDIUM) return 'Medium';
-  if (this.task.priority === TaskPriority.HIGH) return 'Urgent';
-  return 'Medium'; // fallback
-}
+    if (this.task.priority === TaskPriority.LOW) return 'Low';
+    if (this.task.priority === TaskPriority.MEDIUM) return 'Medium';
+    if (this.task.priority === TaskPriority.HIGH) return 'Urgent';
+    return 'Medium'; // fallback
+  }
 
   /**
    * Updates the list of assigned contacts for this task.
@@ -163,6 +163,17 @@ export class TaskCardModalComponent implements OnInit {
           name: 'Unknown',
         });
       }
+    }
+  }
+
+  /**
+ * close the modal 
+ * @param event - MouseEvent Klicks
+ */
+  onOutsideClick(event: MouseEvent) {
+    const modalContent = document.querySelector('.modal-content');
+    if (modalContent && !modalContent.contains(event.target as Node)) {
+      this.close.emit();
     }
   }
 
