@@ -13,6 +13,7 @@
   <p>{{ task.description | truncateString : 45 }}</p>
 
   <!-- Progress Bar -->
+  @if(subtasksTotal() > 0) {
   <div class="progress-wrapper">
     <div class="progress-container">
       <div
@@ -24,6 +25,7 @@
       {{ subtasksDone() }}/{{ subtasksTotal() }} Subtasks
     </div>
   </div>
+  }
 
   <!-- Bottom Row -->
   <div class="bottom-row">
