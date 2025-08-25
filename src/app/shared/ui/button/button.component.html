@@ -1,15 +1,33 @@
-<button [type]="type" class="add-contact-button" (click)="handleClick()" [class]="{ invert: invert }" [class.active]="active"
-  [class.round]="round == true" [class.large]="size === 'large'" [class.medium]="size === 'medium'"
-  [class.small]="size === 'small'" [class.xsmall]="size === 'xsmall'" [class.dynamic]="size === 'dynamic'" [class.priority]="size === 'priority'"
-  [ngStyle]="{ 'font-size': fontSize }" [class.danger]="color === 'danger'" [class.warn]="color === 'warn'" [class.success]="color === 'success'"  [disabled]="disabled">
-
-  @if (!round) {
+<button
+  [type]="type"
+  class="add-contact-button"
+  (click)="handleClick()"
+  [class]="{ invert: invert }"
+  [class.active]="active"
+  [class.round]="round == true"
+  [class.large]="size === 'large'"
+  [class.medium]="size === 'medium'"
+  [class.small]="size === 'small'"
+  [class.xsmall]="size === 'xsmall'"
+  [class.dynamic]="size === 'dynamic'"
+  [class.priority]="size === 'priority'"
+  [class.icon-button]="iconBtn"
+  [ngStyle]="{ 'font-size': fontSize }"
+  [class.danger]="color === 'danger'"
+  [class.warn]="color === 'warn'"
+  [class.success]="color === 'success'"
+  [disabled]="disabled"
+>
+  @if (!round || !iconBtn) {
   <span>
     <ng-content></ng-content>
   </span>
-  }
-  @if(iconSrc){
-  <div [innerHTML]="svgContent" class="icon" [ngClass]="invert ? 'icon-invert' : ''"></div>
+  } @if(iconSrc){
+  <div
+    [innerHTML]="svgContent"
+    class="icon"
+    [ngClass]="invert ? 'icon-invert' : ''"
+  ></div>
   }
 </button>
 
