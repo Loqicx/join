@@ -68,13 +68,14 @@
   }
 
   .task-title {
-    font-size: 20px;
-    margin: 12px 0 8px;
+    margin: 16px 0 16px;
     color: #333;
+    font-style: Bold;
+    font-size: 61px;
   }
 
   .task-description {
-    font-size: 14px;
+    font-size: 20px;
     color: #555;
     margin-bottom: 16px;
   }
@@ -84,10 +85,12 @@
       margin: 4px 0;
       font-size: 14px;
       color: #444;
+
       strong {
         font-weight: 600;
       }
     }
+
     margin-bottom: 16px;
   }
 
@@ -134,7 +137,7 @@
     margin-bottom: 16px;
   }
 
-    .subtasks {
+  .subtasks {
     p {
       font-weight: 600;
       margin-bottom: 6px;
@@ -149,17 +152,24 @@
 
 
       input[type="checkbox"] {
-        display: none; 
+        display: none;
 
-        & + label {
+        &+label {
           position: relative;
-          padding-left: 32px; 
+          padding-left: 32px;
           font-size: 14px;
           color: #555;
           cursor: pointer;
+          border-radius: 6px;       
+          padding: 4px 6px 4px 32px; 
+          transition: background-color 0.2s ease;
         }
 
-        & + label::before {
+        & + label:hover {
+        background-color: #e0e0e0; 
+      }
+
+        &+label::before {
           content: "";
           position: absolute;
           left: 0;
@@ -171,7 +181,7 @@
           background-size: 20px 20px;
         }
 
-        &:checked + label::before {
+        &:checked+label::before {
           background: url("/assets/icons/checkbox-checked.svg") no-repeat center;
           background-size: 20px 20px;
         }
@@ -221,7 +231,7 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: 16px; 
+  gap: 16px;
   margin-bottom: 16px;
 
   .meta-item {
@@ -236,7 +246,7 @@
       }
 
       img.priority-icon {
-        
+
         vertical-align: middle;
       }
     }
@@ -261,6 +271,10 @@
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  
+
   @include breakpoint-down("lg") {
     display: none;
   }
