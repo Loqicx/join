@@ -31,7 +31,7 @@
   <div class="bottom-row">
     <!-- Assignees -->
     <div class="assignees">
-      @for (a of assignedInitials; track a.initials) {
+      @for (a of assignedInitials; track a) {
       <span class="avatar" [style.background-color]="a.color">
         {{ a.initials }}
       </span>
