@@ -9,9 +9,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   imports: [CommonModule],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
-  providers: [SVGInlineService]
+  providers: [SVGInlineService],
 })
-
 export class ButtonComponent {
   svgContent!: SafeHtml;
 
@@ -19,16 +18,26 @@ export class ButtonComponent {
   @Input() altText: string = 'Button icon';
   @Input() type: string = 'button';
   @Input() fontSize: string = '26px';
-  @Input() size: 'large' | 'medium' | 'small' | 'xsmall' | 'dynamic' | 'priority' = 'dynamic';
+  @Input() size:
+    | 'large'
+    | 'medium'
+    | 'small'
+    | 'xsmall'
+    | 'dynamic'
+    | 'priority' = 'dynamic';
   @Input() active: boolean = false;
   @Input() invert: boolean = false;
   @Input() round: boolean = false;
+  @Input() iconBtn: boolean = false;
   @Input() color: 'normal' | 'danger' | 'warn' | 'success' = 'normal';
   @Input() disabled: boolean | null = false;
 
   @Output() btnClick = new EventEmitter<void>();
 
-  constructor(private svgService: SVGInlineService, private sanitizer: DomSanitizer) { }
+  constructor(
+    private svgService: SVGInlineService,
+    private sanitizer: DomSanitizer
+  ) {}
 
   handleClick() {
     this.btnClick.emit();
@@ -40,7 +49,7 @@ export class ButtonComponent {
         next: (svg: string) => {
           this.svgContent = this.sanitizer.bypassSecurityTrustHtml(svg);
         },
-        error: err => console.error('SVG load error:', err)
+        error: (err) => console.error('SVG load error:', err),
       });
     }
   }

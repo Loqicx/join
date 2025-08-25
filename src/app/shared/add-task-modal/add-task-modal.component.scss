@@ -1,84 +1,83 @@
 @use "../../../styles/variables.scss" as *;
 @use "../../../styles/mixings.scss" as *;
 
-:host {
-    height: 100vh;
-    width: 100%;
-}
+// :host {
+//     height: 100vh;
+//     width: 100%;
+// }
 
 .modal-wrapper {
-    position: fixed;
-    height: 100vh;
-    inset: 0;
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0);
-    z-index: 1000;
-    transition: background-color ease 0.8s;
+  position: fixed;
+  height: 100vh;
+  inset: 0;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 1000;
+  transition: background-color ease 0.8s;
 
-    &.open {
-        background-color: rgba(0, 0, 0, 0.3);
-        transition: background-color ease 0.8s;
-    }
+  &.open {
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: background-color ease 0.8s;
+  }
 }
 
 .modal-content {
-    width: 90%;
-    max-width: 1100px;
-    max-height: 85%;
-    margin: auto;
-    overflow-y: scroll;
-    scrollbar-color: none;
-    scrollbar-width: none;
-    border-radius: 16px;
-    transform: translateX(100%);
-    opacity: 0;
-    transition: transform 0.8s ease, opacity 0.4s ease-out;
+  width: 90%;
+  max-width: 1100px;
+  max-height: 85%;
+  margin: auto;
+  overflow-y: scroll;
+  scrollbar-color: none;
+  scrollbar-width: none;
+  border-radius: 16px;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.8s ease, opacity 0.4s ease-out;
 
-    &.slide-in {
-        transform: translateX(0%);
-        opacity: 1;
-        transition: transform 0.8s ease, opacity 0.4s ease-in;
-    }
+  &.slide-in {
+    transform: translateX(0%);
+    opacity: 1;
+    transition: transform 0.8s ease, opacity 0.4s ease-in;
+  }
 }
 
 .modal-close-btn {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    z-index: 20;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 20;
 
-    .icon {
-        width: 24px;
-        height: 24px;
-    }
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
 
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 100%;
+  }
+
+  @include breakpoint-down("lg") {
     &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-        border-radius: 100%;
-    }
+      background-color: $color-primary-hover;
 
-    @include breakpoint-down("lg") {
-        &:hover {
-            background-color: $color-primary-hover;
-
-
-            ::ng-deep {
-                path {
-                    fill: $color-white
-                }
-            }
+      ::ng-deep {
+        path {
+          fill: $color-white;
         }
+      }
     }
+  }
 }
 
 .button-wrapper {
-    position: absolute;
-    top: 32px;
-    right: 32px;
+  position: absolute;
+  top: 32px;
+  right: 32px;
 }
