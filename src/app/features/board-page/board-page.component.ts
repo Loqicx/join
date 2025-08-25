@@ -69,6 +69,16 @@ export class BoardPageComponent implements OnInit {
 
   constructor() {}
 
+  get filteredTasks(): Task[] {
+    if (this.searchTerm.trim().length < 1) return this.tasks;
+    const term = this.searchTerm.trim().toLowerCase();
+    return this.tasks.filter(
+      (t) =>
+        t.title.toLowerCase().includes(term) ||
+        t.description.toLowerCase().includes(term)
+    );
+  }
+
   ngOnInit(): void {
     this.tasksService.tasks$.subscribe((tasks) => {
       this.tasks = tasks;
