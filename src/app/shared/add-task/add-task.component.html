@@ -1,9 +1,9 @@
 <div class="page-wrapper" [class.background-grey]="!asModal" [class.edit]="asEdit">
     <div class="add-task-wrapper" [class.edit]="asEdit">
         @if (!asEdit) {
-            <h1 class="title">Add Task</h1>
+        <h1 class="title">Add Task</h1>
         } @else {
-            <h1 class="title">Edit Task</h1>
+        <h1 class="title">Edit Task</h1>
         }
         <div class="add-task">
             <form (ngSubmit)="saveTask(addTaskForm)" #addTaskForm="ngForm" class="add-task-form" [class.edit]="asEdit">
@@ -104,12 +104,19 @@
                         <app-assign-subtask-input [subtasks]="this.selectedSubTasks"
                             (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
                     </div>
+                    @if (!asEdit) {
                     <div class="lower-btn-wrapper">
                         <app-button (btnClick)="resetForm(addTaskForm)" [invert]="true" [fontSize]="'20px'"
                             [iconSrc]="'assets/icons/close.svg'">Cancel</app-button>
                         <app-button [type]="'submit'" [fontSize]="'20px'"
                             [iconSrc]="'assets/icons/check.svg'">Send</app-button>
                     </div>
+                    } @else {
+                    <div class="lower-btn-wrapper">
+                        <app-button [type]="'submit'" [fontSize]="'20px'"
+                            [iconSrc]="'assets/icons/check.svg'">Ok</app-button>
+                    </div>
+                    }
                 </div>
             </form>
         </div>

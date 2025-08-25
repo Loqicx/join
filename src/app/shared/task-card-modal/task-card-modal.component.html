@@ -4,7 +4,7 @@
     <div class="modal-content" [class.edit]="asEdit">
       <!-- Header -->
       <div class="modal-header">
-        <button class="close-btn" (click)="onClose()">×</button>
+        <button class="close-btn" (click)="this.closeModal()">×</button>
       </div>
       @if (!asEdit) {
       <div class="task-type" [class.user-story]="taskUserStory" [class.technical]="taskTechnical">
@@ -77,7 +77,7 @@
 
       <app-delete-modal #deleteModal [task]="task"></app-delete-modal>
       } @else if (asEdit) {
-      <app-add-task [asEdit]="true" [asModal]="true" [task]="task" [selectedContacts]="selectedContacts"
+      <app-add-task (closeModal)="this.closeModal()" [asEdit]="true" [asModal]="true" [task]="task" [selectedContacts]="selectedContacts"
         [assignedContactsNames]="assignedContactsNames"></app-add-task>
       }
     </div>

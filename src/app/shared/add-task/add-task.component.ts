@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, ViewChild } from '@angular/core';
+import { Component, inject, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from "../ui/button/button.component";
@@ -9,7 +9,6 @@ import { AssignContactInputComponent } from "../ui/assign-contact-input/assign-c
 import { AssignSubtaskInputComponent } from "../ui/assign-subtask-input/assign-subtask-input.component";
 import { TasksService } from '../services/firebase/tasks.service';
 import { Task } from '../interfaces/task';
-import { Contact } from '../interfaces/contact';
 import { DatePickerInputComponent } from "../ui/date-picker-input/date-picker-input.component";
 
 /**
@@ -35,6 +34,7 @@ export class AddTaskComponent {
   @Input() asModal: boolean = false;
   @Input() asEdit: boolean = false;
   @Input() assignedContactsNames: string = '';
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
   taskTitle: string = '';
   taskDescription: string = '';
@@ -161,6 +161,24 @@ export class AddTaskComponent {
       return
     }
     this.setData();
+    
+    if (this.asEdit) {
+      this.saveExistingTask(taskForm);
+    } else {
+      this.saveNewTask(taskForm);
+    }
+  }
+
+  async saveExistingTask(taskForm: NgForm) {
+    try {
+      await this.tasksService.updateTask(this.task, this.task.id);
+      this.closeModal.emit();
+    } catch (error) {
+      console.error('Failed to Update Task!')
+    }
+  }
+
+  async saveNewTask(taskForm: NgForm) {
     try {
       await this.tasksService.addTaskToDatabase(this.task);
       this.resetForm(taskForm);

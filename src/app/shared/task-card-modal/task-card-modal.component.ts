@@ -248,7 +248,7 @@ export class TaskCardModalComponent implements OnInit {
   /**
    * Closes the modal by emitting the close event.
    */
-  onClose() {
+  closeModal() {
     this.close.emit();
   }
 
