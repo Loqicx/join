@@ -1,4 +1,5 @@
 @use "./../../../../styles/variables.scss" as *;
+@use "../../../../styles/mixings.scss" as *;
 
 .add-contact-button {
   background-color: $color-primary;
@@ -111,6 +112,28 @@
 .priority {
   height: 56px;
   width: 136px;
+
+  @include breakpoint-down('xl') {
+    height: 48px;
+    width: 112px;
+  }
+
+  @include breakpoint-down('md') {
+    height: 56px;
+    width: 136px;
+  }
+
+  @include breakpoint-down('sm') {
+    height: 42px;
+    width: 96px;
+    font-size: 16px !important;
+  }
+
+  @include breakpoint-down('xsm') {
+    height: 42px;
+    width: 88px;
+    font-size: 14px !important;
+  }
 }
 
 .invert.danger {
@@ -300,4 +323,3 @@
     transform: scale(1);
   }
 }
-
