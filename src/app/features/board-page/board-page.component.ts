@@ -98,6 +98,11 @@ export class BoardPageComponent implements OnInit {
     this.selectedTask = null;
   }
 
+  setTaskStatus(status: number) {
+    this.addTaskStatus = status;
+    this.addTaskModal();
+  }
+
   drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
