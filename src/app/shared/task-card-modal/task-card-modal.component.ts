@@ -174,7 +174,6 @@ export class TaskCardModalComponent implements OnInit {
       }
     }
     this.getContactNames();
-    console.log(this.assignedContactsNames);
   }
 
   /**
