@@ -149,7 +149,16 @@ export class BoardPageComponent implements OnInit {
     return otherLists;
   }
 
+  searchTask(event: any) {
+    if (
+      (event.type === 'keyup' && event.key === 'Enter') ||
+      event.type === 'click'
+    ) {
+      this.handleTaskUpdate();
+    }
+  }
+
   addTaskModal() {
-    this.AddTaskModal.openModal()
+    this.AddTaskModal.openModal();
   }
 }
