@@ -5,7 +5,7 @@
     <div class="modal-header">
       <button class="close-btn" (click)="onClose()">×</button>
     </div>
-
+    @if (!asEdit) {
     <div class="task-type" [class.user-story]="taskUserStory" [class.technical]="taskTechnical">
       {{ taskCategory }}
     </div>
@@ -43,18 +43,14 @@
 
     <!-- Subtasks -->
     <div class="subtasks">
-  <p>Subtasks:</p>
-  @for (subtask of task.subtasks; track subtask.title; let i = $index) {
-  <div class="subtask">
-    <input 
-      type="checkbox" 
-      id="subtask-{{i}}" 
-      [checked]="subtask.done" 
-      (change)="toggleSubtask(i)" />
-    <label for="subtask-{{i}}">{{ subtask.title }}</label>
-  </div>
-  }
-</div>
+      <p>Subtasks:</p>
+      @for (subtask of task.subtasks; track subtask.title; let i = $index) {
+      <div class="subtask">
+        <input type="checkbox" id="subtask-{{i}}" [checked]="subtask.done" (change)="toggleSubtask(i)" />
+        <label for="subtask-{{i}}">{{ subtask.title }}</label>
+      </div>
+      }
+    </div>
 
     <!-- Footer -->
     <div class="modal-footer">
@@ -68,7 +64,7 @@
           </a>
         </div>
         <div class="action-button-wrapper">
-          <a class="action-button">
+          <a class="action-button" (click)="asEdit = true">
             <div class="btn-inner">
               <div [innerHTML]="svgContents['edit']" class="icon"></div>
               <span>Edit</span>
@@ -79,7 +75,10 @@
     </div>
 
     <app-delete-modal #deleteModal [task]="task"></app-delete-modal>
-
+    } @else if (asEdit) {
+    <app-add-task [asEdit]="true" [asModal]="true" [task]="task" [selectedContacts]="selectedContacts" [assignedContactsNames]="assignedContactsNames"></app-add-task>
+    }
   </div>
 </div>
+
 }
