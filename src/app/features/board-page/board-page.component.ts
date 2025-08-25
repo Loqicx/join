@@ -69,6 +69,9 @@ export class BoardPageComponent implements OnInit {
 
   @ViewChild(AddTaskModalComponent) AddTaskModal!: AddTaskModalComponent;
 
+  taskToEdit: string = '';
+  asEdit: boolean = false;
+
   constructor() {}
 
   get filteredTasks(): Task[] {

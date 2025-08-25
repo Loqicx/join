@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AssignSubtaskInputComponent {
 
-  @Input() subtasks: { id: number, title: string, done: boolean, hover?: boolean, edit?: boolean }[] = [];
+  @Input() subtasks: { title: string, done: boolean, hover?: boolean, edit?: boolean }[] = [];
   subtaskData: { title: string, done: boolean }[] = [{ title: '', done: false }];
   taskSubtask: any;
 
@@ -18,12 +18,12 @@ export class AssignSubtaskInputComponent {
   subtaskInput: boolean = false;
   subtaskEditInput: string = '';
 
-  @Output() selectedSubTasks: EventEmitter<{ id: number, title: string, done: boolean }[]> =
-    new EventEmitter<{ id: number, title: string, done: boolean }[]>();
+  @Output() selectedSubTasks: EventEmitter<{ title: string, done: boolean }[]> =
+    new EventEmitter<{ title: string, done: boolean }[]>();
 
   addSubtask() {
     if (this.taskSubtask) {
-      this.subtasks.push({ id: this.subtasks.length + 1, title: this.taskSubtask, done: false, hover: false, edit: false });
+      this.subtasks.push({ title: this.taskSubtask, done: false, hover: false, edit: false });
       this.taskSubtask = '';
       this.emitSubtasks();
       this.subtaskInput = false;
@@ -46,7 +46,7 @@ export class AssignSubtaskInputComponent {
   }
 
   emitSubtasks() {
-    this.selectedSubTasks.emit(this.subtasks.map(subtask => ({ id: subtask.id, title: subtask.title, done: subtask.done })));
+    this.selectedSubTasks.emit(this.subtasks.map(subtask => ({ title: subtask.title, done: subtask.done })));
   }
 
   reloadInput(index: number) {

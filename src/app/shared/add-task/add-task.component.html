@@ -32,7 +32,7 @@
                             </label>
                             <!-- <input class="input-sm blue-focus border date-input" type="date" required
                                 [(ngModel)]="taskDueDate" name="taskDueDate" #taskDueDateVar="ngModel" /> -->
-                            <app-date-picker-input (dateSelected)="setTaskDueDate($event)"></app-date-picker-input>
+                            <app-date-picker-input [dateInputVal]="cleanedTaskDueDate" (dateSelected)="setTaskDueDate($event)"></app-date-picker-input>
                         </div>
                     </div>
                     <div class="required-text-wrapper">
@@ -70,7 +70,7 @@
                     </div>
                     <div class="input-wrapper">
                         <div class="input">
-                            <app-assign-contact-input class="assign-contact" [preview]="true"
+                            <app-assign-contact-input class="assign-contact" [preview]="true" [selectedContactsArray]="selectedContacts" [taskAssignInput]="assignedContactsNames"
                                 (selectedContacts)="selectContacts($event)">
                             </app-assign-contact-input>
                         </div>

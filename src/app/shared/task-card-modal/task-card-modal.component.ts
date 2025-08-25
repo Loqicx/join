@@ -12,11 +12,16 @@ import { Contact } from '../interfaces/contact';
 import { ContactsService } from '../services/firebase/contacts.service';
 import { InitialLettersService } from '../services/get-initial-letters.service';
 import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';
-import { TaskCategory, TasksService, TaskPriority } from '../services/firebase/tasks.service';
+import {
+  TaskCategory,
+  TasksService,
+  TaskPriority,
+} from '../services/firebase/tasks.service';
 import { SVGInlineService } from '../services/svg-inline.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 import { ViewChild } from '@angular/core';
+import { AddTaskComponent } from '../add-task/add-task.component';
 
 /**
  * TaskCardModalComponent
@@ -27,12 +32,15 @@ import { ViewChild } from '@angular/core';
 @Component({
   selector: 'app-task-card-modal',
   standalone: true,
-  imports: [CommonModule, DeleteModalComponent],
+  imports: [CommonModule, DeleteModalComponent, AddTaskComponent],
   templateUrl: './task-card-modal.component.html',
   styleUrls: ['./task-card-modal.component.scss'],
   providers: [ColoredProfilePipe, SVGInlineService],
 })
 export class TaskCardModalComponent implements OnInit {
+  asEdit: boolean = false;
+  selectedContacts: Contact[] = [];
+  assignedContactsNames: string = '';
 
   /**
    * Stores inline SVGs after sanitization.
@@ -146,6 +154,7 @@ export class TaskCardModalComponent implements OnInit {
       const id = this.task.assignedTo[i];
       const contact: Contact | undefined =
         this.contactsService.getContactById(id);
+      if (contact) this.selectedContacts.push(contact);
 
       if (contact) {
         const initials: String =
@@ -164,6 +173,8 @@ export class TaskCardModalComponent implements OnInit {
         });
       }
     }
+    this.getContactNames();
+    console.log(this.assignedContactsNames);
   }
 
   /**
@@ -185,10 +196,7 @@ export class TaskCardModalComponent implements OnInit {
     const updatedSubtasks = [...this.task.subtasks];
     updatedSubtasks[index].done = !updatedSubtasks[index].done;
 
-    this.tasksService.updateTask(
-      { subtasks: updatedSubtasks },
-      this.task.id
-    );
+    this.tasksService.updateTask({ subtasks: updatedSubtasks }, this.task.id);
 
     this.task.subtasks = updatedSubtasks;
   }
@@ -211,6 +219,14 @@ export class TaskCardModalComponent implements OnInit {
         this.taskTechnical = false;
         this.taskUserStory = false;
         return 'Default Task';
+    }
+  }
+
+  getContactNames() {
+    this.assignedContactsNames = '';
+    for (let i = 0; i < this.selectedContacts.length; i++) {
+      const name = `${this.selectedContacts[i].firstName} ${this.selectedContacts[i].lastName}, `;
+      this.assignedContactsNames += name;
     }
   }
 

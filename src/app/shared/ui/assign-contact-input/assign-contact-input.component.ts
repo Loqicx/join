@@ -16,7 +16,7 @@ export class AssignContactInputComponent {
   @Input() preview: boolean = false;
   @Input() selectedContactsArray: Contact[] = [];
 
-  taskAssignInput: any;
+  @Input() taskAssignInput: any;
   contacts: Contact[] = [];
   @Output() selectedContacts: EventEmitter<Contact[]> = new EventEmitter<Contact[]>();
   searchArray: [] | any = [];
