@@ -57,6 +57,8 @@ export class BoardPageComponent implements OnInit {
     ],
   };
 
+  addTaskStatus: number = 1;
+
   tasksService: TasksService = inject(TasksService);
 
   selectedTask: Task | null = null;
