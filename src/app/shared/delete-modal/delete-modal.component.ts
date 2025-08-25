@@ -81,7 +81,7 @@ export class DeleteModalComponent {
   /**
    * Opens the delete modal with task data.
    * 
-   * @param {string} taskId - The task ID to display/delete in the modal.
+   * @param {Task} task - The task ID to display/delete in the modal.
    */
   deleteTaskModal(task?: Task) {
     this.deleteType = 'Task';
