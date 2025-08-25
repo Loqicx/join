@@ -7,6 +7,8 @@ import { InitialLettersService } from '../services/get-initial-letters.service';
 import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';
 import { ButtonComponent } from '../ui/button/button.component';
 import { ContactsCommunicationService } from '../../features/contacts-page/services/contacts-communication.service';
+import { TasksService } from '../services/firebase/tasks.service';
+import { Task } from '../interfaces/task';
 
 @Component({
   selector: 'app-delete-modal',
@@ -16,11 +18,12 @@ import { ContactsCommunicationService } from '../../features/contacts-page/servi
 })
 export class DeleteModalComponent {
   @Input() contactToDelete!: Contact;
+  @Input() deleteType: string = 'nothing';
+  @Input() task!: Task;
 
   isOpen = false;
   slideIn = false;
   fullName = '';
-  delete: string = 'nothing';
 
   contactsService = inject(ContactsService);
   contactComService = inject(ContactsCommunicationService);
@@ -32,9 +35,17 @@ export class DeleteModalComponent {
     phoneNumber: '',
   };
 
+  tasksService = inject(TasksService);
+
+  /**
+   * Constructor for DeleteModalComponent.
+   * 
+   * @param initialLettersService - An instance of InitialLettersService.
+   * @param renderer - An instance of Renderer2 used to listen for window pointerdown events.
+   */
   constructor(
     public initialLettersService: InitialLettersService,
-    private renderer: Renderer2
+    private readonly renderer: Renderer2
   ) {
     this.renderer.listen('window', 'pointerdown', (event) => {
       const modal = document.querySelector('.modal');
@@ -44,22 +55,58 @@ export class DeleteModalComponent {
     });
   }
 
-  deleteContactModal(contactData: Contact) {
-    this.delete = 'Contact';
-    this.contact = { ...contactData };
-    this.fullName = `${contactData.firstName} ${contactData.lastName}`;
+  /**
+   * Opens the delete modal with contact or task data.
+   * 
+   * @param {Contact} contactData - The contact object to display/delete in the modal.
+   */
+  deleteContactModal(contactData?: Contact) {
+    this.deleteType = 'Contact';
+    if (contactData) {
+      this.contact = { ...contactData };
+      this.fullName = `${contactData.firstName} ${contactData.lastName}`;
+    } else if (this.contactToDelete) {
+      this.contact = { ...this.contactToDelete };
+      this.fullName = `${this.contact.firstName} ${this.contact.lastName}`;
+    } else {
+      console.error('No Contact to delete given. Modal stays closed.');
+      return;
+    }
     this.isOpen = true;
     setTimeout(() => {
       this.slideIn = true;
     }, 25);
   }
 
+  /**
+   * Opens the delete modal with task data.
+   * 
+   * @param {string} taskId - The task ID to display/delete in the modal.
+   */
+  deleteTaskModal(task?: Task) {
+    this.deleteType = 'Task';
+    if (task) {
+      this.task = task;
+    } else if (!this.task) {
+      console.error('No Contact to delete given. Modal stays closed.');
+      return;
+    }
+    this.isOpen = true;
+    setTimeout(() => {
+      this.slideIn = true;
+    }, 25);
+  }
+
+  /**
+   * Deletes the selected contact.
+   * 
+   * @async
+   */
   async deleteContact() {
     if (!this.contact?.id) {
       console.error('No contact to delete or missing id');
       return;
     }
-
     try {
       await this.contactsService.deleteContact(this.contact.id);
       this.contactComService.setContactId('');
@@ -69,6 +116,38 @@ export class DeleteModalComponent {
     }
   }
 
+  /**
+   * Deletes the selected task.
+   * 
+   * @async
+   */
+  async deleteTask() {
+    if (!this.task) {
+      console.error('No task to delete or missing task id');
+    }
+
+    try {
+      await this.tasksService.deleteTask(this.task.id);
+      this.isOpen = false;
+    } catch (error) {
+      console.error('Delete Failed for Task', error)
+    }
+  }
+
+  /**
+   * Deletes the selected contact or task.
+   */
+  deleteSelect() {
+    if (this.deleteType === 'Contact') {
+      this.deleteContact();
+    } else if (this.deleteType === 'Task') {
+      this.deleteTask();
+    }
+  }
+
+  /**
+   * Closes the delete modal.
+   */
   closeModal() {
     this.slideIn = false;
     setTimeout(() => {
