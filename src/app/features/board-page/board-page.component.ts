@@ -63,7 +63,9 @@ export class BoardPageComponent implements OnInit {
 
   isModalOpen = false;
 
-  @ViewChild (AddTaskModalComponent) AddTaskModal!: AddTaskModalComponent;
+  searchTerm: string = '';
+
+  @ViewChild(AddTaskModalComponent) AddTaskModal!: AddTaskModalComponent;
 
   constructor() {}
 
