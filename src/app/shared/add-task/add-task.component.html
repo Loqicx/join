@@ -37,7 +37,7 @@
                             <!-- <input class="input-sm blue-focus border date-input" type="date" required
                                 [(ngModel)]="taskDueDate" name="taskDueDate" #taskDueDateVar="ngModel" /> -->
                             <app-date-picker-input [dateInputVal]="cleanedTaskDueDate"
-                                (dateSelected)="setTaskDueDate($event)"></app-date-picker-input>
+                                (dateSelected)="setTaskDueDate($event)" [asEdit]="asEdit"></app-date-picker-input>
                         </div>
                     </div>
                     <div class="required-text-wrapper" [class.edit]="asEdit">
