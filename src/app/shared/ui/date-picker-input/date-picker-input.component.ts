@@ -44,6 +44,10 @@ export class DatePickerInputComponent implements ControlValueAccessor {
     }
   }
 
+  ngOnInit() {
+    this.selectDate(this.dateInputVal);
+  }
+
   /**
    * Writes the value to the date picker component.
    * Updates the input value and generates the calendar days.
@@ -166,6 +170,16 @@ export class DatePickerInputComponent implements ControlValueAccessor {
         this.showCalendar = !this.showCalendar;
       }, 250);
       if (this.showCalendar) this.generateCalendar();
+    }
+  }
+
+  selectDate(date: string): void {
+    const [day, month, year] = date.split('/').map(Number);
+    const selectedDate = new Date(year, month - 1, day);
+    if (this.isValidDate(selectedDate) && this.isFutureDate(selectedDate)) {
+      this.onDateSelected(selectedDate);
+    } else {
+      this.showWarning = true;
     }
   }
 
