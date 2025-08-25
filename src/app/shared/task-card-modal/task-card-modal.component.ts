@@ -15,6 +15,8 @@ import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';
 import { TaskCategory, TasksService, TaskPriority } from '../services/firebase/tasks.service';
 import { SVGInlineService } from '../services/svg-inline.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
+import { ViewChild } from '@angular/core';
 
 /**
  * TaskCardModalComponent
@@ -25,12 +27,13 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-task-card-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DeleteModalComponent],
   templateUrl: './task-card-modal.component.html',
   styleUrls: ['./task-card-modal.component.scss'],
   providers: [ColoredProfilePipe, SVGInlineService],
 })
 export class TaskCardModalComponent implements OnInit {
+  
   /**
    * Stores inline SVGs after sanitization.
    */
@@ -57,6 +60,8 @@ export class TaskCardModalComponent implements OnInit {
    * The task displayed inside the modal.
    */
   @Input() task!: Task;
+
+  @ViewChild('deleteModal') deleteModal!: DeleteModalComponent;
 
   /**
    * Event emitter to close the modal.
@@ -224,15 +229,19 @@ export class TaskCardModalComponent implements OnInit {
    * Opens the delete modal and removes the task from the database.
    * Emits close event after deletion.
    */
-  async openDeleteModal() {
-    if (this.task) {
-      try {
-        await this.tasksService.deleteTask(this.task.id);
-        console.log(`Task with ID ${this.task.id} deleted from DB.`);
-        this.close.emit();
-      } catch (error) {
-        console.error('Error deleting task:', error);
-      }
-    }
+  // async openDeleteModal() {
+  //   if (this.task) {
+  //     try {
+  //       await this.tasksService.deleteTask(this.task.id);
+  //       console.log(`Task with ID ${this.task.id} deleted from DB.`);
+  //       this.close.emit();
+  //     } catch (error) {
+  //       console.error('Error deleting task:', error);
+  //     }
+  //   }
+  // }
+
+  openDeleteModal() {
+    this.deleteModal.deleteTaskModal(this.task);
   }
 }
