@@ -12,7 +12,11 @@ import { Contact } from '../interfaces/contact';
 import { ContactsService } from '../services/firebase/contacts.service';
 import { InitialLettersService } from '../services/get-initial-letters.service';
 import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';
-import { TaskCategory, TasksService, TaskPriority } from '../services/firebase/tasks.service';
+import {
+  TaskCategory,
+  TasksService,
+  TaskPriority,
+} from '../services/firebase/tasks.service';
 import { SVGInlineService } from '../services/svg-inline.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
@@ -37,7 +41,7 @@ export class TaskCardModalComponent implements OnInit {
   asEdit: boolean = false;
   selectedContacts: Contact[] = [];
   assignedContactsNames: string = '';
-  
+
   /**
    * Stores inline SVGs after sanitization.
    */
@@ -120,22 +124,23 @@ export class TaskCardModalComponent implements OnInit {
    * @returns {string} Path to the priority icon.
    */
   taskPriority(): string {
-  if (this.task.priority === TaskPriority.LOW) return this.priorities.low;
-  if (this.task.priority === TaskPriority.MEDIUM) return this.priorities.medium;
-  if (this.task.priority === TaskPriority.HIGH) return this.priorities.high;
-  return this.priorities.medium; // fallback
-}
+    if (this.task.priority === TaskPriority.LOW) return this.priorities.low;
+    if (this.task.priority === TaskPriority.MEDIUM)
+      return this.priorities.medium;
+    if (this.task.priority === TaskPriority.HIGH) return this.priorities.high;
+    return this.priorities.medium; // fallback
+  }
 
   /**
    * Returns the human-readable label for the task priority.
    * @returns {string} Priority label.
    */
   getPriorityLabel(): string {
-  if (this.task.priority === TaskPriority.LOW) return 'Low';
-  if (this.task.priority === TaskPriority.MEDIUM) return 'Medium';
-  if (this.task.priority === TaskPriority.HIGH) return 'Urgent';
-  return 'Medium'; // fallback
-}
+    if (this.task.priority === TaskPriority.LOW) return 'Low';
+    if (this.task.priority === TaskPriority.MEDIUM) return 'Medium';
+    if (this.task.priority === TaskPriority.HIGH) return 'Urgent';
+    return 'Medium'; // fallback
+  }
 
   /**
    * Updates the list of assigned contacts for this task.
@@ -150,7 +155,7 @@ export class TaskCardModalComponent implements OnInit {
       const id = this.task.assignedTo[i];
       const contact: Contact | undefined =
         this.contactsService.getContactById(id);
-        if (contact) this.selectedContacts.push(contact);
+      if (contact) this.selectedContacts.push(contact);
 
       if (contact) {
         const initials: String =
@@ -170,7 +175,7 @@ export class TaskCardModalComponent implements OnInit {
       }
     }
     this.getContactNames();
-    console.log(this.assignedContactsNames)
+    console.log(this.assignedContactsNames);
   }
 
   /**
@@ -181,10 +186,7 @@ export class TaskCardModalComponent implements OnInit {
     const updatedSubtasks = [...this.task.subtasks];
     updatedSubtasks[index].done = !updatedSubtasks[index].done;
 
-    this.tasksService.updateTask(
-      { subtasks: updatedSubtasks },
-      this.task.id
-    );
+    this.tasksService.updateTask({ subtasks: updatedSubtasks }, this.task.id);
 
     this.task.subtasks = updatedSubtasks;
   }
@@ -213,7 +215,7 @@ export class TaskCardModalComponent implements OnInit {
   getContactNames() {
     this.assignedContactsNames = '';
     for (let i = 0; i < this.selectedContacts.length; i++) {
-      const name = (`${this.selectedContacts[i].firstName} ${this.selectedContacts[i].lastName}, `)
+      const name = `${this.selectedContacts[i].firstName} ${this.selectedContacts[i].lastName}, `;
       this.assignedContactsNames += name;
     }
   }
