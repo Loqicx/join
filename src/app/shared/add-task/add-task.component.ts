@@ -30,7 +30,7 @@ export class AddTaskComponent {
   selectedSubTasks: { title: string, done: boolean }[] = [];
 
   @Input() selectedContacts: any = [];
-  @Input() taskStatus: number = 1;
+  @Input() taskStatus: number | null = 1;
   @Input() asModal: boolean = false;
   @Input() asEdit: boolean = false;
   @Input() assignedContactsNames: string = '';
@@ -75,7 +75,7 @@ export class AddTaskComponent {
     if (this.asEdit) {
       this.setTaskData()
     }
-    this.task.status = this.taskStatus
+    this.taskStatus = this.task.status
   }
 
   setTaskData() {
@@ -161,7 +161,7 @@ export class AddTaskComponent {
       return
     }
     this.setData();
-    
+
     if (this.asEdit) {
       this.saveExistingTask(taskForm);
     } else {
