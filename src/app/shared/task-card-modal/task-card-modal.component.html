@@ -1,14 +1,16 @@
 @if (task) {
-<div class="modal-overlay"(click)="onOutsideClick($event)">
+<div class="modal-overlay" (click)="onOutsideClick($event)">
   <div class="modal-content">
     <!-- Header -->
     <div class="modal-header">
+      <div class="task-type" [class.user-story]="taskUserStory" [class.technical]="taskTechnical">
+        {{ taskCategory }}
+      </div>
       <button class="close-btn" (click)="onClose()">×</button>
+
     </div>
 
-    <div class="task-type" [class.user-story]="taskUserStory" [class.technical]="taskTechnical">
-      {{ taskCategory }}
-    </div>
+
 
     <!-- Title + Description -->
     <h2 class="task-title">{{ task.title }}</h2>
@@ -43,18 +45,14 @@
 
     <!-- Subtasks -->
     <div class="subtasks">
-  <p>Subtasks:</p>
-  @for (subtask of task.subtasks; track subtask.title; let i = $index) {
-  <div class="subtask">
-    <input 
-      type="checkbox" 
-      id="subtask-{{i}}" 
-      [checked]="subtask.done" 
-      (change)="toggleSubtask(i)" />
-    <label for="subtask-{{i}}">{{ subtask.title }}</label>
-  </div>
-  }
-</div>
+      <p>Subtasks:</p>
+      @for (subtask of task.subtasks; track subtask.title; let i = $index) {
+      <div class="subtask">
+        <input type="checkbox" id="subtask-{{i}}" [checked]="subtask.done" (change)="toggleSubtask(i)" />
+        <label for="subtask-{{i}}">{{ subtask.title }}</label>
+      </div>
+      }
+    </div>
 
     <!-- Footer -->
     <div class="modal-footer">
