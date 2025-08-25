@@ -3,8 +3,14 @@
     <h2 class="header__headline page-headline">Board</h2>
     <div class="header__actions">
       <div class="search-input-field">
-        <input type="text" class="text-input" placeholder="Find Task" />
-        <div class="search-icon-container">
+        <input
+          type="text"
+          class="text-input"
+          [(ngModel)]="searchTerm"
+          (keyup)="searchTask($event)"
+          placeholder="Find Task"
+        />
+        <div class="search-icon-container" (click)="searchTask($event)">
           <img src="./assets/icons/search.svg" alt="" class="search-icon" />
         </div>
       </div>
@@ -40,21 +46,23 @@
         [cdkDropListData]="list.items"
         (cdkDropListDropped)="drop($event)"
       >
-        @for (task of list.items; track task.id) {
+        @if(list.items.length > 0) { @for (task of list.items; track task.id) {
         <!-- <div class="task-item" cdkDrag>{{ task }}</div> -->
         <app-task-card
           [task]="task"
           (open)="openTask($event)"
           cdkDrag
         ></app-task-card>
+        } } @else {
+        <div class="empty-list-item">
+          <span class="item-text">No tasks in {{ list.name }}</span>
+        </div>
         }
       </div>
     </div>
     }
   </div>
-  <app-add-task-modal 
-    [selectedContacts]="[]" 
-    [taskStatus]="1">
+  <app-add-task-modal [selectedContacts]="[]" [taskStatus]="1">
   </app-add-task-modal>
   <!-- Modal -->
   @if (isModalOpen && selectedTask) {

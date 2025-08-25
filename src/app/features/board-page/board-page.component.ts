@@ -13,6 +13,7 @@ import { TasksService } from '../../shared/services/firebase/tasks.service';
 import { Task } from '../../shared/interfaces/task';
 import { TaskCardModalComponent } from '../../shared/task-card-modal/task-card-modal.component';
 import { AddTaskModalComponent } from '../../shared/add-task-modal/add-task-modal.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-board-page',
@@ -23,8 +24,9 @@ import { AddTaskModalComponent } from '../../shared/add-task-modal/add-task-moda
     CdkDropListGroup,
     TaskCardComponent,
     TaskCardModalComponent,
-    AddTaskModalComponent
-],
+    AddTaskModalComponent,
+    FormsModule,
+  ],
   templateUrl: './board-page.component.html',
   styleUrl: './board-page.component.scss',
 })
@@ -61,9 +63,21 @@ export class BoardPageComponent implements OnInit {
 
   isModalOpen = false;
 
-  @ViewChild (AddTaskModalComponent) AddTaskModal!: AddTaskModalComponent;
+  searchTerm: string = '';
+
+  @ViewChild(AddTaskModalComponent) AddTaskModal!: AddTaskModalComponent;
 
   constructor() {}
+
+  get filteredTasks(): Task[] {
+    if (this.searchTerm.trim().length < 1) return this.tasks;
+    const term = this.searchTerm.trim().toLowerCase();
+    return this.tasks.filter(
+      (t) =>
+        t.title.toLowerCase().includes(term) ||
+        t.description.toLowerCase().includes(term)
+    );
+  }
 
   ngOnInit(): void {
     this.tasksService.tasks$.subscribe((tasks) => {
@@ -114,7 +128,7 @@ export class BoardPageComponent implements OnInit {
   }
   handleTaskUpdate() {
     this.clearList();
-    this.tasks.forEach((task) => {
+    this.filteredTasks.forEach((task) => {
       this.board.lists[task.status! - 1].items.push(task);
     });
   }
@@ -135,7 +149,16 @@ export class BoardPageComponent implements OnInit {
     return otherLists;
   }
 
+  searchTask(event: any) {
+    if (
+      (event.type === 'keyup' && event.key === 'Enter') ||
+      event.type === 'click'
+    ) {
+      this.handleTaskUpdate();
+    }
+  }
+
   addTaskModal() {
-    this.AddTaskModal.openModal()
+    this.AddTaskModal.openModal();
   }
 }
