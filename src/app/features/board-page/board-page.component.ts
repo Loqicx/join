@@ -13,6 +13,7 @@ import { TasksService } from '../../shared/services/firebase/tasks.service';
 import { Task } from '../../shared/interfaces/task';
 import { TaskCardModalComponent } from '../../shared/task-card-modal/task-card-modal.component';
 import { AddTaskModalComponent } from '../../shared/add-task-modal/add-task-modal.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-board-page',
@@ -23,8 +24,9 @@ import { AddTaskModalComponent } from '../../shared/add-task-modal/add-task-moda
     CdkDropListGroup,
     TaskCardComponent,
     TaskCardModalComponent,
-    AddTaskModalComponent
-],
+    AddTaskModalComponent,
+    FormsModule,
+  ],
   templateUrl: './board-page.component.html',
   styleUrl: './board-page.component.scss',
 })
