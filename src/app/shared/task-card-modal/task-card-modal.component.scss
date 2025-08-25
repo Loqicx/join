@@ -34,8 +34,20 @@
       border: none;
       font-size: 24px;
       cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
     }
   }
+
 
   .task-type {
     font-size: 24px;
@@ -87,8 +99,10 @@
 
     .assignees {
       display: flex;
+      flex-direction: column;
       flex-wrap: wrap;
       gap: 8px;
+      padding: 10px;
 
       .assignee {
         display: flex;
@@ -120,7 +134,7 @@
     margin-bottom: 16px;
   }
 
-  .subtasks {
+    .subtasks {
     p {
       font-weight: 600;
       margin-bottom: 6px;
@@ -132,17 +146,38 @@
       margin-bottom: 6px;
 
       input[type="checkbox"] {
-        margin-right: 8px;
-      }
+        display: none; 
 
-      label {
-        font-size: 14px;
-        color: #555;
+        & + label {
+          position: relative;
+          padding-left: 32px; 
+          font-size: 14px;
+          color: #555;
+          cursor: pointer;
+        }
+
+        & + label::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 24px;
+          height: 24px;
+          background: url("/assets/icons/checkbox-empty.svg") no-repeat center;
+          background-size: 20px 20px;
+        }
+
+        &:checked + label::before {
+          background: url("/assets/icons/checkbox-checked.svg") no-repeat center;
+          background-size: 20px 20px;
+        }
       }
     }
 
     margin-bottom: 16px;
   }
+
 
   .modal-footer {
     display: flex;
@@ -174,6 +209,46 @@
         &:hover {
           background-color: #17c3b2;
         }
+      }
+    }
+  }
+}
+
+.task-meta {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 16px; 
+  margin-bottom: 16px;
+
+  .meta-item {
+    p {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #444;
+
+      strong {
+        font-weight: 600;
+        margin-right: 12px;
+      }
+
+      img.priority-icon {
+        
+        vertical-align: middle;
+      }
+    }
+
+    &.due-date {
+      p {
+        display: flex;
+        gap: 5px;
+      }
+    }
+
+    &.priority {
+      p {
+        display: flex;
+        gap: 18px;
       }
     }
   }
