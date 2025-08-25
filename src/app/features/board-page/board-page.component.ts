@@ -128,7 +128,7 @@ export class BoardPageComponent implements OnInit {
   }
   handleTaskUpdate() {
     this.clearList();
-    this.tasks.forEach((task) => {
+    this.filteredTasks.forEach((task) => {
       this.board.lists[task.status! - 1].items.push(task);
     });
   }
