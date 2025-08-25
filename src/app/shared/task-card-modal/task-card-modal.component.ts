@@ -16,6 +16,12 @@ import { TaskCategory, TasksService, TaskPriority } from '../services/firebase/t
 import { SVGInlineService } from '../services/svg-inline.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
+/**
+ * TaskCardModalComponent
+ *
+ * Displays detailed information about a single task inside a modal dialog.
+ * Provides functionality to edit, delete, and manage subtasks.
+ */
 @Component({
   selector: 'app-task-card-modal',
   standalone: true,
@@ -25,30 +31,54 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
   providers: [ColoredProfilePipe, SVGInlineService],
 })
 export class TaskCardModalComponent implements OnInit {
-  // SVG & Icons
+  /**
+   * Stores inline SVGs after sanitization.
+   */
   svgContents: { [key: string]: SafeHtml } = {};
+
+  /**
+   * Icon definitions for modal actions.
+   */
   icons = [
     { name: 'edit', src: './assets/icons/edit.svg' },
     { name: 'delete', src: './assets/icons/delete.svg' },
   ];
 
-  // Priority Icons
+  /**
+   * Icon paths for task priorities.
+   */
   priorities = {
     low: './assets/icons/low.svg',
     medium: './assets/icons/medium.svg',
     high: './assets/icons/urgent.svg',
   };
 
-  // Inputs & Outputs
+  /**
+   * The task displayed inside the modal.
+   */
   @Input() task!: Task;
+
+  /**
+   * Event emitter to close the modal.
+   */
   @Output() close = new EventEmitter<void>();
+
+  /**
+   * Event emitter triggered when a task is deleted.
+   */
   @Output() delete = new EventEmitter<Task>();
+
+  /**
+   * Event emitter triggered when a task is edited.
+   */
   @Output() edit = new EventEmitter<Task>();
 
-  // Assigned Contacts
+  /**
+   * Assigned contacts shown with initials, color and name.
+   */
   assignedContacts: { initials: String; color: String; name: String }[] = [];
 
-  // Services
+  // === Injected Services ===
   contactsService: ContactsService = inject(ContactsService);
   initialLetterService: InitialLettersService = inject(InitialLettersService);
   coloredProfilePipe: ColoredProfilePipe = inject(ColoredProfilePipe);
@@ -56,11 +86,17 @@ export class TaskCardModalComponent implements OnInit {
   svgService: SVGInlineService = inject(SVGInlineService);
   sanitizer: DomSanitizer = inject(DomSanitizer);
 
-  // Task Category
+  /**
+   * Flags used to identify task category.
+   */
   taskTechnical: boolean = false;
   taskUserStory: boolean = false;
   taskCategory: string = '';
 
+  /**
+   * Lifecycle hook that runs on component initialization.
+   * Loads assigned contacts, determines task category and converts icons.
+   */
   ngOnInit(): void {
     this.updateAssignedContacts();
     this.taskCategory = this.getTaskCategory();
@@ -70,15 +106,32 @@ export class TaskCardModalComponent implements OnInit {
     });
   }
 
-  // Priority Icon Methode
+  /**
+   * Returns the SVG path of the current task's priority.
+   * @returns {string} Path to the priority icon.
+   */
   taskPriority(): string {
-    if (!this.task) return this.priorities.medium;
-    if (this.task.priority == TaskPriority.LOW) return this.priorities.low;
-    if (this.task.priority == TaskPriority.MEDIUM) return this.priorities.medium;
-    if (this.task.priority == TaskPriority.HIGH) return this.priorities.high;
-    return this.priorities.medium;
-  }
+  if (this.task.priority === TaskPriority.LOW) return this.priorities.low;
+  if (this.task.priority === TaskPriority.MEDIUM) return this.priorities.medium;
+  if (this.task.priority === TaskPriority.HIGH) return this.priorities.high;
+  return this.priorities.medium; // fallback
+}
 
+  /**
+   * Returns the human-readable label for the task priority.
+   * @returns {string} Priority label.
+   */
+  getPriorityLabel(): string {
+  if (this.task.priority === TaskPriority.LOW) return 'Low';
+  if (this.task.priority === TaskPriority.MEDIUM) return 'Medium';
+  if (this.task.priority === TaskPriority.HIGH) return 'Urgent';
+  return 'Medium'; // fallback
+}
+
+  /**
+   * Updates the list of assigned contacts for this task.
+   * Builds initials, color, and name for each assigned contact.
+   */
   updateAssignedContacts(): void {
     this.assignedContacts = [];
 
@@ -108,8 +161,11 @@ export class TaskCardModalComponent implements OnInit {
     }
   }
 
+  /**
+   * Toggles the completion state of a subtask and updates it in the database.
+   * @param {number} index Index of the subtask in the list.
+   */
   toggleSubtask(index: number) {
-
     const updatedSubtasks = [...this.task.subtasks];
     updatedSubtasks[index].done = !updatedSubtasks[index].done;
 
@@ -121,7 +177,10 @@ export class TaskCardModalComponent implements OnInit {
     this.task.subtasks = updatedSubtasks;
   }
 
-
+  /**
+   * Returns the category of the current task and sets flags accordingly.
+   * @returns {string} Task category label.
+   */
   getTaskCategory(): string {
     switch (this.task.category) {
       case TaskCategory.TECHNICAL_TASK:
@@ -139,6 +198,11 @@ export class TaskCardModalComponent implements OnInit {
     }
   }
 
+  /**
+   * Converts an external SVG to inline HTML and sanitizes it.
+   * @param {string} iconName Name to store the icon under.
+   * @param {string} iconSrc Path to the SVG source file.
+   */
   convertIcon(iconName: string, iconSrc: string): void {
     this.svgService.getInlineSVG(iconSrc).subscribe({
       next: (svg: string) => {
@@ -149,10 +213,17 @@ export class TaskCardModalComponent implements OnInit {
     });
   }
 
+  /**
+   * Closes the modal by emitting the close event.
+   */
   onClose() {
     this.close.emit();
   }
 
+  /**
+   * Opens the delete modal and removes the task from the database.
+   * Emits close event after deletion.
+   */
   async openDeleteModal() {
     if (this.task) {
       try {
