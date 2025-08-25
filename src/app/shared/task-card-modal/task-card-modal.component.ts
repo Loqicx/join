@@ -225,22 +225,6 @@ export class TaskCardModalComponent implements OnInit {
     this.close.emit();
   }
 
-  /**
-   * Opens the delete modal and removes the task from the database.
-   * Emits close event after deletion.
-   */
-  // async openDeleteModal() {
-  //   if (this.task) {
-  //     try {
-  //       await this.tasksService.deleteTask(this.task.id);
-  //       console.log(`Task with ID ${this.task.id} deleted from DB.`);
-  //       this.close.emit();
-  //     } catch (error) {
-  //       console.error('Error deleting task:', error);
-  //     }
-  //   }
-  // }
-
   openDeleteModal() {
     this.deleteModal.deleteTaskModal(this.task);
   }
