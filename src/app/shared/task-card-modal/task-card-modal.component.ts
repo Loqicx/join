@@ -125,8 +125,7 @@ export class TaskCardModalComponent implements OnInit {
    */
   taskPriority(): string {
     if (this.task.priority === TaskPriority.LOW) return this.priorities.low;
-    if (this.task.priority === TaskPriority.MEDIUM)
-      return this.priorities.medium;
+    if (this.task.priority === TaskPriority.MEDIUM) return this.priorities.medium;
     if (this.task.priority === TaskPriority.HIGH) return this.priorities.high;
     return this.priorities.medium; // fallback
   }
@@ -176,6 +175,17 @@ export class TaskCardModalComponent implements OnInit {
     }
     this.getContactNames();
     console.log(this.assignedContactsNames);
+  }
+
+  /**
+ * close the modal 
+ * @param event - MouseEvent Klicks
+ */
+  onOutsideClick(event: MouseEvent) {
+    const modalContent = document.querySelector('.modal-content');
+    if (modalContent && !modalContent.contains(event.target as Node)) {
+      this.close.emit();
+    }
   }
 
   /**
