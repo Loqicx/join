@@ -2,9 +2,7 @@
     <div class="add-task-wrapper" [class.edit]="asEdit">
         @if (!asEdit) {
         <h1 class="title">Add Task</h1>
-        } @else {
-        <h1 class="title">Edit Task</h1>
-        }
+        } 
         <div class="add-task">
             <form (ngSubmit)="saveTask(addTaskForm)" #addTaskForm="ngForm" class="add-task-form" [class.edit]="asEdit">
                 <div class="left-wrapper" [class.edit]="asEdit">

@@ -53,13 +53,12 @@
     &.edit {
         height: 100%;
         width: 100%;
-        padding-top: 24px;
         overflow: visible;
     }
 
     @include breakpoint-down('md') {
         height: 100%;
-        overflow: scroll;
+        overflow: visible;
     }
 }
 
@@ -80,6 +79,7 @@
 
     &.edit {
         height: 100%;
+        gap: 48px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -125,13 +125,11 @@
     align-items: center;
 
     &.edit {
-        margin-top: 64px;
         height: 50%;
         width: 100%;
     }
 
     @include breakpoint-down('md') {
-        margin-top: 8px;
         height: 50%;
         width: 100%;
 
