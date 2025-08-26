@@ -19,8 +19,6 @@ import {
 } from '../services/firebase/tasks.service';
 import { SVGInlineService } from '../services/svg-inline.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
-import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
-import { ViewChild } from '@angular/core';
 import { AddTaskComponent } from '../add-task/add-task.component';
 
 /**
@@ -41,6 +39,8 @@ export class TaskCardModalComponent implements OnInit {
   asEdit: boolean = false;
   selectedContacts: Contact[] = [];
   assignedContactsNames: string = '';
+
+  isSlide: boolean = false;
 
   /**
    * Stores inline SVGs after sanitization.
@@ -246,11 +246,17 @@ export class TaskCardModalComponent implements OnInit {
    * Closes the modal by emitting the close event.
    */
   closeModal() {
-    this.close.emit();
+    this.isSlide = false;
+    setTimeout(() => {
+      this.close.emit();
+    }, 400);
   }
 
   openDeleteModal() {
-    this.close.emit();
+    this.isSlide = false;
+    setTimeout(() => {
+      this.close.emit();
+    }, 400);
     this.delete.emit(this.task);
   }
 }

@@ -15,6 +15,7 @@ import { TaskCardModalComponent } from '../../shared/task-card-modal/task-card-m
 import { AddTaskModalComponent } from '../../shared/add-task-modal/add-task-modal.component';
 import { FormsModule } from '@angular/forms';
 import { DeleteModalComponent } from '../../shared/delete-modal/delete-modal.component';
+import { EditContactModalComponent } from '../contacts-page/components/edit-contact-modal/edit-contact-modal.component';
 
 @Component({
   selector: 'app-board-page',
@@ -71,6 +72,7 @@ export class BoardPageComponent implements OnInit {
 
   @ViewChild(AddTaskModalComponent) AddTaskModal!: AddTaskModalComponent;
   @ViewChild(DeleteModalComponent) DeleteModal!: DeleteModalComponent;
+  @ViewChild(TaskCardModalComponent) TaskCardModal!: TaskCardModalComponent;
 
   taskToEdit: string = '';
   asEdit: boolean = false;
@@ -97,6 +99,9 @@ export class BoardPageComponent implements OnInit {
   openTask(task: Task) {
     this.selectedTask = task;
     this.isModalOpen = true;
+    setTimeout(() => {
+      this.TaskCardModal.isSlide = true;
+    }, 25);
   }
 
   closeTask() {
