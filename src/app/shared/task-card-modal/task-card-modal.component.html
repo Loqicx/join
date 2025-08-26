@@ -7,7 +7,11 @@
         <button class="close-btn" (click)="this.closeModal()">×</button>
       </div>
       @if (!asEdit) {
-      <div class="task-type" [class.user-story]="taskUserStory" [class.technical]="taskTechnical">
+      <div
+        class="task-type"
+        [class.user-story]="taskUserStory"
+        [class.technical]="taskTechnical"
+      >
         {{ taskCategory }}
       </div>
 
@@ -18,10 +22,15 @@
       <!-- Meta Infos -->
       <div class="task-meta">
         <div class="meta-item due-date">
-          <p><strong>Due Date:</strong> {{ task.dueDate | date:'dd/MM/yyyy' }}</p>
+          <p>
+            <strong class="section-title">Due Date:</strong>
+            {{ task.dueDate | date : "dd/MM/yyyy" }}
+          </p>
         </div>
         <div class="meta-item priority">
-          <p><strong>Priority:</strong> {{ getPriorityLabel() }}
+          <p>
+            <strong class="section-title">Priority:</strong>
+            {{ getPriorityLabel() }}
             <img [src]="taskPriority()" alt="Priority" class="priority-icon" />
           </p>
         </div>
@@ -29,7 +38,7 @@
 
       <!-- Assigned To -->
       <div class="assigned-section">
-        <p>Assigned to:</p>
+        <p><strong class="section-title">Assigned to:</strong></p>
         <div class="assignees">
           @for (a of assignedContacts; track $index) {
           <div class="assignee">
@@ -44,11 +53,16 @@
 
       <!-- Subtasks -->
       <div class="subtasks">
-        <p>Subtasks:</p>
+        <p><strong class="section-title">Subtasks:</strong></p>
         @for (subtask of task.subtasks; track subtask.title; let i = $index) {
         <div class="subtask">
-          <input type="checkbox" id="subtask-{{i}}" [checked]="subtask.done" (change)="toggleSubtask(i)" />
-          <label for="subtask-{{i}}">{{ subtask.title }}</label>
+          <input
+            type="checkbox"
+            id="subtask-{{ i }}"
+            [checked]="subtask.done"
+            (change)="toggleSubtask(i)"
+          />
+          <label for="subtask-{{ i }}">{{ subtask.title }}</label>
         </div>
         }
       </div>
@@ -57,7 +71,7 @@
       <div class="modal-footer">
         <div class="task-action-buttons">
           <div class="action-button-wrapper">
-            <a class="action-button" (click)="openDeleteModal();">
+            <a class="action-button" (click)="openDeleteModal()">
               <div class="btn-inner">
                 <div [innerHTML]="svgContents['delete']" class="icon"></div>
                 <span>Delete</span>
@@ -77,8 +91,14 @@
 
       <app-delete-modal #deleteModal [task]="task"></app-delete-modal>
       } @else if (asEdit) {
-      <app-add-task (closeModal)="this.closeModal()" [asEdit]="true" [asModal]="true" [task]="task" [selectedContacts]="selectedContacts"
-        [assignedContactsNames]="assignedContactsNames"></app-add-task>
+      <app-add-task
+        (closeModal)="this.closeModal()"
+        [asEdit]="true"
+        [asModal]="true"
+        [task]="task"
+        [selectedContacts]="selectedContacts"
+        [assignedContactsNames]="assignedContactsNames"
+      ></app-add-task>
       }
     </div>
   </div>
