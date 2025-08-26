@@ -128,7 +128,7 @@ export class BoardPageComponent implements OnInit {
 
     openAddTaskPage() {
         this.router.navigate(['/addTask'], {
-            queryParams: { status: this.addTaskStatus },
+            queryParams: { status: this.addTaskStatus, redirectToBoard: true },
         });
     }
 
