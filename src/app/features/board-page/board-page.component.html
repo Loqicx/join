@@ -1,6 +1,19 @@
 <main class="content-wrapper">
   <div class="board-header">
-    <h2 class="header__headline page-headline">Board</h2>
+    <div class="headline-container">
+      <h2 class="header__headline page-headline">Board</h2>
+      <app-button
+        class="mobile-cancel-btn"
+        iconSrc="assets/icons/add.svg"
+        altText="Cancel"
+        [fontSize]="'21px'"
+        [invert]="false"
+        [size]="'dynamic'"
+        [iconBtn]="true"
+        (btnClick)="addTaskModal()"
+      ></app-button>
+    </div>
+
     <div class="header__actions">
       <div class="search-input-field">
         <input
@@ -36,6 +49,7 @@
           class="list-add-task-button"
           alt=""
           srcset=""
+          (click)="setTaskStatus(list.listIndex)"
         />
       </div>
 
@@ -62,7 +76,7 @@
     </div>
     }
   </div>
-  <app-add-task-modal [selectedContacts]="[]" [taskStatus]="1">
+  <app-add-task-modal [selectedContacts]="[]" [taskStatus]="addTaskStatus">
   </app-add-task-modal>
   <!-- Modal -->
   @if (isModalOpen && selectedTask) {

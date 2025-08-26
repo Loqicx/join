@@ -16,6 +16,10 @@
   cursor: pointer;
   box-sizing: border-box;
 
+  &.icon-button {
+    gap: 0;
+  }
+
   &:hover {
     background-color: $color-primary-hover;
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.203);
@@ -113,23 +117,23 @@
   height: 56px;
   width: 136px;
 
-  @include breakpoint-down('xl') {
+  @include breakpoint-down("xl") {
     height: 48px;
     width: 112px;
   }
 
-  @include breakpoint-down('md') {
+  @include breakpoint-down("md") {
     height: 56px;
     width: 136px;
   }
 
-  @include breakpoint-down('sm') {
+  @include breakpoint-down("sm") {
     height: 42px;
     width: 96px;
     font-size: 16px !important;
   }
 
-  @include breakpoint-down('xsm') {
+  @include breakpoint-down("xsm") {
     height: 42px;
     width: 88px;
     font-size: 14px !important;

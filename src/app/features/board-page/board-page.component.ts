@@ -57,6 +57,8 @@ export class BoardPageComponent implements OnInit {
     ],
   };
 
+  addTaskStatus: number = 1;
+
   tasksService: TasksService = inject(TasksService);
 
   selectedTask: Task | null = null;
@@ -66,6 +68,9 @@ export class BoardPageComponent implements OnInit {
   searchTerm: string = '';
 
   @ViewChild(AddTaskModalComponent) AddTaskModal!: AddTaskModalComponent;
+
+  taskToEdit: string = '';
+  asEdit: boolean = false;
 
   constructor() {}
 
@@ -94,6 +99,11 @@ export class BoardPageComponent implements OnInit {
   closeTask() {
     this.isModalOpen = false;
     this.selectedTask = null;
+  }
+
+  setTaskStatus(status: number) {
+    this.addTaskStatus = status;
+    this.addTaskModal();
   }
 
   drop(event: CdkDragDrop<Task[]>) {

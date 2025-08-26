@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, ViewChild } from '@angular/core';
+import { Component, inject, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from "../ui/button/button.component";
@@ -27,30 +27,25 @@ import { DatePickerInputComponent } from "../ui/date-picker-input/date-picker-in
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent {
-  selectedSubTasks: { id: number, title: string, done: boolean }[] = [];
+  selectedSubTasks: { title: string, done: boolean }[] = [];
 
-  @Input() selectedContacts: any[] = [];
-  @Input() taskStatus: number = 1;
+  @Input() selectedContacts: any = [];
+  @Input() taskStatus: number | null = 1;
   @Input() asModal: boolean = false;
+  @Input() asEdit: boolean = false;
+  @Input() assignedContactsNames: string = '';
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
   taskTitle: string = '';
   taskDescription: string = '';
-  taskDueDate: string = new Date().toISOString().split('T')[0];
+  taskDueDate: string = '';
+  cleanedTaskDueDate: string = '';
   taskCategory: string = '';
   priority: number | null = 2;
   showTitleWarning: boolean = false;
   showCategoryWarning: boolean = false;
 
-  @ViewChild(AssignContactInputComponent) AssignContactInputComponent!: AssignContactInputComponent;
-  @ViewChild(DatePickerInputComponent) DatePickerInputComponent!: DatePickerInputComponent;
-
-  buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
-    urgent: false,
-    medium: false,
-    low: false
-  };
-
-  task: Task = {
+  @Input() task: Task = {
     priority: this.priority,
     title: this.taskTitle,
     category: this.setTaskCategory(),
@@ -62,16 +57,45 @@ export class AddTaskComponent {
     id: '',
   }
 
+  @ViewChild(AssignContactInputComponent) AssignContactInputComponent!: AssignContactInputComponent;
+  @ViewChild(DatePickerInputComponent) DatePickerInputComponent!: DatePickerInputComponent;
+
+  buttonState: { urgent: boolean; medium: boolean; low: boolean } = {
+    urgent: false,
+    medium: false,
+    low: false
+  };
+
   contactsService: ContactsService = inject(ContactsService);
   initialLetterService: InitialLettersService = inject(InitialLettersService);
   tasksService: TasksService = inject(TasksService)
 
   ngOnInit() {
     this.activateButton('medium');
+    if (this.asEdit) {
+      this.setTaskData()
+    }
+    this.taskStatus = this.task.status
+  }
+
+  setTaskData() {
+    this.taskTitle = this.task.title;
+    this.taskDescription = this.task.description;
+    this.taskDueDate = this.task.dueDate;
+    this.taskCategory = this.getTaskCategory(this.task.category)
+    this.priority = this.task.priority;
+    this.activateButton(this.getButtonName(this.task.priority));
+    this.cleanedTaskDueDate = this.cleanTaskDueDate(this.task.dueDate)
+    this.selectedSubTasks = this.task.subtasks
   }
 
   setTaskDueDate(date: string) {
     this.taskDueDate = date;
+  }
+
+  cleanTaskDueDate(dueDate: string): string {
+    const [year, month, day] = dueDate.split('-');
+    return `${day}/${month}/${year}`;
   }
 
   /**
@@ -89,6 +113,18 @@ export class AddTaskComponent {
       taskCategoryNumber = 0;
     }
     return taskCategoryNumber;
+  }
+
+  getTaskCategory(catergory: number | null): string {
+    let taskCategoryString = '0';
+    if (catergory === 2) {
+      taskCategoryString = '2';
+    } else if (catergory === 1) {
+      taskCategoryString = '1';
+    } else {
+      taskCategoryString = '0';
+    }
+    return taskCategoryString;
   }
 
   /**
@@ -125,11 +161,41 @@ export class AddTaskComponent {
       return
     }
     this.setData();
+
+    if (this.asEdit) {
+      this.saveExistingTask(taskForm);
+    } else {
+      this.saveNewTask(taskForm);
+    }
+  }
+
+  async saveExistingTask(taskForm: NgForm) {
+    try {
+      await this.tasksService.updateTask(this.task, this.task.id);
+      this.closeModal.emit();
+    } catch (error) {
+      console.error('Failed to Update Task!')
+    }
+  }
+
+  async saveNewTask(taskForm: NgForm) {
     try {
       await this.tasksService.addTaskToDatabase(this.task);
       this.resetForm(taskForm);
     } catch (error) {
       console.error('Failed to Save Task!')
+    }
+  }
+
+  getButtonName(btnNum: number | null): "urgent" | "medium" | "low" {
+    if (btnNum === 1) {
+      return 'low';
+    } else if (btnNum === 2) {
+      return 'medium';
+    } else if (btnNum === 3) {
+      return 'urgent';
+    } else {
+      return 'medium'
     }
   }
 
