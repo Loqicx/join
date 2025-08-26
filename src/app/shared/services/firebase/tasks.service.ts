@@ -6,6 +6,7 @@ import {
   doc,
   Firestore,
   getDocs,
+  getDoc,
   onSnapshot,
   Timestamp,
   updateDoc,
@@ -127,6 +128,18 @@ export class TasksService implements OnDestroy {
    */
   async deleteTask(taskId: string) {
     await deleteDoc(doc(this.firestore, 'tasks', taskId));
+  }
+
+  /**
+   * Retrieves all tasks from the Firestore database.
+   * @returns Task
+   */
+  async getTaskById(taskId: string) {
+  const taskDocRef = doc(this.getTasksRef(), taskId);
+  const docSnap = await getDoc(taskDocRef);
+  
+  return this.setTaskObject(docSnap.data(), docSnap.id);
+  
   }
 
   /**
