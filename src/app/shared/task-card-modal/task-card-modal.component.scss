@@ -299,10 +299,6 @@
   display: flex;
   justify-content: space-between;
   gap: 10px;
-
-  @include breakpoint-down("lg") {
-    display: none;
-  }
 }
 
 .action-button {
