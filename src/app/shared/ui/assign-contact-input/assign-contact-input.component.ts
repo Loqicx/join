@@ -83,15 +83,22 @@ export class AssignContactInputComponent {
     let searchValue = this.cleanupValue(searchInputValue);
 
     if (!searchValue || searchValue.length < 1) {
-      this.searchArray = this.contacts.slice().sort((a, b) => {
-        const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
-        const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
-        return nameA.localeCompare(nameB);
-      });
-
+      this.searchArray = this.displayAllContacts();
       return this.searchArray;
     }
+      this.searchArray= this.displaySearchContacts(searchValue);
+  }
 
+  displayAllContacts() {
+    this.searchArray = this.contacts.slice().sort((a, b) => {
+      const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+      const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+      return nameA.localeCompare(nameB);
+    });
+    return this.searchArray
+  }
+
+  displaySearchContacts(searchValue: string) {
     this.filteredContacts = this.contacts
       .filter((contact) => {
         const fullName =
@@ -103,7 +110,6 @@ export class AssignContactInputComponent {
         const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
         return nameA.localeCompare(nameB);
       });
-
     this.searchArray = this.filteredContacts;
 
     return this.filteredContacts;
