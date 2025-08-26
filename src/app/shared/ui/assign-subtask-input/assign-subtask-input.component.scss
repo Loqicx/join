@@ -175,9 +175,17 @@
       width: 18px;
     }
 
+
     .icon-container.edit:hover {
       background-color: $color-input-border;
       border-radius: 50%;
+
+    .hidden {
+        display: none;
+
+        @include breakpoint-down-touch('all') {
+            display: flex;
+        }
     }
 
     .icon {
