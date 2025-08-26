@@ -187,6 +187,10 @@
 
     .hidden {
         display: none;
+
+        @include breakpoint-down-touch('all') {
+            display: flex;
+        }
     }
 
     .hidden.hover {
