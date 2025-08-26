@@ -12,11 +12,16 @@ import { Contact } from '../interfaces/contact';
 import { ContactsService } from '../services/firebase/contacts.service';
 import { InitialLettersService } from '../services/get-initial-letters.service';
 import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';
-import { TaskCategory, TasksService, TaskPriority } from '../services/firebase/tasks.service';
+import {
+  TaskCategory,
+  TasksService,
+  TaskPriority,
+} from '../services/firebase/tasks.service';
 import { SVGInlineService } from '../services/svg-inline.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 import { ViewChild } from '@angular/core';
+import { AddTaskComponent } from '../add-task/add-task.component';
 
 /**
  * TaskCardModalComponent
@@ -27,13 +32,16 @@ import { ViewChild } from '@angular/core';
 @Component({
   selector: 'app-task-card-modal',
   standalone: true,
-  imports: [CommonModule, DeleteModalComponent],
+  imports: [CommonModule, DeleteModalComponent, AddTaskComponent],
   templateUrl: './task-card-modal.component.html',
   styleUrls: ['./task-card-modal.component.scss'],
   providers: [ColoredProfilePipe, SVGInlineService],
 })
 export class TaskCardModalComponent implements OnInit {
-  
+  asEdit: boolean = false;
+  selectedContacts: Contact[] = [];
+  assignedContactsNames: string = '';
+
   /**
    * Stores inline SVGs after sanitization.
    */
@@ -116,22 +124,22 @@ export class TaskCardModalComponent implements OnInit {
    * @returns {string} Path to the priority icon.
    */
   taskPriority(): string {
-  if (this.task.priority === TaskPriority.LOW) return this.priorities.low;
-  if (this.task.priority === TaskPriority.MEDIUM) return this.priorities.medium;
-  if (this.task.priority === TaskPriority.HIGH) return this.priorities.high;
-  return this.priorities.medium; // fallback
-}
+    if (this.task.priority === TaskPriority.LOW) return this.priorities.low;
+    if (this.task.priority === TaskPriority.MEDIUM) return this.priorities.medium;
+    if (this.task.priority === TaskPriority.HIGH) return this.priorities.high;
+    return this.priorities.medium; // fallback
+  }
 
   /**
    * Returns the human-readable label for the task priority.
    * @returns {string} Priority label.
    */
   getPriorityLabel(): string {
-  if (this.task.priority === TaskPriority.LOW) return 'Low';
-  if (this.task.priority === TaskPriority.MEDIUM) return 'Medium';
-  if (this.task.priority === TaskPriority.HIGH) return 'Urgent';
-  return 'Medium'; // fallback
-}
+    if (this.task.priority === TaskPriority.LOW) return 'Low';
+    if (this.task.priority === TaskPriority.MEDIUM) return 'Medium';
+    if (this.task.priority === TaskPriority.HIGH) return 'Urgent';
+    return 'Medium'; // fallback
+  }
 
   /**
    * Updates the list of assigned contacts for this task.
@@ -146,6 +154,7 @@ export class TaskCardModalComponent implements OnInit {
       const id = this.task.assignedTo[i];
       const contact: Contact | undefined =
         this.contactsService.getContactById(id);
+      if (contact) this.selectedContacts.push(contact);
 
       if (contact) {
         const initials: String =
@@ -164,6 +173,18 @@ export class TaskCardModalComponent implements OnInit {
         });
       }
     }
+    this.getContactNames();
+  }
+
+  /**
+ * close the modal 
+ * @param event - MouseEvent Klicks
+ */
+  onOutsideClick(event: MouseEvent) {
+    const modalContent = document.querySelector('.modal-content');
+    if (modalContent && !modalContent.contains(event.target as Node)) {
+      this.close.emit();
+    }
   }
 
   /**
@@ -174,10 +195,7 @@ export class TaskCardModalComponent implements OnInit {
     const updatedSubtasks = [...this.task.subtasks];
     updatedSubtasks[index].done = !updatedSubtasks[index].done;
 
-    this.tasksService.updateTask(
-      { subtasks: updatedSubtasks },
-      this.task.id
-    );
+    this.tasksService.updateTask({ subtasks: updatedSubtasks }, this.task.id);
 
     this.task.subtasks = updatedSubtasks;
   }
@@ -203,6 +221,14 @@ export class TaskCardModalComponent implements OnInit {
     }
   }
 
+  getContactNames() {
+    this.assignedContactsNames = '';
+    for (let i = 0; i < this.selectedContacts.length; i++) {
+      const name = `${this.selectedContacts[i].firstName} ${this.selectedContacts[i].lastName}, `;
+      this.assignedContactsNames += name;
+    }
+  }
+
   /**
    * Converts an external SVG to inline HTML and sanitizes it.
    * @param {string} iconName Name to store the icon under.
@@ -221,7 +247,7 @@ export class TaskCardModalComponent implements OnInit {
   /**
    * Closes the modal by emitting the close event.
    */
-  onClose() {
+  closeModal() {
     this.close.emit();
   }
 

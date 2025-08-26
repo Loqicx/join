@@ -17,6 +17,7 @@ export class DatePickerInputComponent implements ControlValueAccessor {
   slide = false;
   compareDate?: Date;
 
+  @Input() asEdit: boolean = false;
   @Input() dateInputVal: string = '';
   @Input() showWarning = false;
   @Input() disabled: boolean = false;
@@ -41,6 +42,12 @@ export class DatePickerInputComponent implements ControlValueAccessor {
       setTimeout(() => {
         this.showCalendar = false;
       }, 300);
+    }
+  }
+
+  ngOnInit() {
+    if (this.asEdit) {
+      this.selectDate(this.dateInputVal);
     }
   }
 
@@ -166,6 +173,16 @@ export class DatePickerInputComponent implements ControlValueAccessor {
         this.showCalendar = !this.showCalendar;
       }, 250);
       if (this.showCalendar) this.generateCalendar();
+    }
+  }
+
+  selectDate(date: string): void {
+    const [day, month, year] = date.split('/').map(Number);
+    const selectedDate = new Date(year, month - 1, day);
+    if (this.isValidDate(selectedDate) && this.isFutureDate(selectedDate)) {
+      this.onDateSelected(selectedDate);
+    } else {
+      this.showWarning = true;
     }
   }
 

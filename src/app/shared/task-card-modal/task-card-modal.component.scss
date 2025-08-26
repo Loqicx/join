@@ -14,25 +14,45 @@
   z-index: 9999;
 }
 
-.modal-content {
+.modal-wrapper {
+  width: 540px;
+  max-width: 90%;
+  min-height: 500px;
+  max-height: 90vh;
   background: #fff;
   border-radius: 24px;
-  padding: 24px;
-  width: 500px;
-  max-width: 90%;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+
+  &.edit {
+    height: auto;
+    height: 90vh;
+  }
+}
+
+.modal-content {
   position: relative;
+  height: 100%;
+  width: 96%;
+  margin: auto;
+  padding: 24px;
   overflow-y: auto;
-  max-height: 90vh;
+
+  &.edit {
+    padding: 12px;
+    height: 98%;
+    width: 96%;
+  }
 
   .modal-header {
-    display: flex;
-    justify-content: flex-end;
+    position: absolute;
+    right: 32px;
+    top: 32px;
 
     .close-btn {
       background: transparent;
       border: none;
-      font-size: 24px;
+      font-size: 32px;
       cursor: pointer;
       width: 32px;
       height: 32px;
@@ -84,10 +104,12 @@
       margin: 4px 0;
       font-size: 14px;
       color: #444;
+
       strong {
         font-weight: 600;
       }
     }
+
     margin-bottom: 16px;
   }
 
@@ -134,7 +156,7 @@
     margin-bottom: 16px;
   }
 
-    .subtasks {
+  .subtasks {
     p {
       font-weight: 600;
       margin-bottom: 6px;
@@ -144,19 +166,22 @@
       display: flex;
       align-items: center;
       margin-bottom: 6px;
+      padding-left: 13px;
+      padding-top: 10px;
+
 
       input[type="checkbox"] {
-        display: none; 
+        display: none;
 
-        & + label {
+        &+label {
           position: relative;
-          padding-left: 32px; 
+          padding-left: 32px;
           font-size: 14px;
           color: #555;
           cursor: pointer;
         }
 
-        & + label::before {
+        &+label::before {
           content: "";
           position: absolute;
           left: 0;
@@ -168,14 +193,14 @@
           background-size: 20px 20px;
         }
 
-        &:checked + label::before {
+        &:checked+label::before {
           background: url("/assets/icons/checkbox-checked.svg") no-repeat center;
           background-size: 20px 20px;
         }
       }
     }
 
-    margin-bottom: 16px;
+    margin-bottom: 32px;
   }
 
 
@@ -218,7 +243,7 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: 16px; 
+  gap: 16px;
   margin-bottom: 16px;
 
   .meta-item {
@@ -233,7 +258,7 @@
       }
 
       img.priority-icon {
-        
+
         vertical-align: middle;
       }
     }
@@ -258,6 +283,7 @@
   display: flex;
   justify-content: space-between;
   gap: 10px;
+
   @include breakpoint-down("lg") {
     display: none;
   }
