@@ -83,6 +83,8 @@
   <app-task-card-modal
     [task]="selectedTask"
     (close)="closeTask()"
+    (delete)="this.openDeleteModal($event)"
   ></app-task-card-modal>
   }
+  <app-delete-modal #deleteModal [task]="selectedTask!"></app-delete-modal>
 </main>

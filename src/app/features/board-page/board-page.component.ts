@@ -14,6 +14,7 @@ import { Task } from '../../shared/interfaces/task';
 import { TaskCardModalComponent } from '../../shared/task-card-modal/task-card-modal.component';
 import { AddTaskModalComponent } from '../../shared/add-task-modal/add-task-modal.component';
 import { FormsModule } from '@angular/forms';
+import { DeleteModalComponent } from '../../shared/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-board-page',
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     TaskCardModalComponent,
     AddTaskModalComponent,
     FormsModule,
+    DeleteModalComponent
   ],
   templateUrl: './board-page.component.html',
   styleUrl: './board-page.component.scss',
@@ -61,13 +63,14 @@ export class BoardPageComponent implements OnInit {
 
   tasksService: TasksService = inject(TasksService);
 
-  selectedTask: Task | null = null;
+  selectedTask?: Task;
 
   isModalOpen = false;
 
   searchTerm: string = '';
 
   @ViewChild(AddTaskModalComponent) AddTaskModal!: AddTaskModalComponent;
+  @ViewChild(DeleteModalComponent) DeleteModal!: DeleteModalComponent;
 
   taskToEdit: string = '';
   asEdit: boolean = false;
@@ -98,7 +101,6 @@ export class BoardPageComponent implements OnInit {
 
   closeTask() {
     this.isModalOpen = false;
-    this.selectedTask = null;
   }
 
   setTaskStatus(status: number) {
@@ -170,5 +172,10 @@ export class BoardPageComponent implements OnInit {
 
   addTaskModal() {
     this.AddTaskModal.openModal();
+  }
+
+  openDeleteModal(task: Task) {
+    this.selectedTask = task;
+    this.DeleteModal.deleteTaskModal()
   }
 }

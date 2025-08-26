@@ -32,7 +32,7 @@ import { AddTaskComponent } from '../add-task/add-task.component';
 @Component({
   selector: 'app-task-card-modal',
   standalone: true,
-  imports: [CommonModule, DeleteModalComponent, AddTaskComponent],
+  imports: [CommonModule, AddTaskComponent],
   templateUrl: './task-card-modal.component.html',
   styleUrls: ['./task-card-modal.component.scss'],
   providers: [ColoredProfilePipe, SVGInlineService],
@@ -68,8 +68,6 @@ export class TaskCardModalComponent implements OnInit {
    * The task displayed inside the modal.
    */
   @Input() task!: Task;
-
-  @ViewChild('deleteModal') deleteModal!: DeleteModalComponent;
 
   /**
    * Event emitter to close the modal.
@@ -252,6 +250,7 @@ export class TaskCardModalComponent implements OnInit {
   }
 
   openDeleteModal() {
-    this.deleteModal.deleteTaskModal(this.task);
+    this.close.emit();
+    this.delete.emit(this.task);
   }
 }
