@@ -72,6 +72,7 @@ export class BoardPageComponent implements OnInit {
 
     @ViewChild(AddTaskModalComponent) AddTaskModal!: AddTaskModalComponent;
     @ViewChild(DeleteModalComponent) DeleteModal!: DeleteModalComponent;
+    @ViewChild(TaskCardModalComponent) TaskCardModal!: TaskCardModalComponent;
 
     taskToEdit: string = '';
     asEdit: boolean = false;
@@ -101,6 +102,9 @@ export class BoardPageComponent implements OnInit {
     openTask(task: Task) {
         this.selectedTask = task;
         this.isModalOpen = true;
+        setTimeout(() => {
+            this.TaskCardModal.isSlide = true;
+        }, 25);
     }
 
     closeTask() {
