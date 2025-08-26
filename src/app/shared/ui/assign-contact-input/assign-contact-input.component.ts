@@ -1,4 +1,12 @@
-import { Component, inject, Renderer2, Output, Input, EventEmitter, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  inject,
+  Renderer2,
+  Output,
+  Input,
+  EventEmitter,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ContactsService } from '../../services/firebase/contacts.service';
 import { Contact } from '../../interfaces/contact';
@@ -18,11 +26,13 @@ export class AssignContactInputComponent {
 
   @Input() taskAssignInput: any;
   contacts: Contact[] = [];
-  @Output() selectedContacts: EventEmitter<Contact[]> = new EventEmitter<Contact[]>();
+  @Output() selectedContacts: EventEmitter<Contact[]> = new EventEmitter<
+    Contact[]
+  >();
   searchArray: [] | any = [];
   filteredContacts: Contact[] = [];
 
-  show = false
+  show = false;
   dNone: boolean = true;
 
   constructor(private renderer: Renderer2) {
@@ -34,8 +44,10 @@ export class AssignContactInputComponent {
     });
   }
 
-  private contactsService: ContactsService = inject(ContactsService)
-  public initialLettersService: InitialLettersService = inject(InitialLettersService);
+  private contactsService: ContactsService = inject(ContactsService);
+  public initialLettersService: InitialLettersService = inject(
+    InitialLettersService
+  );
 
   ngAfterViewInit() {
     this.loadContacts();
@@ -54,30 +66,44 @@ export class AssignContactInputComponent {
   cleanupValue(searchInputValue?: string) {
     let searchValue: string | undefined;
     if (searchInputValue?.includes(', ')) {
-      searchValue = searchInputValue?.substring(searchInputValue?.lastIndexOf(', ') + 2);
+      searchValue = searchInputValue?.substring(
+        searchInputValue?.lastIndexOf(', ') + 2
+      );
     } else if (searchInputValue?.includes(',')) {
-      searchValue = searchInputValue?.substring(searchInputValue?.lastIndexOf(',') + 1);
+      searchValue = searchInputValue?.substring(
+        searchInputValue?.lastIndexOf(',') + 1
+      );
     } else {
       searchValue = searchInputValue;
     }
-    return searchValue
+    return searchValue;
   }
 
   filterContacts(searchInputValue?: string) {
-    let searchValue = this.cleanupValue(searchInputValue)
+    let searchValue = this.cleanupValue(searchInputValue);
 
     if (!searchValue || searchValue.length < 1) {
-      this.searchArray = this.contacts
+      this.searchArray = this.contacts.slice().sort((a, b) => {
+        const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+        const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+        return nameA.localeCompare(nameB);
+      });
 
-      return this.contacts;
+      return this.searchArray;
     }
 
-    this.filteredContacts = this.contacts.filter((contact) => {
-      const fullName =
-        `${contact.firstName} ${contact.lastName}`.toLocaleLowerCase();
+    this.filteredContacts = this.contacts
+      .filter((contact) => {
+        const fullName =
+          `${contact.firstName} ${contact.lastName}`.toLowerCase();
+        return fullName.includes(searchValue.toLowerCase());
+      })
+      .sort((a, b) => {
+        const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+        const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+        return nameA.localeCompare(nameB);
+      });
 
-      return fullName.match(searchValue.toLocaleLowerCase());
-    });
     this.searchArray = this.filteredContacts;
 
     return this.filteredContacts;
@@ -89,31 +115,55 @@ export class AssignContactInputComponent {
   }
 
   toggleContactStyle(contact: Contact) {
-    document.getElementById(`contactCard${contact.id}`)?.classList.toggle('active');
-    document.getElementById(`contactSelectBox${contact.id}`)?.classList.toggle('active');
-    document.getElementById(`contactSelectCheckWrap${contact.id}`)?.classList.toggle('active');
+    document
+      .getElementById(`contactCard${contact.id}`)
+      ?.classList.toggle('active');
+    document
+      .getElementById(`contactSelectBox${contact.id}`)
+      ?.classList.toggle('active');
+    document
+      .getElementById(`contactSelectCheckWrap${contact.id}`)
+      ?.classList.toggle('active');
   }
 
   setContactStyle(contact: Contact) {
-    document.getElementById(`contactCard${contact.id}`)?.classList.add('active');
-    document.getElementById(`contactSelectBox${contact.id}`)?.classList.add('active');
-    document.getElementById(`contactSelectCheckWrap${contact.id}`)?.classList.add('active');
+    document
+      .getElementById(`contactCard${contact.id}`)
+      ?.classList.add('active');
+    document
+      .getElementById(`contactSelectBox${contact.id}`)
+      ?.classList.add('active');
+    document
+      .getElementById(`contactSelectCheckWrap${contact.id}`)
+      ?.classList.add('active');
   }
 
   removeContactStyle(contact: Contact) {
-    document.getElementById(`contactCard${contact.id}`)?.classList.remove('active');
-    document.getElementById(`contactSelectBox${contact.id}`)?.classList.remove('active');
-    document.getElementById(`contactSelectCheckWrap${contact.id}`)?.classList.remove('active');
+    document
+      .getElementById(`contactCard${contact.id}`)
+      ?.classList.remove('active');
+    document
+      .getElementById(`contactSelectBox${contact.id}`)
+      ?.classList.remove('active');
+    document
+      .getElementById(`contactSelectCheckWrap${contact.id}`)
+      ?.classList.remove('active');
   }
 
   toggleContactSelection(contact: Contact) {
-    const index = this.selectedContactsArray.findIndex((c: Contact) => c.id === contact.id);
+    const index = this.selectedContactsArray.findIndex(
+      (c: Contact) => c.id === contact.id
+    );
     if (index > -1) {
       this.selectedContactsArray.splice(index, 1);
-      this.taskAssignInput = this.selectedContactsArray.map((c: Contact) => c.firstName + ' ' + c.lastName + ',').join(' ');
+      this.taskAssignInput = this.selectedContactsArray
+        .map((c: Contact) => c.firstName + ' ' + c.lastName + ',')
+        .join(' ');
     } else {
       this.selectedContactsArray.push(contact);
-      this.taskAssignInput = this.selectedContactsArray.map((c: Contact) => c.firstName + ' ' + c.lastName + ',').join(' ');
+      this.taskAssignInput = this.selectedContactsArray
+        .map((c: Contact) => c.firstName + ' ' + c.lastName + ',')
+        .join(' ');
     }
     this.selectedContacts.emit(this.selectedContactsArray);
   }
