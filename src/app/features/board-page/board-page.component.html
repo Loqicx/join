@@ -1,88 +1,85 @@
 <main class="content-wrapper">
-  <div class="board-header">
-    <div class="headline-container">
-      <h2 class="header__headline page-headline">Board</h2>
-      <app-button
-        class="mobile-cancel-btn"
-        iconSrc="assets/icons/add.svg"
-        altText="Cancel"
-        [fontSize]="'21px'"
-        [invert]="false"
-        [size]="'dynamic'"
-        [iconBtn]="true"
-        (btnClick)="addTaskModal()"
-      ></app-button>
-    </div>
-
-    <div class="header__actions">
-      <div class="search-input-field">
-        <input
-          type="text"
-          class="text-input"
-          [(ngModel)]="searchTerm"
-          (keyup)="searchTask($event)"
-          placeholder="Find Task"
-        />
-        <div class="search-icon-container" (click)="searchTask($event)">
-          <img src="./assets/icons/search.svg" alt="" class="search-icon" />
+    <div class="board-header">
+        <div class="headline-container">
+            <h2 class="header__headline page-headline">Board</h2>
+            <app-button
+                class="mobile-cancel-btn"
+                iconSrc="assets/icons/add.svg"
+                altText="Cancel"
+                [fontSize]="'21px'"
+                [invert]="false"
+                [size]="'dynamic'"
+                [iconBtn]="true"
+                (btnClick)="addTaskModal()"
+            ></app-button>
         </div>
-      </div>
-      <app-button
-        class="cancel-btn"
-        iconSrc="assets/icons/add.svg"
-        altText="Cancel"
-        [fontSize]="'21px'"
-        [invert]="false"
-        [size]="'large'"
-        (btnClick)="addTaskModal()"
-        >Add Task</app-button
-      >
-    </div>
-  </div>
-  <div class="board-content" cdkDropListGroup>
-    @for (list of board.lists; track $index) {
-    <div class="list-container">
-      <div class="list-header">
-        <h3>{{ list.name }}</h3>
-        <img
-          src="./assets/icons/plus-button.svg"
-          class="list-add-task-button"
-          alt=""
-          srcset=""
-          (click)="setTaskStatus(list.listIndex)"
-        />
-      </div>
 
-      <div
-        class="task-list"
-        [id]="'list-' + $index"
-        cdkDropList
-        [cdkDropListData]="list.items"
-        (cdkDropListDropped)="drop($event)"
-      >
-        @if(list.items.length > 0) { @for (task of list.items; track task.id) {
-        <!-- <div class="task-item" cdkDrag>{{ task }}</div> -->
-        <app-task-card
-          [task]="task"
-          (open)="openTask($event)"
-          cdkDrag
-        ></app-task-card>
-        } } @else {
-        <div class="empty-list-item">
-          <span class="item-text">No tasks in {{ list.name }}</span>
+        <div class="header__actions">
+            <div class="search-input-field">
+                <input
+                    type="text"
+                    class="text-input"
+                    [(ngModel)]="searchTerm"
+                    (input)="searchTask($event)"
+                    placeholder="Find Task"
+                />
+                <div class="search-icon-container" (click)="searchTask($event)">
+                    <img src="./assets/icons/search.svg" alt="" class="search-icon" />
+                </div>
+            </div>
+            <app-button
+                class="cancel-btn"
+                iconSrc="assets/icons/add.svg"
+                altText="Cancel"
+                [fontSize]="'21px'"
+                [invert]="false"
+                [size]="'large'"
+                (btnClick)="addTaskModal()"
+                >Add Task</app-button
+            >
+        </div>
+    </div>
+    <div class="board-content" cdkDropListGroup>
+        @for (list of board.lists; track $index) {
+        <div class="list-container">
+            <div class="list-header">
+                <h3>{{ list.name }}</h3>
+                <img
+                    src="./assets/icons/plus-button.svg"
+                    class="list-add-task-button"
+                    alt=""
+                    srcset=""
+                    (click)="setTaskStatus(list.listIndex)"
+                />
+            </div>
+
+            <div
+                class="task-list"
+                [id]="'list-' + $index"
+                cdkDropList
+                [cdkDropListData]="list.items"
+                (cdkDropListDropped)="drop($event)"
+            >
+                @if(list.items.length > 0) { @for (task of list.items; track task.id) {
+                <!-- <div class="task-item" cdkDrag>{{ task }}</div> -->
+                <app-task-card
+                    [task]="task"
+                    (open)="openTask($event)"
+                    cdkDrag
+                    [cdkDragStartDelay]="{ touch: 300, mouse: 0 }"
+                ></app-task-card>
+                } } @else {
+                <div class="empty-list-item">
+                    <span class="item-text">No tasks in {{ list.name }}</span>
+                </div>
+                }
+            </div>
         </div>
         }
-      </div>
     </div>
+    <app-add-task-modal [selectedContacts]="[]" [taskStatus]="addTaskStatus"> </app-add-task-modal>
+    <!-- Modal -->
+    @if (isModalOpen && selectedTask) {
+    <app-task-card-modal [task]="selectedTask" (close)="closeTask()"></app-task-card-modal>
     }
-  </div>
-  <app-add-task-modal [selectedContacts]="[]" [taskStatus]="addTaskStatus">
-  </app-add-task-modal>
-  <!-- Modal -->
-  @if (isModalOpen && selectedTask) {
-  <app-task-card-modal
-    [task]="selectedTask"
-    (close)="closeTask()"
-  ></app-task-card-modal>
-  }
 </main>
