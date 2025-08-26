@@ -5,6 +5,7 @@
   height: calc(100% - $header-height);
   display: block;
   overflow-y: scroll;
+  background-color: $color-primary-bg;
 
   @include breakpoint-down("lg") {
     height: calc(100% - $header-height - $footer-height);
