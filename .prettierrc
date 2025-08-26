@@ -19,7 +19,5 @@
     "useTabs": false,
     "embeddedLanguageFormatting": "auto",
     "vueIndentScriptAndStyle": false,
-    "experimentalTernaries": false,
-    "filepath": "c:\\Users\\Chris\\AppData\\Roaming\\Code\\User\\settings.json",
-    "parser": "json"
+    "experimentalTernaries": false
 }
