@@ -79,7 +79,6 @@
 
     &.edit {
         height: 100%;
-        gap: 48px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -132,10 +131,6 @@
     @include breakpoint-down('md') {
         height: 50%;
         width: 100%;
-
-        &:not(.modal) {
-            margin-top: 68px;
-        }
     }
 }
 
