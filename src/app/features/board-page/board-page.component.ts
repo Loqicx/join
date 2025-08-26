@@ -15,6 +15,7 @@ import { TaskCardModalComponent } from '../../shared/task-card-modal/task-card-m
 import { AddTaskModalComponent } from '../../shared/add-task-modal/add-task-modal.component';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DeleteModalComponent } from '../../shared/delete-modal/delete-modal.component';
 
 @Component({
     selector: 'app-board-page',
@@ -27,6 +28,7 @@ import { Router } from '@angular/router';
         TaskCardModalComponent,
         AddTaskModalComponent,
         FormsModule,
+        DeleteModalComponent,
     ],
     templateUrl: './board-page.component.html',
     styleUrl: './board-page.component.scss',
@@ -69,6 +71,7 @@ export class BoardPageComponent implements OnInit {
     searchTerm: string = '';
 
     @ViewChild(AddTaskModalComponent) AddTaskModal!: AddTaskModalComponent;
+    @ViewChild(DeleteModalComponent) DeleteModal!: DeleteModalComponent;
 
     taskToEdit: string = '';
     asEdit: boolean = false;
@@ -88,6 +91,11 @@ export class BoardPageComponent implements OnInit {
             this.tasks = tasks;
             this.handleTaskUpdate();
         });
+    }
+
+    openDeleteModal(task: Task) {
+        this.selectedTask = task;
+        this.DeleteModal.deleteTaskModal();
     }
 
     openTask(task: Task) {

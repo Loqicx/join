@@ -77,9 +77,15 @@
         </div>
         }
     </div>
+
     <app-add-task-modal [selectedContacts]="[]" [taskStatus]="addTaskStatus"> </app-add-task-modal>
     <!-- Modal -->
     @if (isModalOpen && selectedTask) {
-    <app-task-card-modal [task]="selectedTask" (close)="closeTask()"></app-task-card-modal>
+    <app-task-card-modal
+        [task]="selectedTask"
+        (close)="closeTask()"
+        (delete)="this.openDeleteModal($event)"
+    ></app-task-card-modal>
     }
+    <app-delete-modal #deleteModal [task]="selectedTask!"></app-delete-modal>
 </main>
