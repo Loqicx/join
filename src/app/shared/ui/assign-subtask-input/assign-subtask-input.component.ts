@@ -6,29 +6,46 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-assign-subtask-input',
   imports: [CommonModule, FormsModule],
   templateUrl: './assign-subtask-input.component.html',
-  styleUrl: './assign-subtask-input.component.scss'
+  styleUrl: './assign-subtask-input.component.scss',
 })
 export class AssignSubtaskInputComponent {
-
-  @Input() subtasks: { title: string, done: boolean, hover?: boolean, edit?: boolean }[] = [];
-  subtaskData: { title: string, done: boolean }[] = [{ title: '', done: false }];
+  @Input() subtasks: {
+    title: string;
+    done: boolean;
+    hover?: boolean;
+    edit?: boolean;
+  }[] = [];
+  subtaskData: { title: string; done: boolean }[] = [
+    { title: '', done: false },
+  ];
   taskSubtask: any;
 
   subtaskActive: boolean = false;
   subtaskInput: boolean = false;
   subtaskEditInput: string = '';
 
-  @Output() selectedSubTasks: EventEmitter<{ title: string, done: boolean }[]> =
-    new EventEmitter<{ title: string, done: boolean }[]>();
+  @Output() selectedSubTasks: EventEmitter<{ title: string; done: boolean }[]> =
+    new EventEmitter<{ title: string; done: boolean }[]>();
 
   addSubtask() {
     if (this.taskSubtask) {
-      this.subtasks.push({ title: this.taskSubtask, done: false, hover: false, edit: false });
+      this.subtasks.push({
+        title: this.taskSubtask,
+        done: false,
+        hover: false,
+        edit: false,
+      });
       this.taskSubtask = '';
       this.emitSubtasks();
       this.subtaskInput = false;
     }
     this.subtaskActive = false;
+  }
+
+  handleKeyUp(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.addSubtask();
+    }
   }
 
   clearCreateInput() {
@@ -46,7 +63,12 @@ export class AssignSubtaskInputComponent {
   }
 
   emitSubtasks() {
-    this.selectedSubTasks.emit(this.subtasks.map(subtask => ({ title: subtask.title, done: subtask.done })));
+    this.selectedSubTasks.emit(
+      this.subtasks.map((subtask) => ({
+        title: subtask.title,
+        done: subtask.done,
+      }))
+    );
   }
 
   reloadInput(index: number) {
