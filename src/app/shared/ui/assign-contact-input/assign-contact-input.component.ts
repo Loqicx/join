@@ -87,6 +87,8 @@ export class AssignContactInputComponent {
       return this.searchArray;
     }
       this.searchArray= this.displaySearchContacts(searchValue);
+      
+      return this.searchArray;
   }
 
   displayAllContacts() {
@@ -95,6 +97,7 @@ export class AssignContactInputComponent {
       const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
       return nameA.localeCompare(nameB);
     });
+
     return this.searchArray
   }
 
@@ -110,7 +113,6 @@ export class AssignContactInputComponent {
         const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
         return nameA.localeCompare(nameB);
       });
-    this.searchArray = this.filteredContacts;
 
     return this.filteredContacts;
   }
