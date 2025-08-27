@@ -4,7 +4,7 @@
         <h1 class="title">Add Task</h1>
         } 
         <div class="add-task">
-            <form (ngSubmit)="saveTask(addTaskForm)" #addTaskForm="ngForm" class="add-task-form" [class.edit]="asEdit">
+            <form (ngSubmit)="saveTask(addTaskForm)" (keydown.enter)="$event.preventDefault()" #addTaskForm="ngForm" class="add-task-form" [class.edit]="asEdit">
                 <div class="left-wrapper" [class.edit]="asEdit">
                     <div class="input-wrapper">
                         <div class="input input-text">

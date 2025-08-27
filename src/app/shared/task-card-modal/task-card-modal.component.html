@@ -1,6 +1,6 @@
 @if (task) {
-<div class="modal-overlay" (click)="onOutsideClick($event)">
-  <div class="modal-wrapper" [class.edit]="asEdit">
+<div class="modal-overlay" (click)="onOutsideClick($event)" [class.not-slide]="!isSlide">
+  <div class="modal-wrapper" [class.edit]="asEdit" [class.slide]="isSlide">
     <div class="modal-content" [class.edit]="asEdit">
       <!-- Header -->
       <div class="modal-header">
@@ -89,7 +89,6 @@
         </div>
       </div>
 
-      <app-delete-modal #deleteModal [task]="task"></app-delete-modal>
       } @else if (asEdit) {
       <app-add-task
         (closeModal)="this.closeModal()"

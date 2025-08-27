@@ -19,8 +19,6 @@ import {
 } from '../services/firebase/tasks.service';
 import { SVGInlineService } from '../services/svg-inline.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
-import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
-import { ViewChild } from '@angular/core';
 import { AddTaskComponent } from '../add-task/add-task.component';
 
 /**
@@ -32,7 +30,7 @@ import { AddTaskComponent } from '../add-task/add-task.component';
 @Component({
   selector: 'app-task-card-modal',
   standalone: true,
-  imports: [CommonModule, DeleteModalComponent, AddTaskComponent],
+  imports: [CommonModule, AddTaskComponent],
   templateUrl: './task-card-modal.component.html',
   styleUrls: ['./task-card-modal.component.scss'],
   providers: [ColoredProfilePipe, SVGInlineService],
@@ -41,6 +39,8 @@ export class TaskCardModalComponent implements OnInit {
   asEdit: boolean = false;
   selectedContacts: Contact[] = [];
   assignedContactsNames: string = '';
+
+  isSlide: boolean = false;
 
   /**
    * Stores inline SVGs after sanitization.
@@ -68,8 +68,6 @@ export class TaskCardModalComponent implements OnInit {
    * The task displayed inside the modal.
    */
   @Input() task!: Task;
-
-  @ViewChild('deleteModal') deleteModal!: DeleteModalComponent;
 
   /**
    * Event emitter to close the modal.
@@ -248,10 +246,17 @@ export class TaskCardModalComponent implements OnInit {
    * Closes the modal by emitting the close event.
    */
   closeModal() {
-    this.close.emit();
+    this.isSlide = false;
+    setTimeout(() => {
+      this.close.emit();
+    }, 400);
   }
 
   openDeleteModal() {
-    this.deleteModal.deleteTaskModal(this.task);
+    this.isSlide = false;
+    setTimeout(() => {
+      this.close.emit();
+    }, 400);
+    this.delete.emit(this.task);
   }
 }

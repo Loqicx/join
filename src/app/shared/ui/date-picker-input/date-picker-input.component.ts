@@ -281,6 +281,7 @@ export class DatePickerInputComponent implements ControlValueAccessor {
       String(today.getMonth() + 1).padStart(2, '0') + '/' +
       today.getFullYear();
 
+    this.onDateSelected(today);
     this.onChange(this.dateInputVal);
     this.onTouched();
 
