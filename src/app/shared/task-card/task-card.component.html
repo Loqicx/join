@@ -31,11 +31,13 @@
   <div class="bottom-row">
     <!-- Assignees -->
     <div class="assignees">
-      @for (a of assignedInitials; track a) {
-      <span class="avatar" [style.background-color]="a.color">
-        {{ a.initials }}
-      </span>
-      }
+     @for (a of assignedInitials; track $index) {
+  @if (a && a.initials) {
+    <span class="avatar" [style.background-color]="a.color">
+      {{ a.initials }}
+    </span>
+  }
+}
     </div>
 
     <!-- Priority Icon -->
