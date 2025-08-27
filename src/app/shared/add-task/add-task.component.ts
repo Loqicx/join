@@ -94,8 +94,8 @@ export class AddTaskComponent {
             const status = this.convertToNumber(params.get('status'));
             if (status !== 1) {
             this.taskStatus = +status!;
-            this.redirectToBoard = params.get('redirectToBoard') ? true : false;
             }
+            this.redirectToBoard = params.get('redirectToBoard') ? true : false;
         });
         // this.taskStatus = this.task.status
     }
