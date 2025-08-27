@@ -92,9 +92,10 @@ export class AddTaskComponent {
         }
         this.route.queryParamMap.subscribe((params) => {
             const status = this.convertToNumber(params.get('status'));
+            if (status !== 1) {
             this.taskStatus = +status!;
             this.redirectToBoard = params.get('redirectToBoard') ? true : false;
-            console.log(status, typeof status);
+            }
         });
         // this.taskStatus = this.task.status
     }
@@ -113,6 +114,7 @@ export class AddTaskComponent {
         this.activateButton(this.getButtonName(this.task.priority));
         this.cleanedTaskDueDate = this.cleanTaskDueDate(this.task.dueDate);
         this.selectedSubTasks = this.task.subtasks;
+        this.taskStatus = this.task.status;
     }
 
     setTaskDueDate(date: string) {
