@@ -2,16 +2,33 @@
     <div class="add-task-wrapper" [class.edit]="asEdit">
         @if (!asEdit) {
         <h1 class="title">Add Task</h1>
-        } 
+        }
         <div class="add-task">
-            <form (ngSubmit)="saveTask(addTaskForm)" (keydown.enter)="$event.preventDefault()" #addTaskForm="ngForm" class="add-task-form" [class.edit]="asEdit">
+            <form
+                (ngSubmit)="saveTask(addTaskForm)"
+                (keydown.enter)="$event.preventDefault()"
+                #addTaskForm="ngForm"
+                class="add-task-form"
+                [class.edit]="asEdit"
+            >
                 <div class="left-wrapper" [class.edit]="asEdit">
                     <div class="input-wrapper">
                         <div class="input input-text">
-                            <label for="taskTitle" class="input-title">Title<div class="required-star">*</div></label>
-                            <input class="input-sm blue-focus border" type="text" placeholder="Enter a Title" required
-                                [(ngModel)]="taskTitle" name="taskTitle" #taskTitleVar="ngModel"
-                                [class.red-border]="showTitleWarning" (input)="showTitleWarning=false">
+                            <label for="taskTitle" class="input-title"
+                                >Title
+                                <div class="required-star">*</div></label
+                            >
+                            <input
+                                class="input-sm blue-focus border"
+                                type="text"
+                                placeholder="Enter a Title"
+                                required
+                                [(ngModel)]="taskTitle"
+                                name="taskTitle"
+                                #taskTitleVar="ngModel"
+                                [class.red-border]="showTitleWarning"
+                                (input)="showTitleWarning = false"
+                            />
                             @if (showTitleWarning) {
                             <div class="warning-format">
                                 <span class="warn-text">This field is required</span>
@@ -22,20 +39,31 @@
                     <div class="input-wrapper">
                         <div class="input input-description">
                             <label for="taskDescription" class="input-title">Description</label>
-                            <textarea class="input-bg blue-focus border" type="text" placeholder="Enter a Description"
-                                required [(ngModel)]="taskDescription" name="taskDescription"
-                                #taskDescriptionVar="ngModel">
+                            <textarea
+                                class="input-bg blue-focus border"
+                                type="text"
+                                placeholder="Enter a Description"
+                                required
+                                [(ngModel)]="taskDescription"
+                                name="taskDescription"
+                                #taskDescriptionVar="ngModel"
+                            >
                             </textarea>
                         </div>
                     </div>
                     <div class="input-wrapper">
                         <div class="input input-text">
-                            <label for="taskDueDate" class="input-title">Due date<div class="required-star">*</div>
+                            <label for="taskDueDate" class="input-title"
+                                >Due date
+                                <div class="required-star">*</div>
                             </label>
                             <!-- <input class="input-sm blue-focus border date-input" type="date" required
                                 [(ngModel)]="taskDueDate" name="taskDueDate" #taskDueDateVar="ngModel" /> -->
-                            <app-date-picker-input [dateInputVal]="cleanedTaskDueDate"
-                                (dateSelected)="setTaskDueDate($event)" [asEdit]="asEdit"></app-date-picker-input>
+                            <app-date-picker-input
+                                [dateInputVal]="cleanedTaskDueDate"
+                                (dateSelected)="setTaskDueDate($event)"
+                                [asEdit]="asEdit"
+                            ></app-date-picker-input>
                         </div>
                     </div>
                     <div class="required-text-wrapper" [class.edit]="asEdit">
@@ -45,7 +73,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="separator-bar"  [class.edit]="asEdit">
+                <div class="separator-bar" [class.edit]="asEdit">
                     <div class="separator"></div>
                     <!-- Separator things going on here -->
                 </div>
@@ -53,44 +81,77 @@
                     <div class="priority-wrapper">
                         <label for="priority-btn-wrapper">Priority</label>
                         <div class="priority-btn-wrapper">
-                            <app-button (btnClick)="activateButton('urgent'); this.priority = 3" [invert]="false"
-                                [active]="this.buttonState.urgent" [iconSrc]="'assets/icons/urgent.svg'"
-                                [size]="'priority'" [fontSize]="'20px'" [color]="'danger'">
+                            <app-button
+                                (btnClick)="activateButton('urgent'); this.priority = 3"
+                                [invert]="false"
+                                [active]="this.buttonState.urgent"
+                                [iconSrc]="'assets/icons/urgent.svg'"
+                                [size]="'priority'"
+                                [fontSize]="'20px'"
+                                [color]="'danger'"
+                            >
                                 Urgent
                             </app-button>
 
-                            <app-button (btnClick)="activateButton('medium'); this.priority = 2" [invert]="false"
-                                [active]="this.buttonState.medium" [iconSrc]="'assets/icons/medium.svg'"
-                                [size]="'priority'" [fontSize]="'20px'" [color]="'warn'">
+                            <app-button
+                                (btnClick)="activateButton('medium'); this.priority = 2"
+                                [invert]="false"
+                                [active]="this.buttonState.medium"
+                                [iconSrc]="'assets/icons/medium.svg'"
+                                [size]="'priority'"
+                                [fontSize]="'20px'"
+                                [color]="'warn'"
+                            >
                                 Medium
                             </app-button>
 
-                            <app-button (btnClick)="activateButton('low'); this.priority = 1" [invert]="false"
-                                [active]="this.buttonState.low" [iconSrc]="'assets/icons/low.svg'" [size]="'priority'"
-                                [fontSize]="'20px'" [color]="'success'">
+                            <app-button
+                                (btnClick)="activateButton('low'); this.priority = 1"
+                                [invert]="false"
+                                [active]="this.buttonState.low"
+                                [iconSrc]="'assets/icons/low.svg'"
+                                [size]="'priority'"
+                                [fontSize]="'20px'"
+                                [color]="'success'"
+                            >
                                 Low
                             </app-button>
                         </div>
                     </div>
                     <div class="input-wrapper">
                         <div class="input">
-                            <app-assign-contact-input class="assign-contact" [preview]="true"
-                                [selectedContactsArray]="selectedContacts" [taskAssignInput]="assignedContactsNames"
-                                (selectedContacts)="selectContacts($event)">
+                            <app-assign-contact-input
+                                class="assign-contact"
+                                [preview]="true"
+                                [selectedContactsArray]="selectedContacts"
+                                [taskAssignInput]="assignedContactsNames"
+                                (selectedContacts)="selectContacts($event)"
+                            >
                             </app-assign-contact-input>
                         </div>
                     </div>
                     <div class="input-wrapper">
                         <div class="input">
-                            <label for="taskCategory" class="input-title">Category<div class="required-star">*</div>
+                            <label for="taskCategory" class="input-title"
+                                >Category
+                                <div class="required-star">*</div>
                             </label>
-                            <select size="1" [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel"
-                                list="categorys" class="single-select border blue-focus" required autocomplete='off'
-                                (change)="showCategoryWarning = false" [class.red-border]="showCategoryWarning">
-                                <option value='' selected disabled hidden>Select task Category</option>
-                                <option value='0' disabled hidden>Select task Category</option>
-                                <option value='1'>User Story</option>
-                                <option value='2'>Technical Task</option>
+                            <select
+                                size="1"
+                                [(ngModel)]="taskCategory"
+                                name="taskCategory"
+                                #taskCategoryVar="ngModel"
+                                list="categorys"
+                                class="single-select border blue-focus"
+                                required
+                                autocomplete="off"
+                                (change)="showCategoryWarning = false"
+                                [class.red-border]="showCategoryWarning"
+                            >
+                                <option value="" selected disabled hidden>Select task Category</option>
+                                <option value="0" disabled hidden>Select task Category</option>
+                                <option value="1">User Story</option>
+                                <option value="2">Technical Task</option>
                             </select>
                             @if (showCategoryWarning) {
                             <div class="warning-format">
@@ -100,20 +161,30 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <app-assign-subtask-input [subtasks]="this.selectedSubTasks"
-                            (selectedSubTasks)="selectSubTasks($event)"></app-assign-subtask-input>
+                        <app-assign-subtask-input
+                            [subtasks]="this.selectedSubTasks"
+                            (selectedSubTasks)="selectSubTasks($event)"
+                        ></app-assign-subtask-input>
                     </div>
                     @if (!asEdit) {
                     <div class="lower-btn-wrapper">
-                        <app-button (btnClick)="resetForm(addTaskForm)" [invert]="true" [fontSize]="'20px'"
-                            [iconSrc]="'assets/icons/close.svg'">Cancel</app-button>
-                        <app-button [type]="'submit'" [fontSize]="'20px'"
-                            [iconSrc]="'assets/icons/check.svg'">Send</app-button>
+                        <app-button
+                            (btnClick)="resetForm(addTaskForm)"
+                            [invert]="true"
+                            [fontSize]="'20px'"
+                            [iconSrc]="'assets/icons/close.svg'"
+                        >
+                            @if (asModal) {Cancel} @else {Clear}</app-button
+                        >
+                        <app-button [type]="'submit'" [fontSize]="'20px'" [iconSrc]="'assets/icons/check.svg'"
+                            >Send</app-button
+                        >
                     </div>
                     } @else {
                     <div class="lower-btn-wrapper">
-                        <app-button [type]="'submit'" [fontSize]="'20px'"
-                            [iconSrc]="'assets/icons/check.svg'">Ok</app-button>
+                        <app-button [type]="'submit'" [fontSize]="'20px'" [iconSrc]="'assets/icons/check.svg'"
+                            >Ok</app-button
+                        >
                     </div>
                     }
                 </div>

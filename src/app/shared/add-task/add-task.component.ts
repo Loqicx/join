@@ -287,6 +287,7 @@ export class AddTaskComponent {
      * @param {NgForm} form - The NgForm instance representing the task form.
      */
     resetForm(form: NgForm) {
+        if (this.asModal) this.closeModal.emit()
         this.AssignContactInputComponent.performReset();
         this.DatePickerInputComponent.resetCalendar();
         form.resetForm();
