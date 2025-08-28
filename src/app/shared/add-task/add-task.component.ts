@@ -211,7 +211,7 @@ export class AddTaskComponent {
         try {
             await this.tasksService.addTaskToDatabase(this.task);
             this.resetForm(taskForm);
-            if (this.redirectToBoard) this.router.navigate(['/board']);
+            if (!this.asModal || !this.asEdit)this.router.navigate(['/board']);
         } catch (error) {
             console.error('Failed to Save Task!');
         }
