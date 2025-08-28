@@ -165,6 +165,7 @@
         .icon-container:hover {
             transform: scale(1.08);
             transition: transform 0.3s ease-in;
+            cursor: pointer;
         }
 
         .icon-container.edit {
