@@ -45,8 +45,9 @@
                         </span>
                     </div>
                 </div>
-                <div class="seperator" [class.edit]="asEdit">
-                    <!-- Seperator things going on here -->
+                <div class="separator-bar"  [class.edit]="asEdit">
+                    <div class="separator"></div>
+                    <!-- Separator things going on here -->
                 </div>
                 <div class="right-wrapper" [class.modal]="asModal" [class.edit]="asEdit">
                     <div class="priority-wrapper">
@@ -85,7 +86,7 @@
                             </label>
                             <select size="1" [(ngModel)]="taskCategory" name="taskCategory" #taskCategoryVar="ngModel"
                                 list="categorys" class="single-select border blue-focus" required autocomplete='off'
-                                (change)="showCategoryWarning = false">
+                                (change)="showCategoryWarning = false" [class.red-border]="showCategoryWarning">
                                 <option value='' selected disabled hidden>Select task Category</option>
                                 <option value='0' disabled hidden>Select task Category</option>
                                 <option value='1'>User Story</option>
