@@ -4,7 +4,7 @@
     <input type="text" placeholder="Select Contacts to assign" [(ngModel)]="taskAssignInput" name="taskAssignInput"
       #taskAssignInputVar="ngModel" class="input-sm blue-focus" [class.active]="show"
       (input)="filterContacts(taskAssignInputVar.value); visibleTrue()"
-      (pointerdown)="filterContacts(taskAssignInputVar.value); visibleTrue()" autocomplete="off" />
+      (pointerdown)="filterContacts(''); visibleTrue()" autocomplete="off" />
     <div class="img-wrap" (click)="toggleVisibility(); filterContacts(taskAssignInputVar.value)" [class.active]="show">
       <img src="assets/icons/arrow_drop_down.svg" alt="Drop Down" class="arrow-icon">
     </div>
