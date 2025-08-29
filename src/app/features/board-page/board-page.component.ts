@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ButtonComponent } from '../../shared/ui/button/button.component';
 import {
     CdkDragDrop,
@@ -134,7 +134,6 @@ export class BoardPageComponent implements OnInit {
     drop(event: CdkDragDrop<Task[]>) {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-            console.log(event.container.data);
         } else {
             transferArrayItem(
                 event.previousContainer.data,
@@ -142,9 +141,6 @@ export class BoardPageComponent implements OnInit {
                 event.previousIndex,
                 event.currentIndex
             );
-
-            console.log(event.previousContainer.data);
-            console.log(event.container.data);
 
             const targetListId = event.container.id;
             const targetListIndex = parseInt(targetListId.replace('list-', ''));
