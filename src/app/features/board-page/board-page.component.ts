@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ButtonComponent } from '../../shared/ui/button/button.component';
 import {
     CdkDragDrop,
