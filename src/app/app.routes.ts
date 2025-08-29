@@ -5,11 +5,16 @@ import { LegalNoticePageComponent } from './features/legal-notice-page/legal-not
 import { HelpPageComponent } from './features/help-page/help-page.component';
 import { BoardPageComponent } from './features/board-page/board-page.component';
 import { AddTaskPageComponent } from './features/add-task-page/add-task-page.component';
+import { SummaryComponent } from './features/summary/summary.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: ContactsPageComponent, // TODO: add "home" component
+  },
+  {
+    path: 'summary',
+    component: SummaryComponent,
   },
   {
     path: 'board',
