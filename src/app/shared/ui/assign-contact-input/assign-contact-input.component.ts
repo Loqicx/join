@@ -65,17 +65,20 @@ export class AssignContactInputComponent {
 
   cleanupValue(searchInputValue?: string) {
     let searchValue: string | undefined;
+    if (searchInputValue?.includes(',') || searchInputValue?.includes(', ') && searchInputValue?.includes(',')) {
+      searchValue = searchInputValue?.substring(
+        searchInputValue?.lastIndexOf(',') + 2
+      );
+    }
     if (searchInputValue?.includes(', ')) {
       searchValue = searchInputValue?.substring(
         searchInputValue?.lastIndexOf(', ') + 2
       );
-    } else if (searchInputValue?.includes(',')) {
-      searchValue = searchInputValue?.substring(
-        searchInputValue?.lastIndexOf(',') + 1
-      );
-    } else {
-      searchValue = searchInputValue;
+    } 
+    if (!searchInputValue?.includes(', ') && !searchInputValue?.includes(',')) {
+      searchValue = searchInputValue?.replace(/,\s*$/, '');
     }
+    console.log('Cleanup search value:', searchValue);
     return searchValue;
   }
 
@@ -86,9 +89,9 @@ export class AssignContactInputComponent {
       this.searchArray = this.displayAllContacts();
       return this.searchArray;
     }
-      this.searchArray= this.displaySearchContacts(searchValue);
-      
-      return this.searchArray;
+    this.searchArray = this.displaySearchContacts(searchValue);
+
+    return this.searchArray;
   }
 
   displayAllContacts() {
