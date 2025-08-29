@@ -9,7 +9,8 @@
         <app-add-task 
             [asModal]="true" 
             [selectedContacts]="selectedContacts" 
-            [taskStatus]="taskStatus" class="modal">
+            [taskStatus]="taskStatus" class="modal"
+            (closeModal)="closeModal()">
         </app-add-task>
     </div>
 </div>

@@ -96,7 +96,7 @@ export class BoardPageComponent implements OnInit {
 
     openDeleteModal(task: Task) {
         this.selectedTask = task;
-        this.DeleteModal.deleteTaskModal();
+        this.DeleteModal.deleteTaskModal(this.selectedTask);
     }
 
     openTask(task: Task) {
@@ -109,7 +109,6 @@ export class BoardPageComponent implements OnInit {
 
     closeTask() {
         this.isModalOpen = false;
-        this.selectedTask = null;
     }
 
     setTaskStatus(status: number) {

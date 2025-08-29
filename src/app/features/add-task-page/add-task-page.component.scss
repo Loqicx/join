@@ -4,6 +4,8 @@
 :host {
   height: calc(100% - $header-height);
   display: block;
+  overflow-y: scroll;
+  background-color: $color-primary-bg;
 
   @include breakpoint-down("lg") {
     height: calc(100% - $header-height - $footer-height);
@@ -19,7 +21,6 @@
 }
 
 .content-wrapper {
-    height: 100%;
-    overflow-y: scroll;
+    min-height: 500px;
     background-color: $color-primary-bg;
 }
