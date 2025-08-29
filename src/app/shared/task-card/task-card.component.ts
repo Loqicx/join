@@ -72,8 +72,7 @@ export class TaskCardComponent implements OnInit {
           this.initialLetterService.getInitialLetters(contact);
         const color: String = this.coloredProfilePipe.transform(contact.id);
         this.assignedInitials.push({ initials: initials, color: color });
-      } else {
-        this.assignedInitials.push({ initials: '??', color: '#999' });
+      
       }
     }
   }

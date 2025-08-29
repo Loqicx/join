@@ -87,7 +87,7 @@ export class TaskCardModalComponent implements OnInit {
   /**
    * Assigned contacts shown with initials, color and name.
    */
-  assignedContacts: { initials: String; color: String; name: String }[] = [];
+  assignedContacts: { initials: string; color: string; name: string }[] = [];
 
   // === Injected Services ===
   contactsService: ContactsService = inject(ContactsService);
@@ -144,35 +144,32 @@ export class TaskCardModalComponent implements OnInit {
    * Builds initials, color, and name for each assigned contact.
    */
   updateAssignedContacts(): void {
-    this.assignedContacts = [];
+  this.assignedContacts = [];
+  this.selectedContacts = [];
 
-    if (!this.task || !this.task.assignedTo) return;
+  if (!this.task || !this.task.assignedTo) return;
 
-    for (let i = 0; i < this.task.assignedTo.length; i++) {
-      const id = this.task.assignedTo[i];
-      const contact: Contact | undefined =
-        this.contactsService.getContactById(id);
-      if (contact) this.selectedContacts.push(contact);
+  for (let i = 0; i < this.task.assignedTo.length; i++) {
+    const id = this.task.assignedTo[i];
+    const contact: Contact | undefined = this.contactsService.getContactById(id);
 
-      if (contact) {
-        const initials: String =
-          this.initialLetterService.getInitialLetters(contact);
-        const color: String = this.coloredProfilePipe.transform(contact.id);
-        this.assignedContacts.push({
-          initials,
-          color,
-          name: `${contact.firstName} ${contact.lastName}`,
-        });
-      } else {
-        this.assignedContacts.push({
-          initials: '??',
-          color: '#999',
-          name: 'Unknown',
-        });
-      }
+    if (contact) {
+      this.selectedContacts.push(contact);
+
+      const initials: string = this.initialLetterService.getInitialLetters(contact).toString();
+      const color: string = this.coloredProfilePipe.transform(contact.id);
+
+      this.assignedContacts.push({
+        initials,
+        color,
+        name: `${contact.firstName} ${contact.lastName}`,
+      });
     }
-    this.getContactNames();
+    
   }
+
+  this.getContactNames();
+}
 
   /**
  * close the modal 

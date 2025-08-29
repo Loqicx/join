@@ -41,12 +41,14 @@
         <p><strong class="section-title">Assigned to:</strong></p>
         <div class="assignees">
           @for (a of assignedContacts; track $index) {
+            @if (a && a.name && a.initials) {
           <div class="assignee">
             <span class="avatar" [style.background-color]="a.color">
               {{ a.initials }}
             </span>
             <span class="name">{{ a.name }}</span>
           </div>
+          }
           }
         </div>
       </div>
