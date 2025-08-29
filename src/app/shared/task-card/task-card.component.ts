@@ -7,6 +7,7 @@ import { ContactsService } from '../services/firebase/contacts.service';
 import { InitialLettersService } from '../services/get-initial-letters.service';
 import { ColoredProfilePipe } from '../pipes/colored-profile.pipe';
 import { TruncateStringPipe } from '../pipes/truncate-string.pipe';
+import { TaskComService } from '../services/task-communication/task-com.service';
 
 @Component({
     selector: 'app-task-card',
@@ -36,12 +37,17 @@ export class TaskCardComponent implements OnInit {
     contactsService: ContactsService = inject(ContactsService);
     initialLetterService: InitialLettersService = inject(InitialLettersService);
     coloredProfilePipe: ColoredProfilePipe = inject(ColoredProfilePipe);
+    taskComService: TaskComService = inject(TaskComService);
 
     constructor() {}
 
     ngOnInit(): void {
         this.taskCategory = this.getTaskCategory();
         this.updateAssignedInitials();
+        this.taskComService.taskChanged$.subscribe((val) => {
+            this.taskCategory = this.getTaskCategory();
+            this.updateAssignedInitials();
+        });
     }
 
     openModal() {
