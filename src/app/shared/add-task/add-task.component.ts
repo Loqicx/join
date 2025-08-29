@@ -11,6 +11,7 @@ import { TasksService } from '../services/firebase/tasks.service';
 import { Task } from '../interfaces/task';
 import { DatePickerInputComponent } from '../ui/date-picker-input/date-picker-input.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TaskComService } from '../services/task-communication/task-com.service';
 
 /**
  * Component responsible for adding a new task.
@@ -81,6 +82,7 @@ export class AddTaskComponent {
     contactsService: ContactsService = inject(ContactsService);
     initialLetterService: InitialLettersService = inject(InitialLettersService);
     tasksService: TasksService = inject(TasksService);
+    taskComService: TaskComService = inject(TaskComService);
 
     route: ActivatedRoute = inject(ActivatedRoute);
     router: Router = inject(Router);
@@ -93,7 +95,7 @@ export class AddTaskComponent {
         this.route.queryParamMap.subscribe((params) => {
             const status = this.convertToNumber(params.get('status'));
             if (status !== 1) {
-            this.taskStatus = +status!;
+                this.taskStatus = +status!;
             }
             this.redirectToBoard = params.get('redirectToBoard') ? true : false;
         });
@@ -202,6 +204,7 @@ export class AddTaskComponent {
         try {
             await this.tasksService.updateTask(this.task, this.task.id);
             this.closeModal.emit();
+            this.taskComService.triggerTaskChange(0);
         } catch (error) {
             console.error('Failed to Update Task!');
         }
@@ -211,7 +214,7 @@ export class AddTaskComponent {
         try {
             await this.tasksService.addTaskToDatabase(this.task);
             this.resetForm(taskForm);
-            if (!this.asModal || !this.asEdit)this.router.navigate(['/board']);
+            if (!this.asModal || !this.asEdit) this.router.navigate(['/board']);
         } catch (error) {
             console.error('Failed to Save Task!');
         }
@@ -287,7 +290,7 @@ export class AddTaskComponent {
      * @param {NgForm} form - The NgForm instance representing the task form.
      */
     resetForm(form: NgForm) {
-        if (this.asModal) this.closeModal.emit()
+        if (this.asModal) this.closeModal.emit();
         this.AssignContactInputComponent.performReset();
         this.DatePickerInputComponent.resetCalendar();
         form.resetForm();
