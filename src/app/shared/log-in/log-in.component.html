@@ -9,7 +9,7 @@
                 <div class="input-wrapper">
                     <input
                         type="text"
-                        class="input-sm border"
+                        class="input-sm border blue-focus"
                         name="email"
                         placeholder="Email"
                         required
@@ -20,8 +20,8 @@
                 </div>
                 <div class="input-wrapper">
                     <input
-                        type="text"
-                        class="input-sm border"
+                        type="password"
+                        class="input-sm border blue-focus"
                         name="password"
                         placeholder="Password"
                         required
@@ -29,6 +29,7 @@
                         #logInPasswordVar="ngModel"
                     />
                     <img class="input-icon" src="assets/icons/lock.svg" alt="Password icon">
+                    <div class="warn-text">Check your email and password. Please try again.</div>
                 </div>
                 <div class="button-wrapper">
                     <app-button>Log in</app-button>
