@@ -1,0 +1,89 @@
+@use '../../../styles/variables.scss' as *;
+@use '../../../styles/mixings.scss' as *;
+
+:host {
+    height: 100%;
+    width: 100%;
+}
+
+.logIn-wrapper {
+    height: 90%;
+    width: 90%;
+    margin: auto;
+    padding: 12px 96px;
+    background-color: white;
+    border: 1px solid transparent;
+    border-radius: 16px;
+}
+
+.logIn-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logIn-title {
+    font-size: 42px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .blue-underline {
+        margin: 12px 0;
+        height: 2px;
+        width: 202px;
+        background-color: $color-primary-hover;
+    }
+}
+
+.logIn-window {
+    height: 100%;
+    width: 100%;
+}
+
+.logIn-form {
+    height: 100%;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 16px;
+
+    .input-sm {
+        height: 48px;
+        width: 100%;
+        font-size: 18px;
+        font-family: Inter;
+        font-weight: 400;
+    }
+
+    .border {
+        border: 1px solid $color-input-border;
+        border-radius: 8px;
+        padding: 8px;
+    }
+
+    .input-icon {
+        position: absolute;
+        height: 24px;
+        width: 24px;
+        top: 12px;
+        right: 20px;
+    }
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 48px;
+    gap: 24px;
+}

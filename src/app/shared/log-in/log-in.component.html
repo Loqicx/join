@@ -4,12 +4,13 @@
             <h1>Log in</h1>
             <div class="blue-underline"></div>
         </div>
-        <div class="logIn-input">
-            <form class="logIn" (ngSubmit)="logIn()" #logInForm="ngForm">
+        <div class="logIn-window">
+            <form class="logIn-form" (ngSubmit)="logIn()" #logInForm="ngForm">
                 <div class="input-wrapper">
                     <input
                         type="text"
                         class="input-sm border"
+                        name="email"
                         placeholder="Email"
                         required
                         [(ngModel)]="logInEmail"
@@ -21,6 +22,7 @@
                     <input
                         type="text"
                         class="input-sm border"
+                        name="password"
                         placeholder="Password"
                         required
                         [(ngModel)]="logInPassword"
@@ -30,7 +32,7 @@
                 </div>
                 <div class="button-wrapper">
                     <app-button>Log in</app-button>
-                    <app-button>Guest Log in</app-button>
+                    <app-button [invert]="true">Guest Log in</app-button>
                 </div>
             </form>
         </div>
