@@ -6,11 +6,12 @@ import { HelpPageComponent } from './features/help-page/help-page.component';
 import { BoardPageComponent } from './features/board-page/board-page.component';
 import { AddTaskPageComponent } from './features/add-task-page/add-task-page.component';
 import { SummaryComponent } from './features/summary/summary.component';
+import { LogInPageComponent } from './features/log-in-page/log-in-page.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: ContactsPageComponent, // TODO: add "home" component
+    component: LogInPageComponent, // TODO: add "home" component
   },
   {
     path: 'summary',
