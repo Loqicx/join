@@ -2,10 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TasksService, TaskStatus } from '../../shared/services/firebase/tasks.service'; 
 import { Task } from '../../shared/services/firebase/tasks.service'; 
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
+  imports: [RouterLink],
   styleUrls: ['./summary.component.scss']
 })
 export class SummaryComponent implements OnInit, OnDestroy {
