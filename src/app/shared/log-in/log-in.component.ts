@@ -9,8 +9,9 @@ import { ButtonComponent } from "../ui/button/button.component";
   styleUrl: './log-in.component.scss'
 })
 export class LogInComponent {
-logInEmail: any;
-logInPassword: any;
+  warn: boolean = false;
+  logInEmail: any;
+  logInPassword: any;
 
   logIn() {
     console.log('Here should be a login Logic mady by Loqicx')

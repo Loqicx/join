@@ -15,6 +15,7 @@
                         required
                         [(ngModel)]="logInEmail"
                         #logInEmailVar="ngModel"
+                        [class.red-border]="warn"
                     />
                     <img class="input-icon" src="assets/icons/mail.svg" alt="E-Mail icon">
                 </div>
@@ -27,9 +28,10 @@
                         required
                         [(ngModel)]="logInPassword"
                         #logInPasswordVar="ngModel"
+                        [class.red-border]="warn"
                     />
                     <img class="input-icon" src="assets/icons/lock.svg" alt="Password icon">
-                    <div class="warn-text">Check your email and password. Please try again.</div>
+                    <div class="warn-text" [class.opacity-1]="warn">Check your email and password. Please try again.</div>
                 </div>
                 <div class="button-wrapper">
                     <app-button>Log in</app-button>
