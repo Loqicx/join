@@ -1,1 +1,38 @@
-<p>log-in works!</p>
+<div class="logIn-wrapper">
+    <div class="logIn-content">
+        <div class="logIn-title">
+            <h1>Log in</h1>
+            <div class="blue-underline"></div>
+        </div>
+        <div class="logIn-input">
+            <form class="logIn" (ngSubmit)="logIn()" #logInForm="ngForm">
+                <div class="input-wrapper">
+                    <input
+                        type="text"
+                        class="input-sm border"
+                        placeholder="Email"
+                        required
+                        [(ngModel)]="logInEmail"
+                        #logInEmailVar="ngModel"
+                    />
+                    <img class="input-icon" src="assets/icons/mail.svg" alt="E-Mail icon">
+                </div>
+                <div class="input-wrapper">
+                    <input
+                        type="text"
+                        class="input-sm border"
+                        placeholder="Password"
+                        required
+                        [(ngModel)]="logInPassword"
+                        #logInPasswordVar="ngModel"
+                    />
+                    <img class="input-icon" src="assets/icons/lock.svg" alt="Password icon">
+                </div>
+                <div class="button-wrapper">
+                    <app-button>Log in</app-button>
+                    <app-button>Guest Log in</app-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
