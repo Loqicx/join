@@ -1,11 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { TasksService, TaskStatus } from '../../shared/services/firebase/tasks.service'; 
+import { Task } from '../../shared/services/firebase/tasks.service'; 
 
 @Component({
   selector: 'app-summary',
-  imports: [],
   templateUrl: './summary.component.html',
-  styleUrl: './summary.component.scss'
+  styleUrls: ['./summary.component.scss']
 })
-export class SummaryComponent {
+export class SummaryComponent implements OnInit, OnDestroy {
+  todoCount: number = 0;
+  doneCount: number = 0;
 
+  private tasksSub: Subscription | undefined;
+
+  constructor(private tasksService: TasksService) {}
+
+  ngOnInit(): void {
+    this.tasksSub = this.tasksService.tasks$.subscribe((tasks: Task[]) => {
+      this.todoCount = tasks.filter(task => task.status === TaskStatus.TODO).length;
+      this.doneCount = tasks.filter(task => task.status === TaskStatus.DONE).length;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.tasksSub) {
+      this.tasksSub.unsubscribe();
+    }
+  }
 }

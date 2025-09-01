@@ -1,11 +1,32 @@
- <div class="content-wrapper">
-    <div class="summary-header">
+<div class="content-wrapper">
+  <!-- Header -->
+  <div class="summary-header">
     <h2 class="header__headline">Join 360</h2>
     <div class="vertical-separator"></div>
     <span class="header__subline">Key Metrics at a Glance</span>
   </div>
-  </div>
 
  
+  <div class="summary-boxes-row">
 
+    <div class="summary-box todo" routerLink="/board">
+      <div class="summary-box-header">
+        <img src="assets/icons/pencil.svg" alt="To-do" class="summary-icon">
+        <div class="summary-count-wrapper">
+          <span class="count">{{ todoCount }}</span>
+          <span class="label">To-do</span>
+        </div>
+      </div>
+    </div>
 
+    <div class="summary-box done" routerLink="/board">
+      <div class="summary-box-header">
+        <img src="assets/icons/summary-check.svg" alt="Done" class="summary-icon">
+        <div class="summary-count-wrapper">
+          <span class="count">{{ doneCount }}</span>
+          <span class="label">Done</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
