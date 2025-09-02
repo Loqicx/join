@@ -28,21 +28,29 @@
     </a>
   </div>
 
+  <div class="summary-wide-row">
   <div class="summary-box wide" routerLink="/board">
-  <div class="summary-left">
-    <img src="assets/icons/summary-urgent.svg" alt="urgent" class="summary-icon">
-    <div class="summary-count-wrapper">
-      <span class="count urgent">{{ urgentCount }}</span>
-      <span class="label">Urgent</span>
+    <div class="summary-left">
+      <img src="assets/icons/summary-urgent.svg" alt="urgent" class="summary-icon">
+      <div class="summary-count-wrapper">
+        <span class="count urgent">{{ urgentCount }}</span>
+        <span class="label">Urgent</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="summary-right">
+      <span class="date">
+        {{ upcomingDate ? (upcomingDate | date:'MMMM dd, yyyy') : '–' }}
+      </span>
+      <span class="label">Upcoming Deadline</span>
     </div>
   </div>
 
-  <div class="divider"></div>
+  <div class="summary-greeting">
+    <p>{{ greeting }},</p>
+    <h2><span class="highlight">Sofia Müller</span></h2>
+  </div>
+</div>
 
-  <div class="summary-right">
-  <span class="date">
-    {{ upcomingDate ? (upcomingDate | date:'MMMM dd, yyyy') : '–' }}
-  </span>
-  <span class="label">Upcoming Deadline</span>
-</div>
-</div>

@@ -17,6 +17,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
   doneCount: number = 0;
   urgentCount: number = 0;
   upcomingDate: Date | null = null;
+  greeting: string = '';
 
   private tasksSub: Subscription | undefined;
 
@@ -28,6 +29,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
       this.doneCount = this.countByStatus(tasks, TaskStatus.DONE);
       this.urgentCount = this.countByPriority(tasks, TaskPriority.HIGH);
       this.upcomingDate = this.getNextUrgentDate(tasks);
+      this.setGreeting();
     });
   }
 
@@ -67,7 +69,16 @@ export class SummaryComponent implements OnInit, OnDestroy {
     .filter(time => !isNaN(time));
 
   return urgentDates.length ? new Date(Math.min(...urgentDates)) : null;
-}
-}
+  }
 
-
+  private setGreeting(): void {
+    const hours = new Date().getHours();
+    if (hours >= 5 && hours < 12) {
+      this.greeting = 'Good morning';
+    } else if (hours >= 12 && hours < 18) {
+      this.greeting = 'Good afternoon';
+    } else {
+      this.greeting = 'Good evening';
+    }
+  }
+}

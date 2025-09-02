@@ -5,7 +5,7 @@
   height: calc(100% - $header-height);
   display: flex;
   flex-direction: column;
-  align-items: center;   // horizontal zentrieren
+  align-items: center;   
   overflow-y: scroll;
   background-color: $color-primary-bg;
 
@@ -24,9 +24,9 @@
   .summary-boxes-row {
     display: flex;
     gap: 18px; 
-    flex-wrap: wrap; 
     justify-content: flex-start;
     margin-top: 32px;
+    padding-right: 445px;
   }
 
   .content-wrapper {
@@ -45,6 +45,7 @@
     align-items: center;
     gap: 20px;
     margin-bottom: 32px;
+    padding-right: 420px;
 
     .header__headline {
       font-weight: bold;
@@ -219,6 +220,39 @@
 
     .divider {
       background: rgba(255, 255, 255, 0.4);
+    }
+  }
+}
+
+.summary-wide-row {
+  display: flex;
+  gap: 48px;
+  margin-top: 5px;
+  align-items: stretch; 
+}
+
+.summary-greeting {
+  
+  padding: 20px;
+  display: flex;            
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  cursor: default;
+
+  p {
+    font-size: 47px;
+    margin: 0;
+    color: #333;
+  }
+
+  h2 {
+    font-size: 64px;
+    margin-top: 4px;
+    font-weight: 700;
+
+    .highlight {
+      color: $color-primary-hover;
     }
   }
 }
