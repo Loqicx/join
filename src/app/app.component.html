@@ -1,8 +1,12 @@
 <div class="page-wrapper">
-  <app-sidebar></app-sidebar>
-  <div class="content">
-    <app-header></app-header>
-    <router-outlet></router-outlet>
-    <app-footer></app-footer>
-  </div>
+    @if (!loginPage) {
+    <app-sidebar></app-sidebar>
+    <div class="content">
+        <app-header></app-header>
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+    </div>
+    } @else {
+    <app-log-in-page></app-log-in-page>
+    }
 </div>

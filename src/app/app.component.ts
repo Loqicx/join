@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './shared/header/header.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { LogInPageComponent } from "./features/log-in-page/log-in-page.component";
 
 @Component({
   selector: 'app-root',
@@ -16,25 +17,14 @@ import { FooterComponent } from './shared/footer/footer.component';
     FormsModule,
     HeaderComponent,
     SidebarComponent,
-    FooterComponent
-  ],
+    FooterComponent,
+    LogInPageComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'join-mmc';
-
-  contact = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-  };
-
-  contactsService: ContactsService = inject(ContactsService);
-  constructor() {}
-
-  submitContact() {
-    this.contactsService.addContactToDatabase({ id: '', ...this.contact });
-  }
+  loggedIn = false; 
+  loginPage = true;
 }
