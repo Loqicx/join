@@ -20,8 +20,8 @@ export class LogInComponent {
   appComponent = inject(AppComponent)
   router = inject(Router)
 
-  logIn() {
-    this.userService.login(this.logInEmail, this.logInPassword).subscribe({
+  logIn(mail: string, pw: string) {
+    this.userService.login(mail, pw).subscribe({
       next: () => {
         this.appComponent.loggedIn = true;
         this.appComponent.loginPage = false;
