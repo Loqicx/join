@@ -7,7 +7,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LogInPageComponent } from "./features/log-in-page/log-in-page.component";
-
+import { UserService } from './shared/services/firebase/user.service';
 
 @Component({
   selector: 'app-root',
@@ -37,4 +37,13 @@ export class AppComponent {
   loginPage = true;
 
   contactsService: ContactsService = inject(ContactsService);
+  userService: UserService = inject(UserService)
+
+  ngOnInit() {
+    if (this.userService.user$.subscribe.name !== '') {
+      console.log(this.userService.user$)
+      this.loggedIn = true;
+      this.loginPage = false;
+    }
+  }
 }

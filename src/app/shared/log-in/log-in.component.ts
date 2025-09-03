@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from "../ui/button/button.component";
+import { UserService } from '../services/firebase/user.service';
+import { AppComponent } from '../../app.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -13,7 +16,20 @@ export class LogInComponent {
   logInEmail: any;
   logInPassword: any;
 
+  userService = inject(UserService)
+  appComponent = inject(AppComponent)
+  router = inject(Router)
+
   logIn() {
-    console.log('Here should be a login Logic mady by Loqicx')
+    this.userService.login(this.logInEmail, this.logInPassword).subscribe({
+      next: () => {
+        this.appComponent.loggedIn = true;
+        this.appComponent.loginPage = false;
+        this.router.navigateByUrl('/')
+      },
+      error: (error) => {
+        console.error("something went wrong", error)
+      }
+    })
   }
 }
