@@ -1,5 +1,12 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, signOut, user, User } from '@angular/fire/auth';
+import {
+    Auth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    user,
+    User,
+} from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 
 @Injectable({
@@ -32,6 +39,17 @@ export class UserService {
     logout(): Observable<void> {
         const promise = signOut(this.auth).then(() => {
             sessionStorage.clear();
+        });
+        return from(promise);
+    }
+
+    signUp(email: string, password: string): Observable<void> {
+        const promise = createUserWithEmailAndPassword(this.auth, email, password).then((result) => {
+            // Example
+            const user = result.user;
+            // Do stuff with user
+            // trigger notification
+            // ...
         });
         return from(promise);
     }
