@@ -39,11 +39,11 @@ export class AppComponent {
   contactsService: ContactsService = inject(ContactsService);
   userService: UserService = inject(UserService)
 
-  ngOnInit() {
-    if (this.userService.user$.subscribe.name !== '') {
-      console.log(this.userService.user$)
-      this.loggedIn = true;
-      this.loginPage = false;
-    }
+  async ngOnInit() {
+      if (await this.userService.checkAuth()) {
+        console.log(this.userService.user$)
+        this.loggedIn = true;
+        this.loginPage = false;
+      }
   }
 }

@@ -9,7 +9,7 @@ import {
     user,
     User,
 } from '@angular/fire/auth';
-import { from, Observable } from 'rxjs';
+import { firstValueFrom, from, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -59,5 +59,10 @@ export class UserService {
             // ...
         });
         return from(promise);
+    }
+
+    async checkAuth(): Promise<boolean> {
+        const currentUser = await firstValueFrom(this.user$);
+        return !!currentUser;
     }
 }
