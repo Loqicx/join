@@ -216,6 +216,7 @@
       height: 120px;
       background: #ddd;
       margin: 0 24px;
+      margin-right: 75px;
     }
 
     .summary-right {
@@ -292,3 +293,43 @@
     }
   }
 }
+
+.summary-small-row {
+  display: flex;
+  gap: 18px;         
+  margin-top: 25px;   
+  justify-content: flex-start;
+  padding-right: 440px;
+
+  .summary-box.small {
+    width: 168px;     
+    height: 168px;    
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    
+
+    .label {
+      font-size: 20px;
+      color: #666;
+    }
+
+    &:hover {
+      background: #2a3647;
+      transform: scale(1.05);
+
+      .count,
+      .label {
+        color: #fff;
+      }
+    }
+  }
+}
+
