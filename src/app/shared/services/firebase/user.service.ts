@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, user, User } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import { Auth, signInWithEmailAndPassword, user, User } from '@angular/fire/auth';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -12,5 +12,20 @@ export class UserService {
 
     constructor() {
         this.user$ = user(this.auth);
+    }
+
+    // Login example usage:
+    // this.userService.login(email, password).subscribe({
+    //   next: () => {
+    //     this.router.navigateByUrl('/summary');
+    //   },
+    //   error: (error) => {
+    //     console.error("Blabla something wrong", error);
+    //   }
+    // })
+
+    login(email: string, password: string): Observable<void> {
+        const promise = signInWithEmailAndPassword(this.auth, email, password).then(() => {});
+        return from(promise);
     }
 }
