@@ -1,7 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import {
     Auth,
+    browserSessionPersistence,
     createUserWithEmailAndPassword,
+    setPersistence,
     signInWithEmailAndPassword,
     signOut,
     user,
@@ -19,6 +21,7 @@ export class UserService {
 
     constructor() {
         this.user$ = user(this.auth);
+        setPersistence(this.auth, browserSessionPersistence);
     }
 
     // Login example usage:
