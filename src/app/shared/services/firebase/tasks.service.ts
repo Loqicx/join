@@ -156,3 +156,5 @@ export class TasksService implements OnDestroy {
     return currentTasks;
   }
 }
+export type { Task };
+
