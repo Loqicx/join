@@ -21,7 +21,9 @@ export class UserService {
 
     constructor() {
         this.user$ = user(this.auth);
-        setPersistence(this.auth, browserSessionPersistence);
+        this.auth.setPersistence(browserSessionPersistence).catch((e) => {
+            console.error(e);
+        });
     }
 
     // Login example usage:
@@ -35,7 +37,9 @@ export class UserService {
     // })
 
     login(email: string, password: string): Observable<void> {
-        const promise = signInWithEmailAndPassword(this.auth, email, password).then(() => {});
+        const promise = signInWithEmailAndPassword(this.auth, email, password).then((result) => {
+            console.log('logged in', result.user);
+        });
         return from(promise);
     }
 
