@@ -16,22 +16,22 @@ export const routes: Routes = [
     {
         path: 'summary',
         component: SummaryComponent,
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
     },
     {
         path: 'board',
         component: BoardPageComponent,
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
     },
     {
         path: 'contacts',
         component: ContactsPageComponent,
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
     },
     {
         path: 'addTask',
         component: AddTaskPageComponent,
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
     },
     {
         path: 'privacy',
