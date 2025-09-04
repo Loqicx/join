@@ -8,7 +8,6 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LogInPageComponent } from './features/log-in-page/log-in-page.component';
 import { UserService } from './shared/services/firebase/user.service';
-import { Auth, authState } from '@angular/fire/auth';
 @Component({
     selector: 'app-root',
     imports: [
@@ -38,10 +37,6 @@ export class AppComponent {
 
     contactsService: ContactsService = inject(ContactsService);
     userService: UserService = inject(UserService);
-
-    constructor(private auth: Auth) {
-        this.userService.user$ = authState(this.auth);
-    }
 
     async ngOnInit() {
         this.userService.user$.subscribe((user) => {
