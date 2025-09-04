@@ -28,6 +28,7 @@ export class LogInComponent {
         this.router.navigateByUrl('/')
       },
       error: (error) => {
+        this.warn = true;
         console.error("something went wrong", error)
       }
     })
