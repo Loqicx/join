@@ -60,9 +60,4 @@ export class UserService {
         });
         return from(promise);
     }
-
-    async checkAuth(): Promise<boolean> {
-        const currentUser = await firstValueFrom(this.user$);
-        return !!currentUser;
-    }
 }
