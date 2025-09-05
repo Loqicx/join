@@ -59,7 +59,7 @@
                         #signUpEmailVar="ngModel"
                         [class.red-border]="warn"
                     />
-                    <img class="input-icon" src="assets/icons/mail.svg" alt="E-Mail icon">
+                    <img class="input-icon" src="assets/icons/person.svg" alt="E-Mail icon">
                 </div>
                 <div class="input-wrapper">
                     <input
@@ -82,9 +82,10 @@
                         placeholder="Password"
                         required
                         [(ngModel)]="signUpPassword1"
-                        #signUpPasswordVar="ngModel"
+                        #signUpPassword1Var="ngModel"
                         [class.red-border]="warn"
                     />
+                    <img class="input-icon" src="assets/icons/lock.svg" alt="Password icon">
                 </div>
                 <div class="input-wrapper">
                     <input
@@ -94,7 +95,7 @@
                         placeholder="Password"
                         required
                         [(ngModel)]="signUpPassword2"
-                        #signUpPasswordVar="ngModel"
+                        #signUpPassword2Var="ngModel"
                         [class.red-border]="warn"
                     />
                     <img class="input-icon" src="assets/icons/lock.svg" alt="Password icon">
