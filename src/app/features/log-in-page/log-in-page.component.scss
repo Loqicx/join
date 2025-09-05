@@ -23,6 +23,22 @@
     }
 }
 
+.button-wrapper {
+    position: absolute;
+    top: 64px;
+    right: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    .sign-text {
+        font-size: 20px;
+        line-height: 120%;
+        font-weight: 400;
+    }
+}
+
 .logIn-wrapper {
     height: 450px;
     width: 650px;
