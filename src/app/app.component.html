@@ -1,12 +1,13 @@
-<div class="page-wrapper">
-    @if (!loginPage && loggedIn) {
+@if (loggedIn) {
+<div class="page-wrapper" [class.show]="show">
     <app-sidebar></app-sidebar>
     <div class="content">
         <app-header></app-header>
         <router-outlet></router-outlet>
         <app-footer></app-footer>
     </div>
-    } @else {
-    <app-log-in-page></app-log-in-page>
-    }
 </div>
+} 
+@if (loginPage) {
+    <app-log-in-page [animate]="this.animate" [fade]="this.fade"></app-log-in-page>
+}
