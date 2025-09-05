@@ -1,7 +1,7 @@
 <div class="logIn-wrapper">
     <div class="logIn-content">
         <div class="logIn-title">
-            @if (!signUpForm) {
+            @if (!signUpShow) {
             <h1>Log in</h1>
             } @else {
                 <h1>Sign up</h1>
@@ -9,7 +9,7 @@
             <div class="blue-underline"></div>
         </div>
         <div class="logIn-window">
-            @if (!signUpForm) {
+            @if (!signUpShow) {
             <form class="logIn-form" (ngSubmit)="logIn(this.logInEmail, this.logInPassword)" #logInForm="ngForm">
                 <div class="input-wrapper">
                     <input
@@ -44,7 +44,23 @@
                 </div>
             </form>
         } @else {
-            <form class="signUp-form" (ngSubmit)="signUp(this.signUpName, this.signUpEmail, this.signUpPassword1, this.signUpPassword2)" #logInForm="ngForm">
+            <div class="back-button">
+            <app-button [border]="false" [round]="true" [invert]="true" (btnClick)="signUpShow = false; closeSignUp()" [iconSrc]="'assets/icons/arrow_back.svg'"></app-button>
+            </div>
+            <form class="signUp-form" (ngSubmit)="signUp(this.signUpName, this.signUpEmail, this.signUpPassword1, this.signUpPassword2)" #signUpForm="ngForm">
+                <div class="input-wrapper">
+                    <input
+                        type="text"
+                        class="input-sm border blue-focus"
+                        name="name"
+                        placeholder="Name"
+                        required
+                        [(ngModel)]="signUpName"
+                        #signUpEmailVar="ngModel"
+                        [class.red-border]="warn"
+                    />
+                    <img class="input-icon" src="assets/icons/mail.svg" alt="E-Mail icon">
+                </div>
                 <div class="input-wrapper">
                     <input
                         type="text"
@@ -52,8 +68,8 @@
                         name="email"
                         placeholder="Email"
                         required
-                        [(ngModel)]="logInEmail"
-                        #logInEmailVar="ngModel"
+                        [(ngModel)]="signUpEmail"
+                        #signUpEmailVar="ngModel"
                         [class.red-border]="warn"
                     />
                     <img class="input-icon" src="assets/icons/mail.svg" alt="E-Mail icon">
@@ -62,19 +78,30 @@
                     <input
                         type="password"
                         class="input-sm border blue-focus"
-                        name="password"
+                        name="password1"
                         placeholder="Password"
                         required
-                        [(ngModel)]="logInPassword"
-                        #logInPasswordVar="ngModel"
+                        [(ngModel)]="signUpPassword1"
+                        #signUpPasswordVar="ngModel"
+                        [class.red-border]="warn"
+                    />
+                </div>
+                <div class="input-wrapper">
+                    <input
+                        type="password"
+                        class="input-sm border blue-focus"
+                        name="password2"
+                        placeholder="Password"
+                        required
+                        [(ngModel)]="signUpPassword2"
+                        #signUpPasswordVar="ngModel"
                         [class.red-border]="warn"
                     />
                     <img class="input-icon" src="assets/icons/lock.svg" alt="Password icon">
-                    <div class="warn-text" [class.opacity-1]="warn">Check your email and password. Please try again.</div>
+                    <div class="warn-text" [class.opacity-1]="warn">Your passwords don't match. Please try again.</div>
                 </div>
                 <div class="button-wrapper">
-                    <app-button [type]="'submit'">Log in</app-button>
-                    <app-button [invert]="true" (btnClick)="this.logIn('test@haensch.dev', '123456')">Guest Log in</app-button>
+                    <app-button [type]="'submit'">Sign up</app-button>
                 </div>
             </form>
         }

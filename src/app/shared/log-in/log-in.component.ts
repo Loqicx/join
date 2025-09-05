@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../ui/button/button.component';
 import { UserService } from '../services/firebase/user.service';
@@ -15,12 +15,13 @@ export class LogInComponent {
     warn: boolean = false;
     logInEmail: any;
     logInPassword: any;
-    signUpForm: boolean = false;
-
+    
+    @Input() signUpShow: boolean = false;
     signUpName: string = '';
     signUpEmail: string = '';
     signUpPassword1: string = '';
     signUpPassword2: string = '';
+    @Output() signUpClose = new EventEmitter<void>();
 
     userService = inject(UserService);
     appComponent = inject(AppComponent);
@@ -36,6 +37,10 @@ export class LogInComponent {
                 console.error('something went wrong', error);
             },
         });
+    }
+
+    closeSignUp() {
+        this.signUpClose.emit();
     }
 
     signUp(name: string, mail: string, pw1: string, pw2: string) {
