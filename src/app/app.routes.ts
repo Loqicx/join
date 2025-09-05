@@ -11,7 +11,7 @@ import { authGuard } from './shared/guards/auth.guard';
 export const routes: Routes = [
     {
         path: '',
-        component: ContactsPageComponent, // TODO: add "home" component
+        component: SummaryComponent,
     },
     {
         path: 'summary',
