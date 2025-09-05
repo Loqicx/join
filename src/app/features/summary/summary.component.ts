@@ -18,6 +18,10 @@ export class SummaryComponent implements OnInit, OnDestroy {
   urgentCount: number = 0;
   upcomingDate: Date | null = null;
   greeting: string = '';
+  boardCount: number = 0;
+  inProgressCount: number = 0;
+  feedbackCount: number = 0;
+
 
   private tasksSub: Subscription | undefined;
 
@@ -28,7 +32,10 @@ export class SummaryComponent implements OnInit, OnDestroy {
       this.todoCount = this.countByStatus(tasks, TaskStatus.TODO);
       this.doneCount = this.countByStatus(tasks, TaskStatus.DONE);
       this.urgentCount = this.countByPriority(tasks, TaskPriority.HIGH);
+      this.inProgressCount = this.countByStatus(tasks, TaskStatus.DOING);
+      this.feedbackCount = this.countByStatus(tasks, TaskStatus.AWAIT_FEEDBACK);
       this.upcomingDate = this.getNextUrgentDate(tasks);
+      this.boardCount = tasks.length;
       this.setGreeting();
     });
   }
