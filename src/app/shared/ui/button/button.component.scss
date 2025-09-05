@@ -319,6 +319,28 @@
   outline: none;
 }
 
+.border-none.round.invert {
+  height: 36px;
+  width: 36px;
+  border-radius: 100%;
+  padding: none !important;
+  margin: none;
+
+  ::ng-deep  svg {
+    path {
+      fill: $color-primary-hover;
+      stroke: transparent;
+    }
+  }
+
+  &:hover {
+    box-shadow: none;
+    background-color: $color-text !important;
+    transform: scale(1.08);
+    transition-duration: 0.2s;
+  }
+}
+
 .priority {
   &:hover {
     box-shadow: 0px 2px 1px 1px $color-text;
