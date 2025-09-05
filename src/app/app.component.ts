@@ -59,7 +59,9 @@ export class AppComponent {
 
     setAnimations() {
         if (!this.actualLogin) {
-            this.animate = true;
+            setTimeout(() => {
+                this.animate = true;
+            }, 200);
             console.log(this.actualLogin);
         } else {
             this.fade = true;
