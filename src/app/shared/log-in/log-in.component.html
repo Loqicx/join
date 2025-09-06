@@ -142,7 +142,7 @@
                     </div>
                     <span>I accept the <a routerLink="privacy" class="blue-link">Privacy policy</a></span>
                 </div>
-                @if (warnSignUpPrivacy) {
+                @if (warnSignUpPrivacy && signUpForm.submitted) {
                     <div class="flex-center">
                         <div class="warn-text" [class.opacity-1]="true">You must accept the privacy policy.</div>
                     </div>
