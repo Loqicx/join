@@ -29,6 +29,10 @@ export class LogInComponent {
     router = inject(Router);
 
     logIn(mail: string, pw: string) {
+        if (!mail || !pw) {
+            this.warn = true;
+            return;
+        }
         this.userService.login(mail, pw).subscribe({
             next: () => {
                 this.router.navigateByUrl('/');
@@ -46,7 +50,6 @@ export class LogInComponent {
 
     toggleCheckBox() {
         this.privacyCheckbox = !this.privacyCheckbox;
-        console.log('Privacy checkbox is now:', this.privacyCheckbox);
     }
 
     signUp(name: string, mail: string, pw1: string, pw2: string) {
