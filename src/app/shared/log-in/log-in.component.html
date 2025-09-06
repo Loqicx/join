@@ -101,7 +101,7 @@
                         placeholder="Password"
                         required
                         minlength="8"
-                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)$"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)$"
                         [(ngModel)]="signUpPassword1"
                         #signUpPassword1Var="ngModel"
                         [class.red-border]="signUpPassword1Var.invalid && signUpForm.submitted"
@@ -112,7 +112,7 @@
                             <div class="warn-text" [class.opacity-1]="true">Password is required.</div>
                         } @else if (signUpPassword1Var.hasError('minlength')) {
                             <div class="warn-text" [class.opacity-1]="true">Password must be at least 8 characters long.</div>
-                        } @else if (signUpPassword1Var.hasError('pattern')) {
+                        } @else {
                             <div class="warn-text" [class.opacity-1]="true">Password must include at least one uppercase letter, one lowercase letter, and one number.</div>
                         } 
                     }

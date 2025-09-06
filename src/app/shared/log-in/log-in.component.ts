@@ -58,8 +58,19 @@ export class LogInComponent {
             if (!this.privacyCheckbox) {
                 this.warnSignUpPrivacy = true;
             }
+            console.error('something went wrong');
             return;
         }
-
+        this.userService.signUp(this.signUpEmail, this.signUpPassword1).subscribe({
+            next: () => {
+                this.appComponent.loginPage = false;
+                this.appComponent.show = true;
+                this.appComponent.showRouter = true;
+                this.router.navigateByUrl('/');
+            },
+            error: (error) => {
+                console.error('something went wrong', error);
+            },
+        });
     }
 }
