@@ -32,7 +32,7 @@ import { UserService } from './shared/services/firebase/user.service';
 export class AppComponent {
     title = 'join-mmc';
 
-    loggedIn = false;
+    showRouter = false;
     loginPage = true;
     actualLogin = false;
     animate = false;
@@ -47,7 +47,7 @@ export class AppComponent {
             this.actualLogin = !!user;
             console.log('User logged in:', this.actualLogin);
             this.setAnimations();
-            this.loggedIn = this.actualLogin;
+            this.showRouter = this.actualLogin;
             if (this.actualLogin) {
                 setTimeout(() => {
                     this.loginPage = !this.actualLogin;
