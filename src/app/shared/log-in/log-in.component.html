@@ -101,6 +101,17 @@
                     <img class="input-icon" src="assets/icons/lock.svg" alt="Password icon">
                     <div class="warn-text" [class.opacity-1]="warn">Your passwords don't match. Please try again.</div>
                 </div>
+                <div class="input-wrapper check">
+                    <div class="privacy-checkdiv" (click)="toggleCheckBox()">
+                        <div class="box" id="privacySelectBox" [class.active]="privacyCheckbox"></div>
+                        <div class="checkmark-slide">
+                            <div class="checkmark-wrap" id="privacySelectCheckWrap" [class.active]="privacyCheckbox">
+                                <img src="assets/icons/check_pri.svg" class="checkmark" alt="Checkmark">
+                            </div>
+                        </div>
+                    </div>
+                    <span>I accept the <a routerLink="privacy" class="blue-link">Privacy policy</a></span>
+                </div>
                 <div class="button-wrapper">
                     <app-button [type]="'submit'">Sign up</app-button>
                 </div>
