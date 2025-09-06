@@ -2,13 +2,13 @@
     <div class="logo-wrapper" [class.animate]="animate">
         <img src="assets/logo/join-logo-black.svg" alt="Join Logo" class="logo" [class.animate]="animate">
     </div>
-    <div class="button-wrapper">
+    <div class="button-wrapper" [class.d-none]="signUpShow">
         <span class="sign-text">
             Not a Join user?
         </span>
         <app-button [size]="'dynamic'" [fontSize]="'16px'" (btnClick)="signUpShow = true">Sign up</app-button>
     </div>
-    <div class="logIn-wrapper">
+    <div class="logIn-wrapper" [class.sign-up]="signUpShow">
         <app-log-in class="logIn-window" [signUpShow]="signUpShow" (signUpClose)="signUpShow = false"></app-log-in>
     </div>
 </div>
