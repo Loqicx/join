@@ -11,7 +11,7 @@
     height: 95%;
     width: 95%;
     margin: auto;
-    padding: 12px 96px;
+    padding: 24px 96px;
     background-color: white;
     border: 1px solid transparent;
     border-radius: 30px;
@@ -189,4 +189,10 @@
     .checkmark {
         width: 16px;
     }
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, NgForm } from '@angular/forms';
 import { ButtonComponent } from '../ui/button/button.component';
 import { UserService } from '../services/firebase/user.service';
 import { AppComponent } from '../../app.component';
@@ -11,7 +11,6 @@ import { Router, RouterLink } from '@angular/router';
     styleUrl: './log-in.component.scss',
 })
 export class LogInComponent {
-    warn: boolean = false;
     logInEmail: any;
     logInPassword: any;
     
@@ -22,6 +21,8 @@ export class LogInComponent {
     signUpPassword2: string = '';
     @Output() signUpClose = new EventEmitter<void>();
 
+    warn: boolean = false;
+    warnSignUpPrivacy: boolean = false;
     privacyCheckbox: boolean = false;
 
     userService = inject(UserService);
@@ -29,7 +30,7 @@ export class LogInComponent {
     router = inject(Router);
 
     logIn(mail: string, pw: string) {
-        if (!mail || !pw) {
+        if (!mail || !pw && new FormControl('logInForm')) {
             this.warn = true;
             return;
         }
@@ -52,7 +53,13 @@ export class LogInComponent {
         this.privacyCheckbox = !this.privacyCheckbox;
     }
 
-    signUp(name: string, mail: string, pw1: string, pw2: string) {
-      console.log('signup currently not possible')
+    signUp(form: NgForm) {
+        if (form.invalid || !this.privacyCheckbox) {
+            if (!this.privacyCheckbox) {
+                this.warnSignUpPrivacy = true;
+            }
+            return;
+        }
+
     }
 }
