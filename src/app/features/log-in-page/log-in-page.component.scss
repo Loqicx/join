@@ -1,7 +1,6 @@
 @use '../../../styles/variables.scss' as *;
 @use '../../../styles/mixings.scss' as *;
 
-
 :host {
     height: 100%;
     width: 100%;
@@ -15,6 +14,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 1;
+    z-index: 145;
+
+    &.fade {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+}
+
+.button-wrapper {
+    position: absolute;
+    top: 64px;
+    right: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    .sign-text {
+        font-size: 20px;
+        line-height: 120%;
+        font-weight: 400;
+    }
 }
 
 .logIn-wrapper {
@@ -23,6 +45,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    transition: height 0.2s ease, width 0.2s ease;
+
+    &.sign-up {
+        height: 630px;
+        width: 600px;
+        transition: width 0.2s ease;
+    }
 }
 
 .logo-wrapper {
@@ -32,25 +62,61 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: logoWrapAnimation 1.6s ease-in;
-    z-index: 15;
+    height: 100%;
+    width: 100%;
+    background-color: $color-primary-bg;
+    z-index: 150;
 
+    &.animate {
+        animation: logoWrapAnimation 0.5s ease-in;
+        width: auto;
+        height: auto;
+    }
 
     .logo {
-        width: 88px;
-        margin-left: 64px;
-        margin-top: 64px;
-        animation: logoAnimation 1.2s ease-out;
+        width: 180px;
+        margin: 0;
+
+        &.animate {
+            width: 88px;
+            margin-left: 64px;
+            margin-top: 64px;
+            animation: logoAnimation 0.5s ease-in;
+        }
     }
 }
 
 @keyframes logoAnimation {
-    0% {width: 180px; margin: 0;}
-    100% {width: 88px; margin-left: 64px; margin-top: 64px;}
+    0% {
+        width: 180px;
+        margin: 0;
+    }
+
+    100% {
+        width: 88px;
+        margin-left: 64px;
+        margin-top: 64px;
+    }
 }
 
 @keyframes logoWrapAnimation {
-    0% {height: 100%; width: 100%; background-color: $color-primary-bg;}
-    40% {background-color: transparent;}
-    100% {height: 20%; width: 11%; background-color: transparent;}
+    0% {
+        height: 100%;
+        width: 100%;
+        background-color: $color-primary-bg;
+    }
+
+    40% {
+        background-color: transparent;
+    }
+
+    100% {
+        height: 20%;
+        width: 11%;
+        background-color: transparent;
+    }
+}
+
+.d-none {
+    display: none !important;
 }

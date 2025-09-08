@@ -32,17 +32,43 @@ import { UserService } from './shared/services/firebase/user.service';
 export class AppComponent {
     title = 'join-mmc';
 
-    loggedIn = false;
+    showRouter = false;
     loginPage = true;
+    actualLogin = false;
+    animate = false;
+    fade = false;
+    show = false;
 
     contactsService: ContactsService = inject(ContactsService);
     userService: UserService = inject(UserService);
 
     async ngOnInit() {
         this.userService.user$.subscribe((user) => {
-            this.loggedIn = !!user;
-            this.loginPage = !user;
-            console.log('User logged in:', this.loggedIn);
+            this.actualLogin = !!user;
+            console.log('User logged in:', this.actualLogin);
+            this.setAnimations();
+            this.showRouter = this.actualLogin;
+            if (this.actualLogin) {
+                setTimeout(() => {
+                    this.loginPage = !this.actualLogin;
+                    this.show = true;
+                }, 300);
+            }
         });
+    }
+
+    setAnimations() {
+        if (!this.actualLogin) {
+            setTimeout(() => {
+                this.animate = true;
+            }, 200);
+            console.log(this.actualLogin);
+        } else {
+            this.fade = true;
+            setTimeout(() => {
+                this.loginPage = !this.actualLogin;
+            }, 300);
+            console.log(this.actualLogin);
+        }
     }
 }

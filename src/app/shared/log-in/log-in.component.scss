@@ -7,14 +7,16 @@
 }
 
 .logIn-wrapper {
+    position: relative;
     height: 95%;
     width: 95%;
     margin: auto;
-    padding: 12px 96px;
+    padding: 24px 96px;
     background-color: white;
     border: 1px solid transparent;
     border-radius: 30px;
     box-shadow: 0px 0px 8px $color-input-border;
+    overflow-y: auto;
 }
 
 .logIn-content {
@@ -127,5 +129,73 @@
     justify-content: space-evenly;
     align-items: center;
     margin-top: 36px;
+    margin-bottom: 24px;
     gap: 24px;
+}
+
+.back-button {
+    position: absolute;
+    top: 48px;
+    left: 48px;
+    height: 48px;
+    width: 48px;
+}
+
+.input-wrapper.check {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+
+    .blue-link {
+        color: $color-primary-hover;
+        text-decoration: none;
+    }
+}
+
+.privacy-checkdiv {
+    position: relative;
+    height: 24px;
+    width: 24px;
+
+    .box {
+        height: 16px;
+        width: 16px;
+        border: 2px solid $color-primary;
+        border-radius: 4px;
+    }
+
+    .box.active {
+        border-color: $color-primary;
+        transition: border-color 0.15s ease;
+    }
+
+    .checkmark-slide {
+        position: absolute;
+        bottom: 0px;
+        left: 2px;
+        width: 28px;
+        height: 28px;
+    }
+
+    .checkmark-wrap {
+        width: 0%;
+        overflow: hidden;
+        transition: width 0.1s ease-in;
+    }
+
+    .checkmark-wrap.active {
+        width: 100%;
+        transition: width 0.2s ease-out;
+    }
+
+    .checkmark {
+        width: 16px;
+    }
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
