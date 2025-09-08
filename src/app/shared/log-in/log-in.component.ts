@@ -58,7 +58,7 @@ export class LogInComponent {
             if (!this.privacyCheckbox) {
                 this.warnSignUpPrivacy = true;
             }
-            console.error('something went wrong');
+            console.error('Form Validation failed');
             return;
         }
         this.userService.signUp(this.signUpEmail, this.signUpPassword1).subscribe({
@@ -69,7 +69,7 @@ export class LogInComponent {
                 this.router.navigateByUrl('/');
             },
             error: (error) => {
-                console.error('something went wrong', error);
+                console.error('Database Error', error);
             },
         });
     }
