@@ -11,4 +11,10 @@
     <div class="logIn-wrapper" [class.sign-up]="signUpShow">
         <app-log-in class="logIn-window" [signUpShow]="signUpShow" (signUpClose)="signUpShow = false"></app-log-in>
     </div>
+    <div class="lower-wrapper">
+        <div class="lower-links-wrapper">
+            <a routerLink="/privacy" class="lower-link" (click)="closeLogIn()">Privacy Policy</a>
+            <a routerLink="/legal" class="lower-link">Legal Notice</a>
+        </div>
+    </div>
 </div>

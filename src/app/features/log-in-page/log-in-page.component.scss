@@ -117,6 +117,31 @@
     }
 }
 
+.lower-wrapper {
+    position: absolute;
+    bottom: 30px;
+
+    .lower-links-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .lower-link {
+        color: $color-dark-text;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.2s ease;
+
+        &:hover {
+            transform: scale(1.06);
+            transition: transform 0.2s ease;
+            color: $color-primary-hover;
+        }
+    }
+}
+
 .d-none {
     display: none !important;
 }
