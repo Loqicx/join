@@ -4,6 +4,7 @@ import { ButtonComponent } from '../ui/button/button.component';
 import { UserService } from '../services/firebase/user.service';
 import { AppComponent } from '../../app.component';
 import { Router, RouterLink } from '@angular/router';
+import { LoginService } from '../services/app-login-service.service';
 @Component({
     selector: 'app-log-in',
     imports: [FormsModule, ButtonComponent, RouterLink],
@@ -27,6 +28,7 @@ export class LogInComponent {
 
     userService = inject(UserService);
     appComponent = inject(AppComponent);
+    logInService = inject(LoginService);
     router = inject(Router);
 
     logIn(mail: string, pw: string) {
@@ -36,7 +38,7 @@ export class LogInComponent {
         }
         this.userService.login(mail, pw).subscribe({
             next: () => {
-                this.router.navigateByUrl('/');
+                this.logInService.verifyLogIn();
             },
             error: (error) => {
                 this.warn = true;

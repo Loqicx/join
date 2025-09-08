@@ -18,8 +18,8 @@ export class LoginService {
   private animateSubject = new BehaviorSubject<boolean>(false);
   animate$ = this.animateSubject.asObservable();
 
-  private fadeSubject = new BehaviorSubject<boolean>(false);
-  fade$ = this.fadeSubject.asObservable();
+  /* private fadeSubject = new BehaviorSubject<boolean>(false);
+  fade$ = this.fadeSubject.asObservable(); */
 
   private showSubject = new BehaviorSubject<boolean>(false);
   show$ = this.showSubject.asObservable();
@@ -30,32 +30,31 @@ export class LoginService {
     this.showRouterSubject.next(false);
     this.loginPageSubject.next(true);
     this.actualLoginSubject.next(false);
-    this.animateSubject.next(false);
-    this.fadeSubject.next(false);
+    this.animateSubject.next(false); 
+   /* this.fadeSubject.next(false); */
     this.showSubject.next(false);
   }
 
-  // Login-Status prüfen und Zustände setzen
   verifyLogIn(): void {
     this.userService.user$.subscribe((user) => {
       const isLoggedIn = !!user;
       this.actualLoginSubject.next(isLoggedIn);
       console.log('User logged in:', isLoggedIn);
 
-      this.setAnimations(isLoggedIn);
+      /* this.setAnimations(isLoggedIn); */
+      this.animateSubject.next(!isLoggedIn);
       this.showRouterSubject.next(isLoggedIn);
 
       if (isLoggedIn) {
         setTimeout(() => {
           this.loginPageSubject.next(false);
           this.showSubject.next(true);
-        }, 300);
+        }, 400);
       }
     });
   }
 
-  // Animationen abhängig vom Login-Zustand setzen
-  private setAnimations(isLoggedIn: boolean): void {
+/*   private setAnimations(isLoggedIn: boolean): void {
     if (!isLoggedIn) {
       setTimeout(() => {
         this.animateSubject.next(true);
@@ -68,5 +67,5 @@ export class LoginService {
       }, 300);
       console.log(isLoggedIn);
     }
-  }
+  } */
 }

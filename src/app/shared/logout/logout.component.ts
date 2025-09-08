@@ -17,10 +17,10 @@ export class LogoutComponent {
     loggedOut: boolean = false;
 
     ngOnInit() {
+        this.router.navigateByUrl('/');
         this.userService.logout().subscribe({
             next: () => {
                 this.loggedOut = true;
-                this.router.navigateByUrl('/');
                 this.LoginService.resetState();
                 this.LoginService.verifyLogIn();
             },

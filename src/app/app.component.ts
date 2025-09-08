@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { ContactsService } from './shared/services/firebase/contacts.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -36,22 +36,54 @@ export class AppComponent {
     contactsService: ContactsService = inject(ContactsService);
     userService: UserService = inject(UserService);
     LoginService: LoginService = inject(LoginService);
-    
-    showRouter!: boolean;
-    loginPage!: boolean;
-    actualLogin!: boolean;
-    animate!: boolean;
-    fade!: boolean;
-    show!: boolean;
+    router: Router = inject(Router);
+
+    showRouter: boolean = false;
+    loginPage: boolean = true;
+    actualLogin: boolean = false;
+    animate: boolean = false;
+    fade: boolean = false;
+    show: boolean = false;
 
     ngOnInit() {
         this.LoginService.verifyLogIn();
-
         this.LoginService.showRouter$.subscribe(val => this.showRouter = val);
         this.LoginService.loginPage$.subscribe(val => this.loginPage = val);
+        this.LoginService.show$.subscribe(val => this.fade = val)
         this.LoginService.actualLogin$.subscribe(val => this.actualLogin = val);
-        this.LoginService.animate$.subscribe(val => this.animate = val);
-        this.LoginService.fade$.subscribe(val => this.fade = val);
-        this.LoginService.show$.subscribe(val => this.show = val);
+        setTimeout(() => {
+            this.LoginService.animate$.subscribe(val => {
+                if (val) {
+                    setTimeout(() => {
+                        this.animate = true;
+                    }, 300);
+                    console.log(this.actualLogin);
+                } else {
+                    this.fade = true;
+                    this.showRouter = true;
+                    setTimeout(() => {
+                        this.loginPage = !this.actualLogin;
+                        this.show = true;
+                    }, 280);
+                    console.log(this.actualLogin);
+                }
+            });
+        }, 500);
     }
+
+    /*     setAnimations() {
+            if (!this.actualLogin) {
+                setTimeout(() => {
+                    this.animate = true;
+                }, 200);
+                console.log(this.actualLogin);
+            } else {
+                this.fade = true;
+                setTimeout(() => {
+                    this.loginPage = !this.actualLogin;
+                    this.show = true;
+                }, 300);
+                console.log(this.actualLogin);
+            }
+        } */
 }

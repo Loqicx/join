@@ -15,6 +15,7 @@ export const authGuard: CanActivateFn = (route, state) => {
             } else {
                 // trigger 'not logged in' notification
                 logIn.resetState();
+                logIn.verifyLogIn();
                 return false;
             }
         })
