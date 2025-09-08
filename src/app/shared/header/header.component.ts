@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { LoginService } from '../services/app-login-service.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,9 @@ export class HeaderComponent {
 
   activeFlex = false;
   helpActive = false;
-  
+  loggedIn = false;
+
+  loginService = inject(LoginService);
 
     /**
    * Constructor for the Sidebar component that initializes routing events and sets active Button based on current URL.
@@ -30,6 +33,12 @@ export class HeaderComponent {
           this.helpActive = true;
         } 
       });
+  }
+
+  ngOnInit() {
+    this.loginService.actualLogin$.subscribe(isLoggedIn => {
+      this.loggedIn = isLoggedIn;
+    });
   }
 
   resetActives() {
