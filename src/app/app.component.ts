@@ -8,6 +8,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LogInPageComponent } from './features/log-in-page/log-in-page.component';
 import { UserService } from './shared/services/firebase/user.service';
+import { LoginService } from './shared/services/app-login-service.service';
 @Component({
     selector: 'app-root',
     imports: [
@@ -32,57 +33,25 @@ import { UserService } from './shared/services/firebase/user.service';
 export class AppComponent {
     title = 'join-mmc';
 
-    showRouter = false;
-    loginPage = true;
-    actualLogin = false;
-    animate = false;
-    fade = false;
-    show = false;
-
     contactsService: ContactsService = inject(ContactsService);
     userService: UserService = inject(UserService);
+    LoginService: LoginService = inject(LoginService);
+    
+    showRouter!: boolean;
+    loginPage!: boolean;
+    actualLogin!: boolean;
+    animate!: boolean;
+    fade!: boolean;
+    show!: boolean;
 
-    async ngOnInit() {
-        this.resetState();
-        this.verifyLogIn();
-    }
+    ngOnInit() {
+        this.LoginService.verifyLogIn();
 
-    resetState() {
-        this.showRouter = false;
-        this.loginPage = true;
-        this.actualLogin = false;
-        this.animate = false;
-        this.fade = false;
-        this.show = false;
-    }
-
-    verifyLogIn() {
-        this.userService.user$.subscribe((user) => {
-            this.actualLogin = !!user;
-            console.log('User logged in:', this.actualLogin);
-            this.setAnimations();
-            this.showRouter = this.actualLogin;
-            if (this.actualLogin) {
-                setTimeout(() => {
-                    this.loginPage = !this.actualLogin;
-                    this.show = true;
-                }, 300);
-            }
-        });
-    }
-
-    setAnimations() {
-        if (!this.actualLogin) {
-            setTimeout(() => {
-                this.animate = true;
-            }, 200);
-            console.log(this.actualLogin);
-        } else {
-            this.fade = true;
-            setTimeout(() => {
-                this.loginPage = !this.actualLogin;
-            }, 300);
-            console.log(this.actualLogin);
-        }
+        this.LoginService.showRouter$.subscribe(val => this.showRouter = val);
+        this.LoginService.loginPage$.subscribe(val => this.loginPage = val);
+        this.LoginService.actualLogin$.subscribe(val => this.actualLogin = val);
+        this.LoginService.animate$.subscribe(val => this.animate = val);
+        this.LoginService.fade$.subscribe(val => this.fade = val);
+        this.LoginService.show$.subscribe(val => this.show = val);
     }
 }

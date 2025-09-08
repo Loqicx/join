@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { UserService } from '../services/firebase/user.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AppComponent } from '../../app.component';
+import { LoginService } from '../services/app-login-service.service';
 
 @Component({
     selector: 'app-logout',
@@ -12,7 +12,7 @@ import { AppComponent } from '../../app.component';
 })
 export class LogoutComponent {
     userService = inject(UserService);
-    appComponent = inject(AppComponent)
+    LoginService = inject(LoginService);
     router = inject(Router);
     loggedOut: boolean = false;
 
@@ -21,8 +21,8 @@ export class LogoutComponent {
             next: () => {
                 this.loggedOut = true;
                 this.router.navigateByUrl('/');
-                  this.appComponent.resetState();
-                  this.appComponent.verifyLogIn();
+                this.LoginService.resetState();
+                this.LoginService.verifyLogIn();
             },
         });
     }

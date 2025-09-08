@@ -1,23 +1,20 @@
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { UserService } from '../services/firebase/user.service';
 import { map } from 'rxjs';
-import { AppComponent } from '../../app.component';
+import { LoginService } from '../services/app-login-service.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
     const userService = inject(UserService);
-    const appComponent = inject(AppComponent);
+    const logIn = inject(LoginService);
 
     return userService.user$.pipe(
         map((user) => {
             if (user) {
-                appComponent.showRouter = true;
-                appComponent.loginPage = false;
-                appComponent.show = true;
                 return true;
             } else {
                 // trigger 'not logged in' notification
-                appComponent.resetState();
+                logIn.resetState();
                 return false;
             }
         })
