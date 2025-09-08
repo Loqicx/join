@@ -18,9 +18,6 @@ export class LoginService {
   private animateSubject = new BehaviorSubject<boolean>(false);
   animate$ = this.animateSubject.asObservable();
 
-  /* private fadeSubject = new BehaviorSubject<boolean>(false);
-  fade$ = this.fadeSubject.asObservable(); */
-
   private showSubject = new BehaviorSubject<boolean>(false);
   show$ = this.showSubject.asObservable();
 
@@ -31,7 +28,6 @@ export class LoginService {
     this.loginPageSubject.next(true);
     this.actualLoginSubject.next(false);
     this.animateSubject.next(false); 
-   /* this.fadeSubject.next(false); */
     this.showSubject.next(false);
   }
 
@@ -39,33 +35,8 @@ export class LoginService {
     this.userService.user$.subscribe((user) => {
       const isLoggedIn = !!user;
       this.actualLoginSubject.next(isLoggedIn);
-      console.log('User logged in:', isLoggedIn);
-
-      /* this.setAnimations(isLoggedIn); */
       this.animateSubject.next(!isLoggedIn);
       this.showRouterSubject.next(isLoggedIn);
-
-      if (isLoggedIn) {
-        setTimeout(() => {
-          this.loginPageSubject.next(false);
-          this.showSubject.next(true);
-        }, 400);
-      }
     });
   }
-
-/*   private setAnimations(isLoggedIn: boolean): void {
-    if (!isLoggedIn) {
-      setTimeout(() => {
-        this.animateSubject.next(true);
-      }, 200);
-      console.log(isLoggedIn);
-    } else {
-      this.fadeSubject.next(true);
-      setTimeout(() => {
-        this.loginPageSubject.next(false);
-      }, 300);
-      console.log(isLoggedIn);
-    }
-  } */
 }

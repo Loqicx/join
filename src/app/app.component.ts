@@ -51,13 +51,16 @@ export class AppComponent {
         this.LoginService.loginPage$.subscribe(val => this.loginPage = val);
         this.LoginService.show$.subscribe(val => this.fade = val)
         this.LoginService.actualLogin$.subscribe(val => this.actualLogin = val);
+        this.animateLogIn();
+    }
+
+    animateLogIn() {
         setTimeout(() => {
             this.LoginService.animate$.subscribe(val => {
                 if (val) {
                     setTimeout(() => {
                         this.animate = true;
                     }, 300);
-                    console.log(this.actualLogin);
                 } else {
                     this.fade = true;
                     this.showRouter = true;
@@ -65,25 +68,8 @@ export class AppComponent {
                         this.loginPage = !this.actualLogin;
                         this.show = true;
                     }, 280);
-                    console.log(this.actualLogin);
                 }
             });
         }, 500);
     }
-
-    /*     setAnimations() {
-            if (!this.actualLogin) {
-                setTimeout(() => {
-                    this.animate = true;
-                }, 200);
-                console.log(this.actualLogin);
-            } else {
-                this.fade = true;
-                setTimeout(() => {
-                    this.loginPage = !this.actualLogin;
-                    this.show = true;
-                }, 300);
-                console.log(this.actualLogin);
-            }
-        } */
 }
