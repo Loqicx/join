@@ -7,6 +7,7 @@ import { BoardPageComponent } from './features/board-page/board-page.component';
 import { AddTaskPageComponent } from './features/add-task-page/add-task-page.component';
 import { SummaryComponent } from './features/summary/summary.component';
 import { authGuard } from './shared/guards/auth.guard';
+import { LogoutComponent } from './shared/logout/logout.component';
 
 export const routes: Routes = [
     {
@@ -45,4 +46,8 @@ export const routes: Routes = [
         path: 'help',
         component: HelpPageComponent,
     },
+    {
+        path: 'logout',
+        component: LogoutComponent,
+    }
 ];

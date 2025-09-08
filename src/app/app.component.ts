@@ -43,6 +43,20 @@ export class AppComponent {
     userService: UserService = inject(UserService);
 
     async ngOnInit() {
+        this.resetState();
+        this.verifyLogIn();
+    }
+
+    resetState() {
+        this.showRouter = false;
+        this.loginPage = true;
+        this.actualLogin = false;
+        this.animate = false;
+        this.fade = false;
+        this.show = false;
+    }
+
+    verifyLogIn() {
         this.userService.user$.subscribe((user) => {
             this.actualLogin = !!user;
             console.log('User logged in:', this.actualLogin);
