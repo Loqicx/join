@@ -38,6 +38,7 @@ export class LogInComponent {
         }
         this.userService.login(mail, pw).subscribe({
             next: () => {
+                this.router.navigate(['/summary']);
                 this.logInService.verifyLogIn();
             },
             error: (error) => {
