@@ -1,5 +1,5 @@
 import { Component, Input,inject } from '@angular/core';
-import { LogInComponent } from "../../shared/log-in/log-in.component";
+import { LogInComponent } from "./log-in/log-in.component";
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from "../../shared/ui/button/button.component";
 import { RouterLink } from '@angular/router';

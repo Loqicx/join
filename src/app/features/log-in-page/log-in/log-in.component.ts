@@ -1,10 +1,10 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormControl, FormsModule, NgForm } from '@angular/forms';
-import { ButtonComponent } from '../ui/button/button.component';
-import { UserService } from '../services/firebase/user.service';
-import { AppComponent } from '../../app.component';
+import { ButtonComponent } from '../../../shared/ui/button/button.component';
+import { UserService } from '../../../shared/services/firebase/user.service';
+import { AppComponent } from '../../../app.component';
 import { Router, RouterLink } from '@angular/router';
-import { LoginService } from '../services/app-login-service.service';
+import { LoginService } from '../../../shared/services/app-login-service.service';
 @Component({
     selector: 'app-log-in',
     imports: [FormsModule, ButtonComponent, RouterLink],
