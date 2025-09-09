@@ -8,6 +8,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LogInPageComponent } from './features/log-in-page/log-in-page.component';
 import { UserService } from './shared/services/firebase/user.service';
+import { NotificationOutletComponent } from './shared/notification-outlet/notification-outlet/notification-outlet.component';
 import { LoginService } from './shared/services/app-login-service.service';
 import { Subscription } from 'rxjs';
 
@@ -21,6 +22,7 @@ import { Subscription } from 'rxjs';
         SidebarComponent,
         FooterComponent,
         LogInPageComponent,
+        NotificationOutletComponent,
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
