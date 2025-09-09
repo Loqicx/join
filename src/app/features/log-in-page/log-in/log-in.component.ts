@@ -70,9 +70,11 @@ export class LogInComponent {
     }
 
     signUp(form: NgForm) {
-        if (form.invalid || !this.privacyCheckbox) {
+        if (form.invalid || !this.privacyCheckbox || this.signUpPassword1 !== this.signUpPassword2) {
             if (!this.privacyCheckbox) {
                 this.warnSignUpPrivacy = true;
+            } else if (this.signUpPassword1 !== this.signUpPassword2) {
+                this.warn = true;
             }
             console.error('Form Validation failed');
             return;
