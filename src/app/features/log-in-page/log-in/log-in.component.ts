@@ -2,7 +2,6 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormControl, FormsModule, NgForm } from '@angular/forms';
 import { ButtonComponent } from '../../../shared/ui/button/button.component';
 import { UserService } from '../../../shared/services/firebase/user.service';
-import { AppComponent } from '../../../app.component';
 import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../../shared/services/app-login-service.service';
 import { ContactsService } from '../../../shared/services/firebase/contacts.service';
@@ -81,9 +80,9 @@ export class LogInComponent {
         }
         this.userService.signUp(this.signUpEmail, this.signUpPassword1, this.signUpName).subscribe({
             next: () => {
+                this.createContact();
                 this.logInService.verifyLogIn();
                 this.router.navigate(['/summary']);
-                this.createContact();
             },
             error: (error) => {
                 console.error('Database Error', error);
