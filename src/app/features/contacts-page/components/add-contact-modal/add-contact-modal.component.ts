@@ -11,7 +11,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { ContactsService } from '../../../../shared/services/firebase/contacts.service';
 import { Contact } from '../../../../shared/interfaces/contact';
 import { InitialLettersService } from '../../../../shared/services/get-initial-letters.service';
-
+import { NotificationService } from '../../../../shared/services/notification.service';
+import { NotificationPosition, NotificationType } from '../../../../shared/interfaces/notification';
 @Component({
   selector: 'app-add-contact-modal',
   standalone: true,
@@ -25,9 +26,11 @@ export class AddContactModalComponent {
 
   isOpen = false;
   isSlide = false;
-  contactsService = inject(ContactsService);
   fullName = '';
   contactName = '';
+
+  contactsService = inject(ContactsService);
+  notificationService = inject(NotificationService);
 
   contact: Contact = {
     id: '',
@@ -82,10 +85,13 @@ export class AddContactModalComponent {
     try {
       await this.contactsService.addContactToDatabase(this.contact);
       this.closeModal();
+      this.notificationService.pushNotification('Contact added successfully!', NotificationType.SUCCESS, NotificationPosition.TOP_RIGHT);
     } catch (error) {
-      console.error('Fehler beim Speichern des Kontakts:', error);
+      console.error('Error adding contact!', error);
+      this.notificationService.pushNotification('Error adding contact!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
     }
   }
+
   get liveInitials(): string {
     let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
     return String(
