@@ -14,15 +14,24 @@ export class NotificationOutletComponent {
     notificationListener;
 
     constructor(private notificationService: NotificationService) {
-        this.notificationListener = this.notificationService.notificationSubject$.subscribe((data) => {});
+        this.notificationListener = this.notificationService.notificationSubject$.subscribe((data) => {
+            if (data.message === '') return;
+            this.addNotification(data);
+        });
     }
 
     addNotification(notificationData: Notification) {
         const { message, type, position, duration } = notificationData;
+        const fadeInDuration = duration * 0.1;
+        const fadeOutDuration = duration * 0.2;
+        const visibleDuration = duration - fadeInDuration - fadeOutDuration;
         const notification = document.createElement('div');
         notification.classList.add('notification', type);
         notification.textContent = message;
         notification.setAttribute('data-position', position);
+        notification.style.setProperty('--fade-in-duration', `${fadeInDuration}ms`);
+        notification.style.setProperty('--fade-out-duration', `${fadeOutDuration}ms`);
+        notification.style.setProperty('--fade-out-delay', `${visibleDuration + fadeInDuration}ms`);
         document.body.appendChild(notification);
         this.notifications.push(notification);
 
