@@ -44,5 +44,9 @@ export class NotificationOutletComponent {
                 notification.style.left = '20px';
                 break;
         }
+
+        setTimeout(() => {
+            notification.remove();
+        }, duration);
     }
 }
