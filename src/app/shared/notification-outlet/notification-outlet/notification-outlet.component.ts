@@ -83,4 +83,8 @@ export class NotificationOutletComponent {
             }
         });
     }
+
+    ngOnDestroy() {
+        this.notificationListener.unsubscribe();
+    }
 }
