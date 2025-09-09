@@ -6,29 +6,26 @@ import { UserService } from './firebase/user.service';
   providedIn: 'root'
 })
 export class LoginService {
-  private showRouterSubject = new BehaviorSubject<boolean>(false);
-  showRouter$ = this.showRouterSubject.asObservable();
-
-  private loginPageSubject = new BehaviorSubject<boolean>(true);
-  loginPage$ = this.loginPageSubject.asObservable();
-
-  private actualLoginSubject = new BehaviorSubject<boolean>(false);
+  actualLoginSubject = new BehaviorSubject<boolean>(false);
   actualLogin$ = this.actualLoginSubject.asObservable();
 
-  private animateSubject = new BehaviorSubject<boolean>(false);
-  animate$ = this.animateSubject.asObservable();
+  loginPageSubject = new BehaviorSubject<boolean>(true);
+  loginPage$ = this.loginPageSubject.asObservable();
 
-  private showSubject = new BehaviorSubject<boolean>(false);
-  show$ = this.showSubject.asObservable();
+  animateSubject = new BehaviorSubject<boolean>(false);
+  animate$ = this.animateSubject.asObservable();
 
   constructor(private userService: UserService) {}
 
   resetState(): void {
-    this.showRouterSubject.next(false);
-    this.loginPageSubject.next(true);
     this.actualLoginSubject.next(false);
+    this.loginPageSubject.next(true);
     this.animateSubject.next(false); 
-    this.showSubject.next(false);
+  }
+
+  showRouter() {
+    this.loginPageSubject.next(false);
+    this.animateSubject.next(false)
   }
 
   verifyLogIn(): void {
@@ -36,7 +33,6 @@ export class LoginService {
       const isLoggedIn = !!user;
       this.actualLoginSubject.next(isLoggedIn);
       this.animateSubject.next(!isLoggedIn);
-      this.showRouterSubject.next(isLoggedIn);
     });
   }
 }

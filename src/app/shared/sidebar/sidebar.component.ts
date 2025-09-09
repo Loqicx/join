@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { SVGInlineService } from '../services/svg-inline.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { LoginService } from '../services/app-login-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,9 +13,8 @@ import { LoginService } from '../services/app-login-service.service';
   styleUrl: './sidebar.component.scss',
   providers: [SVGInlineService],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnDestroy {
   svgContents: { [key: string]: SafeHtml } = {};
-
   loggedIn = false;
 
   icons = [
@@ -26,29 +26,38 @@ export class SidebarComponent {
   ];
 
   loginService = inject(LoginService);
+  private subscriptions = new Subscription();
 
   constructor(
     private router: Router,
     private svgService: SVGInlineService,
     private sanitizer: DomSanitizer
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.icons.forEach((icon) => {
       this.convertIcon(icon.name, icon.src);
     });
-    this.loginService.actualLogin$.subscribe(isLoggedIn => {
+
+    const loginSub = this.loginService.actualLogin$.subscribe(isLoggedIn => {
       this.loggedIn = isLoggedIn;
     });
+
+    this.subscriptions.add(loginSub);
   }
 
   convertIcon(iconName: string, iconSrc: string): void {
-    this.svgService.getInlineSVG(iconSrc).subscribe({
+    const svgSub = this.svgService.getInlineSVG(iconSrc).subscribe({
       next: (svg: string) => {
-        this.svgContents[iconName] =
-          this.sanitizer.bypassSecurityTrustHtml(svg);
+        this.svgContents[iconName] = this.sanitizer.bypassSecurityTrustHtml(svg);
       },
       error: (err) => console.error('SVG load error:', err),
     });
+
+    this.subscriptions.add(svgSub);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
