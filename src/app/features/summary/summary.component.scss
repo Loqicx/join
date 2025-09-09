@@ -253,6 +253,7 @@
         font-weight: 600;
         color: #333;
         margin-bottom: 4px;
+       
       }
 
       .label {
@@ -288,10 +289,14 @@
     gap: 48px;
     margin-top: 5px;
     align-items: stretch; 
+
+     @include breakpoint-down("xxl") {
+      padding-left: 0px;
+  }
   }
 
   .summary-greeting {
-    padding: 20px;
+    padding: 33px;
     display: flex;            
     flex-direction: column;
     justify-content: center;
@@ -300,6 +305,7 @@
 
   @include breakpoint-down("xxl") {
     display: none;
+    padding-left: 0px;
   }  
 
     p {
