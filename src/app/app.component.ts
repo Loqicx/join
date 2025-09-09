@@ -8,6 +8,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LogInPageComponent } from './features/log-in-page/log-in-page.component';
 import { UserService } from './shared/services/firebase/user.service';
+import { NotificationOutletComponent } from './shared/notification-outlet/notification-outlet/notification-outlet.component';
 @Component({
     selector: 'app-root',
     imports: [
@@ -18,6 +19,7 @@ import { UserService } from './shared/services/firebase/user.service';
         SidebarComponent,
         FooterComponent,
         LogInPageComponent,
+        NotificationOutletComponent,
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
