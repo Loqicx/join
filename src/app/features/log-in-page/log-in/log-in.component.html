@@ -74,11 +74,12 @@
                 </div>
                 <div class="input-wrapper">
                     <input
-                        type="text"
+                        type="email"
                         class="input-sm border blue-focus"
                         name="email"
                         placeholder="Email"
                         required
+                        email
                         [(ngModel)]="signUpEmail"
                         #signUpEmailVar="ngModel"
                         [class.red-border]="signUpEmailVar.invalid && signUpForm.submitted"
