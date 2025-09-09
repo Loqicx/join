@@ -48,6 +48,39 @@ export class NotificationOutletComponent {
         setTimeout(() => {
             notification.remove();
             this.notifications.splice(this.notifications.indexOf(notification), 1);
+            this.rearangeNotifications();
         }, duration);
+    }
+
+    private rearangeNotifications() {
+        this.notifications.forEach((notification, index) => {
+            const position = notification.getAttribute('data-position');
+            switch (position) {
+                case NotificationPosition.TOP_RIGHT:
+                    notification.style.top = `${20 + index * 60}px`;
+                    notification.style.right = '20px';
+                    notification.style.left = '';
+                    notification.style.bottom = '';
+                    break;
+                case NotificationPosition.TOP_LEFT:
+                    notification.style.top = `${20 + index * 60}px`;
+                    notification.style.left = '20px';
+                    notification.style.right = '';
+                    notification.style.bottom = '';
+                    break;
+                case NotificationPosition.BOTTOM_RIGHT:
+                    notification.style.bottom = `${20 + index * 60}px`;
+                    notification.style.right = '20px';
+                    notification.style.left = '';
+                    notification.style.top = '';
+                    break;
+                case NotificationPosition.BOTTOM_LEFT:
+                    notification.style.bottom = `${20 + index * 60}px`;
+                    notification.style.left = '20px';
+                    notification.style.right = '';
+                    notification.style.top = '';
+                    break;
+            }
+        });
     }
 }
