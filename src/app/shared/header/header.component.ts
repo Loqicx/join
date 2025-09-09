@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { LoginService } from '../services/app-login-service.service';
+import { UserService } from '../services/firebase/user.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +15,11 @@ export class HeaderComponent {
 
   activeFlex = false;
   helpActive = false;
-  
+  loggedIn = false;
+  NameInitial: string | null = null;
+
+  loginService = inject(LoginService);
+  userService = inject(UserService);
 
     /**
    * Constructor for the Sidebar component that initializes routing events and sets active Button based on current URL.
@@ -30,6 +36,16 @@ export class HeaderComponent {
           this.helpActive = true;
         } 
       });
+  }
+
+  ngOnInit() {
+    this.loginService.actualLogin$.subscribe(isLoggedIn => {
+      this.loggedIn = isLoggedIn;
+    });
+    this.userService.user$.subscribe(user => {
+      const nameArray = user?.displayName ? user.displayName.split(' ') : [];
+      this.NameInitial = nameArray.length > 1 ? `${nameArray[0][0]}${nameArray[1][0]}` : nameArray[0]?.charAt(0);
+    });
   }
 
   resetActives() {

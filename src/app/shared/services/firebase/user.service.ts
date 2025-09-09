@@ -6,10 +6,11 @@ import {
     setPersistence,
     signInWithEmailAndPassword,
     signOut,
+    updateProfile,
     user,
     User,
 } from '@angular/fire/auth';
-import { from, Observable } from 'rxjs';
+import { firstValueFrom, from, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -50,11 +51,11 @@ export class UserService {
         return from(promise);
     }
 
-    signUp(email: string, password: string): Observable<void> {
+    signUp(email: string, password: string, displayName: string): Observable<void> {
         const promise = createUserWithEmailAndPassword(this.auth, email, password).then((result) => {
             // Example
             const user = result.user;
-            // Do stuff with user
+            updateProfile(user, { displayName })
             // trigger notification
             // ...
         });
