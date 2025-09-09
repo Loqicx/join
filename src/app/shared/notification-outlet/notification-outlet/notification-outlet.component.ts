@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
     selector: 'notification-outlet',
@@ -8,5 +9,10 @@ import { Component } from '@angular/core';
 })
 export class NotificationOutletComponent {
     private notifications: HTMLElement[] = [];
-    constructor() {}
+
+    notificationListener;
+
+    constructor(private notificationService: NotificationService) {
+        this.notificationListener = this.notificationService.notificationSubject$.subscribe((data) => {});
+    }
 }
