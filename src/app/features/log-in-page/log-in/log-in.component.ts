@@ -1,9 +1,10 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormControl, FormsModule, NgForm } from '@angular/forms';
-import { ButtonComponent } from '../ui/button/button.component';
-import { UserService } from '../services/firebase/user.service';
-import { AppComponent } from '../../app.component';
+import { ButtonComponent } from '../../../shared/ui/button/button.component';
+import { UserService } from '../../../shared/services/firebase/user.service';
+import { AppComponent } from '../../../app.component';
 import { Router, RouterLink } from '@angular/router';
+import { LoginService } from '../../../shared/services/app-login-service.service';
 @Component({
     selector: 'app-log-in',
     imports: [FormsModule, ButtonComponent, RouterLink],
@@ -13,7 +14,7 @@ import { Router, RouterLink } from '@angular/router';
 export class LogInComponent {
     logInEmail: any;
     logInPassword: any;
-    
+
     @Input() signUpShow: boolean = false;
     signUpName: string = '';
     signUpEmail: string = '';
@@ -26,17 +27,18 @@ export class LogInComponent {
     privacyCheckbox: boolean = false;
 
     userService = inject(UserService);
-    appComponent = inject(AppComponent);
+    logInService = inject(LoginService);
     router = inject(Router);
 
     logIn(mail: string, pw: string) {
-        if (!mail || !pw && new FormControl('logInForm')) {
+        if (!mail || (!pw && new FormControl('logInForm'))) {
             this.warn = true;
             return;
         }
         this.userService.login(mail, pw).subscribe({
             next: () => {
-                this.router.navigateByUrl('/');
+                this.router.navigate(['/summary']);
+                this.logInService.verifyLogIn();
             },
             error: (error) => {
                 this.warn = true;
@@ -58,18 +60,16 @@ export class LogInComponent {
             if (!this.privacyCheckbox) {
                 this.warnSignUpPrivacy = true;
             }
-            console.error('something went wrong');
+            console.error('Form Validation failed');
             return;
         }
-        this.userService.signUp(this.signUpEmail, this.signUpPassword1).subscribe({
+        this.userService.signUp(this.signUpEmail, this.signUpPassword1, this.signUpName).subscribe({
             next: () => {
-                this.appComponent.loginPage = false;
-                this.appComponent.show = true;
-                this.appComponent.showRouter = true;
-                this.router.navigateByUrl('/');
+                this.router.navigate(['/summary']);
+                this.logInService.verifyLogIn();
             },
             error: (error) => {
-                console.error('something went wrong', error);
+                console.error('Database Error', error);
             },
         });
     }

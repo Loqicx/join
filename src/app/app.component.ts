@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, OnDestroy } from '@angular/core';
+import { RouterOutlet, Router } from '@angular/router';
 import { ContactsService } from './shared/services/firebase/contacts.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,6 +9,9 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { LogInPageComponent } from './features/log-in-page/log-in-page.component';
 import { UserService } from './shared/services/firebase/user.service';
 import { NotificationOutletComponent } from './shared/notification-outlet/notification-outlet/notification-outlet.component';
+import { LoginService } from './shared/services/app-login-service.service';
+import { Subscription } from 'rxjs';
+
 @Component({
     selector: 'app-root',
     imports: [
@@ -24,53 +27,56 @@ import { NotificationOutletComponent } from './shared/notification-outlet/notifi
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
 })
-/**
- * The main application component for the Join MMC project.
- *
- * @remarks
- * - Manages application state such as login status and page view.
- * - Injects {@link ContactsService} to actualize (refresh) all contacts on page load.
- */
-export class AppComponent {
+export class AppComponent implements OnDestroy {
     title = 'join-mmc';
 
-    showRouter = false;
-    loginPage = true;
-    actualLogin = false;
-    animate = false;
-    fade = false;
-    show = false;
-
     contactsService: ContactsService = inject(ContactsService);
-    userService: UserService = inject(UserService);
+    router: Router = inject(Router);
+    private LoginService: LoginService = inject(LoginService);
 
-    async ngOnInit() {
-        this.userService.user$.subscribe((user) => {
-            this.actualLogin = !!user;
-            console.log('User logged in:', this.actualLogin);
-            this.setAnimations();
-            this.showRouter = this.actualLogin;
-            if (this.actualLogin) {
-                setTimeout(() => {
-                    this.loginPage = !this.actualLogin;
-                    this.show = true;
-                }, 300);
-            }
-        });
+    showRouter: boolean = false;
+    loginPage: boolean = true;
+    actualLogin: boolean = false;
+    animate: boolean = false;
+    fade: boolean = false;
+    show: boolean = false;
+
+    private subscriptions = new Subscription();
+
+    ngOnInit() {
+        this.LoginService.verifyLogIn();
+
+        const loginPageSub = this.LoginService.loginPage$.subscribe((val) => (this.loginPage = val));
+        this.subscriptions.add(loginPageSub);
+
+        this.animateLogIn();
     }
 
-    setAnimations() {
-        if (!this.actualLogin) {
-            setTimeout(() => {
-                this.animate = true;
-            }, 200);
-            console.log(this.actualLogin);
-        } else {
-            this.fade = true;
-            setTimeout(() => {
-                this.loginPage = !this.actualLogin;
-            }, 300);
-            console.log(this.actualLogin);
-        }
+    animateLogIn() {
+        setTimeout(() => {
+            const animateSub = this.LoginService.animate$.subscribe((val) => {
+                if (val) {
+                    this.fade = false;
+                    this.showRouter = false;
+                    setTimeout(() => {
+                        this.LoginService.loginPageSubject.next(true);
+                        this.animate = true;
+                    }, 300);
+                } else {
+                    this.fade = true;
+                    this.animate = false;
+                    this.showRouter = true;
+                    setTimeout(() => {
+                        this.show = true;
+                        this.LoginService.loginPageSubject.next(false);
+                    }, 280);
+                }
+            });
+            this.subscriptions.add(animateSub);
+        }, 500);
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.unsubscribe();
     }
 }

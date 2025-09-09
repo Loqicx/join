@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { TasksService, TaskStatus, TaskPriority } from '../../shared/services/firebase/tasks.service'; 
-import { Task } from '../../shared/services/firebase/tasks.service'; 
+import { TasksService, TaskStatus, TaskPriority } from '../../shared/services/firebase/tasks.service';
+import { Task } from '../../shared/services/firebase/tasks.service';
 import { RouterLink } from '@angular/router';
 import { Timestamp } from '@angular/fire/firestore';
 import { DatePipe } from '@angular/common';
+import { UserService } from '../../shared/services/firebase/user.service';
 
 @Component({
   selector: 'app-summary',
@@ -24,8 +25,11 @@ export class SummaryComponent implements OnInit, OnDestroy {
 
 
   private tasksSub: Subscription | undefined;
+  userName: string = 'Guest';
+  private userSub: Subscription | undefined;
 
-  constructor(private tasksService: TasksService) {}
+
+  constructor(private tasksService: TasksService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.tasksSub = this.tasksService.tasks$.subscribe(tasks => {
@@ -37,11 +41,20 @@ export class SummaryComponent implements OnInit, OnDestroy {
       this.upcomingDate = this.getNextUrgentDate(tasks);
       this.boardCount = tasks.length;
       this.setGreeting();
+      this.userSub = this.userService.user$.subscribe(user => {
+        if (user) {
+          this.userName = user.displayName ||  'Guest';
+        } else {
+          this.userName = 'Guest';
+        }
+
+      });
     });
   }
 
   ngOnDestroy(): void {
     this.tasksSub?.unsubscribe();
+    this.userSub?.unsubscribe();
   }
 
   private countByStatus(tasks: Task[], status: TaskStatus): number {
@@ -53,29 +66,29 @@ export class SummaryComponent implements OnInit, OnDestroy {
   }
 
   private getNextUrgentDate(tasks: Task[]): Date | null {
-  const urgentDates: number[] = tasks
-    .filter(t => t.priority === TaskPriority.HIGH && t.dueDate)
-    .map(t => {
-      const due: any = t.dueDate;
+    const urgentDates: number[] = tasks
+      .filter(t => t.priority === TaskPriority.HIGH && t.dueDate)
+      .map(t => {
+        const due: any = t.dueDate;
 
-      if (due instanceof Timestamp) {
-        return due.toDate().getTime();
-      }
+        if (due instanceof Timestamp) {
+          return due.toDate().getTime();
+        }
 
-      if (due instanceof Date) {
-        return due.getTime();
-      }
+        if (due instanceof Date) {
+          return due.getTime();
+        }
 
-      if (typeof due === 'string') {
-        const parsed = new Date(due);
-        if (!isNaN(parsed.getTime())) return parsed.getTime();
-      }
+        if (typeof due === 'string') {
+          const parsed = new Date(due);
+          if (!isNaN(parsed.getTime())) return parsed.getTime();
+        }
 
-      return NaN;
-    })
-    .filter(time => !isNaN(time));
+        return NaN;
+      })
+      .filter(time => !isNaN(time));
 
-  return urgentDates.length ? new Date(Math.min(...urgentDates)) : null;
+    return urgentDates.length ? new Date(Math.min(...urgentDates)) : null;
   }
 
   private setGreeting(): void {

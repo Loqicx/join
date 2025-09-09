@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Router, NavigationEnd, RouterModule } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component, inject, OnDestroy } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { SVGInlineService } from '../services/svg-inline.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { LoginService } from '../services/app-login-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,79 +13,51 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrl: './sidebar.component.scss',
   providers: [SVGInlineService],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnDestroy {
   svgContents: { [key: string]: SafeHtml } = {};
-
-  contactsActive = false;
-  summaryActive = false;
-  addTaskActive = false;
-  boardActive = false;
-  privacyActive = false;
-  legalActive = false;
+  loggedIn = false;
 
   icons = [
     { name: 'contacts', src: './assets/icons/contacts.svg' },
     { name: 'summary', src: './assets/icons/summary.svg' },
     { name: 'addTask', src: './assets/icons/add-task.svg' },
     { name: 'board', src: './assets/icons/board.svg' },
+    { name: 'login', src: './assets/icons/login.svg' },
   ];
 
-  /**
-   * Constructor for the Sidebar component that initializes routing events and sets active Button based on current URL.
-   *
-   * @param {Router} router - The Angular Router instance used to listen for navigation events.
-   */
+  loginService = inject(LoginService);
+  private subscriptions = new Subscription();
+
   constructor(
     private router: Router,
     private svgService: SVGInlineService,
     private sanitizer: DomSanitizer
-  ) {
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        const currentUrl = event.urlAfterRedirects;
-        this.resetAllActives();
-        if (currentUrl.startsWith('/contacts')) {
-          this.contactsActive = true;
-        } else if (currentUrl.startsWith('/summary')) {
-          this.summaryActive = true;
-        } else if (currentUrl.startsWith('/addTask')) {
-          this.addTaskActive = true;
-        } else if (currentUrl.startsWith('/board')) {
-          this.boardActive = true;
-        } else if (currentUrl.startsWith('/legal')) {
-          this.legalActive = true;
-        } else if (currentUrl.startsWith('/privacy')) {
-          this.privacyActive = true;
-        }
-      });
-  }
-
-  /**
-   * Resets all active tabs to false.
-   */
-  private resetAllActives() {
-    this.contactsActive = false;
-    this.summaryActive = false;
-    this.addTaskActive = false;
-    this.boardActive = false;
-    this.privacyActive = false;
-    this.legalActive = false;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.icons.forEach((icon) => {
       this.convertIcon(icon.name, icon.src);
     });
+
+    const loginSub = this.loginService.actualLogin$.subscribe(isLoggedIn => {
+      this.loggedIn = isLoggedIn;
+    });
+
+    this.subscriptions.add(loginSub);
   }
 
   convertIcon(iconName: string, iconSrc: string): void {
-    this.svgService.getInlineSVG(iconSrc).subscribe({
+    const svgSub = this.svgService.getInlineSVG(iconSrc).subscribe({
       next: (svg: string) => {
-        this.svgContents[iconName] =
-          this.sanitizer.bypassSecurityTrustHtml(svg);
+        this.svgContents[iconName] = this.sanitizer.bypassSecurityTrustHtml(svg);
       },
       error: (err) => console.error('SVG load error:', err),
     });
+
+    this.subscriptions.add(svgSub);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
