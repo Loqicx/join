@@ -47,6 +47,7 @@ export class NotificationOutletComponent {
 
         setTimeout(() => {
             notification.remove();
+            this.notifications.splice(this.notifications.indexOf(notification), 1);
         }, duration);
     }
 }
