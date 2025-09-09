@@ -3,7 +3,7 @@ import { LogInComponent } from "./log-in/log-in.component";
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from "../../shared/ui/button/button.component";
 import { RouterLink } from '@angular/router';
-import { AppComponent } from '../../app.component';
+import { LoginService } from '../../shared/services/app-login-service.service';
 
 @Component({
   selector: 'app-log-in-page',
@@ -15,11 +15,9 @@ export class LogInPageComponent {
   @Input() animate: boolean = false;
   @Input() fade: boolean = false;
   signUpShow: boolean = false;
-  appComponent = inject(AppComponent);
+  logInService = inject(LoginService);
 
   closeLogIn() {
-    this.appComponent.showRouter = true;
-    this.appComponent.loginPage = false;
-    this.appComponent.show = true;
+    this.logInService.showRouter();
   }
 }

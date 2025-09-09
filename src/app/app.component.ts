@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { ContactsService } from './shared/services/firebase/contacts.service';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,10 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LogInPageComponent } from './features/log-in-page/log-in-page.component';
 import { UserService } from './shared/services/firebase/user.service';
+import { NotificationOutletComponent } from './shared/notification-outlet/notification-outlet/notification-outlet.component';
 import { LoginService } from './shared/services/app-login-service.service';
+import { Subscription } from 'rxjs';
+
 @Component({
     selector: 'app-root',
     imports: [
@@ -19,24 +22,17 @@ import { LoginService } from './shared/services/app-login-service.service';
         SidebarComponent,
         FooterComponent,
         LogInPageComponent,
+        NotificationOutletComponent,
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
 })
-/**
- * The main application component for the Join MMC project.
- *
- * @remarks
- * - Manages application state such as login status and page view.
- * - Injects {@link ContactsService} to actualize (refresh) all contacts on page load.
- */
-export class AppComponent {
+export class AppComponent implements OnDestroy {
     title = 'join-mmc';
 
     contactsService: ContactsService = inject(ContactsService);
-    userService: UserService = inject(UserService);
-    LoginService: LoginService = inject(LoginService);
     router: Router = inject(Router);
+    private LoginService: LoginService = inject(LoginService);
 
     showRouter: boolean = false;
     loginPage: boolean = true;
@@ -45,31 +41,42 @@ export class AppComponent {
     fade: boolean = false;
     show: boolean = false;
 
+    private subscriptions = new Subscription();
+
     ngOnInit() {
         this.LoginService.verifyLogIn();
-        this.LoginService.showRouter$.subscribe(val => this.showRouter = val);
-        this.LoginService.loginPage$.subscribe(val => this.loginPage = val);
-        this.LoginService.show$.subscribe(val => this.fade = val)
-        this.LoginService.actualLogin$.subscribe(val => this.actualLogin = val);
+
+        const loginPageSub = this.LoginService.loginPage$.subscribe((val) => (this.loginPage = val));
+        this.subscriptions.add(loginPageSub);
+
         this.animateLogIn();
     }
 
     animateLogIn() {
         setTimeout(() => {
-            this.LoginService.animate$.subscribe(val => {
+            const animateSub = this.LoginService.animate$.subscribe((val) => {
                 if (val) {
+                    this.fade = false;
+                    this.showRouter = false;
                     setTimeout(() => {
+                        this.LoginService.loginPageSubject.next(true);
                         this.animate = true;
                     }, 300);
                 } else {
                     this.fade = true;
+                    this.animate = false;
                     this.showRouter = true;
                     setTimeout(() => {
-                        this.loginPage = !this.actualLogin;
                         this.show = true;
+                        this.LoginService.loginPageSubject.next(false);
                     }, 280);
                 }
             });
+            this.subscriptions.add(animateSub);
         }, 500);
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.unsubscribe();
     }
 }

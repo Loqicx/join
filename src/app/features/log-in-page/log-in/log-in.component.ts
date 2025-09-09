@@ -14,7 +14,7 @@ import { LoginService } from '../../../shared/services/app-login-service.service
 export class LogInComponent {
     logInEmail: any;
     logInPassword: any;
-    
+
     @Input() signUpShow: boolean = false;
     signUpName: string = '';
     signUpEmail: string = '';
@@ -27,12 +27,11 @@ export class LogInComponent {
     privacyCheckbox: boolean = false;
 
     userService = inject(UserService);
-    appComponent = inject(AppComponent);
     logInService = inject(LoginService);
     router = inject(Router);
 
     logIn(mail: string, pw: string) {
-        if (!mail || !pw && new FormControl('logInForm')) {
+        if (!mail || (!pw && new FormControl('logInForm'))) {
             this.warn = true;
             return;
         }
@@ -66,10 +65,8 @@ export class LogInComponent {
         }
         this.userService.signUp(this.signUpEmail, this.signUpPassword1, this.signUpName).subscribe({
             next: () => {
-                this.appComponent.loginPage = false;
-                this.appComponent.show = true;
-                this.appComponent.showRouter = true;
-                this.router.navigateByUrl('/');
+                this.router.navigate(['/summary']);
+                this.logInService.verifyLogIn();
             },
             error: (error) => {
                 console.error('Database Error', error);
