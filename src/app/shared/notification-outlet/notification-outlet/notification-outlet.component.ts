@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
     styleUrl: './notification-outlet.component.scss',
 })
 export class NotificationOutletComponent {
+    private notifications: HTMLElement[] = [];
     constructor() {}
 }
