@@ -9,6 +9,18 @@
   overflow-y: scroll;
   background-color: $color-primary-bg;
 
+  @include breakpoint-down('lg') {
+        height: calc(100% - $header-height - $footer-height);
+    }
+
+    @include breakpoint-down('md') {
+        height: calc(100% - $header-height - $footer-height + 16px);
+    }
+
+    @include breakpoint-down('sm') {
+        height: calc(100% - $header-height - $footer-height + 24px);
+    }
+
   .content-wrapper {
     display: flex;
     flex-direction: column;
@@ -355,7 +367,6 @@
   }
 
   .summary-greeting {
-    padding: 33px;
     display: flex;            
     flex-direction: column;
     justify-content: center;
@@ -499,12 +510,3 @@
     .label { font-size: 11px; }
   }
 }
-
-
-
-
-
-
-
-
-
