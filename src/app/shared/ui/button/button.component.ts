@@ -30,6 +30,7 @@ export class ButtonComponent {
   @Input() round: boolean = false;
   @Input() iconBtn: boolean = false;
   @Input() color: 'normal' | 'danger' | 'warn' | 'success' = 'normal';
+  @Input() border: boolean = true;
   @Input() disabled: boolean | null = false;
 
   @Output() btnClick = new EventEmitter<void>();
