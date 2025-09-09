@@ -64,7 +64,7 @@ export class LogInComponent {
             console.error('Form Validation failed');
             return;
         }
-        this.userService.signUp(this.signUpEmail, this.signUpPassword1).subscribe({
+        this.userService.signUp(this.signUpEmail, this.signUpPassword1, this.signUpName).subscribe({
             next: () => {
                 this.appComponent.loginPage = false;
                 this.appComponent.show = true;

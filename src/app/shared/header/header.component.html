@@ -7,7 +7,7 @@
         <div class="right-wrapper" [class.o-none]="!loggedIn">
             <a class="desktop btn help-btn" routerLink="help" [ngClass]="helpActive ? 'o-none' : ''"><span>?</span></a>
             <div class="user-menu-wrapper">
-                <button class="btn acc-btn" (click)="toggleMenu()">UU</button>
+                <button class="btn acc-btn" (click)="toggleMenu()">{{NameInitial}}</button>
                 <nav class="user-menu" [ngClass]="this.activeFlex ? 'flex' : ''" (mouseleave)="this.toggleMenu()">
                     <a routerLink="help" class="mobile">Help</a>
                     <a routerLink="legal">Legal Notice</a>
