@@ -15,4 +15,9 @@ export class NotificationService {
     notificationSubject = new BehaviorSubject<Notification>(this.initialNotification);
     notificationSubject$ = this.notificationSubject.asObservable();
     constructor() {}
+
+    pushNotification(message: string, type: NotificationType, position: NotificationPosition, duration: number = 4000) {
+        const notification = { message: message, type: type, position: position, duration: duration };
+        this.notificationSubject.next(notification);
+    }
 }
