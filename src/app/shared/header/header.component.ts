@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { LoginService } from '../services/app-login-service.service';
 import { UserService } from '../services/firebase/user.service';
 
@@ -11,7 +12,7 @@ import { UserService } from '../services/firebase/user.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
 
   activeFlex = false;
   helpActive = false;
@@ -21,31 +22,40 @@ export class HeaderComponent {
   loginService = inject(LoginService);
   userService = inject(UserService);
 
-    /**
-   * Constructor for the Sidebar component that initializes routing events and sets active Button based on current URL.
-   * 
-   * @param {Router} router - The Angular Router instance used to listen for navigation events.
-   */
+  private subscriptions = new Subscription();
+
   constructor(private router: Router) {
-    this.router.events
+    const navEndSub = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        this.resetActives()
+        this.resetActives();
         const currentUrl = event.urlAfterRedirects;
         if (currentUrl.startsWith('/help')) {
           this.helpActive = true;
-        } 
+        }
       });
+
+    this.subscriptions.add(navEndSub);
   }
 
   ngOnInit() {
-    this.loginService.actualLogin$.subscribe(isLoggedIn => {
+    const loginSub = this.loginService.actualLogin$.subscribe(isLoggedIn => {
       this.loggedIn = isLoggedIn;
     });
-    this.userService.user$.subscribe(user => {
+
+    const userSub = this.userService.user$.subscribe(user => {
       const nameArray = user?.displayName ? user.displayName.split(' ') : [];
-      this.NameInitial = nameArray.length > 1 ? `${nameArray[0][0]}${nameArray[1][0]}` : nameArray[0]?.charAt(0);
+      this.NameInitial = nameArray.length > 1
+        ? `${nameArray[0][0]}${nameArray[1][0]}`
+        : nameArray[0]?.charAt(0);
     });
+
+    this.subscriptions.add(loginSub);
+    this.subscriptions.add(userSub);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   resetActives() {
@@ -53,10 +63,6 @@ export class HeaderComponent {
   }
 
   toggleMenu() {
-    if (this.activeFlex) {
-      this.activeFlex = false;
-    } else {
-      this.activeFlex = true;
-    }
+    this.activeFlex = !this.activeFlex;
   }
 }
