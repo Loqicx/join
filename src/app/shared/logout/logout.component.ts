@@ -3,6 +3,8 @@ import { UserService } from '../services/firebase/user.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../services/app-login-service.service';
+import { NotificationService } from '../services/notification.service';
+import { NotificationPosition, NotificationType } from '../interfaces/notification';
 
 @Component({
     selector: 'app-logout',
@@ -12,7 +14,8 @@ import { LoginService } from '../services/app-login-service.service';
 })
 export class LogoutComponent {
     userService = inject(UserService);
-    LoginService = inject(LoginService);
+    loginService = inject(LoginService);
+    notificationService = inject(NotificationService);
     router = inject(Router);
     loggedOut: boolean = false;
 
@@ -21,8 +24,9 @@ export class LogoutComponent {
         this.userService.logout().subscribe({
             next: () => {
                 this.loggedOut = true;
-                this.LoginService.resetState();
-                this.LoginService.verifyLogIn();
+                this.loginService.resetState();
+                this.loginService.verifyLogIn();
+                this.notificationService.pushNotification('Successfully logged out!', NotificationType.SUCCESS, NotificationPosition.BOTTOM_RIGHT);
             },
         });
     }
