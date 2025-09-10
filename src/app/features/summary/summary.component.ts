@@ -62,24 +62,6 @@ export class SummaryComponent implements OnInit, OnDestroy {
    */
   constructor(private tasksService: TasksService, private userService: UserService) { }
 
-  /**
-   * Component initialization - subscribes to tasks and user data
-   */
-  todoCount = 0;
-  doneCount = 0;
-  urgentCount = 0;
-  inProgressCount = 0;
-  feedbackCount = 0;
-  upcomingDate: Date | null = null;
-  boardCount = 0;
-  greeting = '';
-  userName = 'Guest';
-
-  private tasksSub?: Subscription;
-  private userSub?: Subscription;
-
-  constructor(private tasksService: TasksService, private userService: UserService) { }
-
   /** Initialize subscriptions for tasks and user data */
   ngOnInit(): void {
     this.subscribeTasks();
@@ -107,14 +89,6 @@ export class SummaryComponent implements OnInit, OnDestroy {
     this.userSub = this.userService.user$.subscribe(user => {
       this.userName = user?.displayName || 'Guest';
     });
-  }
-  
-  /**
-   * Component cleanup - unsubscribes from active subscriptions
-   */
-  ngOnDestroy(): void {
-    this.tasksSub?.unsubscribe();
-    this.userSub?.unsubscribe();
   }
 
   /**
