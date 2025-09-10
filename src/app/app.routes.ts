@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Application routing configuration defining all routes and navigation
+ */
+
 import { Routes } from '@angular/router';
 import { ContactsPageComponent } from './features/contacts-page/contacts-page.component';
 import { PrivacyPolicyPageComponent } from './features/privacy-policy-page/privacy-policy-page.component';
@@ -9,6 +13,10 @@ import { SummaryComponent } from './features/summary/summary.component';
 import { authGuard } from './shared/guards/auth.guard';
 import { LogoutComponent } from './shared/logout/logout.component';
 
+/**
+ * Application routes configuration
+ * Defines all routes, components, and authentication requirements
+ */
 export const routes: Routes = [
     {
         path: '',
