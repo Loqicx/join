@@ -16,6 +16,8 @@ import { InitialLettersService } from '../../../../shared/services/get-initial-l
 import { SVGInlineService } from '../../../../shared/services/svg-inline.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ContactsCommunicationService } from '../../services/contacts-communication.service';
+import { NotificationService } from '../../../../shared/services/notification.service';
+import { NotificationPosition, NotificationType } from '../../../../shared/interfaces/notification';
 
 @Component({
   selector: 'app-edit-contact-modal',
@@ -34,6 +36,7 @@ export class EditContactModalComponent {
   isOpen = false;
   isSlide = false;
   contactsService = inject(ContactsService);
+  notificationService = inject(NotificationService);
   fullName = '';
   iconSrc = 'assets/icons/close.svg';
 
@@ -91,6 +94,7 @@ export class EditContactModalComponent {
   async saveContact(form: NgForm) {
     if (!this.contact) {
       console.error('No contact loaded');
+      this.notificationService.pushNotification('Error loading Contact!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
       return;
     }
     if (form.invalid) {
@@ -105,8 +109,10 @@ export class EditContactModalComponent {
       await this.contactsService.updateContact(this.contact, this.contact.id);
       this.closeModal();
       this.contactComService.setContactId(this.contact.id);
+      this.notificationService.pushNotification('Contact updated successfully!', NotificationType.SUCCESS, NotificationPosition.TOP_RIGHT);
     } catch (error) {
       console.error('Update failed:', error);
+      this.notificationService.pushNotification('Error updating Contact!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
     }
   }
 
