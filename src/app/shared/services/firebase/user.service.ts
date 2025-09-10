@@ -52,10 +52,11 @@ export class UserService {
     }
 
     signUp(email: string, password: string, displayName: string): Observable<void> {
-        const promise = createUserWithEmailAndPassword(this.auth, email, password).then((result) => {
+        const promise = createUserWithEmailAndPassword(this.auth, email, password).then(async (result) => {
             // Example
             const user = result.user;
-            updateProfile(user, { displayName })
+            await updateProfile(user, { displayName })
+            await result.user.reload()
             // trigger notification
             // ...
         });
