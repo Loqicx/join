@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Sidebar component with main navigation menu
+ */
+
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
@@ -6,6 +10,10 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { LoginService } from '../services/app-login-service.service';
 import { Subscription } from 'rxjs';
 
+/**
+ * Application sidebar navigation component
+ * @component
+ */
 @Component({
   selector: 'app-sidebar',
   imports: [CommonModule, RouterModule],

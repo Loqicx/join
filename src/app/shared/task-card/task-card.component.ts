@@ -1,3 +1,7 @@
+/**
+ * @fileoverview task card.component
+ */
+
 import { Component, inject, Input, OnInit, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';

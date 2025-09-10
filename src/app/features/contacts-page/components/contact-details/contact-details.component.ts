@@ -1,3 +1,7 @@
+/**
+ * @fileoverview contact details.component
+ */
+
 import {
   Component,
   EventEmitter,

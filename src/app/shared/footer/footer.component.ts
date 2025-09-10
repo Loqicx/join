@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Footer component with navigation icons and routing functionality
+ */
+
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
@@ -6,6 +10,11 @@ import { SVGInlineService } from '../services/svg-inline.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { LoginService } from '../services/app-login-service.service';
 import { Subscription } from 'rxjs';
+
+/**
+ * Application footer component with navigation icons
+ * @component
+ */
 @Component({
   selector: 'app-footer',
   imports: [CommonModule, RouterModule],
