@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Board page component for task management with drag-and-drop functionality
+ */
+
 import { Component, inject, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ButtonComponent } from '../../shared/ui/button/button.component';
 import {
@@ -17,6 +21,10 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DeleteModalComponent } from '../../shared/delete-modal/delete-modal.component';
 
+/**
+ * Board page component for managing tasks with kanban-style drag and drop
+ * @component
+ */
 @Component({
     selector: 'app-board-page',
     imports: [
