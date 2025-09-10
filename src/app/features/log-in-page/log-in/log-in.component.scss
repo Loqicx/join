@@ -51,7 +51,7 @@
     }
 
     @include breakpoint-down('md') {
-        font-size: 36px;
+        font-size: 52px;
 
         .blue-underline {
             width: 180px;
@@ -59,23 +59,15 @@
     }
 
     @include breakpoint-down('sm') {
-        font-size: 24px;
+        font-size: 48px;
 
         .blue-underline {
-            width: 160px;
-        }
-    }
-
-    @include breakpoint-down('xsm') {
-        font-size: 20px;
-
-        .blue-underline {
-            width: 120px;
+            width: 80px;
         }
     }
 
     @include breakpoint-down('xxsm') {
-        font-size: 16px;
+        font-size: 32px;
     }
 }
 
