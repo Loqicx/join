@@ -203,30 +203,64 @@ export class AddTaskComponent {
         }
     }
 
+    /**
+     * Saves an existing task by updating it in the database.
+     *
+     * @async
+     * @param {NgForm} taskForm - The form containing task data.
+     */
     async saveExistingTask(taskForm: NgForm) {
         try {
             await this.tasksService.updateTask(this.task, this.task.id);
             this.closeModal.emit();
             this.taskComService.triggerTaskChange(0);
-            this.notificationService.pushNotification('Task updated successfully!', NotificationType.SUCCESS, NotificationPosition.TOP_RIGHT);
+            this.notificationService.pushNotification(
+                'Task updated successfully!',
+                NotificationType.SUCCESS,
+                NotificationPosition.TOP_RIGHT
+            );
         } catch (error) {
-            this.notificationService.pushNotification('Failed to update task!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
+            this.notificationService.pushNotification(
+                'Failed to update task!',
+                NotificationType.ERROR,
+                NotificationPosition.TOP_RIGHT
+            );
             console.error('Failed to Update Task!');
         }
     }
 
+    /**
+     * Saves a new task by adding it to the database.
+     *
+     * @async
+     * @param {NgForm} taskForm - The form containing task data.
+     */
     async saveNewTask(taskForm: NgForm) {
         try {
             await this.tasksService.addTaskToDatabase(this.task);
             this.resetForm(taskForm);
             if (!this.asModal || !this.asEdit) this.router.navigate(['/board']);
-            this.notificationService.pushNotification('Task created successfully!', NotificationType.SUCCESS, NotificationPosition.TOP_RIGHT);
+            this.notificationService.pushNotification(
+                'Task created successfully!',
+                NotificationType.SUCCESS,
+                NotificationPosition.TOP_RIGHT
+            );
         } catch (error) {
-            this.notificationService.pushNotification('Failed to save task!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
+            this.notificationService.pushNotification(
+                'Failed to save task!',
+                NotificationType.ERROR,
+                NotificationPosition.TOP_RIGHT
+            );
             console.error('Failed to Save Task!');
         }
     }
 
+    /**
+     * Retrieves the button name based on a given number.
+     *
+     * @param {number | null} btnNum - The numeric value representing the button state.
+     * @returns {'urgent' | 'medium' | 'low'} The corresponding button name.
+     */
     getButtonName(btnNum: number | null): 'urgent' | 'medium' | 'low' {
         if (btnNum === 1) {
             return 'low';

@@ -23,7 +23,7 @@ export class LogoutComponent implements OnDestroy {
     private logoutSubscription?: Subscription;
     loggedOut: boolean = false;
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.router.navigateByUrl('/');
         this.logoutSubscription = this.userService.logout().subscribe({
             next: () => {
@@ -39,7 +39,12 @@ export class LogoutComponent implements OnDestroy {
         });
     }
 
-    ngOnDestroy() {
+    /**
+     * Cleans up subscriptions on component destruction.
+     *
+     * @returns {void}
+     */
+    ngOnDestroy(): void {
         this.logoutSubscription?.unsubscribe();
     }
 }

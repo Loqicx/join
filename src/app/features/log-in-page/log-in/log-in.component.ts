@@ -43,6 +43,13 @@ export class LogInComponent {
     notificationService = inject(NotificationService);
     router = inject(Router);
 
+/**
+     * Logs in a user with provided email and password.
+     * 
+     * @param {string} mail - The user's email address.
+     * @param {string} pw - The user's password.
+     * @throws {Error} If log-in fails or invalid input is provided.
+     */
     logIn(mail: string, pw: string) {
         if (!mail || (!pw && new FormControl('logInForm'))) {
             this.warn = true;
@@ -60,14 +67,26 @@ export class LogInComponent {
         });
     }
 
+    /**
+     * Closes the sign-up form.
+     */
     closeSignUp() {
         this.signUpClose.emit();
     }
 
+    /**
+     * Toggles the privacy checkbox state for sign-up.
+     */
     toggleCheckBox() {
         this.privacyCheckbox = !this.privacyCheckbox;
     }
 
+    /**
+     * Signs up a new user with provided email, password, and name.
+     * 
+     * @param {NgForm} form - The form used for validation.
+     * @throws {Error} If sign-up fails or privacy policy is not accepted or passwords do not match.
+     */
     signUp(form: NgForm) {
         if (form.invalid || !this.privacyCheckbox || this.signUpPassword1 !== this.signUpPassword2) {
             if (!this.privacyCheckbox) {
@@ -90,6 +109,10 @@ export class LogInComponent {
         });
     }
 
+    /**
+     * Creates and adds a contact to the database.
+     * @throws {Error} If Contact creation Fails.
+     */
     async createContact() {
         const nameParts = this.signUpName.trim().split(' ');
         this.contact.firstName = nameParts.slice(0, 1).join('');
@@ -107,6 +130,10 @@ export class LogInComponent {
         }
     }
 
+    /**
+     * Logs in a user using guest credentials.
+     * @throws {Error} If Guest Account creation Fails.
+     */
     loginGuest() {
         this.userService.loginGuest().subscribe({
             next: () => {
