@@ -49,7 +49,7 @@
 
     @include breakpoint-down('sm') {
         top: auto;
-        bottom: 90px;
+        bottom: 68px;
         right: auto;
 
         .desktop {
@@ -69,7 +69,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    margin: 4px;
+    overflow: visible;
     transition: height 0.2s ease, width 0.2s ease;
 
     &.sign-up {
@@ -78,7 +79,16 @@
         transition: width 0.2s ease;
     }
 
+    @include breakpoint-down('md') {
+        &.sign-up {
+            height: 580px;
+        }
+    }
+
     @include breakpoint-down('sm') {
+        height: 420px;
+        margin-bottom: 24px;
+
         &.sign-up {
             height: 550px;
         }
@@ -125,6 +135,12 @@
             margin-left: 30px;
             margin-top: 30px;
             animation: logoAnimationMobile 0.5s ease-in;
+        }
+    }
+
+    @include breakpoint-down('sm') {
+        .logo.animate {
+            width: 52px;
         }
     }
 }
@@ -216,4 +232,12 @@
 
 .d-none {
     display: none !important;
+}
+
+.d-none-mobile {
+    @include breakpoint-down('sm') {
+        @media (max-height: 762px) {
+            opacity: 0;
+        }
+    }
 }

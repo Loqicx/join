@@ -50,8 +50,16 @@
         background-color: $color-primary-hover;
     }
 
+    @include breakpoint-down('md') {
+        font-size: 36px;
+
+        .blue-underline {
+            width: 180px;
+        }
+    }
+
     @include breakpoint-down('sm') {
-        font-size: 30px;
+        font-size: 24px;
 
         .blue-underline {
             width: 160px;
@@ -59,11 +67,15 @@
     }
 
     @include breakpoint-down('xsm') {
-        font-size: 24px;
+        font-size: 20px;
 
         .blue-underline {
             width: 120px;
         }
+    }
+
+    @include breakpoint-down('xxsm') {
+        font-size: 16px;
     }
 }
 
@@ -189,6 +201,11 @@
     left: 48px;
     height: 48px;
     width: 48px;
+
+    @include breakpoint-down('sm') {
+        top: 30px;
+        left: 24px;
+    }
 }
 
 .input-wrapper.check {
