@@ -4,7 +4,8 @@ import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { SVGInlineService } from '../services/svg-inline.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
+import { LoginService } from '../services/app-login-service.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-footer',
   imports: [CommonModule, RouterModule],
@@ -24,7 +25,11 @@ export class FooterComponent {
     { name: 'summary', src: './assets/icons/summary.svg' },
     { name: 'addTask', src: './assets/icons/add-task.svg' },
     { name: 'board', src: './assets/icons/board.svg' },
+    { name: 'login', src: './assets/icons/login.svg' },
   ];
+
+  loggedIn = false;
+  private subscriptions = new Subscription();
 
   /**
    * Constructor for the Footer component that initializes routing events and sets active Button based on current URL.
@@ -34,7 +39,8 @@ export class FooterComponent {
   constructor(
     private router: Router,
     private svgService: SVGInlineService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private loginService: LoginService,
   ) {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -67,6 +73,12 @@ export class FooterComponent {
     this.icons.forEach((icon) => {
       this.convertIcon(icon.name, icon.src);
     });
+
+    const loginSub = this.loginService.actualLogin$.subscribe(isLoggedIn => {
+      this.loggedIn = isLoggedIn;
+    });
+
+    this.subscriptions.add(loginSub);
   }
 
   convertIcon(iconName: string, iconSrc: string): void {

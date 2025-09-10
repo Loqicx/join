@@ -17,6 +17,13 @@
     border-radius: 30px;
     box-shadow: 0px 0px 8px $color-input-border;
     overflow-y: auto;
+
+    @include breakpoint-down('sm') {
+        height: 100%;
+        width: 80%;
+        padding: 12px 20px;
+        overflow: visible;
+    }
 }
 
 .logIn-content {
@@ -42,6 +49,34 @@
         width: 202px;
         background-color: $color-primary-hover;
     }
+
+    @include breakpoint-down('md') {
+        font-size: 36px;
+
+        .blue-underline {
+            width: 180px;
+        }
+    }
+
+    @include breakpoint-down('sm') {
+        font-size: 24px;
+
+        .blue-underline {
+            width: 160px;
+        }
+    }
+
+    @include breakpoint-down('xsm') {
+        font-size: 20px;
+
+        .blue-underline {
+            width: 120px;
+        }
+    }
+
+    @include breakpoint-down('xxsm') {
+        font-size: 16px;
+    }
 }
 
 .logIn-window {
@@ -66,6 +101,10 @@
         font-size: 18px;
         font-family: Inter;
         font-weight: 400;
+
+        @include breakpoint-down('xsm') {
+            font-size: 16px;
+        }
     }
 
     .input-sm::placeholder {
@@ -89,6 +128,7 @@
         width: 24px;
         top: 12px;
         right: 20px;
+        background-color: white;
     }
 }
 
@@ -131,6 +171,28 @@
     margin-top: 36px;
     margin-bottom: 24px;
     gap: 24px;
+
+    &.mobile {
+        display: none;
+    }
+
+    @include breakpoint-down('sm') {
+        &.desktop {
+            display: none;
+        }
+
+        &.mobile {
+            display: block;
+            width: 85%;
+            max-width: 240px;
+            margin: auto;
+            word-break: keep-all;
+        }
+
+        .spacer {
+            height: 24px;
+        }
+    }
 }
 
 .back-button {
@@ -139,6 +201,11 @@
     left: 48px;
     height: 48px;
     width: 48px;
+
+    @include breakpoint-down('sm') {
+        top: 30px;
+        left: 24px;
+    }
 }
 
 .input-wrapper.check {

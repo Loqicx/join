@@ -32,10 +32,34 @@
     align-items: center;
     gap: 30px;
 
+    .mobile {
+        display: none;
+    }
+
     .sign-text {
         font-size: 20px;
         line-height: 120%;
         font-weight: 400;
+    }
+
+    @include breakpoint-down('lg') {
+        top: 30px;
+        right: 30px;
+    }
+
+    @include breakpoint-down('sm') {
+        top: auto;
+        bottom: 68px;
+        right: auto;
+
+        .desktop {
+            display: none;
+        }
+
+        .mobile {
+            display: flex;
+            width: 100px;
+        }
     }
 }
 
@@ -45,13 +69,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    margin: 4px;
+    overflow: visible;
     transition: height 0.2s ease, width 0.2s ease;
 
     &.sign-up {
         height: 630px;
         width: 600px;
         transition: width 0.2s ease;
+    }
+
+    @include breakpoint-down('md') {
+        &.sign-up {
+            height: 580px;
+        }
+    }
+
+    @include breakpoint-down('sm') {
+        height: 420px;
+        margin-bottom: 24px;
+
+        &.sign-up {
+            height: 550px;
+        }
     }
 }
 
@@ -84,6 +124,38 @@
             animation: logoAnimation 0.5s ease-in;
         }
     }
+
+    @include breakpoint-down('lg') {
+        &.animate {
+            animation: logoWrapAnimationMobile 0.5s ease-in;
+        }
+
+        .logo.animate {
+            width: 66px;
+            margin-left: 30px;
+            margin-top: 30px;
+            animation: logoAnimationMobile 0.5s ease-in;
+        }
+    }
+
+    @include breakpoint-down('sm') {
+        .logo.animate {
+            width: 52px;
+        }
+    }
+}
+
+@keyframes logoAnimationMobile {
+    0% {
+        width: 180px;
+        margin: 0;
+    }
+
+    100% {
+        width: 66px;
+        margin-left: 24px;
+        margin-top: 24px;
+    }
 }
 
 @keyframes logoAnimation {
@@ -96,6 +168,23 @@
         width: 88px;
         margin-left: 64px;
         margin-top: 64px;
+    }
+}
+
+@keyframes logoWrapAnimationMobile {
+    0% {
+        height: 100%;
+        width: 100%;
+        background-color: $color-primary-bg;
+    }
+
+    40% {
+        background-color: transparent;
+    }
+
+    100% {
+        height: 8%;
+        width: 11%;
     }
 }
 
@@ -113,7 +202,6 @@
     100% {
         height: 20%;
         width: 11%;
-        background-color: transparent;
     }
 }
 
@@ -144,4 +232,12 @@
 
 .d-none {
     display: none !important;
+}
+
+.o-none-mobile {
+    @include breakpoint-down('sm') {
+        @media (max-height: 762px) {
+            opacity: 0;
+        }
+    }
 }

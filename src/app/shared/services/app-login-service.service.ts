@@ -29,7 +29,7 @@ export class LoginService {
   }
 
   verifyLogIn(): void {
-    this.userService.user$.subscribe((user) => {
+    this.userService.user$.subscribe(user => {
       const isLoggedIn = !!user;
       this.actualLoginSubject.next(isLoggedIn);
       this.animateSubject.next(!isLoggedIn);

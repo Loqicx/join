@@ -1,12 +1,13 @@
 <div class="page-wrapper" [class.fade]="fade">
-    <div class="logo-wrapper" [class.animate]="animate">
+    <div class="logo-wrapper" [class.animate]="animate" [class.o-none-mobile]="signUpShow">
         <img src="assets/logo/join-logo-black.svg" alt="Join Logo" class="logo" [class.animate]="animate">
     </div>
     <div class="button-wrapper" [class.d-none]="signUpShow">
         <span class="sign-text">
             Not a Join user?
         </span>
-        <app-button [size]="'dynamic'" [fontSize]="'16px'" (btnClick)="signUpShow = true">Sign up</app-button>
+        <app-button class="desktop" [size]="'dynamic'" [fontSize]="'16px'" (btnClick)="signUpShow = true">Sign up</app-button>
+        <app-button class="mobile" [size]="'large'" [fontSize]="'16px'" (btnClick)="signUpShow = true">Sign up</app-button>
     </div>
     <div class="logIn-wrapper" [class.sign-up]="signUpShow">
         <app-log-in class="logIn-window" [signUpShow]="signUpShow" (signUpClose)="signUpShow = false"></app-log-in>
