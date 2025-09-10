@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Modal component for adding new contacts
+ */
+
 import {
   Component,
   Output,

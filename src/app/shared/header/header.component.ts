@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Header component with navigation and user profile functionality
+ */
+
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy } from '@angular/core';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
@@ -6,6 +10,10 @@ import { Subscription } from 'rxjs';
 import { LoginService } from '../services/app-login-service.service';
 import { UserService } from '../services/firebase/user.service';
 
+/**
+ * Application header component with help navigation and user profile
+ * @component
+ */
 @Component({
   selector: 'app-header',
   imports: [CommonModule, RouterModule],

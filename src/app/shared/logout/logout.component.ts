@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Logout component handling user logout functionality
+ */
+
 import { Component, inject, OnDestroy } from '@angular/core';
 import { UserService } from '../services/firebase/user.service';
 import { Router } from '@angular/router';
@@ -7,6 +11,10 @@ import { NotificationService } from '../services/notification.service';
 import { NotificationPosition, NotificationType } from '../interfaces/notification';
 import { Subscription } from 'rxjs';
 
+/**
+ * Component handling user logout process and navigation
+ * @component
+ */
 @Component({
     selector: 'app-logout',
     standalone: true,
