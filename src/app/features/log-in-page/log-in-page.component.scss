@@ -219,7 +219,8 @@
     .lower-link {
         color: $color-dark-text;
         text-decoration: none;
-        font-weight: 600;
+        font-weight: 400;
+        font-size: 16px;
         transition: transform 0.2s ease;
 
         &:hover {
