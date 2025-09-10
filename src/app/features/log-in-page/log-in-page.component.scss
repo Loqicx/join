@@ -234,7 +234,7 @@
     display: none !important;
 }
 
-.d-none-mobile {
+.o-none-mobile {
     @include breakpoint-down('sm') {
         @media (max-height: 762px) {
             opacity: 0;
