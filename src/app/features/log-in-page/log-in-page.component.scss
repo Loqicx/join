@@ -4,7 +4,13 @@
 :host {
     height: 100%;
     width: 100%;
+    min-height: 720px;
     background-color: $color-primary-bg;
+    overflow-y: scroll;
+
+    @include breakpoint-down('sm') {
+        min-height: 660px;
+    }
 }
 
 .page-wrapper {
@@ -86,11 +92,11 @@
     }
 
     @include breakpoint-down('sm') {
-        height: 420px;
+        height: 410px;
         margin-bottom: 24px;
 
         &.sign-up {
-            height: 550px;
+            height: 480px;
         }
     }
 }
