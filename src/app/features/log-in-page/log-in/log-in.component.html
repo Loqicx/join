@@ -39,9 +39,14 @@
                     <img class="input-icon" src="assets/icons/lock.svg" alt="Password icon">
                     <div class="warn-text" [class.opacity-1]="warn">Check your email and password. Please try again.</div>
                 </div>
-                <div class="button-wrapper">
+                <div class="button-wrapper desktop">
                     <app-button [type]="'submit'">Log in</app-button>
                     <app-button [invert]="true" (btnClick)="this.logIn('guest@haensch.dev', '12345678')">Guest Log in</app-button>
+                </div>
+                <div class="button-wrapper mobile">
+                    <app-button [type]="'submit'" [size]="'large'" [fontSize]="'20px'">Log in</app-button>
+                    <div class="spacer"></div>
+                    <app-button [invert]="true" [size]="'large'" [fontSize]="'20px'"  (btnClick)="this.logIn('guest@haensch.dev', '12345678')">Guest Log in</app-button>
                 </div>
             </form>
         } @else {
