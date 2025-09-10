@@ -146,7 +146,7 @@
                             </div>
                         </div>
                     </div>
-                    <span>I accept the <a routerLink="privacy" class="blue-link">Privacy policy</a></span>
+                    <span>I accept the <a routerLink="/privacy" (click)="this.logInService.showRouter()" class="blue-link">Privacy policy</a></span>
                 </div>
                 @if (warnSignUpPrivacy && signUpForm.submitted) {
                     <div class="flex-center">
