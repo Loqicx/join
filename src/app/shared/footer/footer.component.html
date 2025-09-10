@@ -1,6 +1,7 @@
 <div class="foot-wrapper">
     <div class="footer">
         <nav class="main-nav">
+            @if (loggedIn) {
             <a routerLink="summary" [ngClass]="this.summaryActive ? 'active' : ''">
                 <div class="btn-inner">
                     <div [innerHTML]="svgContents['summary']" class="icon icon-sub-margin-left-1"></div>
@@ -25,6 +26,14 @@
                     <span>Contacts</span>
                 </div>
             </a>
+            } @else {
+            <a routerLink="/">
+                <div class="btn-inner">
+                    <div [innerHTML]="svgContents['login']" class="icon"></div>
+                    <span>Log In</span>
+                </div>
+            </a>
+            }
         </nav>
     </div>
 </div>
