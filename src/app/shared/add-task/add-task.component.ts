@@ -12,6 +12,8 @@ import { Task } from '../interfaces/task';
 import { DatePickerInputComponent } from '../ui/date-picker-input/date-picker-input.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskComService } from '../services/task-communication/task-com.service';
+import { NotificationService } from '../services/notification.service';
+import { Notification, NotificationPosition, NotificationType } from '../interfaces/notification';
 
 /**
  * Component responsible for adding a new task.
@@ -83,6 +85,7 @@ export class AddTaskComponent {
     initialLetterService: InitialLettersService = inject(InitialLettersService);
     tasksService: TasksService = inject(TasksService);
     taskComService: TaskComService = inject(TaskComService);
+    notificationService: NotificationService = inject(NotificationService);
 
     route: ActivatedRoute = inject(ActivatedRoute);
     router: Router = inject(Router);
@@ -205,7 +208,9 @@ export class AddTaskComponent {
             await this.tasksService.updateTask(this.task, this.task.id);
             this.closeModal.emit();
             this.taskComService.triggerTaskChange(0);
+            this.notificationService.pushNotification('Task updated successfully!', NotificationType.SUCCESS, NotificationPosition.TOP_RIGHT);
         } catch (error) {
+            this.notificationService.pushNotification('Failed to update task!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
             console.error('Failed to Update Task!');
         }
     }
@@ -215,7 +220,9 @@ export class AddTaskComponent {
             await this.tasksService.addTaskToDatabase(this.task);
             this.resetForm(taskForm);
             if (!this.asModal || !this.asEdit) this.router.navigate(['/board']);
+            this.notificationService.pushNotification('Task created successfully!', NotificationType.SUCCESS, NotificationPosition.TOP_RIGHT);
         } catch (error) {
+            this.notificationService.pushNotification('Failed to save task!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
             console.error('Failed to Save Task!');
         }
     }
