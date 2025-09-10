@@ -1,13 +1,26 @@
+/**
+ * @fileoverview SVG inline service for fetching and caching SVG content
+ */
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, shareReplay, map } from 'rxjs';
 
+/**
+ * Service for retrieving and caching inline SVG content
+ * @injectable
+ */
 @Injectable({
     providedIn: 'root',
 })
 export class SVGInlineService {
+    /** Cache for storing fetched SVG observables to avoid repeated requests */
     private cache = new Map<string, Observable<string>>();
 
+    /**
+     * Creates an instance of SVGInlineService
+     * @param {HttpClient} http - Injected HTTP client for making requests
+     */
     constructor(private http: HttpClient) {}
 
     /**

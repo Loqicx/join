@@ -1,3 +1,7 @@
+/**
+ * @fileoverview add task.component
+ */
+
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';

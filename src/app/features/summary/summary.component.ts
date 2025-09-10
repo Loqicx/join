@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Summary component displaying task statistics and user dashboard
+ */
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TasksService, TaskStatus, TaskPriority } from '../../shared/services/firebase/tasks.service';
@@ -7,6 +11,10 @@ import { Timestamp } from '@angular/fire/firestore';
 import { DatePipe } from '@angular/common';
 import { UserService } from '../../shared/services/firebase/user.service';
 
+/**
+ * Summary dashboard component showing task statistics and greetings
+ * @component
+ */
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
@@ -14,6 +22,49 @@ import { UserService } from '../../shared/services/firebase/user.service';
   styleUrls: ['./summary.component.scss']
 })
 export class SummaryComponent implements OnInit, OnDestroy {
+  /** Number of tasks with TODO status */
+  todoCount: number = 0;
+  
+  /** Number of tasks with DONE status */
+  doneCount: number = 0;
+  
+  /** Number of urgent (high priority) tasks */
+  urgentCount: number = 0;
+  
+  /** Next upcoming urgent task date */
+  upcomingDate: Date | null = null;
+  
+  /** Time-based greeting message */
+  greeting: string = '';
+  
+  /** Total number of tasks */
+  boardCount: number = 0;
+  
+  /** Number of tasks in progress */
+  inProgressCount: number = 0;
+  
+  /** Number of tasks awaiting feedback */
+  feedbackCount: number = 0;
+
+  /** Subscription for tasks data */
+  private tasksSub: Subscription | undefined;
+  
+  /** Current user's display name */
+  userName: string = 'Guest';
+  
+  /** Subscription for user data */
+  private userSub: Subscription | undefined;
+
+  /**
+   * Creates an instance of SummaryComponent
+   * @param {TasksService} tasksService - Injected tasks service
+   * @param {UserService} userService - Injected user service
+   */
+  constructor(private tasksService: TasksService, private userService: UserService) { }
+
+  /**
+   * Component initialization - subscribes to tasks and user data
+   */
   todoCount = 0;
   doneCount = 0;
   urgentCount = 0;
@@ -57,8 +108,21 @@ export class SummaryComponent implements OnInit, OnDestroy {
       this.userName = user?.displayName || 'Guest';
     });
   }
+  
+  /**
+   * Component cleanup - unsubscribes from active subscriptions
+   */
+  ngOnDestroy(): void {
+    this.tasksSub?.unsubscribe();
+    this.userSub?.unsubscribe();
+  }
 
-  /** Update task counts by status and priority */
+  /**
+   * Counts tasks by their status
+   * @param {Task[]} tasks - Array of tasks to filter
+   * @param {TaskStatus} status - Status to filter by
+   * @returns {number} Count of tasks with the specified status
+   */
   private updateCounts(tasks: Task[]): void {
     this.todoCount = this.countByStatus(tasks, TaskStatus.TODO);
     this.doneCount = this.countByStatus(tasks, TaskStatus.DONE);
@@ -72,15 +136,21 @@ export class SummaryComponent implements OnInit, OnDestroy {
     return tasks.filter(t => t.status === status).length;
   }
 
-  /** Count tasks by a given priority */
+
+  /**
+   * Counts tasks by their priority level
+   * @param {Task[]} tasks - Array of tasks to filter
+   * @param {TaskPriority} priority - Priority level to filter by
+   * @returns {number} Count of tasks with the specified priority
+   */
   private countByPriority(tasks: Task[], priority: TaskPriority): number {
     return tasks.filter(t => t.priority === priority).length;
   }
 
   /**
-   * Get the next urgent task date (highest priority)
-   * @param tasks List of tasks
-   * @returns Date of the next urgent task or null
+   * Finds the next upcoming urgent task date
+   * @param {Task[]} tasks - Array of tasks to search
+   * @returns {Date | null} The earliest urgent task date or null if none found
    */
   private getNextUrgentDate(tasks: Task[]): Date | null {
     const times = tasks
@@ -106,7 +176,9 @@ export class SummaryComponent implements OnInit, OnDestroy {
     return NaN;
   }
 
-  /** Set greeting message based on current hour */
+  /**
+   * Sets the appropriate greeting based on current time
+   */
   private setGreeting(): void {
     const h = new Date().getHours();
     this.greeting = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';

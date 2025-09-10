@@ -1,8 +1,16 @@
+/**
+ * @fileoverview Reusable button component with icon support
+ */
+
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SVGInlineService } from '../../services/svg-inline.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
+/**
+ * Reusable button component with customizable icon and styling
+ * @component
+ */
 @Component({
   selector: 'app-button',
   standalone: true,

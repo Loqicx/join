@@ -1,3 +1,7 @@
+/**
+ * @fileoverview date picker input.component
+ */
+
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, ElementRef, Output, Input, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, FormsModule } from '@angular/forms';

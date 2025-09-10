@@ -1,3 +1,7 @@
+/**
+ * @fileoverview log in.component
+ */
+
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormControl, FormsModule, NgForm } from '@angular/forms';
 import { ButtonComponent } from '../../../shared/ui/button/button.component';

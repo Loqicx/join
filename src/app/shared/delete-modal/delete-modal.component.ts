@@ -1,3 +1,7 @@
+/**
+ * @fileoverview delete modal.component
+ */
+
 import { Component, Input, Renderer2, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

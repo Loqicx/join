@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Contacts page component for managing contact information
+ */
+
 import { Component, inject, ViewChild } from '@angular/core';
 import { ContactsListComponent } from './components/contacts-list/contacts-list.component';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
@@ -9,6 +13,10 @@ import { ContactsService } from '../../shared/services/firebase/contacts.service
 import { FormsModule } from '@angular/forms';
 import { EditContactModalComponent } from './components/edit-contact-modal/edit-contact-modal.component';
 
+/**
+ * Main contacts page component with contact list and details
+ * @component
+ */
 @Component({
   selector: 'app-contacts-page',
   imports: [

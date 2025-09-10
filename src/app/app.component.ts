@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Main application component handling login flow and navigation
+ */
+
 import { Component, inject, OnDestroy } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { ContactsService } from './shared/services/firebase/contacts.service';
@@ -12,6 +16,11 @@ import { NotificationOutletComponent } from './shared/notification-outlet/notifi
 import { LoginService } from './shared/services/app-login-service.service';
 import { Subscription } from 'rxjs';
 
+/**
+ * Root component of the Join application
+ * Manages login state, navigation, and application-wide layout
+ * @component
+ */
 @Component({
     selector: 'app-root',
     imports: [
@@ -28,21 +37,43 @@ import { Subscription } from 'rxjs';
     styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnDestroy {
+    /** Application title */
     title = 'join-mmc';
 
+    /** Injected contacts service */
     contactsService: ContactsService = inject(ContactsService);
+    
+    /** Injected router service */
     router: Router = inject(Router);
+    
+    /** Injected login service */
     private LoginService: LoginService = inject(LoginService);
 
+    /** Controls router visibility */
     showRouter: boolean = false;
+    
+    /** Controls login page display */
     loginPage: boolean = true;
+    
+    /** Tracks actual login status */
     actualLogin: boolean = false;
+    
+    /** Controls animation state */
     animate: boolean = false;
+    
+    /** Controls fade effect */
     fade: boolean = false;
+    
+    /** General show/hide control */
     show: boolean = false;
 
+    /** Manages all component subscriptions */
     private subscriptions = new Subscription();
 
+    /**
+     * Component initialization
+     * Verifies login state and sets up animation
+     */
     ngOnInit() {
         this.LoginService.verifyLogIn();
 
@@ -52,6 +83,10 @@ export class AppComponent implements OnDestroy {
         this.animateLogIn();
     }
 
+    /**
+     * Sets up login animation flow with proper timing
+     * Manages transitions between login page and main application
+     */
     animateLogIn() {
         setTimeout(() => {
             const animateSub = this.LoginService.animate$.subscribe((val) => {
@@ -76,6 +111,10 @@ export class AppComponent implements OnDestroy {
         }, 500);
     }
 
+    /**
+     * Component cleanup
+     * Unsubscribes from all active subscriptions
+     */
     ngOnDestroy() {
         this.subscriptions.unsubscribe();
     }

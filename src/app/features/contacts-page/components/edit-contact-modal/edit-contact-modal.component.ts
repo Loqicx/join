@@ -1,3 +1,7 @@
+/**
+ * @fileoverview edit contact modal.component
+ */
+
 import { Component, Input, Output, EventEmitter, Renderer2, inject } from '@angular/core';
 import { Contact } from '../../../../shared/interfaces/contact';
 import { ContactsService } from '../../../../shared/services/firebase/contacts.service';

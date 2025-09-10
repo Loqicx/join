@@ -1,3 +1,7 @@
+/**
+ * @fileoverview assign subtask input.component
+ */
+
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';

@@ -1,3 +1,7 @@
+/**
+ * @fileoverview assign contact input.component
+ */
+
 import {
   Component,
   inject,
