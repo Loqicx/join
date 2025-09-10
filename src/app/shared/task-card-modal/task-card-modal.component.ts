@@ -1,3 +1,7 @@
+/**
+ * @fileoverview task card modal.component
+ */
+
 import {
   Component,
   Input,

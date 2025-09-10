@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Login page component containing login forms and navigation
+ */
+
 import { Component, Input,inject } from '@angular/core';
 import { LogInComponent } from "./log-in/log-in.component";
 import { CommonModule } from '@angular/common';
@@ -5,6 +9,10 @@ import { ButtonComponent } from "../../shared/ui/button/button.component";
 import { RouterLink } from '@angular/router';
 import { LoginService } from '../../shared/services/app-login-service.service';
 
+/**
+ * Login page wrapper component with animation support
+ * @component
+ */
 @Component({
   selector: 'app-log-in-page',
   imports: [LogInComponent, CommonModule, ButtonComponent, RouterLink],

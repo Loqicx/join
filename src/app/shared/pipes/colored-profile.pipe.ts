@@ -1,9 +1,19 @@
+/**
+ * @fileoverview Pipe for generating consistent colors for user profiles based on input strings
+ */
+
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Angular pipe that generates a consistent color for a given input string
+ * Useful for creating colored profile avatars or badges
+ * @pipe
+ */
 @Pipe({
   name: 'coloredProfile',
 })
 export class ColoredProfilePipe implements PipeTransform {
+  /** Color palette with high contrast colors for accessibility */
   private colorPalette = [
     '#0038FF', // Kontrast: 6.04:1
     '#00BEE8', // Kontrast: 4.57:1
@@ -24,6 +34,12 @@ export class ColoredProfilePipe implements PipeTransform {
     '#FF7A00', // Kontrast: 5.61:1
   ];
 
+  /**
+   * Transforms an input string into a consistent color from the predefined palette
+   * Uses hash function to ensure the same input always returns the same color
+   * @param {any} value - Input string to generate color for
+   * @returns {string} Hex color code from the color palette, or empty string if no value
+   */
   transform(value: any) {
     if (!value) return '';
 

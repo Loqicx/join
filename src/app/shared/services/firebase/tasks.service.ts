@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Tasks service for managing task data using Firebase Firestore
+ */
+
 import { inject, Injectable, OnDestroy } from '@angular/core';
 import {
   addDoc,
@@ -14,32 +18,63 @@ import {
 import { Task } from '../../interfaces/task';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+/**
+ * Enumeration of task priority levels
+ * @enum {number}
+ */
 export enum TaskPriority {
+  /** Low priority task */
   LOW = 1,
+  /** Medium priority task */
   MEDIUM = 2,
+  /** High priority task */
   HIGH = 3,
 }
 
+/**
+ * Enumeration of task categories
+ * @enum {number}
+ */
 export enum TaskCategory {
+  /** User story type task */
   USER_STORY = 1,
+  /** Technical task type */
   TECHNICAL_TASK = 2,
 }
 
+/**
+ * Enumeration of task status values
+ * @enum {number}
+ */
 export enum TaskStatus {
+  /** To do status */
   TODO = 1,
+  /** In progress status */
   DOING = 2,
+  /** Awaiting feedback status */
   AWAIT_FEEDBACK = 3,
+  /** Completed status */
   DONE = 4,
 }
 
+/**
+ * Service for managing tasks using Firebase Firestore
+ * @injectable
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class TasksService implements OnDestroy {
+  /** Unsubscribe function for tasks listener */
   unsubTasks;
+  
+  /** BehaviorSubject holding the current tasks array */
   private tasksSubject = new BehaviorSubject<Task[]>([]);
+  
+  /** Observable stream of tasks */
   public tasks$: Observable<Task[]> = this.tasksSubject.asObservable();
 
+  /** Firestore instance */
   firestore: Firestore = inject(Firestore);
 
   /**
@@ -79,8 +114,8 @@ export class TasksService implements OnDestroy {
 
   /**
    * Converts Firestore document data to a Task object.
-   * @param obj - The Firestore document data.
-   * @param id - The document ID.
+   * @param {any} obj - The Firestore document data.
+   * @param {string} id - The document ID.
    * @returns {Task} The constructed Task object.
    */
   setTaskObject(obj: any, id: string): Task {
@@ -99,9 +134,10 @@ export class TasksService implements OnDestroy {
 
   /**
    * Updates a task in Firestore.
-   * @param task - The task object with updated data.
-   * @param id - The ID of the task to update.
+   * @param {object} task - The task object with updated data.
+   * @param {string} id - The ID of the task to update.
    * @throws Will throw an error if no ID is provided.
+   * @returns {Promise<void>} Promise that resolves when update is complete.
    */
   async updateTask(task: {}, id: string) {
     if (!id) {
@@ -113,7 +149,7 @@ export class TasksService implements OnDestroy {
 
   /**
    * Adds a new task to the Firestore database.
-   * @param task - The Task object to add (without an id).
+   * @param {Task} task - The Task object to add (without an id).
    * @returns {Promise<void>} A promise that resolves when the task is added.
    */
   async addTaskToDatabase(task: Task) {
@@ -123,7 +159,7 @@ export class TasksService implements OnDestroy {
 
   /**
    * Deletes a task from the Firestore database.
-   * @param taskId - The ID of the task to delete.
+   * @param {string} taskId - The ID of the task to delete.
    * @returns {Promise<void>} A promise that resolves when the task is deleted.
    */
   async deleteTask(taskId: string) {
@@ -131,8 +167,9 @@ export class TasksService implements OnDestroy {
   }
 
   /**
-   * Retrieves all tasks from the Firestore database.
-   * @returns Task
+   * Retrieves a single task by ID from the Firestore database.
+   * @param {string} taskId - The ID of the task to retrieve.
+   * @returns {Promise<Task>} Promise that resolves to the Task object.
    */
   async getTaskById(taskId: string) {
   const taskDocRef = doc(this.getTasksRef(), taskId);

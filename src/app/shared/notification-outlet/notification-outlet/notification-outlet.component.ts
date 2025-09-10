@@ -1,7 +1,15 @@
+/**
+ * @fileoverview Notification outlet component for displaying system notifications
+ */
+
 import { Component } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
 import { Notification, NotificationPosition } from '../../interfaces/notification';
 
+/**
+ * Component for displaying notifications in various positions on the screen
+ * @component
+ */
 @Component({
     selector: 'notification-outlet',
     imports: [],
