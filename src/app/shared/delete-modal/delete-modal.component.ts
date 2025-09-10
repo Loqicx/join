@@ -13,6 +13,8 @@ import { ButtonComponent } from '../ui/button/button.component';
 import { ContactsCommunicationService } from '../../features/contacts-page/services/contacts-communication.service';
 import { TasksService } from '../services/firebase/tasks.service';
 import { Task } from '../interfaces/task';
+import { NotificationService } from '../services/notification.service';
+import { NotificationPosition, NotificationType } from '../interfaces/notification';
 
 @Component({
   selector: 'app-delete-modal',
@@ -40,6 +42,7 @@ export class DeleteModalComponent {
   };
 
   tasksService = inject(TasksService);
+  notificationService = inject(NotificationService)
 
   /**
    * Constructor for DeleteModalComponent.
@@ -115,7 +118,9 @@ export class DeleteModalComponent {
       await this.contactsService.deleteContact(this.contact.id);
       this.contactComService.setContactId('');
       this.isOpen = false; // Close the modal after deletion
+      this.notificationService.pushNotification('Deleted Contact successfully!', NotificationType.SUCCESS, NotificationPosition.TOP_RIGHT);
     } catch (error) {
+      this.notificationService.pushNotification('Deleted Contact failed!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
       console.error('Delete failed:', error);
     }
   }
@@ -132,8 +137,10 @@ export class DeleteModalComponent {
 
     try {
       await this.tasksService.deleteTask(this.task.id);
+      this.notificationService.pushNotification('Deleted Task successfully!', NotificationType.SUCCESS, NotificationPosition.TOP_RIGHT);
       this.isOpen = false;
     } catch (error) {
+      this.notificationService.pushNotification('Deleted Task failed!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
       console.error('Delete Failed for Task', error)
     }
   }
