@@ -6,7 +6,7 @@
     width: 100%;
     min-height: 720px;
     background-color: $color-primary-bg;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     @include breakpoint-down('sm') {
         min-height: 660px;
@@ -31,8 +31,8 @@
 
 .button-wrapper {
     position: absolute;
-    top: 64px;
-    right: 64px;
+    top: 48px;
+    right: 48px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,7 +96,7 @@
         margin-bottom: 24px;
 
         &.sign-up {
-            height: 480px;
+            height: 520px;
         }
     }
 }
@@ -125,8 +125,8 @@
 
         &.animate {
             width: 88px;
-            margin-left: 64px;
-            margin-top: 64px;
+            margin-left: 48px;
+            margin-top: 48px;
             animation: logoAnimation 0.5s ease-in;
         }
     }
@@ -172,8 +172,8 @@
 
     100% {
         width: 88px;
-        margin-left: 64px;
-        margin-top: 64px;
+        margin-left: 48px;
+        margin-top: 48px;
     }
 }
 
@@ -242,7 +242,7 @@
 }
 
 .o-none-mobile {
-    @include breakpoint-down('sm') {
+    @include breakpoint-down('md') {
         @media (max-height: 762px) {
             opacity: 0;
         }
