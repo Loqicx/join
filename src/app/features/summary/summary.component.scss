@@ -1,7 +1,7 @@
 @use '../../../styles/variables.scss' as *;
 @use '../../../styles/mixings.scss' as *;
 
-/* Optional: ein zentrales Font-Mixin zur Wiederverwendung */
+/* Optional: a central font mixin for reuse */
 @mixin font-spec($weight, $size, $line: 1.1) {
     font-weight: $weight;
     font-size: $size;
