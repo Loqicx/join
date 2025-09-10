@@ -9,6 +9,8 @@ import {
     updateProfile,
     user,
     User,
+    getAuth,
+    signInAnonymously
 } from '@angular/fire/auth';
 import { firstValueFrom, from, Observable } from 'rxjs';
 
@@ -55,6 +57,19 @@ export class UserService {
         const promise = createUserWithEmailAndPassword(this.auth, email, password).then(async (result) => {
             // Example
             const user = result.user;
+            await updateProfile(user, { displayName })
+            await result.user.reload()
+            // trigger notification
+            // ...
+        });
+        return from(promise);
+    }
+
+    loginGuest() {
+        const promise = signInAnonymously(this.auth).then(async (result) => {
+            // Example
+            const user = result.user;
+            const displayName = 'Guest'
             await updateProfile(user, { displayName })
             await result.user.reload()
             // trigger notification

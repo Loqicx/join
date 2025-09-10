@@ -106,4 +106,17 @@ export class LogInComponent {
             this.notificationService.pushNotification('Error adding contact for your User Account!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
         }
     }
+
+    loginGuest() {
+        this.userService.loginGuest().subscribe({
+            next: () => {
+                this.logInService.verifyLogIn();
+                this.router.navigate(['/summary']);
+            },
+            error: (error) => {
+                this.notificationService.pushNotification('Error adding Guest Account!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
+                console.error('Database Error', error);
+            },
+        });
+    }
 }

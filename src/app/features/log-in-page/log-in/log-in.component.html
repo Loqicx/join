@@ -41,12 +41,12 @@
                 </div>
                 <div class="button-wrapper desktop">
                     <app-button [type]="'submit'">Log in</app-button>
-                    <app-button [invert]="true" (btnClick)="this.logIn('guest@haensch.dev', '12345678')">Guest Log in</app-button>
+                    <app-button [invert]="true" (btnClick)="this.loginGuest()">Guest Log in</app-button>
                 </div>
                 <div class="button-wrapper mobile">
                     <app-button [type]="'submit'" [size]="'large'" [fontSize]="'20px'">Log in</app-button>
                     <div class="spacer"></div>
-                    <app-button [invert]="true" [size]="'large'" [fontSize]="'20px'"  (btnClick)="this.logIn('guest@haensch.dev', '12345678')">Guest Log in</app-button>
+                    <app-button [invert]="true" [size]="'large'" [fontSize]="'20px'"  (btnClick)="this.loginGuest()">Guest Log in</app-button>
                 </div>
             </form>
         } @else {
