@@ -1,5 +1,5 @@
 /**
- * @fileoverview edit contact modal.component
+ * @fileoverview Modal component to edit an existing contact.
  */
 
 import { Component, Input, Output, EventEmitter, Renderer2, inject } from '@angular/core';
@@ -24,23 +24,74 @@ import { NotificationPosition, NotificationType } from '../../../../shared/inter
     styleUrls: ['./edit-contact-modal.component.scss'],
 })
 export class EditContactModalComponent {
+    /**
+     * Sanitized inline SVG content for the close icon.
+     */
     svgContent!: SafeHtml;
 
+    /**
+     * Contact to preload into the form when the modal opens.
+     */
     @Input() contactToEdit!: Contact;
+
+    /**
+     * Emits when the modal is closed.
+     */
     @Output() close = new EventEmitter<void>();
+
+    /**
+     * Emits when the delete confirmation modal should be opened.
+     */
     @Output() deleteModal = new EventEmitter<void>();
 
+    /**
+     * Whether the modal is currently mounted/open.
+     */
     isOpen = false;
+
+    /**
+     * Whether the slide-in animation state is active.
+     */
     isSlide = false;
+
+    /**
+     * Service handling contact persistence (e.g., Firebase).
+     */
     contactsService = inject(ContactsService);
+
+    /**
+     * Service to display in-app notifications.
+     */
     notificationService = inject(NotificationService);
+
+    /**
+     * Full name field bound to the form, used to split into first/last names.
+     */
     fullName = '';
+
+    /**
+     * Path to the close icon SVG asset.
+     */
     iconSrc = 'assets/icons/close.svg';
 
+    /**
+     * Working copy of the contact being edited. Set in openModal().
+     */
     contact: Contact | null = null;
 
+    /**
+     * Communication service to publish the currently selected contact id.
+     */
     contactComService: ContactsCommunicationService = inject(ContactsCommunicationService);
 
+    /**
+     * Creates the component and registers a global pointerdown listener
+     * to close the modal when clicking outside of it.
+     * @param initialLettersService Service to compute initials for the avatar.
+     * @param svgService Service to fetch inline SVG content.
+     * @param sanitizer Angular DomSanitizer to trust loaded SVG safely.
+     * @param renderer Angular Renderer2 used to register the global event listener.
+     */
     constructor(
         public initialLettersService: InitialLettersService,
         private svgService: SVGInlineService,
@@ -55,6 +106,10 @@ export class EditContactModalComponent {
         });
     }
 
+    /**
+     * Initializes form state and preloads the close icon as inline SVG.
+     * If an input contact is provided, pre-populates the full name field.
+     */
     ngOnInit() {
         if (this.contactToEdit) {
             this.fullName = `${this.contactToEdit.firstName} ${this.contactToEdit.lastName}`;
@@ -70,15 +125,18 @@ export class EditContactModalComponent {
         }
     }
 
+    /**
+     * Computes initials live from the current full name input.
+     * @returns Initials derived from the full name.
+     */
     get liveInitials(): string {
         let [firstName = '', lastName = ''] = (this.fullName || '').split(' ');
         return String(this.initialLettersService.getInitialLetters({ firstName, lastName }));
     }
 
     /**
-     * Opens the contact modal with provided contact data.
-     *
-     * @param {Contact} contactData - The contact object to be displayed in the modal.
+     * Opens the modal and seeds the form with the provided contact data.
+     * @param contactData Contact to edit.
      */
     openModal(contactData: Contact) {
         this.contact = { ...contactData };
@@ -90,10 +148,10 @@ export class EditContactModalComponent {
     }
 
     /**
-     * First checks then,
-     * Saves a contact by updating it in the Firebase.
-     *
-     * @param {NgForm} form - The Angular reactive form containing the contact data to be saved.
+     * Validates form data, splits the full name into first/last names,
+     * and delegates to saveContact().
+     * @param form Template-driven form reference.
+     * @returns Promise that resolves when validation completes.
      */
     async checkSaveContact(form: NgForm) {
         if (!this.contact) {
@@ -116,6 +174,11 @@ export class EditContactModalComponent {
         this.saveContact();
     }
 
+    /**
+     * Persists the current contact changes and shows a notification.
+     * Also updates the shared selected contact id and closes the modal.
+     * @returns Promise that resolves when the contact is updated.
+     */
     async saveContact() {
         if (this.contact) {
             try {
@@ -139,7 +202,7 @@ export class EditContactModalComponent {
     }
 
     /**
-     * Opens Delete modal and closes edit Contact modal.
+     * Emits a delete request and closes the edit modal.
      */
     deleteContact() {
         this.deleteModal.emit();
@@ -147,7 +210,7 @@ export class EditContactModalComponent {
     }
 
     /**
-     * Closes the edit contact modal with animation delay.
+     * Closes the modal with a slide-out animation.
      */
     closeModal() {
         this.isSlide = false;
