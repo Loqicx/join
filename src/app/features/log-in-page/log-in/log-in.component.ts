@@ -86,6 +86,7 @@ export class LogInComponent {
      */
     toggleCheckBox() {
         this.privacyCheckbox = !this.privacyCheckbox;
+        this.warnSignUpPrivacy = this.privacyCheckbox ? false : true;
     }
 
     /**
