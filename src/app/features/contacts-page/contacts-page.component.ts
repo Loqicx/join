@@ -1,5 +1,5 @@
 /**
- * @fileoverview Contacts page component for managing contact information
+ * @fileoverview Contacts page component for managing contact information.
  */
 
 import { Component, inject, ViewChild } from '@angular/core';
@@ -14,49 +14,75 @@ import { FormsModule } from '@angular/forms';
 import { EditContactModalComponent } from './components/edit-contact-modal/edit-contact-modal.component';
 
 /**
- * Main contacts page component with contact list and details
+ * Main contacts page component with contact list and details.
+ * Hosts the contacts list, details view, and the "Add contact" modal.
  * @component
  */
 @Component({
-  selector: 'app-contacts-page',
-  imports: [
-    ContactsListComponent,
-    ContactDetailsComponent,
-    ButtonComponent,
-    CommonModule,
-    AddContactModalComponent,
-    FormsModule,
-  ],
-  templateUrl: './contacts-page.component.html',
-  styleUrl: './contacts-page.component.scss',
+    selector: 'app-contacts-page',
+    imports: [
+        ContactsListComponent,
+        ContactDetailsComponent,
+        ButtonComponent,
+        CommonModule,
+        AddContactModalComponent,
+        FormsModule,
+    ],
+    templateUrl: './contacts-page.component.html',
+    styleUrl: './contacts-page.component.scss',
 })
 export class ContactsPageComponent {
-  contact = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-  };
+    /**
+     * Temporary contact model (can be used for template bindings if needed).
+     */
+    contact = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+    };
 
-  @ViewChild(AddContactModalComponent) addModal!: AddContactModalComponent
+    /**
+     * Reference to the "Add contact" modal component.
+     */
+    @ViewChild(AddContactModalComponent) addModal!: AddContactModalComponent;
 
-  isDetailOpen = false;
+    /**
+     * Whether the details drawer/panel is open (primarily for mobile).
+     */
+    isDetailOpen = false;
 
-  contactsService: ContactsService = inject(ContactsService);
+    /**
+     * Service providing access to contacts data and persistence.
+     */
+    contactsService: ContactsService = inject(ContactsService);
 
-  constructor() {}
+    /**
+     * Creates the ContactsPageComponent.
+     */
+    constructor() {}
 
-  closeDetails() {
-    this.isDetailOpen = false;
-  }
-
-  openDetails() {
-    if (window.innerWidth < 993) {
-      this.isDetailOpen = true;
+    /**
+     * Closes the contact details panel.
+     */
+    closeDetails() {
+        this.isDetailOpen = false;
     }
-  }
 
-  openAddContactModal(){
-    this.addModal.openModal(); 
-  }
+    /**
+     * Opens the contact details panel on small screens.
+     * Uses a breakpoint of 993px to decide mobile/tablet behavior.
+     */
+    openDetails() {
+        if (window.innerWidth < 993) {
+            this.isDetailOpen = true;
+        }
+    }
+
+    /**
+     * Opens the "Add contact" modal dialog.
+     */
+    openAddContactModal() {
+        this.addModal.openModal();
+    }
 }
