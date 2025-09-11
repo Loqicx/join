@@ -17,10 +17,23 @@ import { Notification, NotificationPosition } from '../../interfaces/notificatio
     styleUrl: './notification-outlet.component.scss',
 })
 export class NotificationOutletComponent {
+    /**
+     * Stack of active notification DOM elements currently displayed.
+     * Used to position new notifications and rearrange remaining ones on removal.
+     */
     private notifications: HTMLElement[] = [];
 
+    /**
+     * Subscription reference for the notification stream.
+     * Unsubscribed in ngOnDestroy to avoid memory leaks.
+     */
     notificationListener;
 
+    /**
+     * Subscribes to the NotificationService stream and renders incoming notifications.
+     * Ignores empty messages.
+     * @param notificationService Service emitting notifications to display.
+     */
     constructor(private notificationService: NotificationService) {
         this.notificationListener = this.notificationService.notificationSubject$.subscribe((data) => {
             if (data.message === '') return;
@@ -28,11 +41,18 @@ export class NotificationOutletComponent {
         });
     }
 
+    /**
+     * Renders a notification DOM element, positions it according to the chosen corner,
+     * applies fade-in/out timing via CSS variables, and removes it after its duration.
+     * Also triggers a layout update to keep spacing consistent for remaining notifications.
+     * @param notificationData Notification payload including message, type, position, and duration.
+     */
     addNotification(notificationData: Notification) {
         const { message, type, position, duration } = notificationData;
         const fadeInDuration = duration * 0.1;
         const fadeOutDuration = duration * 0.2;
         const visibleDuration = duration - fadeInDuration - fadeOutDuration;
+
         const notification = document.createElement('div');
         notification.classList.add('notification', type);
         notification.textContent = message;
@@ -40,6 +60,7 @@ export class NotificationOutletComponent {
         notification.style.setProperty('--fade-in-duration', `${fadeInDuration}ms`);
         notification.style.setProperty('--fade-out-duration', `${fadeOutDuration}ms`);
         notification.style.setProperty('--fade-out-delay', `${visibleDuration + fadeInDuration}ms`);
+
         document.body.appendChild(notification);
         this.notifications.push(notification);
 
@@ -69,6 +90,11 @@ export class NotificationOutletComponent {
         }, duration);
     }
 
+    /**
+     * Recomputes and applies the offset for each remaining notification
+     * to keep the vertical spacing consistent after one is removed.
+     * Positions are adjusted based on their stored corner (data-position).
+     */
     private rearangeNotifications() {
         this.notifications.forEach((notification, index) => {
             const position = notification.getAttribute('data-position');
@@ -101,6 +127,9 @@ export class NotificationOutletComponent {
         });
     }
 
+    /**
+     * Lifecycle hook: unsubscribes from the notification stream to prevent memory leaks.
+     */
     ngOnDestroy() {
         this.notificationListener.unsubscribe();
     }

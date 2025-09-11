@@ -1,5 +1,5 @@
 /**
- * @fileoverview log in.component
+ * @fileoverview Login component providing sign-in, sign-up, and guest login flows.
  */
 
 import { Component, EventEmitter, inject, Input, Output, ElementRef, ViewChild } from '@angular/core';
@@ -12,6 +12,7 @@ import { ContactsService } from '../../../shared/services/firebase/contacts.serv
 import { Contact } from '../../../shared/interfaces/contact';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { NotificationType, NotificationPosition } from '../../../shared/interfaces/notification';
+
 @Component({
     selector: 'app-log-in',
     imports: [FormsModule, ButtonComponent, RouterLink],
@@ -19,23 +20,79 @@ import { NotificationType, NotificationPosition } from '../../../shared/interfac
     styleUrl: './log-in.component.scss',
 })
 export class LogInComponent {
+    /**
+     * Email input model for the login form.
+     */
     logInEmail: any;
+
+    /**
+     * Password input model for the login form.
+     */
     logInPassword: any;
+
+    /**
+     * Current input type for the login password field ('password' or 'text').
+     */
     inputType: string = 'password';
 
+    /**
+     * Controls visibility of the sign-up form (shown in place of login).
+     */
     @Input() signUpShow: boolean = false;
+
+    /**
+     * Name input model for the sign-up form.
+     */
     signUpName: string = '';
+
+    /**
+     * Email input model for the sign-up form.
+     */
     signUpEmail: string = '';
+
+    /**
+     * First password field model for the sign-up form.
+     */
     signUpPassword1: string = '';
+
+    /**
+     * Current input type for the first sign-up password field.
+     */
     inputTypePW1: string = 'password';
+
+    /**
+     * Second password (confirmation) field model for the sign-up form.
+     */
     signUpPassword2: string = '';
+
+    /**
+     * Current input type for the second sign-up password field.
+     */
     inputTypePW2: string = 'password';
+
+    /**
+     * Emits when the sign-up dialog should be closed.
+     */
     @Output() signUpClose = new EventEmitter<void>();
 
+    /**
+     * General warning flag used to indicate validation errors in the UI.
+     */
     warn: boolean = false;
+
+    /**
+     * Warning flag for missing privacy policy acceptance on sign-up.
+     */
     warnSignUpPrivacy: boolean = false;
+
+    /**
+     * Tracks the privacy policy checkbox state for sign-up.
+     */
     privacyCheckbox: boolean = false;
 
+    /**
+     * Contact object used to create an initial contact record after sign-up.
+     */
     contact: Contact = {
         id: '',
         firstName: '',
@@ -44,18 +101,36 @@ export class LogInComponent {
         phoneNumber: '',
     };
 
+    /**
+     * Auth/user service (login, signup, guest login).
+     */
     userService = inject(UserService);
+
+    /**
+     * App-level login state service (e.g., guards/navigation).
+     */
     logInService = inject(LoginService);
+
+    /**
+     * Contacts persistence service.
+     */
     contactsService = inject(ContactsService);
+
+    /**
+     * In-app notification/toast service.
+     */
     notificationService = inject(NotificationService);
+
+    /**
+     * Angular Router for navigation after authentication.
+     */
     router = inject(Router);
 
     /**
      * Logs in a user with provided email and password.
-     *
-     * @param {string} mail - The user's email address.
-     * @param {string} pw - The user's password.
-     * @throws {Error} If log-in fails or invalid input is provided.
+     * Sets a warning flag on invalid input or failed authentication.
+     * @param mail User email address.
+     * @param pw User password.
      */
     logIn(mail: string, pw: string) {
         if (!mail || (!pw && new FormControl('logInForm'))) {
@@ -91,9 +166,9 @@ export class LogInComponent {
 
     /**
      * Signs up a new user with provided email, password, and name.
-     *
-     * @param {NgForm} form - The form used for validation.
-     * @throws {Error} If sign-up fails or privacy policy is not accepted or passwords do not match.
+     * Validates form, privacy acceptance, and matching passwords.
+     * Navigates to summary on success.
+     * @param form Template-driven form reference.
      */
     signUp(form: NgForm) {
         if (form.invalid || !this.privacyCheckbox || this.signUpPassword1 !== this.signUpPassword2) {
@@ -118,8 +193,8 @@ export class LogInComponent {
     }
 
     /**
-     * Creates and adds a contact to the database.
-     * @throws {Error} If Contact creation Fails.
+     * Creates and persists a contact record for the newly registered user.
+     * Derives first/last name from the display name.
      */
     async createContact() {
         const nameParts = this.signUpName.trim().split(' ');
@@ -128,6 +203,7 @@ export class LogInComponent {
 
         this.contact.email = this.signUpEmail;
         this.contact.phoneNumber = 'No phone number added yet';
+        // Note: This sets id using a subscription's toString(); consider retrieving the UID directly instead.
         this.contact.id = this.userService.user$.subscribe((user) => user?.uid).toString();
         try {
             await this.contactsService.addContactToDatabase(this.contact);
@@ -147,8 +223,7 @@ export class LogInComponent {
     }
 
     /**
-     * Logs in a user using guest credentials.
-     * @throws {Error} If Guest Account creation Fails.
+     * Logs in using a guest account and navigates to the summary on success.
      */
     loginGuest() {
         this.userService.loginGuest().subscribe({
@@ -167,6 +242,9 @@ export class LogInComponent {
         });
     }
 
+    /**
+     * Toggles visibility of the login password field.
+     */
     togglePasswordVisibility() {
         if (this.inputType === 'password') {
             this.inputType = 'text';
@@ -175,14 +253,20 @@ export class LogInComponent {
         }
     }
 
+    /**
+     * Toggles visibility of the first sign-up password field.
+     */
     togglePasswordVisibilityPW1() {
         if (this.inputTypePW1 === 'password') {
             this.inputTypePW1 = 'text';
         } else {
-            this.inputTypePW1= 'password';
+            this.inputTypePW1 = 'password';
         }
     }
 
+    /**
+     * Toggles visibility of the second sign-up password field.
+     */
     togglePasswordVisibilityPW2() {
         if (this.inputTypePW2 === 'password') {
             this.inputTypePW2 = 'text';
