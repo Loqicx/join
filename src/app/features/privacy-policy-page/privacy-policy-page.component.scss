@@ -23,18 +23,19 @@
 }
 
 .privacy-page-wrapper {
-    overflow: hidden;
+    overflow: visible;
     height: 100%;
 
     .privacy-page-content {
         height: 100%;
-        overflow-y: scroll;
+        overflow-y: auto;
         padding: 20px;
     }
 
     .privacy-page {
-        width: 90%;
-        margin: auto;
+        width: 100%;
+        max-width: 1440px;
+        margin: 48px 48px;
     }
 }
 
