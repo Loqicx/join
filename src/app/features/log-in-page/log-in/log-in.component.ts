@@ -2,7 +2,7 @@
  * @fileoverview log in.component
  */
 
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, NgForm } from '@angular/forms';
 import { ButtonComponent } from '../../../shared/ui/button/button.component';
 import { UserService } from '../../../shared/services/firebase/user.service';
@@ -21,12 +21,15 @@ import { NotificationType, NotificationPosition } from '../../../shared/interfac
 export class LogInComponent {
     logInEmail: any;
     logInPassword: any;
+    inputType: string = 'password';
 
     @Input() signUpShow: boolean = false;
     signUpName: string = '';
     signUpEmail: string = '';
     signUpPassword1: string = '';
+    inputTypePW1: string = 'password';
     signUpPassword2: string = '';
+    inputTypePW2: string = 'password';
     @Output() signUpClose = new EventEmitter<void>();
 
     warn: boolean = false;
@@ -47,9 +50,9 @@ export class LogInComponent {
     notificationService = inject(NotificationService);
     router = inject(Router);
 
-/**
+    /**
      * Logs in a user with provided email and password.
-     * 
+     *
      * @param {string} mail - The user's email address.
      * @param {string} pw - The user's password.
      * @throws {Error} If log-in fails or invalid input is provided.
@@ -87,7 +90,7 @@ export class LogInComponent {
 
     /**
      * Signs up a new user with provided email, password, and name.
-     * 
+     *
      * @param {NgForm} form - The form used for validation.
      * @throws {Error} If sign-up fails or privacy policy is not accepted or passwords do not match.
      */
@@ -121,16 +124,24 @@ export class LogInComponent {
         const nameParts = this.signUpName.trim().split(' ');
         this.contact.firstName = nameParts.slice(0, 1).join('');
         this.contact.lastName = nameParts.slice(1).join('');
-        
+
         this.contact.email = this.signUpEmail;
         this.contact.phoneNumber = 'No phone number added yet';
-        this.contact.id = this.userService.user$.subscribe(user => user?.uid).toString();
+        this.contact.id = this.userService.user$.subscribe((user) => user?.uid).toString();
         try {
             await this.contactsService.addContactToDatabase(this.contact);
-            this.notificationService.pushNotification('Your account was created successfully!', NotificationType.SUCCESS, NotificationPosition.TOP_RIGHT);
+            this.notificationService.pushNotification(
+                'Your account was created successfully!',
+                NotificationType.SUCCESS,
+                NotificationPosition.TOP_RIGHT
+            );
         } catch (error) {
             console.error('Error adding contact:', error);
-            this.notificationService.pushNotification('Error adding contact for your User Account!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
+            this.notificationService.pushNotification(
+                'Error adding contact for your User Account!',
+                NotificationType.ERROR,
+                NotificationPosition.TOP_RIGHT
+            );
         }
     }
 
@@ -145,9 +156,37 @@ export class LogInComponent {
                 this.router.navigate(['/summary']);
             },
             error: (error) => {
-                this.notificationService.pushNotification('Error adding Guest Account!', NotificationType.ERROR, NotificationPosition.TOP_RIGHT);
+                this.notificationService.pushNotification(
+                    'Error adding Guest Account!',
+                    NotificationType.ERROR,
+                    NotificationPosition.TOP_RIGHT
+                );
                 console.error('Database Error', error);
             },
         });
+    }
+
+    togglePasswordVisibility() {
+        if (this.inputType === 'password') {
+            this.inputType = 'text';
+        } else {
+            this.inputType = 'password';
+        }
+    }
+
+    togglePasswordVisibilityPW1() {
+        if (this.inputTypePW1 === 'password') {
+            this.inputTypePW1 = 'text';
+        } else {
+            this.inputTypePW1= 'password';
+        }
+    }
+
+    togglePasswordVisibilityPW2() {
+        if (this.inputTypePW2 === 'password') {
+            this.inputTypePW2 = 'text';
+        } else {
+            this.inputTypePW2 = 'password';
+        }
     }
 }

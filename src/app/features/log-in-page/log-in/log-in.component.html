@@ -27,16 +27,18 @@
                 </div>
                 <div class="input-wrapper">
                     <input
-                        type="password"
+                        type="{{inputType}}"
                         class="input-sm border blue-focus"
                         name="password"
                         placeholder="Password"
                         required
                         [(ngModel)]="logInPassword"
                         #logInPasswordVar="ngModel"
+                        #passwordField
                         [class.red-border]="warn"
                     />
-                    <img class="input-icon" src="assets/icons/lock.svg" alt="Password icon">
+                    <img class="input-icon" (click)="togglePasswordVisibility()" [class.d-none]="inputType === 'text'" src="assets/icons/lock.svg" alt="Password icon">
+                    <img class="input-icon" (click)="togglePasswordVisibility()" [class.d-none]="inputType === 'password'" src="assets/icons/visibility_off.svg" alt="Password icon">
                     <div class="warn-text" [class.opacity-1]="warn">Check your email and password. Please try again.</div>
                 </div>
                 <div class="button-wrapper desktop">
@@ -104,6 +106,7 @@
                         type="password"
                         class="input-sm border blue-focus"
                         name="password1"
+                        type="{{inputTypePW1}}"
                         placeholder="Password"
                         required
                         minlength="8"
@@ -112,7 +115,8 @@
                         #signUpPassword1Var="ngModel"
                         [class.red-border]="signUpPassword1Var.invalid && signUpForm.submitted"
                     />
-                    <img class="input-icon" src="assets/icons/lock.svg" alt="Password icon">
+                    <img class="input-icon" (click)="togglePasswordVisibilityPW1()" [class.d-none]="inputTypePW1 === 'text'" src="assets/icons/lock.svg" alt="Password icon">
+                    <img class="input-icon" (click)="togglePasswordVisibilityPW1()" [class.d-none]="inputTypePW1 === 'password'" src="assets/icons/visibility_off.svg" alt="Password icon">
                     @if (signUpPassword1Var.invalid && signUpForm.submitted) {
                         @if (signUpPassword1Var.hasError('required')) {
                             <div class="warn-text" [class.opacity-1]="true">Password is required.</div>
@@ -125,7 +129,7 @@
                 </div>
                 <div class="input-wrapper">
                     <input
-                        type="password"
+                        type="{{inputTypePW2}}"
                         class="input-sm border blue-focus"
                         name="password2"
                         placeholder="Confirm Password"
@@ -134,7 +138,8 @@
                         #signUpPassword2Var="ngModel"
                         [class.red-border]="(signUpPassword1 !== signUpPassword2) && signUpForm.submitted"
                     />
-                    <img class="input-icon" src="assets/icons/lock.svg" alt="Password icon">
+                    <img class="input-icon" (click)="togglePasswordVisibilityPW2()" [class.d-none]="inputTypePW2 === 'text'" src="assets/icons/lock.svg" alt="Password icon">
+                    <img class="input-icon" (click)="togglePasswordVisibilityPW2()" [class.d-none]="inputTypePW2 === 'password'" src="assets/icons/visibility_off.svg" alt="Password icon">
                     <div class="warn-text" [class.opacity-1]="(signUpPassword1 !== signUpPassword2) && signUpForm.submitted">Your passwords don't match. Please try again.</div>
                 </div>
                 <div class="input-wrapper check">
