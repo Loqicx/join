@@ -23,6 +23,11 @@
     opacity: 1;
     z-index: 145;
 
+     @include breakpoint-up('xl') {
+        max-width: 1640px;
+        margin: auto;
+    }/*  */
+
     &.fade {
         opacity: 0;
         transition: opacity 0.3s ease;
