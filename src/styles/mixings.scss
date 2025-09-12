@@ -1,61 +1,52 @@
-@use "./variables.scss" as *;
-@use "sass:map";
-
-// $breakpoints: (
-//   xs: 0,
-//   sm: 576px,
-//   md: 768px,
-//   lg: 992px,
-//   xl: 1200px,
-//   xxl: 1400px,
-// );
+@use './variables.scss' as *;
+@use 'sass:map';
 
 @mixin breakpoint-up($size) {
-  @if map.has-key($breakpoints, $size) {
-    $value: map.get($breakpoints, $size);
+    @if map.has-key($breakpoints, $size) {
+        $value: map.get($breakpoints, $size);
 
-    @if $value > 0 {
-      @media (min-width: $value) {
-        @content;
-      }
+        @if $value > 0 {
+            @media (min-width: $value) {
+                @content;
+            }
+        } @else {
+            @content;
+        }
     } @else {
-      @content;
+        @error "There is no breakpoint named '#{name}' in $breakpoints map";
     }
-  } @else {
-    @error "There is no breakpoint named '#{name}' in $breakpoints map";
-  }
 }
 
 @mixin breakpoint-down($size) {
-  @if map.has-key($breakpoints, $size) {
-    $value: map.get($breakpoints, $size);
+    @if map.has-key($breakpoints, $size) {
+        $value: map.get($breakpoints, $size);
 
-    @if $value > 0 {
-      @media (max-width: $value) {
-        @content;
-      }
+        @if $value > 0 {
+            @media (max-width: $value) {
+                @content;
+            }
+        } @else {
+            @content;
+        }
     } @else {
-      @content;
+        @error "There is no breakpoint named '#{name}' in $breakpoints map";
     }
-  } @else {
-    @error "There is no breakpoint named '#{name}' in $breakpoints map";
-  }
 }
 
 @mixin breakpoint-down-touch($size) {
-  @if map.has-key($breakpoints, $size) {
-    $value: map.get($breakpoints, $size);
+    @if map.has-key($breakpoints, $size) {
+        $value: map.get($breakpoints, $size);
 
-    @if $value > 0 {
-      @media (max-width: $value) and (pointer: coarse) {
-        @content;
-      }
+        @if $value > 0 {
+            @media (max-width: $value) and (pointer: coarse) {
+                @content;
+            }
+        } @else {
+            @media (pointer: coarse) {
+                @content;
+            }
+        }
     } @else {
-      @media (pointer: coarse) {
-        @content;
-      }
+        @error "There is no breakpoint named '#{$size}' in \$breakpoints map";
     }
-  } @else {
-    @error "There is no breakpoint named '#{$size}' in \$breakpoints map";
-  }
 }
