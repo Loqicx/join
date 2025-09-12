@@ -177,7 +177,8 @@
     width: 100%;
     background-color: $color-primary-bg;
     z-index: 150;
-    @media (min-width: 860px) {
+
+    @include breakpoint-up('lg') {
         &.animate {
             animation: logoWrapAnimation 0.5s ease-in;
             width: auto;
@@ -206,7 +207,7 @@
         width: 180px;
         margin: 0;
 
-        @media (min-width: 860px) {
+        @include breakpoint-up('lg') {
             &.animate {
                 width: 88px;
                 margin-left: 48px;
@@ -229,7 +230,7 @@
         }
     }
 
-    @media (max-width: 860px) {
+    @include breakpoint-down('lg') {
         &.animate {
             animation: logoWrapMobile 0.5s ease-in forwards;
         }
