@@ -34,8 +34,11 @@
 
     .legal-page {
         width: 100%;
-        max-width: 1440px;
-        margin: 48px 48px;
+        padding: 48px 48px;
+
+        @include breakpoint-up('xxl') {
+            max-width: 1440px;
+        }
     }
 }
 
