@@ -13,66 +13,6 @@
     }
 }
 
-@keyframes logoAnimationMobile {
-    0% {
-        width: 180px;
-        margin: 0;
-    }
-
-    100% {
-        width: 66px;
-        margin-left: 24px;
-        margin-top: 24px;
-    }
-}
-
-@keyframes logoAnimation {
-    0% {
-        width: 180px;
-        margin: 0;
-    }
-
-    100% {
-        width: 88px;
-        margin-left: 48px;
-        margin-top: 48px;
-    }
-}
-
-@keyframes logoWrapAnimationMobile {
-    0% {
-        height: 100%;
-        width: 100%;
-        background-color: $color-primary-bg;
-    }
-
-    40% {
-        background-color: transparent;
-    }
-
-    100% {
-        height: 14%;
-        width: 22%;
-    }
-}
-
-@keyframes logoWrapAnimation {
-    0% {
-        height: 100%;
-        width: 100%;
-        background-color: $color-primary-bg;
-    }
-
-    40% {
-        background-color: transparent;
-    }
-
-    100% {
-        height: 20%;
-        width: 11%;
-    }
-}
-
 .page-wrapper {
     position: relative;
     height: 100%;
