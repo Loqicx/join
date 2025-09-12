@@ -138,14 +138,14 @@
 
     @include breakpoint-down('lg') {
         &.animate {
-            animation: logoWrapAnimationMobile 0.5s ease-in forwards;
+            animation: logoWrapAnimationMobile 0.5s ease-in forwards !important;
         }
 
         .logo.animate {
             width: 66px;
             margin-left: 30px;
             margin-top: 30px;
-            animation: logoAnimationMobile 0.5s ease-in forwards;
+            animation: logoAnimationMobile 0.5s ease-in forwards !important;
         }
     }
 
