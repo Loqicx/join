@@ -1,61 +1,59 @@
 [![Build and deploy](https://github.com/Loqicx/join/actions/workflows/main.yml/badge.svg)](https://github.com/Loqicx/join/actions/workflows/main.yml)
 
-# Join
+# Join — Kanban Board
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
+Join is a Kanban board project implemented with Angular for the frontend and Firebase (Firestore & Auth) for the backend. The application allows creating, editing, moving (drag & drop) and deleting tasks as well as managing contacts and users.
 
-## Development server
+#### [Demo](https://join.haensch.dev)
 
-To start a local development server, run:
+## Key Features
 
-```bash
-ng serve
-```
+-   Kanban board with four lists (To do, In progress, Await feedback, Done)
+-   Drag & Drop for task movement
+-   Task details with subtasks, priority, due date and assignments
+-   Contact management
+-   Firebase Authentication & Firestore for persistence
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Tech Stack
 
-## Code scaffolding
+-   Frontend: Angular
+-   Backend: Firebase (Firestore, Authentication)
+-   Styling: SCSS
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Local Development
 
-```bash
-ng generate component component-name
-```
+1. Install dependencies:
+    ```bash
+    npm install
+    ```
+2. Start development server:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+    ```bash
+    ng serve
+    ```
 
-```bash
-ng generate --help
-```
+    Default: http://localhost:4200
 
-## Building
+3. Build for production:
 
-To build the project run:
+    ```bash
+    ng build
+    ```
 
-```bash
-ng build
-```
+4. Tests:
+    - Unit tests: `ng test`
+    - E2E (if configured): `ng e2e`
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Deployment
 
-## Running unit tests
+The project includes a Firebase configuration; deployment can be done via the Firebase CLI (see `firebase.json`).
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Contributing
 
-```bash
-ng test
-```
+-   Fork → Branch → PR
+-   Code style: follow SCSS and Angular conventions
+-   Add tests for new features
 
-## Running end-to-end tests
+## License
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+See LICENSE in the repository (if present).
